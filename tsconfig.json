@@ -1,0 +1,6 @@
+{
+	"extends": "@optima/typescript-config/base.json",
+	"compilerOptions": {
+		"jsx": "react-jsx"
+	}
+}

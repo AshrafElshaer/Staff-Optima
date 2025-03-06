@@ -1,0 +1,29 @@
+{
+	"name": "@optima/database",
+	"version": "0.0.0",
+	"private": true,
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"scripts": {
+		"db:seed": "tsx scripts/seed.ts",
+		"db:migrate": "tsx scripts/migrate.ts",
+		"db:studio": "drizzle-kit studio",
+		"generate": "drizzle-kit generate:pg"
+	},
+	"dependencies": {
+		"drizzle-orm": "0.29.4",
+		"pg": "^8.11.3",
+		"postgres": "3.4.3"
+	},
+	"devDependencies": {
+		"@optima/typescript-config": "workspace:*",
+		"drizzle-kit": "0.20.14",
+		"tsup": "8.0.2",
+		"typescript": "5.3.3"
+	}
+}

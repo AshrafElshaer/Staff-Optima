@@ -1,0 +1,12 @@
+{
+	"extends": "@optima/typescript-config/react-library.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@optima/ui/*": ["./src/*"]
+		},
+		"jsx": "preserve"
+	},
+	"include": ["."],
+	"exclude": ["node_modules", "dist"]
+}

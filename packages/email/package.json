@@ -1,0 +1,24 @@
+{
+	"name": "@optima/email",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"clean": "rm -rf .turbo node_modules",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"typecheck": "tsc --noEmit",
+		"dev": "email dev -p 3003",
+		"build": "email build",
+		"start": "email start"
+	},
+	"exports": {
+		".": "./emails/index.ts"
+	},
+	"dependencies": {
+		"@react-email/components": "^0.0.24",
+		"@react-email/tailwind": "^0.1.0"
+	},
+	"devDependencies": {
+		"react-email": "^3.0.1"
+	}
+}

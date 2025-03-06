@@ -1,0 +1,31 @@
+{
+	"name": "@optima/platform",
+	"version": "0.0.1",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "next dev -p 3000 --turbopack",
+		"build": "next build",
+		"clean": "git clean -xdf .next .turbo node_modules",
+		"lint": "biome lint",
+		"format": "biome format --write .",
+		"start": "next start",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@optima/database": "workspace:*",
+		"@optima/ui": "workspace:*",
+		"lucide-react": "^0.477.0",
+		"next": "^15.2.0",
+		"next-themes": "^0.4.4",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@optima/typescript-config": "workspace:*",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"typescript": "5.7.3"
+	}
+}

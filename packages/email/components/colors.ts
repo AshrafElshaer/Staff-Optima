@@ -1,0 +1,46 @@
+export const colors = {
+	lightTheme: {
+		background: "#ffffff", // "0, 0%, 100%"
+		foreground: "#121212", // "0, 0%, 7%"
+		card: "#f5f3ef", // "45 18% 96%"
+		cardForeground: "#080808", // "240 10% 3.9%"
+		popover: "#f5f3ef", // "45 18% 96%"
+		popoverForeground: "#080808", // "240 10% 3.9%"
+		primary: "#17191a", // "240 5.9% 10%"
+		primaryForeground: "#fafafa", // "0 0% 98%"
+		secondary: "#e6e3d5", // "40, 11%, 89%"
+		secondaryForeground: "#17191a", // "240 5.9% 10%"
+		muted: "#e6e3d5", // "40, 11%, 89%"
+		mutedForeground: "#76818f", // "240 3.8% 46.1%"
+		accent: "#f0eee8", // "40, 10%, 94%"
+		accentForeground: "#17191a", // "240 5.9% 10%"
+		destructive: "#ed3434", // "0 84.2% 60.2%"
+		destructiveForeground: "#fafafa", // "0 0% 98%"
+		border: "#dadada", // "45, 5%, 85%"
+		input: "#e3e3e3", // "240 5.9% 90%"
+		ring: "#17191a", // "240 5.9% 10%"
+		radius: "0.5rem",
+	},
+
+	darkTheme: {
+		background: "#121212", // "0, 0%, 7%"
+		foreground: "#fafafa", // "0 0% 98%"
+		card: "#121212", // "0, 0%, 7%"
+		cardForeground: "#fafafa", // "0 0% 98%"
+		popover: "#121212", // "0, 0%, 7%"
+		popoverForeground: "#fafafa", // "0 0% 98%"
+		primary: "#fafafa", // "0 0% 98%"
+		primaryForeground: "#17191a", // "240 5.9% 10%"
+		secondary: "#1c1c1c", // "0, 0%, 11%"
+		secondaryForeground: "#fafafa", // "0 0% 98%"
+		muted: "#1c1c1c", // "0, 0%, 11%"
+		mutedForeground: "#a2a8b3", // "240 5% 64.9%"
+		accent: "#1c1c1c", // "0, 0%, 11%"
+		accentForeground: "#fafafa", // "0 0% 98%"
+		destructive: "#ff3333", // "359, 100%, 61%"
+		destructiveForeground: "#ffffff", // "0, 0%, 100%"
+		border: "#2b2b2b", // "0, 0%, 17%"
+		input: "#1c1c1c", // "0, 0%, 11%"
+		ring: "#c2cbe3", // "240 4.9% 83.9%"
+	},
+};
