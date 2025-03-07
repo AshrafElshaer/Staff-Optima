@@ -18,13 +18,20 @@
 		"@optima/database": "workspace:*",
 		"@optima/ui": "workspace:*",
 		"@t3-oss/env-nextjs": "^0.12.0",
+		"@upstash/redis": "^1.34.5",
 		"better-auth": "^1.2.3",
+		"dub": "^0.59.0",
 		"lucide-react": "^0.477.0",
+		"motion": "^12.4.10",
 		"next": "^15.2.0",
+		"next-safe-action": "^7.10.4",
 		"next-themes": "^0.4.4",
+		"nuqs": "^2.4.1",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"stripe": "^17.7.0"
+		"resend": "^4.1.2",
+		"stripe": "^17.7.0",
+		"zod": "^3.24.2"
 	},
 	"devDependencies": {
 		"@optima/typescript-config": "workspace:*",
