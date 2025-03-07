@@ -1,5 +1,3 @@
-// import { getUser } from "@optima/supabase/queries";
-// import { createServerClient } from "@/lib/supabase/server";
 import { setupAnalytics } from "@optima/analytics/server";
 import { ratelimit } from "@optima/kv/ratelimit";
 import { logger } from "@optima/logger";
