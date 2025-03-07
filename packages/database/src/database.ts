@@ -1,11 +1,15 @@
-import "dotenv/config";
-
+import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/postgres-js";
-import * as schema from "./schema";
 import postgres from "postgres";
+import * as schema from "./schema";
 
+// Only load .env file in development
+if (process.env.NODE_ENV !== "production") {
+	config({ path: require.resolve("../../.env") });
+}
 
 const getEnvVariable = (name: string) => {
+	console.log("DATABASE_URL", process.env.DATABASE_URL);
 	const value = process.env[name];
 	if (value == null) throw new Error(`environment variable ${name} not found`);
 	return value;

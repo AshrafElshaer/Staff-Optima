@@ -1,6 +1,6 @@
 {
-  "id": "86dbcd32-ba94-45cf-943c-006b499aa029",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "f23659ae-47da-4f2e-8ade-3ce489bfea03",
+  "prevId": "86dbcd32-ba94-45cf-943c-006b499aa029",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -353,8 +353,20 @@
           "primaryKey": false,
           "notNull": true
         },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "organization_id": {
           "name": "organization_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "head_user_id": {
+          "name": "head_user_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
@@ -374,7 +386,15 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "organization_id_idx": {
+          "name": "organization_id_idx",
+          "columns": [
+            "organization_id"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {
         "departments_organization_id_organizations_id_fk": {
           "name": "departments_organization_id_organizations_id_fk",
@@ -387,6 +407,19 @@
             "id"
           ],
           "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "departments_head_user_id_user_id_fk": {
+          "name": "departments_head_user_id_user_id_fk",
+          "tableFrom": "departments",
+          "tableTo": "user",
+          "columnsFrom": [
+            "head_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
           "onUpdate": "no action"
         }
       },
@@ -450,7 +483,16 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "organization_id_domain_idx": {
+          "name": "organization_id_domain_idx",
+          "columns": [
+            "organization_id",
+            "domain"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {
         "domain_verification_organization_id_organizations_id_fk": {
           "name": "domain_verification_organization_id_organizations_id_fk",
@@ -507,7 +549,16 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "user_id_organization_idx": {
+          "name": "user_id_organization_idx",
+          "columns": [
+            "user_id",
+            "organization_id"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {
         "members_organization_id_organizations_id_fk": {
           "name": "members_organization_id_organizations_id_fk",
@@ -556,8 +607,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "logo_url": {
-          "name": "logo_url",
+        "logo": {
+          "name": "logo",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -622,6 +673,24 @@
           "primaryKey": false,
           "notNull": true
         },
+        "timezone": {
+          "name": "timezone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tax_id": {
+          "name": "tax_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "employee_count": {
+          "name": "employee_count",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp with time zone",
@@ -644,7 +713,22 @@
           "default": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "unique_domain": {
+          "name": "unique_domain",
+          "columns": [
+            "domain"
+          ],
+          "isUnique": true
+        },
+        "organization_idx": {
+          "name": "organization_idx",
+          "columns": [
+            "id"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {
         "organizations_admin_id_user_id_fk": {
           "name": "organizations_admin_id_user_id_fk",
@@ -661,7 +745,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "organizations_domain_unique": {
+          "name": "organizations_domain_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "domain"
+          ]
+        }
+      }
     }
   },
   "enums": {},

@@ -1,6 +1,7 @@
 {
 	"extends": "@optima/typescript-config/nextjs.json",
 	"compilerOptions": {
+		// "strict": true,
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
@@ -10,7 +11,10 @@
 			{
 				"name": "next"
 			}
-		]
+		],
+		"composite": false,
+		"declaration": false,
+		"declarationMap": false
 	},
 	"include": [
 		"next-env.d.ts",

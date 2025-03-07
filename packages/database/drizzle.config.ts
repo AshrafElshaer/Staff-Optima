@@ -9,7 +9,7 @@ const getEnvVariable = (name: string) => {
 };
 
 export default {
-  schema: "./src/schema.ts",
+  schema: "./src/schema",
   out: "./drizzle",
   driver: "pg",
   dbCredentials: {

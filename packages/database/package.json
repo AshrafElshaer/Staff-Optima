@@ -16,7 +16,9 @@
 		"generate": "drizzle-kit generate:pg"
 	},
 	"dependencies": {
+		"dotenv": "16.4.5",
 		"drizzle-orm": "0.29.4",
+		"drizzle-zod": "^0.7.0",
 		"pg": "^8.11.3",
 		"postgres": "3.4.3"
 	},
@@ -24,6 +26,6 @@
 		"@optima/typescript-config": "workspace:*",
 		"drizzle-kit": "0.20.14",
 		"tsup": "8.0.2",
-		"typescript": "5.3.3"
+		"typescript": "5.7.3"
 	}
 }
