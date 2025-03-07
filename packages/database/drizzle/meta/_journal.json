@@ -1,20 +1,13 @@
 {
-  "version": "5",
-  "dialect": "pg",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "5",
-      "when": 1741303661216,
-      "tag": "0000_faithful_hobgoblin",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1741313847748,
-      "tag": "0001_mysterious_spot",
-      "breakpoints": true
-    }
-  ]
+	"version": "5",
+	"dialect": "pg",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "5",
+			"when": 1741316566123,
+			"tag": "0000_awesome_scorpion",
+			"breakpoints": true
+		}
+	]
 }

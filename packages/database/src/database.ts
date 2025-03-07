@@ -9,7 +9,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const getEnvVariable = (name: string) => {
-	console.log("DATABASE_URL", process.env.DATABASE_URL);
 	const value = process.env[name];
 	if (value == null) throw new Error(`environment variable ${name} not found`);
 	return value;

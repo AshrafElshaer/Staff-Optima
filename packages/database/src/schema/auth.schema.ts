@@ -13,21 +13,22 @@ export const UserTable = pgTable("user", {
 	email: text("email").notNull().unique(),
 	emailVerified: boolean("email_verified").notNull(),
 	image: text("image"),
-	createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-	updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+	createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
+	updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
+	stripeCustomerId: text("stripe_customer_id"),
 	role: text("role"),
 	banned: boolean("banned"),
 	banReason: text("ban_reason"),
-	banExpires: timestamp("ban_expires"),
+	banExpires: timestamp("ban_expires", { withTimezone: true }),
 	phoneNumber: text("phone_number"),
 });
 
-export const SessionTable = pgTable("session", {
+export const session = pgTable("session", {
 	id: uuid("id").primaryKey(),
-	expiresAt: timestamp("expires_at").notNull(),
+	expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
 	token: text("token").notNull().unique(),
-	createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-	updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+	createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
+	updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
 	ipAddress: text("ip_address"),
 	userAgent: text("user_agent"),
 	userId: uuid("user_id")
@@ -36,10 +37,10 @@ export const SessionTable = pgTable("session", {
 	impersonatedBy: text("impersonated_by"),
 });
 
-export const AccountTable = pgTable("account", {
+export const account = pgTable("account", {
 	id: uuid("id").primaryKey(),
-	accountId: uuid("account_id").notNull(),
-	providerId: uuid("provider_id").notNull(),
+	accountId: text("account_id").notNull(),
+	providerId: text("provider_id").notNull(),
 	userId: uuid("user_id")
 		.notNull()
 		.references(() => UserTable.id, { onDelete: "cascade" }),
@@ -50,15 +51,28 @@ export const AccountTable = pgTable("account", {
 	refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
 	scope: text("scope"),
 	password: text("password"),
-	createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-	updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+	createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
+	updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
 });
 
-export const VerificationTable = pgTable("verification", {
+export const verification = pgTable("verification", {
 	id: uuid("id").primaryKey(),
 	identifier: text("identifier").notNull(),
 	value: text("value").notNull(),
-	expiresAt: timestamp("expires_at").notNull(),
-	createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-	updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+	expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+	createdAt: timestamp("created_at", { withTimezone: true }),
+	updatedAt: timestamp("updated_at", { withTimezone: true }),
+});
+
+export const subscription = pgTable("subscription", {
+	id: uuid("id").primaryKey(),
+	plan: text("plan").notNull(),
+	referenceId: text("reference_id").notNull(),
+	stripeCustomerId: text("stripe_customer_id"),
+	stripeSubscriptionId: text("stripe_subscription_id"),
+	status: text("status"),
+	periodStart: timestamp("period_start", { withTimezone: true }),
+	periodEnd: timestamp("period_end", { withTimezone: true }),
+	cancelAtPeriodEnd: boolean("cancel_at_period_end"),
+	seats: integer("seats"),
 });

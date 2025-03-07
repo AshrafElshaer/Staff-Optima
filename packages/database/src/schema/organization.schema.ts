@@ -106,13 +106,13 @@ export const DepartmentsTable = pgTable(
 	{
 		id: uuid("id").primaryKey().defaultRandom(),
 		name: text("name").notNull(),
-        description: text("description"),
+		description: text("description"),
 		organizationId: uuid("organization_id").references(
 			() => OrganizationTable.id,
 			{ onDelete: "cascade" },
 		),
-        headUserId: uuid("head_user_id").references(() => UserTable.id, {
-			onDelete: "set null"
+		headUserId: uuid("head_user_id").references(() => UserTable.id, {
+			onDelete: "set null",
 		}),
 		createdAt: timestamp("created_at", { withTimezone: true })
 			.notNull()
@@ -157,10 +157,10 @@ export const DepartmentsRelations = relations(DepartmentsTable, ({ one }) => ({
 		fields: [DepartmentsTable.organizationId],
 		references: [OrganizationTable.id],
 	}),
-    headUser: one(UserTable, {
-        fields: [DepartmentsTable.headUserId],
-        references: [UserTable.id],
-    }),
+	headUser: one(UserTable, {
+		fields: [DepartmentsTable.headUserId],
+		references: [UserTable.id],
+	}),
 }));
 
 export const MembersRelations = relations(MembersTable, ({ one }) => ({

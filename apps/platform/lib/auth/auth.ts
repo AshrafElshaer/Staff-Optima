@@ -1,3 +1,4 @@
+import { stripe } from "@better-auth/stripe";
 import { db } from "@optima/database";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -9,10 +10,15 @@ import {
 	multiSession,
 	organization,
 } from "better-auth/plugins";
+import Stripe from "stripe";
 import { adminPlugin } from "./plugins/admin";
 
+// Only initialize Stripe if we have the secret key
+const stripeClient = new Stripe("process.env.STRIPE_SECRET_KEY", {
+	apiVersion: "2025-02-24.acacia", // Add specific API version
+});
+
 export const auth = betterAuth({
-	baseUrl: process.env.VERCEL_URL || "http://localhost:3000",
 	database: drizzleAdapter(db, {
 		provider: "pg",
 	}),
@@ -41,11 +47,43 @@ export const auth = betterAuth({
 				"http://localhost:3000",
 			],
 			domain: process.env.VERCEL_URL || "http://localhost:3000",
-
 		},
 		generateId: () => crypto.randomUUID(),
 	},
+	authenticator: {
+		secret: process.env.BETTER_AUTH_SECRET || crypto.randomUUID(),
+	},
 	plugins: [
+		// Only add stripe plugin if we have a client
+		...(stripeClient
+			? [
+					stripe({
+						stripeClient,
+						stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET as string,
+						createCustomerOnSignUp: true,
+						subscription: {
+							enabled: true,
+							plans: [
+								{
+									name: "Seat",
+									freeTrial: {
+										days: 30,
+										async onTrialStart(subscription) {
+											console.log(subscription);
+										},
+										async onTrialEnd(data) {
+											console.log(data);
+										},
+										async onTrialExpired(subscription) {
+											console.log(subscription);
+										},
+									},
+								},
+							],
+						},
+					}),
+				]
+			: []),
 		multiSession(),
 		adminPlugin,
 		emailOTP({
