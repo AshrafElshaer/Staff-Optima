@@ -17,6 +17,7 @@
 		"@better-auth/stripe": "^1.2.3",
 		"@optima/database": "workspace:*",
 		"@optima/ui": "workspace:*",
+		"@t3-oss/env-nextjs": "^0.12.0",
 		"better-auth": "^1.2.3",
 		"lucide-react": "^0.477.0",
 		"next": "^15.2.0",

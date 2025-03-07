@@ -12,9 +12,10 @@ import {
 } from "better-auth/plugins";
 import Stripe from "stripe";
 import { adminPlugin } from "./plugins/admin";
+import { env } from "@/env.mjs";
 
 // Only initialize Stripe if we have the secret key
-const stripeClient = new Stripe("process.env.STRIPE_SECRET_KEY", {
+const stripeClient = new Stripe(env.STRIPE_SECRET_KEY, {
 	apiVersion: "2025-02-24.acacia", // Add specific API version
 });
 
@@ -46,12 +47,12 @@ export const auth = betterAuth({
 				"platform.staffoptima.co",
 				"http://localhost:3000",
 			],
-			domain: process.env.VERCEL_URL || "http://localhost:3000",
+			domain: env.VERCEL_URL || "http://localhost:3000",
 		},
 		generateId: () => crypto.randomUUID(),
 	},
 	authenticator: {
-		secret: process.env.BETTER_AUTH_SECRET || crypto.randomUUID(),
+		secret: env.BETTER_AUTH_SECRET || crypto.randomUUID(),
 	},
 	plugins: [
 		// Only add stripe plugin if we have a client
@@ -59,7 +60,7 @@ export const auth = betterAuth({
 			? [
 					stripe({
 						stripeClient,
-						stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET as string,
+						stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET as string,
 						createCustomerOnSignUp: true,
 						subscription: {
 							enabled: true,

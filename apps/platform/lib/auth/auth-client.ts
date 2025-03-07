@@ -1,3 +1,4 @@
+import { env } from "@/env.mjs";
 import { stripeClient } from "@better-auth/stripe/client";
 import {
 	adminClient,
@@ -10,7 +11,7 @@ import { createAuthClient } from "better-auth/react";
 import type { auth } from "./auth.js";
 
 export const authClient = createAuthClient({
-	baseURL: process.env.VERCEL_URL || "http://localhost:3000",
+	baseURL: env.VERCEL_URL || "http://localhost:3000",
 	plugins: [
 		inferAdditionalFields<typeof auth>(),
 		emailOTPClient(),
