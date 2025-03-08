@@ -1,3 +1,4 @@
+import { SignOut } from "@/components/sign-out";
 import { Button } from "@optima/ui/components/button";
 import { Input } from "@optima/ui/components/input";
 import { Label } from "@optima/ui/components/label";
@@ -12,7 +13,7 @@ export default async function Page() {
 				<h1 className="text-2xl font-bold text-secondary-foreground">
 					platform
 				</h1>
-				<Button variant="destructive">Button</Button>
+				<SignOut />
 				<Label>Label</Label>
 				<Input />
 			</div>

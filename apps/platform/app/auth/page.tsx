@@ -1,60 +1,38 @@
 "use client";
-import { authClient } from "@/lib/auth/auth-client";
-import { Button } from "@optima/ui/components/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@optima/ui/components/card";
-import { Icons } from "@optima/ui/components/icons";
-import { Input } from "@optima/ui/components/input";
-import { Label } from "@optima/ui/components/label";
-import { Separator } from "@optima/ui/components/separator";
+import { authSearchParams } from "@/features/auth/auth.searchparams";
+import { SignIn } from "@/features/auth/views/sign-in";
+import { VerifyOtp } from "@/features/auth/views/verify-otp";
+import { AnimatePresence, motion } from "motion/react";
+import { useQueryStates } from "nuqs";
 
 export default function AuthPage() {
+	const [{ activeTab }, setSearchParams] = useQueryStates(authSearchParams);
 	return (
-		<main className="flex h-screen w-screen items-center justify-center">
-			<Card className="w-96">
-				<CardHeader className="items-center gap-4">
-					<CardTitle>
-						<Icons.Logo className="size-16" />
-					</CardTitle>
-					<CardDescription>Welcome back! Sign in to continue.</CardDescription>
-				</CardHeader>
-				<CardContent>
-					{/* <AuthForm /> */}
-					<form className="space-y-4">
-						<Label>Email Address</Label>
-						<Input
-							inputMode="email"
-							className="bg-accent"
-							placeholder="example@domain.com"
-							startIcon={<Icons.Mail className="size-5" />}
-						/>
-						<Button className="w-full">Sign in</Button>
-					</form>
-				</CardContent>
-				<Separator />
-				<CardFooter className="flex-col items-start">
-					<div className="flex items-center gap-2">
-						<p className=" text-sm text-secondary-foreground">
-							By signing in you agree to our{" - "}
-						</p>
-						<Button variant="link" className="p-0">
-							Terms of Service
-						</Button>
-					</div>
-					<div className="flex items-center gap-2">
-						<p className=" text-sm text-secondary-foreground">Need help ?</p>
-						<Button variant="link" className="p-0">
-							Contact Support
-						</Button>
-					</div>
-				</CardFooter>
-			</Card>
+		<main className="flex h-screen w-screen items-center justify-center px-4">
+			<AnimatePresence mode="wait" initial={false}>
+				{activeTab === "sign-in" ? (
+					<motion.div
+						key="sign-in"
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -10 }}
+						transition={{ duration: 0.2 }}
+					>
+						<SignIn />
+					</motion.div>
+				) : (
+					<motion.div
+						key="verify-otp"
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -10 }}
+						transition={{ duration: 0.2 }}
+						className="w-full"
+					>
+						<VerifyOtp />
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</main>
 	);
 }

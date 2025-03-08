@@ -7,7 +7,7 @@ import {
 	uuid,
 } from "drizzle-orm/pg-core";
 
-export const UserTable = pgTable("user", {
+export const user = pgTable("user", {
 	id: uuid("id").primaryKey(),
 	name: text("name").notNull(),
 	email: text("email").notNull().unique(),
@@ -33,7 +33,7 @@ export const session = pgTable("session", {
 	userAgent: text("user_agent"),
 	userId: uuid("user_id")
 		.notNull()
-		.references(() => UserTable.id, { onDelete: "cascade" }),
+		.references(() => user.id, { onDelete: "cascade" }),
 	impersonatedBy: text("impersonated_by"),
 });
 
@@ -43,7 +43,7 @@ export const account = pgTable("account", {
 	providerId: text("provider_id").notNull(),
 	userId: uuid("user_id")
 		.notNull()
-		.references(() => UserTable.id, { onDelete: "cascade" }),
+		.references(() => user.id, { onDelete: "cascade" }),
 	accessToken: text("access_token"),
 	refreshToken: text("refresh_token"),
 	idToken: text("id_token"),

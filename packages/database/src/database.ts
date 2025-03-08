@@ -5,7 +5,7 @@ import * as schema from "./schema";
 
 // Only load .env file in development
 if (process.env.NODE_ENV !== "production") {
-	config({ path: require.resolve("../../.env") });
+	config();
 }
 
 const getEnvVariable = (name: string) => {
@@ -16,4 +16,6 @@ const getEnvVariable = (name: string) => {
 
 export const client = postgres(getEnvVariable("DATABASE_URL"));
 
-export const db = drizzle(client, { schema });
+export const db = drizzle(client, {
+	schema,
+});

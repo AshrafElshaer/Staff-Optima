@@ -13,7 +13,9 @@ export async function middleware(request: NextRequest) {
 		return next;
 	}
 	if (!sessionCookie) {
-		return NextResponse.redirect(new URL("/auth", request.url));
+		return NextResponse.redirect(
+			new URL(`/auth?redirectUrl=${pathname}`, request.url),
+		);
 	}
 	return next;
 }

@@ -8,7 +8,7 @@ import {
 	uniqueIndex,
 	uuid,
 } from "drizzle-orm/pg-core";
-import { UserTable } from "./auth.schema";
+import { user } from "./auth.schema";
 
 export const OrganizationTable = pgTable(
 	"organizations",
@@ -17,7 +17,7 @@ export const OrganizationTable = pgTable(
 		name: text("name").notNull(),
 		logo: text("logo"),
 		domain: text("domain").notNull().unique(),
-		adminId: uuid("admin_id").references(() => UserTable.id, {
+		adminId: uuid("admin_id").references(() => user.id, {
 			onDelete: "cascade",
 		}),
 		industry: text("industry").notNull(),
@@ -53,7 +53,7 @@ export const MembersTable = pgTable(
 			() => OrganizationTable.id,
 			{ onDelete: "cascade" },
 		),
-		userId: uuid("user_id").references(() => UserTable.id, {
+		userId: uuid("user_id").references(() => user.id, {
 			onDelete: "cascade",
 		}),
 		createdAt: timestamp("created_at", { withTimezone: true })
@@ -111,7 +111,7 @@ export const DepartmentsTable = pgTable(
 			() => OrganizationTable.id,
 			{ onDelete: "cascade" },
 		),
-		headUserId: uuid("head_user_id").references(() => UserTable.id, {
+		headUserId: uuid("head_user_id").references(() => user.id, {
 			onDelete: "set null",
 		}),
 		createdAt: timestamp("created_at", { withTimezone: true })
@@ -129,9 +129,9 @@ export const DepartmentsTable = pgTable(
 export const OrganizationRelations = relations(
 	OrganizationTable,
 	({ many, one }) => ({
-		admin: one(UserTable, {
+		admin: one(user, {
 			fields: [OrganizationTable.adminId],
-			references: [UserTable.id],
+			references: [user.id],
 		}),
 		departments: many(DepartmentsTable),
 		members: many(MembersTable),
@@ -157,9 +157,9 @@ export const DepartmentsRelations = relations(DepartmentsTable, ({ one }) => ({
 		fields: [DepartmentsTable.organizationId],
 		references: [OrganizationTable.id],
 	}),
-	headUser: one(UserTable, {
+	headUser: one(user, {
 		fields: [DepartmentsTable.headUserId],
-		references: [UserTable.id],
+		references: [user.id],
 	}),
 }));
 
@@ -168,8 +168,8 @@ export const MembersRelations = relations(MembersTable, ({ one }) => ({
 		fields: [MembersTable.organizationId],
 		references: [OrganizationTable.id],
 	}),
-	user: one(UserTable, {
+	user: one(user, {
 		fields: [MembersTable.userId],
-		references: [UserTable.id],
+		references: [user.id],
 	}),
 }));

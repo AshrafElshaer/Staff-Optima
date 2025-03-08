@@ -1,5 +1,9 @@
+import { env } from "@/env.mjs";
+import { resend } from "@/lib/resend";
 import { stripe } from "@better-auth/stripe";
 import { db } from "@optima/database";
+import * as schema from "@optima/database/schema";
+import { OtpEmail } from "@optima/email";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { createAuthMiddleware } from "better-auth/api";
@@ -12,7 +16,6 @@ import {
 } from "better-auth/plugins";
 import Stripe from "stripe";
 import { adminPlugin } from "./plugins/admin";
-import { env } from "@/env.mjs";
 
 // Only initialize Stripe if we have the secret key
 const stripeClient = new Stripe(env.STRIPE_SECRET_KEY, {
@@ -22,6 +25,7 @@ const stripeClient = new Stripe(env.STRIPE_SECRET_KEY, {
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
 		provider: "pg",
+		schema,
 	}),
 	appName: "Staff Optima",
 	user: {
@@ -39,16 +43,11 @@ export const auth = betterAuth({
 			},
 		},
 	},
+	session: {
+		expiresIn: 60 * 60 * 24 * 7, // 7 days
+		updateAge: 60 * 60 * 24, // 1 day (every 1 day the session expiration is updated)
+	},
 	advanced: {
-		crossSubDomainCookies: {
-			enabled: true,
-			domains: [
-				"staffoptima.co",
-				"platform.staffoptima.co",
-				"http://localhost:3000",
-			],
-			domain: env.VERCEL_URL || "http://localhost:3000",
-		},
 		generateId: () => crypto.randomUUID(),
 	},
 	authenticator: {
@@ -90,8 +89,17 @@ export const auth = betterAuth({
 		emailOTP({
 			expiresIn: 1000 * 60 * 10, // 10 minutes
 			otpLength: 6,
+			sendVerificationOnSignUp: true,
 			async sendVerificationOTP({ email, otp, type }, request) {
-				// Send email with OTP
+				await resend.emails.send({
+					from: "Staff Optima <access@staffoptima.co>",
+					to: email,
+					subject: "Staff Optima OTP Access",
+					react: OtpEmail({ otpCode: otp }),
+					headers: {
+						"X-Entity-Ref-ID": email,
+					},
+				});
 			},
 		}),
 		nextCookies(),
