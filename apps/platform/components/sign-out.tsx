@@ -4,7 +4,8 @@ import { authClient } from "@/lib/auth/auth-client";
 import { Button } from "@optima/ui/components/button";
 import { usePathname, useRouter } from "next/navigation";
 
-export function SignOut() {
+// Export default to work with Next.js dynamic import
+export default function SignOut() {
 	const router = useRouter();
 	const pathname = usePathname();
 
