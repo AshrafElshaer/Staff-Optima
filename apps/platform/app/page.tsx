@@ -4,9 +4,7 @@ import { Input } from "@optima/ui/components/input";
 import { Label } from "@optima/ui/components/label";
 import dynamic from "next/dynamic";
 
-const SignOut = dynamic(() => import("@/components/sign-out"), {
-	ssr: false,
-});
+const SignOut = dynamic(() => import("@/components/sign-out"));
 
 export default async function Page() {
 	return (
