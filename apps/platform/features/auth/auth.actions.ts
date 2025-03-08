@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/lib/auth/auth";
 import { actionClient } from "@/lib/safe-action";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -37,5 +38,14 @@ export const verifyOtpAction = actionClient
 			},
 		});
 
+		redirect(redirectUrl);
+	});
+
+export const signOutAction = actionClient
+	.schema(z.object({ redirectUrl: z.string() }))
+	.action(async ({ parsedInput: { redirectUrl } }) => {
+		await auth.api.signOut({
+			headers: await headers(),
+		});
 		redirect(redirectUrl);
 	});
