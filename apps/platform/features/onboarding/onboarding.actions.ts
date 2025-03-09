@@ -13,6 +13,7 @@ import {
 	createDomainVerification,
 	// createDomainVerification,
 	createOrganization,
+	createOrganizationMember,
 	createUser,
 	updateUser,
 } from "@optima/database/mutations";
@@ -62,6 +63,11 @@ export const onboardOrganizationAction = authActionClient
 		if (!organization) {
 			throw new Error("Failed to create organization");
 		}
+
+		await createOrganizationMember({
+			organizationId: organization.id,
+			userId: user.id,
+		});
 
 		const domainVerification = await createDomainVerification({
 			organizationId: organization.id,

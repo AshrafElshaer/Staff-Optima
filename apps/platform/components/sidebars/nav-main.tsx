@@ -2,72 +2,79 @@
 
 import { ChevronRight, type LucideIcon } from "lucide-react";
 
+import { buttonVariants } from "@optima/ui/components/button";
+import { cn } from "@optima/ui/lib/utils";
+
 import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-} from "@optima/ui/components/collapsible";
-import {
-	SidebarGroup,
-	SidebarGroupLabel,
-	SidebarMenu,
-	SidebarMenuButton,
-	SidebarMenuItem,
-	SidebarMenuSub,
-	SidebarMenuSubButton,
-	SidebarMenuSubItem,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  useSidebar,
 } from "@optima/ui/components/sidebar";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function NavMain({
-	items,
+  items,
+  label,
 }: {
-	items: {
-		title: string;
-		url: string;
-		icon?: LucideIcon;
-		isActive?: boolean;
-		items?: {
-			title: string;
-			url: string;
-		}[];
-	}[];
+  items: {
+    title: string;
+    url: string;
+    icon: React.ReactNode;
+    isError?: boolean;
+  }[];
+  label: string;
 }) {
-	return (
-		<SidebarGroup>
-			<SidebarGroupLabel>Platform</SidebarGroupLabel>
-			<SidebarMenu>
-				{items.map((item) => (
-					<Collapsible
-						key={item.title}
-						asChild
-						defaultOpen={item.isActive}
-						className="group/collapsible"
-					>
-						<SidebarMenuItem>
-							<CollapsibleTrigger asChild>
-								<SidebarMenuButton tooltip={item.title}>
-									{item.icon && <item.icon />}
-									<span>{item.title}</span>
-									<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-								</SidebarMenuButton>
-							</CollapsibleTrigger>
-							<CollapsibleContent>
-								<SidebarMenuSub>
-									{item.items?.map((subItem) => (
-										<SidebarMenuSubItem key={subItem.title}>
-											<SidebarMenuSubButton asChild>
-												<a href={subItem.url}>
-													<span>{subItem.title}</span>
-												</a>
-											</SidebarMenuSubButton>
-										</SidebarMenuSubItem>
-									))}
-								</SidebarMenuSub>
-							</CollapsibleContent>
-						</SidebarMenuItem>
-					</Collapsible>
-				))}
-			</SidebarMenu>
-		</SidebarGroup>
-	);
+  const pathname = usePathname();
+  const { setOpenMobile, isMobile, state } = useSidebar();
+  return (
+    <SidebarGroup>
+      <SidebarGroupLabel>{label}</SidebarGroupLabel>
+      <SidebarMenu>
+        {items.map((item) => {
+          const isActive =
+            pathname === item.url ||
+            (pathname.includes("/organization")
+              ? item.url === pathname.split("/").slice(0, 3).join("/")
+              : item.url === pathname.split("/").slice(0, 2).join("/"));
+          return (
+            <SidebarMenuButton
+              asChild
+              key={item.title}
+              onClick={() => setOpenMobile(false)}
+              tooltip={item.title}
+              isActive={isActive}
+            >
+              <Link
+                href={item.url}
+                className="relative "
+                // className={buttonVariants({
+                //   variant: isActive ? "secondary" : "ghost",
+                //   className: cn(
+                //     "!justify-start gap-2   relative font-semibold",
+                //   ),
+                // })}
+              >
+                {item.icon}
+                {item.title}
+                {item.isError && (
+                  <div className="ml-auto bg-destructive size-2  rounded-full" />
+                )}
+                {isActive && (
+                  <div
+                    className={cn(
+                      "absolute  bg-primary right-0 bottom-1 top-1 rounded-l-full",
+                      state === "collapsed" ? "w-0.5" : "w-1",
+                    )}
+                  />
+                )}
+              </Link>
+            </SidebarMenuButton>
+          );
+        })}
+      </SidebarMenu>
+    </SidebarGroup>
+  );
 }

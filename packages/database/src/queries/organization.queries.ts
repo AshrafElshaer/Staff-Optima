@@ -1,11 +1,12 @@
-import { MembersTable, OrganizationTable } from "../schema";
-import type { Organization } from "../types";
+"use server";
 import { eq } from "drizzle-orm";
 import { db } from "../database";
+import { MembersTable, OrganizationTable } from "../schema";
+import type { Organization } from "../types";
 
 export async function getUserOrganization(
 	userId: string,
-): Promise<Organization | undefined | null> {
+): Promise<Organization | null> {
 	const [query] = await db
 		.select({
 			organization: OrganizationTable,
@@ -18,7 +19,7 @@ export async function getUserOrganization(
 		)
 		.limit(1);
 
-	return query?.organization;
+	return query?.organization ?? null;
 }
 
 export async function getOrganizationById(id: string) {
