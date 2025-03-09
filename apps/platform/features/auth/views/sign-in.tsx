@@ -100,7 +100,7 @@ export function SignIn() {
 										initial={{ opacity: 0 }}
 										animate={{ opacity: 1 }}
 										exit={{ opacity: 0 }}
-										transition={{ duration: 0.2 }}
+										transition={{ duration: 0.3 }}
 									>
 										Continue
 									</motion.span>
@@ -110,7 +110,7 @@ export function SignIn() {
 										initial={{ opacity: 0 }}
 										animate={{ opacity: 1 }}
 										exit={{ opacity: 0 }}
-										transition={{ duration: 0.2 }}
+										transition={{ duration: 0.3 }}
 										className="flex items-center gap-2"
 									>
 										<Loader className="size-4 animate-spin " />

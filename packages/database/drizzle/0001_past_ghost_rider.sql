@@ -1,0 +1,1 @@
+ALTER TABLE "organizations" ALTER COLUMN "admin_id" SET NOT NULL;

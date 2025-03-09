@@ -1,17 +1,13 @@
-// import { headers } from "next/headers";
 import countries from "./countries.json";
 import flags from "./country-flag";
 import { EU_COUNTRY_CODES } from "./eu-countries";
+import { getCountryCode } from "./helpers";
 
 import continents from "./continents.json";
 import timezones from "./timezones.json";
 
 const countriesMap = new Map(countries.map((c) => [c.name, c]));
-export { timezones, countries, continents, countriesMap };
-
-// export async function getCountryCode(): Promise<string> {
-//   return (await headers()).get("x-vercel-ip-country") ?? "SE";
-// }
+export { timezones, countries, continents, countriesMap, getCountryCode };
 
 // export async function getTimezone() {
 //   return (await headers()).get("x-vercel-ip-timezone") || "Europe/Berlin";

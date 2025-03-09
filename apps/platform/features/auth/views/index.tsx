@@ -8,7 +8,7 @@ import { VerifyOtp } from "./verify-otp";
 export function Auth() {
 	const [{ activeTab }] = useQueryStates(authSearchParams);
 	return (
-		<main className="flex h-screen w-screen items-center justify-center px-4">
+		<main className="flex h-screen w-screen items-center justify-center">
 			<AnimatePresence mode="wait" initial={false}>
 				{activeTab === "sign-in" ? (
 					<motion.div
@@ -16,7 +16,7 @@ export function Auth() {
 						initial={{ opacity: 0, y: 10 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0, y: -10 }}
-						transition={{ duration: 0.2 }}
+						transition={{ duration: 0.4 }}
 					>
 						<SignIn />
 					</motion.div>
@@ -26,7 +26,7 @@ export function Auth() {
 						initial={{ opacity: 0, y: 10 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0, y: -10 }}
-						transition={{ duration: 0.2 }}
+						transition={{ duration: 0.4 }}
 						className="w-full"
 					>
 						<VerifyOtp />

@@ -16,6 +16,7 @@ import {
 } from "better-auth/plugins";
 import Stripe from "stripe";
 import { adminPlugin } from "./plugins/admin";
+import { stripePlugin } from "./plugins/stripe";
 
 // Only initialize Stripe if we have the secret key
 const stripeClient = new Stripe(env.STRIPE_SECRET_KEY, {
@@ -50,41 +51,15 @@ export const auth = betterAuth({
 	},
 	advanced: {
 		generateId: () => crypto.randomUUID(),
+		ipAddress: {
+			ipAddressHeaders: ["x-forwarded-for", "x-real-ip"],
+		},
 	},
 	authenticator: {
 		secret: env.BETTER_AUTH_SECRET || crypto.randomUUID(),
 	},
 	plugins: [
-		// Only add stripe plugin if we have a client
-		...(stripeClient
-			? [
-					stripe({
-						stripeClient,
-						stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET as string,
-						createCustomerOnSignUp: true,
-						subscription: {
-							enabled: true,
-							plans: [
-								{
-									name: "Seat",
-									freeTrial: {
-										days: 30,
-										async onTrialStart(subscription) {
-											console.log(subscription);
-										},
-										async onTrialEnd(data) {
-											console.log(data);
-										},
-										async onTrialExpired(subscription) {
-											console.log(subscription);
-										},
-									},
-								},
-							],
-						},
-					}),
-				]
-			: []),
+		stripePlugin,
 		multiSession(),
 		adminPlugin,
 		emailOTP({

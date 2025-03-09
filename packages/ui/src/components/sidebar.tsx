@@ -2,7 +2,7 @@
 
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react";
+import { PanelRightClose } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@optima/ui/components/button";
@@ -25,10 +25,10 @@ import {
 import { useIsMobile } from "@optima/ui/hooks/use-mobile";
 import { cn } from "@optima/ui/lib/utils";
 
-const SIDEBAR_COOKIE_NAME = "sidebar_state";
+const SIDEBAR_COOKIE_NAME = "sidebar:state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = "16rem";
-const SIDEBAR_WIDTH_MOBILE = "18rem";
+const SIDEBAR_WIDTH = "13rem";
+const SIDEBAR_WIDTH_MOBILE = "13rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
@@ -71,6 +71,7 @@ function SidebarProvider({
 
 	// This is the internal state of the sidebar.
 	// We use openProp and setOpenProp for control from outside the component.
+
 	const [_open, _setOpen] = React.useState(defaultOpen);
 	const open = openProp ?? _open;
 	const setOpen = React.useCallback(
@@ -87,28 +88,25 @@ function SidebarProvider({
 		},
 		[setOpenProp, open],
 	);
+	// Initialize sidebar state from cookie on mount
+	React.useEffect(() => {
+		const cookies = document.cookie;
+		const sidebarCookie = cookies
+			.split(";")
+			.find((c) => c.trim().startsWith(SIDEBAR_COOKIE_NAME));
+		const isSidebarExpanded = sidebarCookie?.split("=")[1] === "true";
+
+		if (typeof isSidebarExpanded === "boolean") {
+			_setOpen(isSidebarExpanded);
+		} else {
+			_setOpen(defaultOpen);
+		}
+	}, [defaultOpen]);
 
 	// Helper to toggle the sidebar.
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const toggleSidebar = React.useCallback(() => {
 		return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
-	}, [isMobile, setOpen, setOpenMobile]);
-
-	// Adds a keyboard shortcut to toggle the sidebar.
-	React.useEffect(() => {
-		const handleKeyDown = (event: KeyboardEvent) => {
-			if (
-				event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
-				(event.metaKey || event.ctrlKey)
-			) {
-				event.preventDefault();
-				toggleSidebar();
-			}
-		};
-
-		window.addEventListener("keydown", handleKeyDown);
-		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [toggleSidebar]);
+	}, [isMobile, setOpen]);
 
 	// We add a state so that we can do data-state="expanded" or "collapsed".
 	// This makes it easier to style the sidebar with Tailwind classes.
@@ -272,7 +270,7 @@ function SidebarTrigger({
 			}}
 			{...props}
 		>
-			<PanelLeftIcon />
+			<PanelRightClose />
 			<span className="sr-only">Toggle Sidebar</span>
 		</Button>
 	);

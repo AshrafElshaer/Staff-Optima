@@ -9,18 +9,21 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./schema": "./src/schema/index.ts",
-		"./types": "./src/typess"
+		"./types": "./src/typess",
+		"./mutations": "./src/mutations/index.ts",
+		"./queries": "./src/queries/index.ts",
+		"./validations": "./src/validations.ts"
 	},
 	"scripts": {
 		"db:seed": "tsx scripts/seed.ts",
 		"db:migrate": "tsx scripts/migrate.ts",
 		"db:studio": "drizzle-kit studio",
-		"generate": "drizzle-kit generate:pg"
+		"generate": "drizzle-kit generate:pg",
+		"db:push": "drizzle-kit push:pg"
 	},
 	"dependencies": {
 		"dotenv": "16.4.5",
 		"drizzle-orm": "0.29.4",
-		"drizzle-zod": "^0.7.0",
 		"pg": "^8.11.3",
 		"postgres": "3.4.3"
 	},

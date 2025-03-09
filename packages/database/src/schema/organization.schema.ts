@@ -17,9 +17,11 @@ export const OrganizationTable = pgTable(
 		name: text("name").notNull(),
 		logo: text("logo"),
 		domain: text("domain").notNull().unique(),
-		adminId: uuid("admin_id").references(() => user.id, {
-			onDelete: "cascade",
-		}),
+		adminId: uuid("admin_id")
+			.notNull()
+			.references(() => user.id, {
+				onDelete: "cascade",
+			}),
 		industry: text("industry").notNull(),
 		profile: text("profile"),
 		address1: text("address_1"),

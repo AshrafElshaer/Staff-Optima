@@ -1,10 +1,10 @@
 "use server";
 import { auth } from "@/lib/auth/auth";
 import { actionClient } from "@/lib/safe-action";
+import { getUserOrganization } from "@optima/database/queries";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-
 export const signInAction = actionClient
 	.schema(
 		z.object({
@@ -31,12 +31,18 @@ export const verifyOtpAction = actionClient
 		}),
 	)
 	.action(async ({ parsedInput: { email, otp, redirectUrl } }) => {
-		await auth.api.signInEmailOTP({
+		const { user } = await auth.api.signInEmailOTP({
 			body: {
 				email,
 				otp,
 			},
 		});
+
+		const organization = await getUserOrganization(user.id);
+
+		if (!organization) {
+			redirect("/onboarding");
+		}
 
 		redirect(redirectUrl);
 	});
