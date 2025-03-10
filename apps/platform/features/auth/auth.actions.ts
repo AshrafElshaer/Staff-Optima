@@ -5,6 +5,7 @@ import { getUserOrganization } from "@optima/database/queries";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+
 export const signInAction = actionClient
 	.schema(
 		z.object({
@@ -17,6 +18,7 @@ export const signInAction = actionClient
 				email,
 				type: "sign-in",
 			},
+			headers: await headers(),
 		});
 
 		return { success };
@@ -36,6 +38,7 @@ export const verifyOtpAction = actionClient
 				email,
 				otp,
 			},
+			headers: await headers(),
 		});
 
 		const organization = await getUserOrganization(user.id);
