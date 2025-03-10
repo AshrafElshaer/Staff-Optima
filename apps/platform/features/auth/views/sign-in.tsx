@@ -60,20 +60,17 @@ export function SignIn() {
 	async function onSubmit(data: z.infer<typeof formSchema>) {
 		// execute(data);
 		setIsExecuting(true)
-		await authClient.emailOtp.sendVerificationOtp({
+		const{data:res}=await authClient.emailOtp.sendVerificationOtp({
 			email: data.email,
 			type: "sign-in",
-			fetchOptions: {
-				onSuccess: () => {
-					setSearchParams({
-						activeTab: "verify-otp",
-						email: data.email,
-					});
-					setIsExecuting(false)
-				}
-			}
-			
 		});
+		if(res?.success){
+			setSearchParams({
+				activeTab: "verify-otp",
+				email: data.email,
+			})
+		}
+		setIsExecuting(false)
 
 	}
 
