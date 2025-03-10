@@ -53,7 +53,7 @@ function SheetContent({
 	side?: "top" | "right" | "bottom" | "left";
 }) {
 	return (
-		<SheetPortal >
+		<SheetPortal>
 			<SheetOverlay />
 			<SheetPrimitive.Content
 				data-slot="sheet-content"

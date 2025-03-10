@@ -72,7 +72,7 @@ export function UserOnboarding({ countryCode }: { countryCode: string }) {
 
 function UserForm({ countryCode }: { countryCode: string }) {
 	// const { data: session } = useSession();
-	const { data: session, } = authClient.useSession();
+	const { data: session } = authClient.useSession();
 	const router = useRouter();
 
 	const form = useForm<z.infer<typeof userUpdateSchema>>({

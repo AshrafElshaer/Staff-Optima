@@ -50,7 +50,7 @@ export function OrganizationLogo() {
 				)}
 			>
 				<Avatar className="size-6 rounded-sm">
-					<AvatarImage src={organization?.logo ?? ""} className="rounded-sm"/>
+					<AvatarImage src={organization?.logo ?? ""} className="rounded-sm" />
 					<AvatarFallback className="border text-sm rounded-sm font-bold">
 						{organization?.name[0]}
 						{organization?.name[1]}
