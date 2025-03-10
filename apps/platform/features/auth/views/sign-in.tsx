@@ -30,6 +30,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { signInAction } from "../auth.actions";
 import { authSearchParams } from "../auth.searchparams";
+import { authClient } from "@/lib/auth/auth-client";
 const formSchema = z.object({
 	email: z.string().email(),
 });
@@ -55,7 +56,20 @@ export function SignIn() {
 	});
 
 	async function onSubmit(data: z.infer<typeof formSchema>) {
-		execute(data);
+		// execute(data);
+		authClient.emailOtp.sendVerificationOtp({
+			email: data.email,
+			type: "sign-in",
+			fetchOptions: {
+				onSuccess: () => {
+					setSearchParams({
+						activeTab: "verify-otp",
+						email: data.email,
+					});
+				}
+			}
+			
+		});
 	}
 
 	return (
