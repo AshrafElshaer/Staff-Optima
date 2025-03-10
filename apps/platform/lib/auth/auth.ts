@@ -52,7 +52,7 @@ export const auth = betterAuth({
 	advanced: {
 		generateId: () => crypto.randomUUID(),
 		ipAddress: {
-			ipAddressHeaders: ["x-forwarded-for", "x-real-ip"],
+			disableIpTracking: true,
 		},
 	},
 	authenticator: {
