@@ -29,6 +29,7 @@ import { useAction } from "next-safe-action/hooks";
 import { useQueryStates } from "nuqs";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { signInAction } from "../auth.actions";
 import { authSearchParams } from "../auth.searchparams";
@@ -52,8 +53,8 @@ export function SignIn() {
 				email: form.getValues("email"),
 			});
 		},
-		onError: (error) => {
-			console.error(error);
+		onError: ({ error }) => {
+			toast.error(error.serverError);
 		},
 	});
 

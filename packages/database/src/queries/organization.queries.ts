@@ -1,5 +1,6 @@
 "use server";
 import { eq } from "drizzle-orm";
+import { unstable_cacheTag as cacheTag } from "next/cache";
 import { db } from "../database";
 import { MembersTable, OrganizationTable } from "../schema";
 import type { Organization } from "../types";
@@ -7,6 +8,7 @@ import type { Organization } from "../types";
 export async function getUserOrganization(
 	userId: string,
 ): Promise<Organization | null> {
+	"use cache";
 	const [query] = await db
 		.select({
 			organization: OrganizationTable,
@@ -18,6 +20,7 @@ export async function getUserOrganization(
 			eq(MembersTable.organizationId, OrganizationTable.id),
 		)
 		.limit(1);
+	cacheTag("organization", query?.organization?.id ?? "");
 
 	return query?.organization ?? null;
 }

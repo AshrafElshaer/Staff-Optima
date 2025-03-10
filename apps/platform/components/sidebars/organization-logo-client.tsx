@@ -23,7 +23,7 @@ export function OrganizationLogoClient() {
 		queryKey: ["organization"],
 		enabled: !!session?.user.id,
 		queryFn: async () => {
-			console.log({ session });
+
 			if (session?.user.id) {
 				return await getUserOrganization(session.user.id);
 			}

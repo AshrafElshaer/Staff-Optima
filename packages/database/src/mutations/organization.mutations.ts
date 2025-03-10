@@ -1,4 +1,6 @@
+"use server";
 import { eq } from "drizzle-orm";
+import { revalidateTag } from "next/cache";
 import type { z } from "zod";
 import { db } from "../database";
 import { MembersTable, OrganizationTable } from "../schema";
@@ -21,6 +23,7 @@ export async function createOrganization(data: OrganizationInsert) {
 		.insert(OrganizationTable)
 		.values(data)
 		.returning();
+	revalidateTag("organization");
 	return organization;
 }
 
@@ -31,6 +34,7 @@ export async function updateOrganization(data: OrganizationUpdate) {
 		.set(updateData)
 		.where(eq(OrganizationTable.id, id))
 		.returning();
+	revalidateTag("organization");
 	return organization;
 }
 
@@ -39,6 +43,7 @@ export async function deleteOrganization(id: string) {
 		.delete(OrganizationTable)
 		.where(eq(OrganizationTable.id, id))
 		.returning();
+	revalidateTag("organization");
 	return organization;
 }
 
