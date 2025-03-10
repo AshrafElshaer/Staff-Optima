@@ -1,10 +1,11 @@
 "use client";
 
-import { Icons } from "@optima/ui/components/icons";
-import { Loader } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@optima/ui/components/button";
+import { Icons } from "@optima/ui/components/icons";
+import { Loader } from "lucide-react";
 
+import { authClient } from "@/lib/auth/auth-client";
 import {
 	Card,
 	CardContent,
@@ -26,12 +27,11 @@ import { Separator } from "@optima/ui/components/separator";
 import { AnimatePresence, motion } from "motion/react";
 import { useAction } from "next-safe-action/hooks";
 import { useQueryStates } from "nuqs";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { signInAction } from "../auth.actions";
 import { authSearchParams } from "../auth.searchparams";
-import { authClient } from "@/lib/auth/auth-client";
-import { useState } from "react";
 const formSchema = z.object({
 	email: z.string().email(),
 });
@@ -43,35 +43,22 @@ export function SignIn() {
 			email: "",
 		},
 	});
-	const [isExecuting,setIsExecuting] = useState(false)
-	const [, setSearchParams] = useQueryStates(authSearchParams);
-	// const { execute, isExecuting } = useAction(signInAction, {
-	// 	onSuccess: ({ data }) => {
-	// 		setSearchParams({
-	// 			activeTab: "verify-otp",
-	// 			email: form.getValues("email"),
-	// 		});
-	// 	},
-	// 	onError: (error) => {
-	// 		console.error(error);
-	// 	},
-	// });
 
-	async function onSubmit(data: z.infer<typeof formSchema>) {
-		// execute(data);
-		setIsExecuting(true)
-		const{data:res}=await authClient.emailOtp.sendVerificationOtp({
-			email: data.email,
-			type: "sign-in",
-		});
-		if(res?.success){
+	const [, setSearchParams] = useQueryStates(authSearchParams);
+	const { execute, isExecuting } = useAction(signInAction, {
+		onSuccess: ({ data }) => {
 			setSearchParams({
 				activeTab: "verify-otp",
-				email: data.email,
-			})
-		}
-		setIsExecuting(false)
+				email: form.getValues("email"),
+			});
+		},
+		onError: (error) => {
+			console.error(error);
+		},
+	});
 
+	async function onSubmit(data: z.infer<typeof formSchema>) {
+		execute(data);
 	}
 
 	return (
