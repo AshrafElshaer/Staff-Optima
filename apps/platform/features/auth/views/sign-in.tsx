@@ -31,6 +31,7 @@ import { z } from "zod";
 import { signInAction } from "../auth.actions";
 import { authSearchParams } from "../auth.searchparams";
 import { authClient } from "@/lib/auth/auth-client";
+import { useState } from "react";
 const formSchema = z.object({
 	email: z.string().email(),
 });
@@ -42,22 +43,24 @@ export function SignIn() {
 			email: "",
 		},
 	});
+	const [isExecuting,setIsExecuting] = useState(false)
 	const [, setSearchParams] = useQueryStates(authSearchParams);
-	const { execute, isExecuting } = useAction(signInAction, {
-		onSuccess: ({ data }) => {
-			setSearchParams({
-				activeTab: "verify-otp",
-				email: form.getValues("email"),
-			});
-		},
-		onError: (error) => {
-			console.error(error);
-		},
-	});
+	// const { execute, isExecuting } = useAction(signInAction, {
+	// 	onSuccess: ({ data }) => {
+	// 		setSearchParams({
+	// 			activeTab: "verify-otp",
+	// 			email: form.getValues("email"),
+	// 		});
+	// 	},
+	// 	onError: (error) => {
+	// 		console.error(error);
+	// 	},
+	// });
 
 	async function onSubmit(data: z.infer<typeof formSchema>) {
 		// execute(data);
-		authClient.emailOtp.sendVerificationOtp({
+		setIsExecuting(true)
+		await authClient.emailOtp.sendVerificationOtp({
 			email: data.email,
 			type: "sign-in",
 			fetchOptions: {
@@ -66,10 +69,12 @@ export function SignIn() {
 						activeTab: "verify-otp",
 						email: data.email,
 					});
+					setIsExecuting(false)
 				}
 			}
 			
 		});
+
 	}
 
 	return (
