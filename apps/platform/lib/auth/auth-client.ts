@@ -11,7 +11,7 @@ import { createAuthClient } from "better-auth/react";
 import type { auth } from "./auth.js";
 
 export const authClient = createAuthClient({
-	baseURL: env.VERCEL_URL || "http://localhost:3000",
+	baseURL: env.BETTER_AUTH_URL,
 	plugins: [
 		inferAdditionalFields<typeof auth>(),
 		emailOTPClient(),
