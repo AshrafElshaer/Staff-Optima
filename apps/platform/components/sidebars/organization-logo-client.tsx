@@ -1,7 +1,6 @@
 "use client";
 
-import { authClient } from "@/lib/auth/auth-client";
-import { getUserOrganization } from "@optima/database/queries";
+import { useOrganization } from "@/hooks/use-organization";
 import {
 	Avatar,
 	AvatarFallback,
@@ -14,22 +13,11 @@ import {
 } from "@optima/ui/components/sidebar";
 import { Skeleton } from "@optima/ui/components/skeleton";
 import { cn } from "@optima/ui/lib/utils";
-import { useQuery } from "@tanstack/react-query";
 
 export function OrganizationLogoClient() {
 	const { state, isMobile } = useSidebar();
-	const { data: session } =  authClient.useSession();
-	const { data: organization, isLoading } = useQuery({
-		queryKey: ["organization"],
-		enabled: !!session?.user.id,
-		queryFn: async () => {
 
-			if (session?.user.id) {
-				return await getUserOrganization(session.user.id);
-			}
-			return null;
-		},
-	});
+	const { data: organization, isLoading } = useOrganization();
 
 	if (isLoading || !organization) {
 		return (
