@@ -18,10 +18,11 @@ import { useQuery } from "@tanstack/react-query";
 
 export function OrganizationLogo() {
 	const { state, isMobile } = useSidebar();
+	const { data: session } = authClient.useSession();
 	const { data: organization, isLoading } = useQuery({
+		enabled: !!session?.user.id,
 		queryKey: ["organization"],
 		queryFn: async () => {
-			const { data: session } = await authClient.getSession();
 			return await getUserOrganization(session?.user.id ?? "");
 		},
 	});

@@ -1,15 +1,23 @@
 "use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react";
 
 import { buttonVariants } from "@optima/ui/components/button";
 import { cn } from "@optima/ui/lib/utils";
-
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@optima/ui/components/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   useSidebar,
 } from "@optima/ui/components/sidebar";
 import Link from "next/link";
@@ -45,17 +53,15 @@ export function NavMain({
               key={item.title}
               onClick={() => setOpenMobile(false)}
               tooltip={item.title}
-              isActive={isActive}
             >
               <Link
                 href={item.url}
-                className="relative "
-                // className={buttonVariants({
-                //   variant: isActive ? "secondary" : "ghost",
-                //   className: cn(
-                //     "!justify-start gap-2   relative font-semibold",
-                //   ),
-                // })}
+                className={buttonVariants({
+                  variant: isActive ? "secondary" : "ghost",
+                  className: cn(
+                    "!justify-start gap-2   relative font-semibold",
+                  ),
+                })}
               >
                 {item.icon}
                 {item.title}
