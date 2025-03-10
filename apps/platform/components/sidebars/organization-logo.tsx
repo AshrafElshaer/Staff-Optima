@@ -21,12 +21,17 @@ export function OrganizationLogo() {
 	const { data: organization, isLoading } = useQuery({
 		queryKey: ["organization"],
 		queryFn: async () => {
-			const { data: session } = await authClient.getSession();
-			return await getUserOrganization(session?.user.id ?? "");
+			try {
+				const { data: session } = await authClient.getSession();
+				return await getUserOrganization(session?.user.id ?? "");
+			} catch (error) {
+				console.error(error);
+				return null;
+			}
 		},
 	});
 
-	if (isLoading) {
+	if (isLoading || !organization) {
 		return (
 			<div
 				className={cn(
