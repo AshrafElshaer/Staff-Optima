@@ -10,7 +10,7 @@ export default function CalendarPage() {
 	return (
 		<Sheet>
 			<SheetTrigger>Open</SheetTrigger>
-			<SheetContent side="left">
+			<SheetContent side="right">
 				<SheetHeader>
 					<SheetTitle>Calendar</SheetTitle>
 				</SheetHeader>

@@ -37,7 +37,7 @@ const links = [
 	},
 	{
 		title: "Jobs",
-		url: "/job-posts",
+		url: "/jobs",
 		icon: <JobLinkIcon strokeWidth={2} size={20} />,
 	},
 

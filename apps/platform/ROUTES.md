@@ -11,8 +11,8 @@
     - /jobs/create – Create a new job posting
     - /jobs/:jobId – View job details and analytics
     - /jobs/:jobId/edit – Edit job details
-    - /jobs/:jobId/candidates – View applicants for the job
-    - /jobs/:jobId/stages – Manage interview stages
+    - /jobs/:jobId/applications – View applications for the job
+    <!-- - /jobs/:jobId/stages – Manage interview stages -->
     - /jobs/:jobId/campaigns – Promote job (LinkedIn, Indeed integration)
 
 3. **Candidates (/candidates)**
