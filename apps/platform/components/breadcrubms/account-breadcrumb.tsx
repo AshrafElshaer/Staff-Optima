@@ -23,10 +23,13 @@ import React from "react";
 export function AccountBreadcrumb() {
 	const pathname = usePathname();
 	if (!pathname.startsWith("/account")) return null;
+	const segments = pathname.split("/").filter(Boolean);
+
+	const page = segments[1];
 
 	return (
 		<h1 className="font-medium truncate w-full">
-			Manage your account settings and preferences.
+			Manage your {page} settings and preferences.
 		</h1>
 	);
 }
