@@ -16,6 +16,7 @@ import {
 	DropdownMenuTrigger,
 } from "@optima/ui/components/dropdown-menu";
 import { useIsMobile } from "@optima/ui/hooks/use-mobile";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -78,7 +79,13 @@ export function JobsBreadcrumb() {
 											<DropdownMenuContent align="start">
 												{segments.slice(1, -1).map((middleSegment, idx) => (
 													<DropdownMenuItem key={idx.toString()}>
-														{getSegmentLabel(middleSegment, idx + 1)}
+														<BreadcrumbLink asChild>
+															<Link
+																href={`/${segments.slice(0, idx + 2).join("/")}`}
+															>
+																{getSegmentLabel(middleSegment, idx + 1)}
+															</Link>
+														</BreadcrumbLink>
 													</DropdownMenuItem>
 												))}
 											</DropdownMenuContent>
@@ -99,10 +106,10 @@ export function JobsBreadcrumb() {
 										{getSegmentLabel(segment, index)}
 									</BreadcrumbPage>
 								) : (
-									<BreadcrumbLink
-										href={`/${segments.slice(0, index + 1).join("/")}`}
-									>
-										{getSegmentLabel(segment, index)}
+									<BreadcrumbLink asChild>
+										<Link href={`/${segments.slice(0, index + 1).join("/")}`}>
+											{getSegmentLabel(segment, index)}
+										</Link>
 									</BreadcrumbLink>
 								)}
 							</BreadcrumbItem>

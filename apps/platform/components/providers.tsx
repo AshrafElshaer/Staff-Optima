@@ -19,7 +19,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 			<NuqsAdapter>
 				<QueryClientProvider client={queryClient}>
 					{children}
-					<Toaster richColors duration={5000} position="top-center" />
+					<Toaster richColors duration={5000} position="top-right" />
 				</QueryClientProvider>
 			</NuqsAdapter>
 		</NextThemesProvider>

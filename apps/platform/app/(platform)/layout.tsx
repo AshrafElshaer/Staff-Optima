@@ -14,6 +14,7 @@ import {
 	SidebarProvider,
 	SidebarTrigger,
 } from "@optima/ui/components/sidebar";
+import { UserDropdown } from "@/components/user-dropdown";
 
 export default function PlatformLayout({
 	children,
@@ -31,10 +32,7 @@ export default function PlatformLayout({
 						/>
 						<JobsBreadcrumb />
 					</div>
-					<Avatar className="h-8 w-8 ">
-						<AvatarImage src="https://github.com/shadcn.png" />
-						<AvatarFallback>CN</AvatarFallback>
-					</Avatar>
+					<UserDropdown />
 				</header>
 				<div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
 			</SidebarInset>
