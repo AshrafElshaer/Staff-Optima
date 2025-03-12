@@ -15,6 +15,7 @@ import {
 	SidebarTrigger,
 } from "@optima/ui/components/sidebar";
 import { UserDropdown } from "@/components/user-dropdown";
+import { AccountBreadcrumb } from "@/components/breadcrubms/account-breadcrumb";
 
 export default function PlatformLayout({
 	children,
@@ -31,6 +32,7 @@ export default function PlatformLayout({
 							className="mr-2 data-[orientation=vertical]:h-4"
 						/>
 						<JobsBreadcrumb />
+						<AccountBreadcrumb />
 					</div>
 					<UserDropdown />
 				</header>

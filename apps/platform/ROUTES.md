@@ -37,12 +37,12 @@
     - /chat/:conversationId – Conversation thread
     - /chat/channel/:channelId - groupe chat thread
 
-6. **Reports & Analytics (/reports)**
+<!-- 6. **Reports & Analytics (/reports)**
 
     -  /reports – Overview of hiring metrics
     -  /reports/sources – Application sources (LinkedIn, Indeed, direct, referral)
     -  /reports/time-to-hire – Hiring efficiency metrics
-    -  /reports/diversity – DEI (Diversity, Equity, Inclusion) analytics
+    -  /reports/diversity – DEI (Diversity, Equity, Inclusion) analytics -->
 
 7. **Account Settings (/account)**
     -  /account - User profile settings
@@ -55,11 +55,9 @@
     - /organization - organization public profile
     - /organization/departments - manage departments for job posts
     - /organization/team -  Manage all users and members
+    - /organiorganization/access-control - Manage access and roles ( RBAC )
     - /organization/billing - Manage billing and payments
-    - organization/pipeline - application stages flow and actions
+    - /organization/integrations - app store for integrations
+    - organization/workflows - application stages flow and actions
     - organization/email-templates - Manage email communications templates
    
-
-Bonus Features
-    /notes – Private and shared recruiter notes
-    /notifications – System-wide alerts

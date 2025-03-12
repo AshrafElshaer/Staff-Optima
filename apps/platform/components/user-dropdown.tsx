@@ -79,15 +79,7 @@ export function UserDropdown() {
 							</DropdownMenuItem>
 						</DropdownMenuSubContent>
 					</DropdownMenuSub>
-					<DropdownMenuItem
-						asChild
-						className="cursor-pointer"
-						onSelect={() => {
-							if (isMobile) {
-								toggleSidebar();
-							}
-						}}
-					>
+					<DropdownMenuItem asChild className="cursor-pointer">
 						<Link href="/account">
 							<Settings01Icon strokeWidth={2} />
 							Account
