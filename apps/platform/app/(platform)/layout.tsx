@@ -14,6 +14,7 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { OrganizationSidebar } from "@/components/sidebars/organization-sidebar";
+import { OrganizationBreadcrumb } from "@/components/breadcrubms/organization-breadcrumb";
 
 export default function PlatformLayout({
 	children,
@@ -43,6 +44,7 @@ export default function PlatformLayout({
 						/>
 						<JobsBreadcrumb />
 						<AccountBreadcrumb />
+						<OrganizationBreadcrumb />
 					</div>
 					<UserDropdown />
 				</header>
