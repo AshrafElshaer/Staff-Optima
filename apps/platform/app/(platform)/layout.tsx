@@ -1,28 +1,38 @@
 "use client";
 
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-} from "@optima/ui/components/avatar";
 import { Separator } from "@optima/ui/components/separator";
 
+import { AccountBreadcrumb } from "@/components/breadcrubms/account-breadcrumb";
 import { JobsBreadcrumb } from "@/components/breadcrubms/jobs-breadcrumb";
 import { AppSidebar } from "@/components/sidebars/app-sidebar";
+import { UserDropdown } from "@/components/user-dropdown";
 import {
 	SidebarInset,
 	SidebarProvider,
 	SidebarTrigger,
 } from "@optima/ui/components/sidebar";
-import { UserDropdown } from "@/components/user-dropdown";
-import { AccountBreadcrumb } from "@/components/breadcrubms/account-breadcrumb";
+import { AnimatePresence, motion } from "motion/react";
+import { usePathname } from "next/navigation";
+import { OrganizationSidebar } from "@/components/sidebars/organization-sidebar";
 
 export default function PlatformLayout({
 	children,
 }: { children: React.ReactNode }) {
+	const pathname = usePathname();
+	const isOrganization = pathname.startsWith("/organization");
 	return (
 		<SidebarProvider>
-			<AppSidebar />
+			<AnimatePresence mode="wait" initial={false}>
+				<motion.div
+					key={isOrganization ? "organization" : "app"}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					transition={{ duration: 0.15 }}
+				>
+					{isOrganization ? <OrganizationSidebar /> : <AppSidebar />}
+				</motion.div>
+			</AnimatePresence>
 			<SidebarInset>
 				<header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 px-2">
 					<SidebarTrigger />
