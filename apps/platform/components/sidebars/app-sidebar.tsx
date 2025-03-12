@@ -2,10 +2,7 @@
 
 import type * as React from "react";
 
-// import { useOrganization } from "@/hooks/use-organization";
-// import { useSession } from "@/hooks/use-session";
-// import { userRoleEnum } from "@optima/supabase/types";
-import { Icons } from "@optima/ui/components/icons";
+import { useSession } from "@/hooks/use-session";
 import { Separator } from "@optima/ui/components/separator";
 import {
 	Sidebar,
@@ -14,6 +11,7 @@ import {
 	SidebarHeader,
 } from "@optima/ui/components/sidebar";
 import {
+	Building01Icon,
 	Calendar03Icon,
 	Chatting01Icon,
 	Home01Icon,
@@ -55,7 +53,16 @@ const communication = [
 	},
 ];
 
+const settings = [
+	{
+		title: "Organization",
+		url: "/organization",
+		icon: <Building01Icon strokeWidth={2} size={20} />,
+	},
+];
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+	const { data: session } = useSession();
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
@@ -65,11 +72,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarContent>
 				<NavMain items={links} label="Workspace" />
 				<NavMain items={communication} label="Communication" />
+				{session?.user.role === "admin" || session?.user.role === "owner" ? (
+					<NavMain items={settings} label="Settings" />
+				) : null}
 			</SidebarContent>
-			{/* <Separator />
-      <SidebarFooter>
-        <NavUser />
-      </SidebarFooter> */}
 		</Sidebar>
 	);
 }
