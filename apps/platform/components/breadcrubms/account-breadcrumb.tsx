@@ -25,7 +25,7 @@ export function AccountBreadcrumb() {
 	if (!pathname.startsWith("/account")) return null;
 	const segments = pathname.split("/").filter(Boolean);
 
-	const page = segments[1];
+	const page = segments[1]?.replace("-", " ") || "account";
 
 	return (
 		<h1 className="font-medium truncate w-full">
