@@ -22,7 +22,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
-import { Input } from "@optima/ui/components/input";
+import { Input } from "@optima/ui/components/inputs/input";
 import { Separator } from "@optima/ui/components/separator";
 import { AnimatePresence, motion } from "motion/react";
 import { useAction } from "next-safe-action/hooks";

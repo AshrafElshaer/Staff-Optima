@@ -1,5 +1,5 @@
 import { Button } from "@optima/ui/components/button";
-import { Input } from "@optima/ui/components/input";
+import { Input } from "@optima/ui/components/inputs";
 export default function Page() {
 	return (
 		<div className="flex items-center justify-center min-h-svh">

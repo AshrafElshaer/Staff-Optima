@@ -23,7 +23,7 @@
 	--accent: oklch(0.967 0.001 286.375);
 	--accent-foreground: oklch(0.21 0.006 285.885);
 	--destructive: oklch(0.637 0.237 25.331);
-	--destructive-foreground: oklch(0.637 0.237 25.331);
+	--destructive-foreground: oklch(0.967 0.001 286.375);
 	--border: oklch(0.92 0.004 286.32);
 	--input: oklch(0.871 0.006 286.286);
 	--ring: oklch(0.871 0.006 286.286);
@@ -41,6 +41,17 @@
 	--sidebar-accent-foreground: oklch(0.21 0.006 285.885);
 	--sidebar-border: oklch(0.92 0.004 286.32);
 	--sidebar-ring: oklch(0.871 0.006 286.286);
+
+	--warning: oklch(0.8 0.16 86);
+	--warning-foreground: oklch(0.985 0 0);
+	--tag-warning-bg: oklch(0.95 0.04 74.07 / 1);
+	--tag-warning-text: oklch(0.45 0.08 38.83 / 1);
+	--tag-warning-icon: oklch(0.71 0.19 48.09 / 1);
+	--tag-warning-border: oklch(0.9 0.07 69.97 / 1);
+	--tag-warning-bg-hover: oklch(0.9 0.07 69.97 / 1);
+
+	--success: oklch(0.68 0.16 151.05 / 1);
+	--success-foreground: oklch(1 0 0);
 }
 .dark {
 	--background: oklch(18.22% 0 0);
@@ -58,7 +69,7 @@
 	--accent: oklch(22.64% 0 0); /* Custom */
 	--accent-foreground: oklch(0.985 0 0);
 	--destructive: oklch(0.637 0.237 25.331);
-	--destructive-foreground: oklch(0.637 0.237 25.331);
+	--destructive-foreground: oklch(0.985 0 0);
 	--border: oklch(28.91% 0 0); /* Custom */
 	--input: oklch(22.64% 0 0); /* Custom */
 	--ring: oklch(0.442 0.017 285.786);
@@ -75,6 +86,18 @@
 	--sidebar-accent-foreground: oklch(96.74% 0.0013 286.38);
 	--sidebar-border: oklch(27.39% 0.0055 286.03);
 	--sidebar-ring: oklch(62.31% 0.188 259.81);
+
+	--warning: oklch(83.69% 0.1644 84.43);
+	--warning-foreground: oklch(27.92% 0.0742 45.64);
+
+	--tag-warning-bg: oklch(0.27 0.08 36.76 / 1);
+	--tag-warning-text: oklch(0.84 0.12 67 / 1);
+	--tag-warning-icon: oklch(0.76 0.16 56 / 1);
+	--tag-warning-border: oklch(0.41 0.12 38 / 1);
+	--tag-warning-bg-hover: oklch(0.41 0.12 38 / 1);
+
+	--success: oklch(0.68 0.16 151.05 / 1);
+	--success-foreground: oklch(1 0 0);
 }
 
 @theme inline {
@@ -107,6 +130,17 @@
 
 	--color-card: var(--card);
 	--color-card-foreground: var(--card-foreground);
+
+	--color-warning: var(--warning);
+	--color-warning-foreground: var(--warning-foreground);
+	--color-tag-warning-bg: var(--tag-warning-bg);
+	--color-tag-warning-text: var(--tag-warning-text);
+	--color-tag-warning-icon: var(--tag-warning-icon);
+	--color-tag-warning-border: var(--tag-warning-border);
+	--color-tag-warning-bg-hover: var(--tag-warning-bg-hover);
+
+	--color-success: var(--success);
+	--color-success-foreground: var(--success-foreground);
 
 	--color-sidebar: var(--sidebar);
 	--color-sidebar-foreground: var(--sidebar-foreground);

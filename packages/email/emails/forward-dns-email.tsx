@@ -14,7 +14,7 @@ import {
 	Text,
 } from "@react-email/components";
 
-// import type { DomainVerification } from "@optima/supabase/types";
+import type { DomainVerification } from "@optima/database/types";
 import { colors } from "../components/colors";
 import Logo from "../components/logo";
 
@@ -23,9 +23,7 @@ export function DnsVerificationEmail({
 	organizationDomain,
 	sentBy,
 }: {
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	records: any[];
-	// records: DomainVerification[];
+	records: DomainVerification[];
 	organizationDomain: string;
 	sentBy: string;
 }) {
@@ -89,14 +87,14 @@ export function DnsVerificationEmail({
 						{records.map((record, index) => (
 							<Section key={record.id} className="mb-4 border-b pb-4">
 								<Row>
-									<Column className="w-1/4 ">
+									<Column align="left" className="w-1/4">
 										<Text
 											className={`text-left text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 										>
 											Type
 										</Text>
 									</Column>
-									<Column className="w-3/4">
+									<Column align="right" className="w-3/4">
 										<Text
 											className={`text-left text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 										>
@@ -105,14 +103,14 @@ export function DnsVerificationEmail({
 									</Column>
 								</Row>
 								<Row>
-									<Column className="w-1/4">
+									<Column align="left" className="w-1/4">
 										<Text
 											className={`text-left text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 										>
 											Name
 										</Text>
 									</Column>
-									<Column className="w-3/4">
+									<Column align="right" className="w-3/4">
 										<Text
 											className={`text-left text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 										>
@@ -124,32 +122,48 @@ export function DnsVerificationEmail({
 								<Row>
 									<Column align="left" className="w-1/4">
 										<Text
-											className={`text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
+											className={`text-[14px] text-left text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 										>
 											Value
 										</Text>
 									</Column>
-									<Column align="left" className="w-3/4">
+									<Column align="right" className="w-3/4">
 										<Text
-											className={`text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
+											className={`text-[14px] text-left text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 										>
-											{record.verification_token}
+											{record.verificationToken}
 										</Text>
 									</Column>
 								</Row>
 								<Row>
 									<Column align="left" className="w-1/4">
 										<Text
-											className={`text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
+											className={`text-[14px] text-left text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 										>
 											TTL
 										</Text>
 									</Column>
-									<Column align="left" className="w-3/4">
+									<Column align="right" className="w-3/4">
 										<Text
-											className={`text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
+											className={`text-[14px] text-left text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 										>
 											60
+										</Text>
+									</Column>
+								</Row>
+								<Row>
+									<Column align="left" className="w-1/4">
+										<Text
+											className={`text-[14px] text-left text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
+										>
+											Priority
+										</Text>
+									</Column>
+									<Column align="right" className="w-3/4">
+										<Text
+											className={`text-[14px] text-left text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
+										>
+											{" "}
 										</Text>
 									</Column>
 								</Row>
@@ -188,10 +202,10 @@ DnsVerificationEmail.PreviewProps = {
 			id: "1",
 			type: "TXT",
 			name: "staffoptima_verification",
-			verification_token: "staffoptima-site-verification=123456",
-			verification_status: "pending",
-			verification_date: null,
-			organization_id: "1",
+			verificationToken: "staffoptima-site-verification=123456",
+			verificationStatus: "pending",
+			verificationDate: null,
+			organizationId: "1",
 		},
 	],
 	organizationDomain: "staffoptima.co",

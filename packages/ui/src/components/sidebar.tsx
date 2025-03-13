@@ -6,7 +6,7 @@ import { PanelRightClose } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@optima/ui/components/button";
-import { Input } from "@optima/ui/components/input";
+import { Input } from "@optima/ui/components/inputs/input";
 import { Separator } from "@optima/ui/components/separator";
 import {
 	Sheet,

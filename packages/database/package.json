@@ -9,7 +9,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./schema": "./src/schema/index.ts",
-		"./types": "./src/typess",
+		"./types": "./src/types.ts",
 		"./mutations": "./src/mutations/index.ts",
 		"./queries": "./src/queries/index.ts",
 		"./validations": "./src/validations.ts"

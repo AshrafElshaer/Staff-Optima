@@ -16,7 +16,7 @@ import {
 	CommandItem,
 	CommandList,
 } from "@optima/ui/components/command";
-import { Input, type InputProps } from "@optima/ui/components/input";
+import { Input, type InputProps } from "@optima/ui/components/inputs/input";
 import {
 	Popover,
 	PopoverContent,

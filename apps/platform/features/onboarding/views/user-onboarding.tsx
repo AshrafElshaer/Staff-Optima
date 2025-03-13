@@ -14,7 +14,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
-import { Input } from "@optima/ui/components/input";
+import { Input } from "@optima/ui/components/inputs/input";
 import { AnimatePresence, motion } from "framer-motion";
 import type { CountryCode } from "libphonenumber-js";
 import { Loader } from "lucide-react";

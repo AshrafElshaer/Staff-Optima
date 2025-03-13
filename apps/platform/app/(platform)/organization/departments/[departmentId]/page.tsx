@@ -1,4 +1,3 @@
-
 interface DepartmentPageProps {
 	params: Promise<{
 		departmentId: string;

@@ -16,7 +16,7 @@ export const stripePlugin = stripe({
 		enabled: true,
 		plans: [
 			{
-				name: "Seat",
+				name: "User Seat",
 				freeTrial: {
 					days: 30,
 					async onTrialStart(subscription) {

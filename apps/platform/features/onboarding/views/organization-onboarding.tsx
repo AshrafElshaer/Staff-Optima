@@ -5,7 +5,7 @@ import { TextGenerateEffect } from "@/components/magic-ui/text-animate";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { organizationInsertSchema } from "@optima/database/validations";
 import { Button, buttonVariants } from "@optima/ui/components/button";
-import { Input } from "@optima/ui/components/input";
+import { Input } from "@optima/ui/components/inputs/input";
 import { UrlInput } from "@optima/ui/components/inputs/url-input";
 import {
 	Select,

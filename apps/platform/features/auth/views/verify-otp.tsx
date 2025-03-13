@@ -12,7 +12,7 @@ import {
 	InputOTPGroup,
 	InputOTPSeparator,
 	InputOTPSlot,
-} from "@optima/ui/components/input-otp";
+} from "@optima/ui/components/inputs/input-otp";
 import { cn } from "@optima/ui/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 

@@ -1,7 +1,7 @@
 import { Img } from "@react-email/components";
 import React from "react";
 
-const baseUrl = "https://dashboard.staffoptima.co";
+const baseUrl = "https://platform.staffoptima.co";
 
 export default function Logo() {
 	return (
