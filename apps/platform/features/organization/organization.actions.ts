@@ -17,7 +17,7 @@ import {
 	organizationUpdateSchema,
 } from "@optima/database/validations";
 import { DnsVerificationEmail } from "@optima/email";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 
 export const updateOrganizationAction = authActionClient
@@ -32,13 +32,10 @@ export const updateOrganizationAction = authActionClient
 	.action(async ({ ctx, parsedInput }) => {
 		const { user } = ctx;
 
-		const payload = {
-			...parsedInput,
-		};
-
-		const updated = await updateOrganization(payload);
+		const updated = await updateOrganization(parsedInput);
 
 		revalidatePath("/organization");
+		revalidateTag("organization");
 
 		return updated;
 	});
@@ -97,7 +94,7 @@ export const verifyDomainAction = authActionClient
 		});
 
 		revalidatePath("/organization");
-
+		revalidateTag("organization");
 		return updatedDomainVerification;
 	});
 

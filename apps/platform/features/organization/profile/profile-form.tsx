@@ -40,6 +40,7 @@ import { toast } from "sonner";
 import type { z } from "zod";
 // import { updateOrganizationAction } from "../organization.actions";
 import { DomainVerification } from "./domain-verification";
+import { updateOrganizationAction } from "../organization.actions";
 
 const DROP_ZONE_OPTIONS: DropzoneOptions = {
 	accept: {
@@ -62,61 +63,61 @@ export function OrganizationProfileForm({
 	const formSubmitRef = useRef<HTMLButtonElement | null>(null);
 
 	const router = useRouter();
-	// const {
-	// 	execute: updateOrganization,
-	// 	executeAsync: updateOrganizationAsync,
-	// 	status,
-	// 	result,
-	// 	reset: resetAction,
-	// } = useAction(updateOrganizationAction, {
-	// 	onError: () => {
-	// 		queryClient.invalidateQueries({
-	// 			queryKey: ["domain-verification"],
-	// 		});
-	// 		queryClient.invalidateQueries({
-	// 			queryKey: ["organization"],
-	// 		});
-	// 		setTimeout(() => {
-	// 			resetAction();
-	// 		}, 3000);
-	// 	},
-	// 	onSuccess: ({ data, input }) => {
-	// 		queryClient.invalidateQueries({
-	// 			queryKey: ["organization"],
-	// 		});
-	// 		queryClient.invalidateQueries({
-	// 			queryKey: ["domain-verification"],
-	// 		});
-	// 		if (input.domain) {
-	// 			toast.warning(
-	// 				"Domain verification is required. Please re-verify your domain.",
-	// 			);
-	// 		}
-	// 		setTimeout(() => {
-	// 			form.reset(
-	// 				data
-	// 					? {
-	// 							...data,
-	// 							profile: data.profile ?? undefined,
-	// 							logo_url: data.logo_url ?? null,
-	// 							admin_id: data.admin_id ?? undefined,
-	// 							address_1: data.address_1 ?? null,
-	// 							address_2: data.address_2 ?? null,
-	// 							city: data.city ?? null,
-	// 						}
-	// 					: undefined,
-	// 				{
-	// 					keepDirty: false,
-	// 				},
-	// 			);
-	// 			dismissToast();
-	// 			resetAction();
-	// 			if (input.domain) {
-	// 				router.refresh();
-	// 			}
-	// 		}, 3000);
-	// 	},
-	// });
+	const {
+		execute: updateOrganization,
+		executeAsync: updateOrganizationAsync,
+		status,
+		result,
+		reset: resetAction,
+	} = useAction(updateOrganizationAction, {
+		onError: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["domain-verification"],
+			});
+			queryClient.invalidateQueries({
+				queryKey: ["organization"],
+			});
+			setTimeout(() => {
+				resetAction();
+			}, 3000);
+		},
+		onSuccess: ({ data, input }) => {
+			queryClient.invalidateQueries({
+				queryKey: ["organization"],
+			});
+			queryClient.invalidateQueries({
+				queryKey: ["domain-verification"],
+			});
+			if (input.domain) {
+				toast.warning(
+					"Domain verification is required. Please re-verify your domain.",
+				);
+			}
+			setTimeout(() => {
+				// form.reset(
+				// 	data
+				// 		? {
+				// 				...data,
+				// 				profile: data.profile ?? undefined,
+				// 				logo_url: data.logo_url ?? null,
+				// 				admin_id: data.admin_id ?? undefined,
+				// 				address_1: data.address_1 ?? null,
+				// 				address_2: data.address_2 ?? null,
+				// 				city: data.city ?? null,
+				// 			}
+				// 		: undefined,
+				// 	{
+				// 		keepDirty: false,
+				// 	},
+				// );
+				// dismissToast();
+				resetAction();
+				if (input.domain) {
+					router.refresh();
+				}
+			}, 3000);
+		},
+	});
 
 	const form = useForm<z.infer<typeof organizationSchema>>({
 		resolver: zodResolver(organizationSchema),
@@ -162,11 +163,10 @@ export function OrganizationProfileForm({
 				form.setValue("logo", url, {
 					shouldDirty: false,
 				});
-				// return await updateOrganizationAsync({
-				// 	id: form.getValues("id"),
-				// 	logo_url: url,
-				// 	profile: form.getValues("profile"),
-				// });
+				return await updateOrganizationAsync({
+					id: organization?.id ?? "",
+					logo: url,
+				});
 			},
 			{
 				loading: "Uploading logo...",
