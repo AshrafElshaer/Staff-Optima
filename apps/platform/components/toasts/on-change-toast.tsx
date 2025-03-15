@@ -43,7 +43,7 @@ const saveStates = {
 	},
 	executing: {
 		icon: <Loader className="w-[15px] h-[15px] animate-spin text-white" />,
-		text: "Saving",
+		text: "Saving changes...",
 	},
 	hasSucceeded: {
 		icon: <CheckIcon />,

@@ -36,7 +36,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useBeforeUnload } from "react-use";
+
 import { toast } from "sonner";
 import type { z } from "zod";
 import { updateOrganizationAction } from "../organization.actions";
@@ -190,8 +190,6 @@ export function OrganizationProfileForm({
 		[status, form, result?.serverError],
 	);
 
-	// Add useBeforeUnload hook to warn user when leaving with unsaved changes
-	useBeforeUnload(form.formState.isDirty);
 
 	useActionToast({
 		show: form.formState.isDirty,
