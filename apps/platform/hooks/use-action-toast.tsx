@@ -56,6 +56,13 @@ export function useActionToast({
 				toastId.current = "";
 			}
 		}
+
+		return () => {
+			if (toastId.current) {
+				toast.dismiss(toastId.current);
+				toastId.current = "";
+			}
+		};
 	}, [show, ToastContent, toastConfig]);
 
 	return {
