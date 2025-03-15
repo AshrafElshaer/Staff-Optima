@@ -1,4 +1,5 @@
 import type { HookActionStatus } from "next-safe-action/hooks";
+import { usePathname } from "next/navigation";
 import type { ReactElement } from "react";
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
@@ -29,6 +30,15 @@ export function useActionToast({
 	toastConfig = DEFAULT_TOAST_CONFIG,
 }: UseActionBarProps) {
 	const toastId = useRef<string | number>("");
+	const pathname = usePathname();
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: only dismiss toast on path change
+	useEffect(() => {
+		if (toastId.current) {
+			toast.dismiss(toastId.current);
+			toastId.current = "";
+		}
+	}, [pathname]);
 
 	useEffect(() => {
 		if (show) {
@@ -56,13 +66,6 @@ export function useActionToast({
 				toastId.current = "";
 			}
 		}
-
-		// return () => {
-		// 	if (toastId.current) {
-		// 		toast.dismiss(toastId.current);
-		// 		toastId.current = "";
-		// 	}
-		// };
 	}, [show, ToastContent, toastConfig]);
 
 	return {
