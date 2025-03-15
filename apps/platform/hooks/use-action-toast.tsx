@@ -57,12 +57,12 @@ export function useActionToast({
 			}
 		}
 
-		return () => {
-			if (toastId.current) {
-				toast.dismiss(toastId.current);
-				toastId.current = "";
-			}
-		};
+		// return () => {
+		// 	if (toastId.current) {
+		// 		toast.dismiss(toastId.current);
+		// 		toastId.current = "";
+		// 	}
+		// };
 	}, [show, ToastContent, toastConfig]);
 
 	return {
