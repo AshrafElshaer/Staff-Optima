@@ -136,9 +136,9 @@ export function OnChangeToast({
 						<motion.div
 							layoutId="toast-buttons"
 							className="inline-flex items-center gap-2 pl-0 pr-px py-0"
-							initial={{ opacity: 0, width: 0 }}
+							initial={{ opacity: 0 }}
 							animate={{ opacity: 1, width: "auto" }}
-							exit={{ opacity: 0, width: 0 }}
+							exit={{ opacity: 0 }}
 							transition={{ duration: 0.25, ease: "easeInOut" }}
 						>
 							<Button

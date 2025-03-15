@@ -36,11 +36,11 @@ import { useRouter } from "next/navigation";
 import { useCallback, useRef } from "react";
 import { useForm } from "react-hook-form";
 
+import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import type { z } from "zod";
 import { updateOrganizationAction } from "../organization.actions";
 import { DomainVerification } from "./domain-verification";
-import { Plus } from "lucide-react";
 
 const DROP_ZONE_OPTIONS: DropzoneOptions = {
 	accept: {
