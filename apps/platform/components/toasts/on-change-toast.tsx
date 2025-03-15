@@ -99,15 +99,15 @@ export function OnChangeToast({
 					layoutId="toast-content"
 					className="inline-flex items-center justify-center gap-2 pl-1.5 pr-3 py-0"
 					layout
-					transition={{ duration: 0.4, ease: "easeInOut" }}
+					transition={{ duration: 0.25, ease: "easeInOut" }}
 				>
 					<AnimatePresence mode="wait">
 						<motion.div
 							key={state}
-							initial={{ opacity: 0, scale: 0.8 }}
-							animate={{ opacity: 1, scale: 1 }}
-							exit={{ opacity: 0, scale: 0.8 }}
-							transition={{ duration: 0.4 }}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{ duration: 0.25 }}
 						>
 							{currentState.icon}
 						</motion.div>
@@ -139,7 +139,7 @@ export function OnChangeToast({
 							initial={{ opacity: 0, width: 0 }}
 							animate={{ opacity: 1, width: "auto" }}
 							exit={{ opacity: 0, width: 0 }}
-							transition={{ duration: 0.4, ease: "easeInOut" }}
+							transition={{ duration: 0.25, ease: "easeInOut" }}
 						>
 							<Button
 								variant="ghost"

@@ -1,12 +1,8 @@
 "use client";
 import { DropZone, type DropzoneOptions } from "@/components/drop-zone";
-// import { OnEditToast } from "@optima/ui/components/toasts/on-edit-toast";
-// import { useActionBar } from "@optima/ui/hooks/use-action-bar";
-// import { useSupabase } from "@optima/ui/hooks/use-supabase";
+
 import { queryClient } from "@/lib/react-query";
-// import { uploadOrganizationLogo } from "@/lib/supabase/storage";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { AdvancedEditor } from "@optima/editors";
 import type { Organization } from "@optima/database/types";
 import { organizationSchema } from "@optima/database/validations";
 import {
@@ -38,12 +34,12 @@ import { Loader, Plus } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useBeforeUnload } from "react-use";
 import { toast } from "sonner";
 import type { z } from "zod";
 import { updateOrganizationAction } from "../organization.actions";
-// import { updateOrganizationAction } from "../organization.actions";
 import { DomainVerification } from "./domain-verification";
 
 const DROP_ZONE_OPTIONS: DropzoneOptions = {
@@ -69,7 +65,7 @@ export function OrganizationProfileForm({
 	const router = useRouter();
 	const {
 		execute: updateOrganization,
-		// executeAsync: updateOrganizationAsync,
+		executeAsync: updateOrganizationAsync,
 		status,
 		result,
 		reset: resetAction,
@@ -167,10 +163,10 @@ export function OrganizationProfileForm({
 				form.setValue("logo", url, {
 					shouldDirty: false,
 				});
-				// return await updateOrganizationAsync({
-				// 	id: organization?.id ?? "",
-				// 	logo: url,
-				// });
+				return await updateOrganizationAsync({
+					id: organization?.id ?? "",
+					logo: url,
+				});
 			},
 			{
 				loading: "Uploading logo...",
@@ -193,6 +189,9 @@ export function OrganizationProfileForm({
 		},
 		[status, form, result?.serverError],
 	);
+
+	// Add useBeforeUnload hook to warn user when leaving with unsaved changes
+	useBeforeUnload(form.formState.isDirty);
 
 	useActionToast({
 		show: form.formState.isDirty,
