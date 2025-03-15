@@ -12,6 +12,8 @@ import {
 import {
 	CreditCardIcon,
 	DashboardSquare03Icon,
+	FingerPrintIcon,
+	FingerprintScanIcon,
 	MailAdd02Icon,
 	Profile02Icon,
 	SlidersHorizontalIcon,
@@ -33,6 +35,11 @@ const general = [
 		title: "Departments",
 		url: "/organization/departments",
 		icon: <DashboardSquare03Icon strokeWidth={2} size={20} />,
+	},
+	{
+		title: "Roles & Permissions",	
+		url: "/organization/access-control",
+		icon: <FingerPrintIcon strokeWidth={2} size={20} />,
 	},
 	{
 		title: "Team",

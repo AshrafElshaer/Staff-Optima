@@ -57,6 +57,7 @@ export function OrganizationBreadcrumb() {
 			"email-templates": "Email Templates",
 			create: "New Template",
 			departments: "Departments",
+			"access-control": "Roles & Permissions",
 		};
 		return labels[segment] || segment;
 	};

@@ -7,9 +7,7 @@ const publicRoutes = ["/auth", "/api/auth/**"];
 
 export async function middleware(request: NextRequest) {
 	const pathname = request.nextUrl.pathname;
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
+	const session = getSessionCookie(request);
 
 	const next = NextResponse.next();
 	next.headers.set("x-pathname", pathname);
@@ -21,12 +19,11 @@ export async function middleware(request: NextRequest) {
 			new URL(`/auth?redirectUrl=${pathname}`, request.url),
 		);
 	}
-	next.headers.set("x-user-id", session.user.id);
+	// next.headers.set("x-user-id", session.user.id);
 	return next;
 }
 
 export const config = {
-	runtime: "nodejs",
 	matcher: [
 		// Skip Next.js internals and all static files, unless found in search params
 		"/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
