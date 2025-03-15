@@ -1,9 +1,14 @@
 "use server";
+import crypto from "node:crypto";
 import { eq } from "drizzle-orm";
 import { revalidateTag } from "next/cache";
 import type { z } from "zod";
 import { db } from "../database";
-import { MembersTable, OrganizationTable } from "../schema";
+import {
+	DomainVerificationTable,
+	MembersTable,
+	OrganizationTable,
+} from "../schema";
 import type {
 	memberInsertSchema,
 	memberUpdateSchema,
@@ -29,6 +34,20 @@ export async function createOrganization(data: OrganizationInsert) {
 
 export async function updateOrganization(data: OrganizationUpdate) {
 	const { id, createdAt, ...updateData } = data;
+	if (updateData.domain) {
+		const verificationToken = crypto.randomBytes(16).toString("hex");
+		await db
+			.update(DomainVerificationTable)
+			.set({
+				domain: updateData.domain,
+				verificationToken: verificationToken,
+				verificationStatus: "pending",
+				verificationDate: null,
+			})
+			.where(eq(DomainVerificationTable.organizationId, id));
+
+		updateData.isDomainVerified = false;
+	}
 	const [organization] = await db
 		.update(OrganizationTable)
 		.set(updateData)
@@ -54,11 +73,13 @@ export async function createOrganizationMember(data: OrganizationMemberInsert) {
 
 export async function updateOrganizationMember(data: OrganizationMemberUpdate) {
 	const { id, createdAt, ...updateData } = data;
+
 	const [member] = await db
 		.update(MembersTable)
 		.set(updateData)
 		.where(eq(MembersTable.id, id))
 		.returning();
+
 	return member;
 }
 

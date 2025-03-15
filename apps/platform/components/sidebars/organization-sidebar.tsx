@@ -81,7 +81,7 @@ export function OrganizationSidebar({
 			title: "Public Profile",
 			url: "/organization",
 			icon: <Profile02Icon strokeWidth={2} size={20} />,
-			isError: !organization?.isDomainVerified,
+			isError: organization ? !organization.isDomainVerified : false,
 		},
 		...general,
 	];

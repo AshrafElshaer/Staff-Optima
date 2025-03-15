@@ -29,9 +29,7 @@ export const updateOrganizationAction = authActionClient
 		},
 	})
 	.schema(organizationUpdateSchema)
-	.action(async ({ ctx, parsedInput }) => {
-		const { user } = ctx;
-
+	.action(async ({ parsedInput }) => {
 		const updated = await updateOrganization(parsedInput);
 
 		revalidatePath("/organization");

@@ -25,22 +25,26 @@ import {
 } from "@optima/ui/components/form";
 import { Input, UrlInput } from "@optima/ui/components/inputs";
 import { Label } from "@optima/ui/components/label";
+import { AlertDiamondIcon } from "hugeicons-react";
 
+import { OnChangeToast } from "@/components/toasts/on-change-toast";
+import { useActionToast } from "@/hooks/use-action-toast";
 import { createSupabaseClient } from "@/lib/supabase/client";
 import { uploadOrganizationLogo } from "@/lib/supabase/storage";
 import { CountrySelector } from "@optima/ui/components/selectors/country-selector";
 import { Separator } from "@optima/ui/components/separator";
-import { Plus } from "lucide-react";
+import { cn } from "@optima/ui/lib/utils";
+import { Loader, Plus } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
+import { updateOrganizationAction } from "../organization.actions";
 // import { updateOrganizationAction } from "../organization.actions";
 import { DomainVerification } from "./domain-verification";
-import { updateOrganizationAction } from "../organization.actions";
 
 const DROP_ZONE_OPTIONS: DropzoneOptions = {
 	accept: {
@@ -65,10 +69,11 @@ export function OrganizationProfileForm({
 	const router = useRouter();
 	const {
 		execute: updateOrganization,
-		executeAsync: updateOrganizationAsync,
+		// executeAsync: updateOrganizationAsync,
 		status,
 		result,
 		reset: resetAction,
+		isExecuting,
 	} = useAction(updateOrganizationAction, {
 		onError: () => {
 			queryClient.invalidateQueries({
@@ -94,22 +99,22 @@ export function OrganizationProfileForm({
 				);
 			}
 			setTimeout(() => {
-				// form.reset(
-				// 	data
-				// 		? {
-				// 				...data,
-				// 				profile: data.profile ?? undefined,
-				// 				logo_url: data.logo_url ?? null,
-				// 				admin_id: data.admin_id ?? undefined,
-				// 				address_1: data.address_1 ?? null,
-				// 				address_2: data.address_2 ?? null,
-				// 				city: data.city ?? null,
-				// 			}
-				// 		: undefined,
-				// 	{
-				// 		keepDirty: false,
-				// 	},
-				// );
+				form.reset(
+					data
+						? {
+								...data,
+								profile: data.profile ?? undefined,
+								logo: data.logo ?? null,
+								adminId: data.adminId ?? undefined,
+								address1: data.address1 ?? null,
+								address2: data.address2 ?? null,
+								city: data.city ?? null,
+							}
+						: undefined,
+					{
+						keepDirty: false,
+					},
+				);
 				// dismissToast();
 				resetAction();
 				if (input.domain) {
@@ -144,11 +149,10 @@ export function OrganizationProfileForm({
 		);
 		const payload = {
 			id: values.id,
-			profile: values.profile,
 			...Object.assign({}, ...touchedFields),
 		};
 
-		// updateOrganization(payload);
+		updateOrganization(payload);
 	}
 
 	async function uploadLogo(file: File) {
@@ -163,10 +167,10 @@ export function OrganizationProfileForm({
 				form.setValue("logo", url, {
 					shouldDirty: false,
 				});
-				return await updateOrganizationAsync({
-					id: organization?.id ?? "",
-					logo: url,
-				});
+				// return await updateOrganizationAsync({
+				// 	id: organization?.id ?? "",
+				// 	logo: url,
+				// });
 			},
 			{
 				loading: "Uploading logo...",
@@ -176,17 +180,24 @@ export function OrganizationProfileForm({
 		);
 	}
 
-	// const { dismissToast } = useActionBar({
-	// 	show: form.formState.isDirty,
-	// 	ToastContent: () => (
-	// 		<OnEditToast
-	// 			onAction={() => formSubmitRef.current?.click()}
-	// 			onReset={() => form.reset()}
-	// 			status={status}
-	// 			error={result?.serverError}
-	// 		/>
-	// 	),
-	// });
+	const ToastContent = useCallback(
+		({ toastId }: { toastId: string | number }) => {
+			return (
+				<OnChangeToast
+					state={status}
+					onReset={() => form.reset()}
+					onSave={() => formSubmitRef.current?.click()}
+					errorMessage={result?.serverError}
+				/>
+			);
+		},
+		[status, form, result?.serverError],
+	);
+
+	useActionToast({
+		show: form.formState.isDirty,
+		ToastContent,
+	});
 
 	return (
 		<Form {...form}>
@@ -290,7 +301,7 @@ export function OrganizationProfileForm({
 							organization's headquarter address
 						</p>
 					</div>
-					<div className="grid gap-4 md:grid-cols-2">
+					<div className="grid gap-8 md:grid-cols-2">
 						<FormField
 							control={form.control}
 							name="address1"

@@ -12,7 +12,7 @@ const buttonVariants = cva(
 				default:
 					"bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
 				destructive:
-					"bg-destructive/80 border border-destructive text-destructive-foreground hover:bg-destructive ",
+					"bg-destructive/85 border border-destructive text-destructive-foreground hover:bg-destructive ",
 				outline:
 					"border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
 				secondary:
@@ -22,7 +22,7 @@ const buttonVariants = cva(
 				warning:
 					" bg-warning/85 text-warning-foreground border border-warning hover:bg-warning ",
 				success:
-					" bg-success/80 hover:bg-success/90 border border-success text-success-foreground ",
+					" bg-success/85 hover:bg-success/90 border border-success text-success-foreground ",
 			},
 			size: {
 				default: "h-9 px-4 py-2 has-[>svg]:px-3",

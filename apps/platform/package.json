@@ -14,14 +14,15 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@better-auth/stripe": "^1.2.3",
+		"@better-auth/stripe": "^1.2.4",
 		"@optima/database": "workspace:*",
 		"@optima/ui": "workspace:*",
 		"@supabase/supabase-js": "^2.49.1",
 		"@t3-oss/env-nextjs": "^0.12.0",
-		"@tanstack/react-query": "^5.67.2",
+		"@tanstack/react-query": "^5.68.0",
+		"@tanstack/react-query-devtools": "^5.68.0",
 		"@upstash/redis": "^1.34.5",
-		"better-auth": "^1.2.3",
+		"better-auth": "^1.2.4",
 		"canvas-confetti": "^1.9.3",
 		"dub": "^0.59.0",
 		"hugeicons-react": "^0.3.0",
