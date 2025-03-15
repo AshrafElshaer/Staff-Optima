@@ -3,6 +3,7 @@ const nextConfig = {
 	transpilePackages: ["@optima/ui"],
 	experimental: {
 		useCache: true,
+		nodeMiddleware: true,
 	},
 };
 
