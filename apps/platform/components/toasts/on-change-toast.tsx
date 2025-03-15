@@ -96,7 +96,7 @@ export function OnChangeToast({
 					layoutId="toast-content"
 					className="inline-flex items-center justify-center gap-2 pl-1.5 pr-3 py-0"
 					layout="preserve-aspect"
-					transition={{ duration: 0.25, ease: "easeInOut" }}
+					transition={{ duration: 0.4, ease: "easeInOut" }}
 					style={{ originX: 0.5 }}
 				>
 					<AnimatePresence mode="wait">
@@ -105,7 +105,7 @@ export function OnChangeToast({
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
 							exit={{ opacity: 0, scale: 0.8 }}
-							transition={{ duration: 0.25 }}
+							transition={{ duration: 0.4 }}
 						>
 							{currentState.icon}
 						</motion.div>
@@ -114,7 +114,7 @@ export function OnChangeToast({
 						<motion.span
 							key={state}
 							className={cn(
-								"text-[13px] leading-5 font-normal whitespace-nowrap",
+								" leading-5 font-normal whitespace-nowrap",
 								state === "hasErrored" ? "text-destructive" : "text-white",
 							)}
 							initial={{ opacity: 0 }}
@@ -137,7 +137,7 @@ export function OnChangeToast({
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
 							exit={{ opacity: 0, scale: 0.8 }}
-							transition={{ duration: 0.25, ease: "easeInOut" }}
+							transition={{ duration: 0.4, ease: "easeInOut" }}
 							style={{ originX: 0.5 }}
 						>
 							<Button
