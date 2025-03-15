@@ -38,7 +38,7 @@ interface ToastProps {
 
 const saveStates = {
 	idle: {
-		icon: <Info className="w-[18px] h-[18px] text-white" />,
+		icon: <Info className="w-[18px] h-[18px] text-warning" />,
 		text: "Unsaved changes",
 	},
 	executing: {
@@ -50,7 +50,7 @@ const saveStates = {
 		text: "Changes Saved",
 	},
 	hasErrored: {
-		icon: <AlertCircle className="w-[18px] h-[18px] text-red-500" />,
+		icon: <AlertCircle className="w-[18px] h-[18px] text-destructive" />,
 		text: "Error saving changes",
 	},
 };
@@ -90,14 +90,16 @@ export function OnChangeToast({
 	};
 
 	return (
-		<div className="inline-flex h-10 items-center justify-center gap-4 px-1 py-0 bg-[#131316] rounded-full overflow-hidden shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33]">
+		<motion.div
+			layout
+			className="inline-flex h-10 items-center justify-center gap-4 px-1 py-0 bg-[#131316] rounded-full overflow-hidden shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33]"
+		>
 			<div className="flex items-center justify-center p-0">
 				<motion.div
 					layoutId="toast-content"
 					className="inline-flex items-center justify-center gap-2 pl-1.5 pr-3 py-0"
-					layout="preserve-aspect"
+					layout
 					transition={{ duration: 0.4, ease: "easeInOut" }}
-					style={{ originX: 0.5 }}
 				>
 					<AnimatePresence mode="wait">
 						<motion.div
@@ -114,7 +116,7 @@ export function OnChangeToast({
 						<motion.span
 							key={state}
 							className={cn(
-								" leading-5 font-normal whitespace-nowrap",
+								" leading-5 font-normal whitespace-nowrap text-sm",
 								state === "hasErrored" ? "text-destructive" : "text-white",
 							)}
 							initial={{ opacity: 0 }}
@@ -134,11 +136,10 @@ export function OnChangeToast({
 						<motion.div
 							layoutId="toast-buttons"
 							className="inline-flex items-center gap-2 pl-0 pr-px py-0"
-							initial={{ opacity: 0, scale: 0.8 }}
-							animate={{ opacity: 1, scale: 1 }}
-							exit={{ opacity: 0, scale: 0.8 }}
+							initial={{ opacity: 0, width: 0 }}
+							animate={{ opacity: 1, width: "auto" }}
+							exit={{ opacity: 0, width: 0 }}
 							transition={{ duration: 0.4, ease: "easeInOut" }}
-							style={{ originX: 0.5 }}
 						>
 							<Button
 								variant="ghost"
@@ -159,6 +160,6 @@ export function OnChangeToast({
 					)}
 				</AnimatePresence>
 			</div>
-		</div>
+		</motion.div>
 	);
 }
