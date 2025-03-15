@@ -33,12 +33,19 @@ export function useActionToast({
 	const pathname = usePathname();
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		const currentToastId = toastId.current;
-		if (currentToastId) {
-			toast.dismiss(currentToastId);
-			toastId.current = "";
-		}
+		const handleRouteChange = () => {
+			const currentToastId = toastId.current;
+			if (currentToastId) {
+				toast.dismiss(currentToastId);
+				toastId.current = "";
+			}
+		};
+
+		window.addEventListener("popstate", handleRouteChange);
+
 		return () => {
+			window.removeEventListener("popstate", handleRouteChange);
+			const currentToastId = toastId.current;
 			if (currentToastId) {
 				toast.dismiss(currentToastId);
 			}

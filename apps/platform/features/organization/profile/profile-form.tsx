@@ -29,8 +29,7 @@ import { createSupabaseClient } from "@/lib/supabase/client";
 import { uploadOrganizationLogo } from "@/lib/supabase/storage";
 import { CountrySelector } from "@optima/ui/components/selectors/country-selector";
 import { Separator } from "@optima/ui/components/separator";
-import { cn } from "@optima/ui/lib/utils";
-import { Loader, Plus } from "lucide-react";
+
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -41,6 +40,7 @@ import { toast } from "sonner";
 import type { z } from "zod";
 import { updateOrganizationAction } from "../organization.actions";
 import { DomainVerification } from "./domain-verification";
+import { Plus } from "lucide-react";
 
 const DROP_ZONE_OPTIONS: DropzoneOptions = {
 	accept: {
@@ -63,6 +63,7 @@ export function OrganizationProfileForm({
 	const formSubmitRef = useRef<HTMLButtonElement | null>(null);
 
 	const router = useRouter();
+
 	const {
 		execute: updateOrganization,
 		executeAsync: updateOrganizationAsync,
@@ -111,7 +112,6 @@ export function OrganizationProfileForm({
 						keepDirty: false,
 					},
 				);
-				// dismissToast();
 				resetAction();
 				if (input.domain) {
 					router.refresh();
@@ -189,7 +189,6 @@ export function OrganizationProfileForm({
 		},
 		[status, form, result?.serverError],
 	);
-
 
 	useActionToast({
 		show: form.formState.isDirty,
