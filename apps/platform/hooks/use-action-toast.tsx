@@ -31,13 +31,18 @@ export function useActionToast({
 }: UseActionBarProps) {
 	const toastId = useRef<string | number>("");
 	const pathname = usePathname();
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: only dismiss toast on path change
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		if (toastId.current) {
-			toast.dismiss(toastId.current);
+		const currentToastId = toastId.current;
+		if (currentToastId) {
+			toast.dismiss(currentToastId);
 			toastId.current = "";
 		}
+		return () => {
+			if (currentToastId) {
+				toast.dismiss(currentToastId);
+			}
+		};
 	}, [pathname]);
 
 	useEffect(() => {
