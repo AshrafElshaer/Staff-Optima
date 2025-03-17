@@ -5,8 +5,8 @@ import { Command as CommandPrimitive } from "cmdk";
 import * as React from "react";
 
 import { Dialog, DialogContent } from "@optima/ui/components/dialog";
-import Magic from "./icons/magic";
 import { cn } from "@optima/ui/lib/utils";
+import Magic from "./icons/magic";
 
 const Command = React.forwardRef<
 	React.ElementRef<typeof CommandPrimitive>,

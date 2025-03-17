@@ -17,7 +17,7 @@ import {
 // @ts-ignore
 import { Command, createSuggestionItems, renderItems } from "novel";
 // @ts-ignore
-import { authClient } from "../../../apps/platform/lib/auth/auth-client";
+// import { authClient } from "@optima/platform/auth-client";
 import { uploadFn } from "./image-upload";
 
 export const suggestionItems = createSuggestionItems([
@@ -157,31 +157,31 @@ export const suggestionItems = createSuggestionItems([
 			input.click();
 		},
 	},
-	{
-		title: "Logo",
-		description: "Inset company Logo",
-		searchTerms: ["logo", "image"],
-		icon: <ImageIcon size={18} />,
-		command: async ({ editor, range }) => {
-			const { data: session } = await authClient.getSession();
+	// {
+	// 	title: "Logo",
+	// 	description: "Inset company Logo",
+	// 	searchTerms: ["logo", "image"],
+	// 	icon: <ImageIcon size={18} />,
+	// 	command: async ({ editor, range }) => {
+	// 		const { data: session } = await authClient.getSession();
 
-			if (!session || !session.user) return;
-			const organization = await getUserOrganization(session.user.id);
-			if (!organization) return;
-			const logo = organization.logo;
-			if (!logo) return;
-			editor
-				.chain()
-				.focus()
-				.deleteRange(range)
-				.setImage({
-					src: logo,
-					alt: "Organization Logo",
-					title: organization?.name,
-				})
-				.run();
-		},
-	},
+	// 		if (!session || !session.user) return;
+	// 		const organization = await getUserOrganization(session.user.id);
+	// 		if (!organization) return;
+	// 		const logo = organization.logo;
+	// 		if (!logo) return;
+	// 		editor
+	// 			.chain()
+	// 			.focus()
+	// 			.deleteRange(range)
+	// 			.setImage({
+	// 				src: logo,
+	// 				alt: "Organization Logo",
+	// 				title: organization?.name,
+	// 			})
+	// 			.run();
+	// 	},
+	// },
 	{
 		title: "Youtube",
 		description: "Embed a Youtube video.",

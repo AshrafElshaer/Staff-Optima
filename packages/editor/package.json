@@ -1,5 +1,11 @@
 {
 	"name": "@optima/editor",
+	"scripts": {
+		"clean": "rm -rf .turbo node_modules",
+		"lint": "biome check .",
+		"format": "biome --write .",
+		"typecheck": "tsc --noEmit"
+	},
 	"devDependencies": {
 		"@types/bun": "latest"
 	},

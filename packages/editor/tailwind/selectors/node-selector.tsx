@@ -16,8 +16,8 @@ import { EditorBubbleItem, useEditor } from "novel";
 
 import { Button } from "@optima/ui/components/button";
 import { PopoverContent, PopoverTrigger } from "@optima/ui/components/popover";
-import { Popover } from "@radix-ui/react-popover";
 import { Separator } from "@optima/ui/components/separator";
+import { Popover } from "@radix-ui/react-popover";
 
 export type SelectorItem = {
 	name: string;
