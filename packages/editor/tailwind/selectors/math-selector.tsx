@@ -13,6 +13,7 @@ export const MathSelector = () => {
 		<Button
 			variant="ghost"
 			size="sm"
+			type="button"
 			className="rounded-none w-12"
 			onClick={(evt) => {
 				if (editor.isActive("math")) {

@@ -24,15 +24,15 @@ import { toast } from "sonner";
 import { uploadFn } from "./image-upload";
 
 export const suggestionItems = createSuggestionItems([
-	{
-		title: "Send Feedback",
-		description: "Let us know how we can improve.",
-		icon: <MessageSquarePlus size={18} />,
-		command: ({ editor, range }) => {
-			editor.chain().focus().deleteRange(range).run();
-			window.open("/feedback", "_blank");
-		},
-	},
+	// {
+	// 	title: "Send Feedback",
+	// 	description: "Let us know how we can improve.",
+	// 	icon: <MessageSquarePlus size={18} />,
+	// 	command: ({ editor, range }) => {
+	// 		editor.chain().focus().deleteRange(range).run();
+	// 		window.open("/feedback", "_blank");
+	// 	},
+	// },
 	{
 		title: "Text",
 		description: "Just start typing with plain text.",
@@ -244,7 +244,7 @@ export const suggestionItems = createSuggestionItems([
 
 export const getSuggestionItems = (organizationId: string) => {
 	const items = [...suggestionItems];
-	items.push({
+	items.splice(10, 0, {
 		title: "Logo",
 		description: "Insert company Logo",
 		searchTerms: ["logo", "image"],

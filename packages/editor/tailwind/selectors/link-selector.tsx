@@ -2,10 +2,10 @@ import { Button } from "@optima/ui/components/button";
 import { PopoverContent } from "@optima/ui/components/popover";
 import { cn } from "@optima/ui/lib/utils";
 import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
-import { Check, Trash } from "lucide-react";
+import { Check, Link, Trash } from "lucide-react";
 // @ts-ignore
 import { useEditor } from "novel";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function isValidUrl(url: string) {
 	try {
@@ -40,19 +40,20 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
 	});
 	if (!editor) return null;
 
+	const isActive = editor.isActive("link");
+
 	return (
 		<Popover modal={true} open={open} onOpenChange={onOpenChange}>
 			<PopoverTrigger asChild>
 				<Button
 					size="sm"
-					variant="ghost"
+					variant={isActive ? "secondary" : "ghost"}
 					className="gap-2 rounded-none border-none"
+					type="button"
 				>
-					<p className="text-base">↗</p>
+					<Link className="size-3" />
 					<p
-						className={cn("underline decoration-stone-400 underline-offset-4", {
-							"text-blue-500": editor.isActive("link"),
-						})}
+						className={cn("underline decoration-stone-400 underline-offset-4")}
 					>
 						Link
 					</p>
@@ -82,9 +83,9 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
 					{editor.getAttributes("link").href ? (
 						<Button
 							size="icon"
-							variant="outline"
+							variant="destructive"
 							type="button"
-							className="flex h-8 items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100 dark:hover:bg-red-800"
+							className="flex h-8 items-center rounded-sm p-1 transition-all"
 							onClick={() => {
 								editor.chain().focus().unsetLink().run();
 								if (inputRef.current) {
@@ -96,7 +97,20 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
 							<Trash className="h-4 w-4" />
 						</Button>
 					) : (
-						<Button size="icon" className="h-8">
+						<Button
+							size="icon"
+							className="h-8"
+							type="button"
+							onClick={() => {
+								const value = inputRef.current?.value;
+								if (!value) return;
+								const url = getUrlFromString(value);
+								if (url) {
+									editor.chain().focus().setLink({ href: url }).run();
+									onOpenChange(false);
+								}
+							}}
+						>
 							<Check className="h-4 w-4" />
 						</Button>
 					)}

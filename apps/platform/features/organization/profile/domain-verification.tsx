@@ -85,6 +85,7 @@ export function DomainVerification({
 	return (
 		<Card
 			className={cn(
+				"bg-sidebar",
 				status === "pending" && "border-warning",
 				status === "failed" && "border-destructive",
 			)}

@@ -237,6 +237,10 @@
 	@apply absolute bottom-0 left-0 top-0 h-full w-1 rounded-sm bg-accent-foreground content-[''];
 }
 
+.tiptap a {
+	@apply text-primary underline underline-offset-[3px] cursor-pointer;
+}
+
 pre {
 	background: #0d0d0d;
 	border-radius: 0.5rem;
