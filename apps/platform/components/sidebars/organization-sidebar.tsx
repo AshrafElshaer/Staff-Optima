@@ -37,7 +37,7 @@ const general = [
 		icon: <DashboardSquare03Icon strokeWidth={2} size={20} />,
 	},
 	{
-		title: "Roles & Permissions",	
+		title: "Roles & Permissions",
 		url: "/organization/access-control",
 		icon: <FingerPrintIcon strokeWidth={2} size={20} />,
 	},

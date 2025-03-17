@@ -5,6 +5,7 @@ import { queryClient } from "@/lib/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Organization } from "@optima/database/types";
 import { organizationSchema } from "@optima/database/validations";
+import Editor from "@optima/editor";
 import {
 	Avatar,
 	AvatarFallback,
@@ -33,7 +34,7 @@ import { Separator } from "@optima/ui/components/separator";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Plus } from "lucide-react";
@@ -60,6 +61,7 @@ export function OrganizationProfileForm({
 }: {
 	organization: Organization | null;
 }) {
+	const [resetKey, setResetKey] = useState(0);
 	const formSubmitRef = useRef<HTMLButtonElement | null>(null);
 
 	const router = useRouter();
@@ -112,6 +114,7 @@ export function OrganizationProfileForm({
 						keepDirty: false,
 					},
 				);
+				setResetKey((prev) => prev + 1);
 				resetAction();
 				if (input.domain) {
 					router.refresh();
@@ -176,18 +179,25 @@ export function OrganizationProfileForm({
 		);
 	}
 
+	const handleReset = () => {
+		form.reset();
+		setResetKey((prev) => prev + 1);
+	};
+
 	const ToastContent = useCallback(
 		({ toastId }: { toastId: string | number }) => {
 			return (
 				<OnChangeToast
 					state={status}
-					onReset={() => form.reset()}
-					onSave={() => formSubmitRef.current?.click()}
+					onReset={handleReset}
+					onSave={() => {
+						formSubmitRef.current?.click();
+					}}
 					errorMessage={result?.serverError}
 				/>
 			);
 		},
-		[status, form, result?.serverError],
+		[status, result?.serverError],
 	);
 
 	useActionToast({
@@ -457,7 +467,16 @@ export function OrganizationProfileForm({
 							<FormItem>
 								<FormControl>
 									<div className="w-full border rounded-md min-h-96 p-4 grid">
-										editor
+										<Editor
+											content={field.value ?? ""}
+											onChange={(content) => {
+												form.setValue("profile", content, {
+													shouldDirty: true,
+													shouldTouch: true,
+												});
+											}}
+											key={resetKey}
+										/>
 									</div>
 								</FormControl>
 								<FormMessage />

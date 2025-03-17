@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "@optima/ui/globals.css";
+import "@optima/ui/prosemirror.css";
 import { Providers } from "@/components/providers";
 import type { Metadata } from "next";
 

@@ -12,7 +12,8 @@
 		"./types": "./src/types.ts",
 		"./mutations": "./src/mutations/index.ts",
 		"./queries": "./src/queries/index.ts",
-		"./validations": "./src/validations.ts"
+		"./validations": "./src/validations.ts",
+		"./supabase": "./src/supabase.ts"
 	},
 	"scripts": {
 		"db:migrate": "tsx scripts/migrate.ts",

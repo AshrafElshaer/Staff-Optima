@@ -98,7 +98,6 @@ function UserForm({ countryCode }: { countryCode: string }) {
 		await updateUser(data);
 	}
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <Only when the session is updated>
 	useEffect(() => {
 		form.setValue("email", session?.user.email ?? "");
 		form.setValue("name", session?.user.name ?? "");

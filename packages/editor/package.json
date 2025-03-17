@@ -1,0 +1,19 @@
+{
+	"name": "@optima/editor",
+	"module": "index.ts",
+	"type": "module",
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@tiptap/extension-text-align": "^2.11.5",
+		"cmdk": "^1.1.1",
+		"novel": "^1.0.2",
+		"re-resizable": "^6.11.2",
+		"tiptap-markdown": "^0.8.10",
+		"use-debounce": "^10.0.4"
+	}
+}

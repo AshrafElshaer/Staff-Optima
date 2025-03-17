@@ -15,6 +15,13 @@
 			"when": 1741542858764,
 			"tag": "0001_past_ghost_rider",
 			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "5",
+			"when": 1742160343246,
+			"tag": "0002_lyrical_lord_hawal",
+			"breakpoints": true
 		}
 	]
 }

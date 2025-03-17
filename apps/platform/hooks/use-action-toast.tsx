@@ -31,7 +31,7 @@ export function useActionToast({
 }: UseActionBarProps) {
 	const toastId = useRef<string | number>("");
 	const pathname = usePathname();
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+
 	useEffect(() => {
 		const handleRouteChange = () => {
 			const currentToastId = toastId.current;

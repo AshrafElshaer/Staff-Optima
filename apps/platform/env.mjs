@@ -24,6 +24,8 @@ export const env = createEnv({
 		NEXT_PUBLIC_OPENPANEL_CLIENT_ID: z.string(),
 		NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
 		NEXT_PUBLIC_SUPABASE_URL: z.string(),
+		NEXT_PUBLIC_OPENAI_API_KEY: z.string(),
+		NEXT_PUBLIC_GOOGLE_GENERATIVE_AI_API_KEY: z.string(),
 	},
 	runtimeEnv: {
 		NEXT_PUBLIC_OPENPANEL_CLIENT_ID:
@@ -41,6 +43,9 @@ export const env = createEnv({
 		BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
 		NEXT_PUBLIC_BETTER_AUTH_URL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
 		DATABASE_URL: process.env.DATABASE_URL,
+		NEXT_PUBLIC_OPENAI_API_KEY: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+		NEXT_PUBLIC_GOOGLE_GENERATIVE_AI_API_KEY:
+			process.env.NEXT_PUBLIC_GOOGLE_GENERATIVE_AI_API_KEY,
 	},
 	skipValidation: !!process.env.CI || !!process.env.SKIP_ENV_VALIDATION,
 });
