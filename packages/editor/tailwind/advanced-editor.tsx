@@ -75,6 +75,7 @@ const TailwindAdvancedEditor = ({
 				<EditorContent
 					immediatelyRender={false}
 					initialContent={initialContent ?? undefined}
+					
 					extensions={extensions}
 					className="relative h-full w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
 					editorProps={{
