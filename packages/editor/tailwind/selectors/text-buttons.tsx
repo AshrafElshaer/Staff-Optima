@@ -10,6 +10,7 @@ import {
 	StrikethroughIcon,
 	UnderlineIcon,
 } from "lucide-react";
+// @ts-ignore
 import { EditorBubbleItem, useEditor } from "novel";
 import type { SelectorItem } from "./node-selector.js";
 

@@ -2,6 +2,7 @@ import {
 	type SupabaseInstance,
 	createSupabaseClient,
 } from "@optima/database/supabase";
+// @ts-ignore
 import { createImageUpload } from "novel";
 import { toast } from "sonner";
 

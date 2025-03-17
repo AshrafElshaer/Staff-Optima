@@ -1,3 +1,4 @@
+import { getUserOrganization } from "@optima/database/queries";
 import {
 	CheckSquare,
 	Code,
@@ -13,10 +14,11 @@ import {
 	Twitter,
 	Youtube,
 } from "lucide-react";
+// @ts-ignore
 import { Command, createSuggestionItems, renderItems } from "novel";
+// @ts-ignore
+import { authClient } from "../../../apps/platform/lib/auth/auth-client";
 import { uploadFn } from "./image-upload.js";
-import { authClient } from "../../../apps/platform/lib/auth/auth-client.js";
-import { getUserOrganization } from "@optima/database/queries";
 
 export const suggestionItems = createSuggestionItems([
 	{

@@ -1,10 +1,9 @@
 import { cn } from "@optima/ui/lib/utils";
+// @ts-ignore
 import { type NodeViewProps, NodeViewWrapper } from "@tiptap/react";
-import { AlignCenterIcon, AlignLeftIcon, AlignRightIcon } from "lucide-react";
 
-import type { Node as ProsemirrorNode } from "prosemirror-model";
 import { Resizable, type ResizeDirection } from "re-resizable";
-// import type { Direction } from "re-resizable/lib/resizer";
+
 import React, { useState } from "react";
 
 export default function ResizableImageWrapper(props: NodeViewProps) {

@@ -1,4 +1,5 @@
 import { Check, ChevronDown } from "lucide-react";
+// @ts-ignore
 import { EditorBubbleItem, useEditor } from "novel";
 
 import { Button } from "@optima/ui/components/button";

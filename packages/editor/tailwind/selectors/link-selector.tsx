@@ -3,6 +3,7 @@ import { PopoverContent } from "@optima/ui/components/popover";
 import { cn } from "@optima/ui/lib/utils";
 import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
 import { Check, Trash } from "lucide-react";
+// @ts-ignore
 import { useEditor } from "novel";
 import { useEffect, useRef } from "react";
 

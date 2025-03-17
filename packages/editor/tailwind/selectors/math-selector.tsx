@@ -1,6 +1,7 @@
 import { Button } from "@optima/ui/components/button";
 import { cn } from "@optima/ui/lib/utils";
 import { SigmaIcon } from "lucide-react";
+// @ts-ignore
 import { useEditor } from "novel";
 
 export const MathSelector = () => {

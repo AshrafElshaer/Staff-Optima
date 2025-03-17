@@ -1,3 +1,4 @@
+// @ts-ignore
 import { TextAlign } from "@tiptap/extension-text-align";
 import {
 	AIHighlight,
@@ -15,13 +16,15 @@ import {
 	TiptapUnderline,
 	UpdatedImage,
 	UploadImagesPlugin,
+	// @ts-ignore
 } from "novel";
+// @ts-ignore
 import { Markdown } from "tiptap-markdown";
 
 import { cn } from "@optima/ui/lib/utils";
+// @ts-ignore
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import ResizableImageWrapper from "./ResizableImage/wrapper/index.js";
-// import { ResizableImage } from "novel";
 
 const aiHighlight = AIHighlight;
 

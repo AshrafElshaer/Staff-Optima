@@ -1,7 +1,5 @@
 {
 	"name": "@optima/editor",
-	"module": "index.ts",
-	"type": "module",
 	"devDependencies": {
 		"@types/bun": "latest"
 	},
@@ -15,5 +13,8 @@
 		"re-resizable": "^6.11.2",
 		"tiptap-markdown": "^0.8.10",
 		"use-debounce": "^10.0.4"
+	},
+	"exports": {
+		".": "./index.ts"
 	}
 }

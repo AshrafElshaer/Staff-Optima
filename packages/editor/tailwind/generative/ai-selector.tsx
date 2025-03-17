@@ -4,9 +4,12 @@ import { Command, CommandInput } from "../ui/command";
 
 import { useCompletion } from "ai/react";
 import { ArrowUp } from "lucide-react";
+// @ts-ignore
 import { useEditor } from "novel";
+// @ts-ignore
 import { addAIHighlight } from "novel";
 import { useState } from "react";
+// @ts-ignore
 import Markdown from "react-markdown";
 import { toast } from "sonner";
 import { Button } from "../ui/button";

@@ -5,8 +5,9 @@ import {
 	StepForward,
 	WrapText,
 } from "lucide-react";
+// @ts-ignore
 import { getPrevText, useEditor } from "novel";
-import { CommandGroup, CommandItem, CommandSeparator } from "../ui/command.js";
+import { CommandGroup, CommandItem, CommandSeparator } from "../ui/command";
 
 const options = [
 	{

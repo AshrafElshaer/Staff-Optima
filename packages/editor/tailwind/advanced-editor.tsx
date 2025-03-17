@@ -1,7 +1,8 @@
 "use client";
 import "@optima/ui/styles/globals.css";
-
+// @ts-ignore
 import { generateJSON } from "@tiptap/react";
+
 import {
 	EditorCommand,
 	EditorCommandEmpty,
@@ -15,6 +16,7 @@ import {
 	handleCommandNavigation,
 	handleImageDrop,
 	handleImagePaste,
+	// @ts-ignore
 } from "novel";
 import { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
