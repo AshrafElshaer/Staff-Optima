@@ -468,6 +468,7 @@ export function OrganizationProfileForm({
 								<FormControl>
 									<div className="w-full border rounded-md min-h-96 p-4 grid">
 										<Editor
+											organizationId={form.getValues("id") ?? ""}
 											content={field.value ?? ""}
 											onChange={(content) => {
 												form.setValue("profile", content, {

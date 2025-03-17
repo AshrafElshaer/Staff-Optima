@@ -34,15 +34,16 @@ import { slashCommand, suggestionItems } from "./slash-command";
 
 const hljs = require("highlight.js");
 
-const extensions = [...defaultExtensions, slashCommand];
-
 const TailwindAdvancedEditor = ({
 	content,
 	onChange,
+	organizationId,
 }: {
 	content: string;
 	onChange: (content: string) => void;
+	organizationId: string;
 }) => {
+	const extensions = [...defaultExtensions, slashCommand(organizationId)];
 	const [initialContent, setInitialContent] = useState<null | JSONContent>(
 		generateJSON(content, extensions),
 	);
@@ -75,7 +76,6 @@ const TailwindAdvancedEditor = ({
 				<EditorContent
 					immediatelyRender={false}
 					initialContent={initialContent ?? undefined}
-					
 					extensions={extensions}
 					className="relative h-full w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
 					editorProps={{

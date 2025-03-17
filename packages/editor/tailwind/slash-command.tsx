@@ -239,9 +239,36 @@ export const suggestionItems = createSuggestionItems([
 	},
 ]);
 
-export const slashCommand = Command.configure({
-	suggestion: {
-		items: () => suggestionItems,
-		render: renderItems,
-	},
-});
+export const slashCommand = (organizationId: string) => {
+	const items = [...suggestionItems];
+
+	items.push({
+		title: "Logo",
+		description: "Insert company Logo",
+		searchTerms: ["logo", "image"],
+		icon: <ImageIcon size={18} />,
+		command: async ({ editor, range }) => {
+			const organization = await getUserOrganization(organizationId);
+			if (!organization) return;
+			const logo = organization.logo;
+			if (!logo) return;
+			editor
+				.chain()
+				.focus()
+				.deleteRange(range)
+				.setImage({
+					src: logo,
+					alt: "Organization Logo",
+					title: organization?.name,
+				})
+				.run();
+		},
+	});
+
+	return Command.configure({
+		suggestion: {
+			items: () => items,
+			render: renderItems,
+		},
+	});
+};
