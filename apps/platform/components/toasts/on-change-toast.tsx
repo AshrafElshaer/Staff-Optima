@@ -92,12 +92,12 @@ export function OnChangeToast({
 	return (
 		<motion.div
 			layout
-			className="inline-flex h-10 items-center justify-center gap-4 px-1 py-0 bg-[#131316] rounded-full overflow-hidden shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33]"
+			className="inline-flex h-10 items-center justify-center gap-4 px-1 py-0 bg-[#131316] rounded-full overflow-hidden shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33] mx-auto w-full"
 		>
-			<div className="flex items-center justify-center p-0">
+			<div className="flex items-center justify-between w-full p-0">
 				<motion.div
 					layoutId="toast-content"
-					className="inline-flex items-center justify-center gap-2 pl-1.5 pr-3 py-0"
+					className="inline-flex items-center justify-between gap-2 pl-1.5 pr-3 py-0"
 					layout
 					transition={{ duration: 0.25, ease: "easeInOut" }}
 				>

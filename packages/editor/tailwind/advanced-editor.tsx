@@ -3,6 +3,7 @@ import "@optima/ui/styles/globals.css";
 // @ts-ignore
 import { generateJSON } from "@tiptap/react";
 
+import { ImageIcon } from "lucide-react";
 import {
 	EditorCommand,
 	EditorCommandEmpty,
@@ -27,10 +28,15 @@ import { MathSelector } from "./selectors/math-selector";
 import { NodeSelector } from "./selectors/node-selector";
 import { Separator } from "./ui/separator";
 
+import { getUserOrganization } from "../../database/src/queries/organization.queries";
 import GenerativeMenuSwitch from "./generative/generative-menu-switch";
 import { uploadFn } from "./image-upload";
 import { TextButtons } from "./selectors/text-buttons";
-import { slashCommand, suggestionItems } from "./slash-command";
+import {
+	getSuggestionItems,
+	slashCommand,
+	suggestionItems,
+} from "./slash-command";
 
 const hljs = require("highlight.js");
 
@@ -100,7 +106,7 @@ const TailwindAdvancedEditor = ({
 							No results
 						</EditorCommandEmpty>
 						<EditorCommandList>
-							{suggestionItems.map((item) => (
+							{getSuggestionItems(organizationId).map((item) => (
 								<EditorCommandItem
 									value={item.title}
 									onCommand={(val) => item.command?.(val)}

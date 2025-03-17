@@ -21,7 +21,7 @@ const DEFAULT_TOAST_CONFIG: ToastConfig = {
 	position: "bottom-center",
 	duration: Number.POSITIVE_INFINITY,
 	dismissible: false,
-	unstyled: true,
+	// unstyled: true,
 };
 
 export function useActionToast({

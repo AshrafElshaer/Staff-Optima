@@ -1,4 +1,7 @@
-import { getUserOrganization } from "@optima/database/queries";
+import {
+	getOrganizationById,
+	getUserOrganization,
+} from "@optima/database/queries";
 import {
 	CheckSquare,
 	Code,
@@ -16,8 +19,8 @@ import {
 } from "lucide-react";
 // @ts-ignore
 import { Command, createSuggestionItems, renderItems } from "novel";
-// @ts-ignore
-// import { authClient } from "@optima/platform/auth-client";
+
+import { toast } from "sonner";
 import { uploadFn } from "./image-upload";
 
 export const suggestionItems = createSuggestionItems([
@@ -239,35 +242,50 @@ export const suggestionItems = createSuggestionItems([
 	},
 ]);
 
-export const slashCommand = (organizationId: string) => {
+export const getSuggestionItems = (organizationId: string) => {
 	const items = [...suggestionItems];
-
 	items.push({
 		title: "Logo",
 		description: "Insert company Logo",
 		searchTerms: ["logo", "image"],
 		icon: <ImageIcon size={18} />,
 		command: async ({ editor, range }) => {
-			const organization = await getUserOrganization(organizationId);
-			if (!organization) return;
-			const logo = organization.logo;
-			if (!logo) return;
-			editor
-				.chain()
-				.focus()
-				.deleteRange(range)
-				.setImage({
-					src: logo,
-					alt: "Organization Logo",
-					title: organization?.name,
-				})
-				.run();
+			toast.promise(
+				async () => {
+					const organization = await getOrganizationById(organizationId);
+
+					if (!organization) {
+						throw new Error("Company not found");
+					}
+					const logo = organization.logo;
+					if (!logo) {
+						throw new Error("Company logo not found");
+					}
+					editor
+						.chain()
+						.focus()
+						.deleteRange(range)
+						.setImage({
+							src: logo,
+							alt: "Organization Logo",
+							title: organization?.name,
+						})
+						.run();
+				},
+				{
+					loading: "Getting company logo",
+					error: (error) => error.message ?? "Failed to get company logo",
+				},
+			);
 		},
 	});
+	return items;
+};
 
+export const slashCommand = (organizationId: string) => {
 	return Command.configure({
 		suggestion: {
-			items: () => items,
+			items: () => getSuggestionItems(organizationId),
 			render: renderItems,
 		},
 	});

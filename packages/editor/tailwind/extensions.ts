@@ -23,7 +23,7 @@ import { Markdown } from "tiptap-markdown";
 
 import { cn } from "@optima/ui/lib/utils";
 // @ts-ignore
-import { ReactNodeViewRenderer } from "@tiptap/react";
+import { ReactNodeViewRenderer, mergeAttributes } from "@tiptap/react";
 import ResizableImageWrapper from "./ResizableImage/wrapper";
 
 const aiHighlight = AIHighlight;
@@ -54,8 +54,44 @@ const tiptapImage = TiptapImage.extend({
 			}),
 		];
 	},
+
 	addNodeView() {
 		return ReactNodeViewRenderer(ResizableImageWrapper);
+	},
+	addAttributes() {
+		return {
+			src: {
+				default: null,
+			},
+			style: {
+				default: null,
+			},
+			alt: {
+				default: "Image",
+			},
+			title: {
+				default: null,
+			},
+			height: {
+				default: null,
+			},
+			width: {
+				default: null,
+			},
+			dataID: {
+				default: null,
+			},
+		};
+	},
+	renderHTML({ HTMLAttributes }) {
+		const { height, width, alt, style } = HTMLAttributes;
+		// const marginValue = alt.split("-")[1];
+
+		const attributes = {
+			...HTMLAttributes,
+			style: `height: ${height} !important; width: ${width} !important; ${style} !important;`,
+		};
+		return ["img", mergeAttributes(this.options.HTMLAttributes, attributes)];
 	},
 }).configure({
 	allowBase64: true,

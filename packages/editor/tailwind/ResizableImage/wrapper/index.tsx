@@ -19,14 +19,6 @@ export default function ResizableImageWrapper(props: NodeViewProps) {
 			className={cn("image-resizer w-full", {
 				"pointer-events-none": isResizing,
 			})}
-			// onDragStart={(e) => {
-			// 	// Set node data for TipTap's internal drag handling
-			// 	e.dataTransfer?.setData("text/plain", "");
-			// 	e.dataTransfer?.setData(
-			// 		"application/json",
-			// 		JSON.stringify(props.node.toJSON()),
-			// 	);
-			// }}
 		>
 			<Resizable
 				enable={
