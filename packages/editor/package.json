@@ -7,7 +7,10 @@
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
+		"@tiptap/core": "^2.11.5",
 		"@tiptap/extension-text-align": "^2.11.5",
+		"@tiptap/react": "^2.11.5",
+		"ai": "^4.1.61",
 		"cmdk": "^1.1.1",
 		"novel": "^1.0.2",
 		"re-resizable": "^6.11.2",
