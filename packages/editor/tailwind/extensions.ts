@@ -24,7 +24,7 @@ import { Markdown } from "tiptap-markdown";
 import { cn } from "@optima/ui/lib/utils";
 // @ts-ignore
 import { ReactNodeViewRenderer } from "@tiptap/react";
-import ResizableImageWrapper from "./ResizableImage/wrapper/index.js";
+import ResizableImageWrapper from "./ResizableImage/wrapper";
 
 const aiHighlight = AIHighlight;
 

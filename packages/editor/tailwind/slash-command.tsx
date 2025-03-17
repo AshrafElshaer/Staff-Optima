@@ -18,7 +18,7 @@ import {
 import { Command, createSuggestionItems, renderItems } from "novel";
 // @ts-ignore
 import { authClient } from "../../../apps/platform/lib/auth/auth-client";
-import { uploadFn } from "./image-upload.js";
+import { uploadFn } from "./image-upload";
 
 export const suggestionItems = createSuggestionItems([
 	{

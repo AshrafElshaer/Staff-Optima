@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 // @ts-ignore
 import { EditorBubbleItem, useEditor } from "novel";
-import type { SelectorItem } from "./node-selector.js";
+import type { SelectorItem } from "./node-selector";
 
 export const TextButtons = () => {
 	const { editor } = useEditor();

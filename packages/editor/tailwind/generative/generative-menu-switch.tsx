@@ -1,9 +1,9 @@
 // @ts-ignore
 import { EditorBubble, removeAIHighlight, useEditor } from "novel";
 import { Fragment, type ReactNode, useEffect } from "react";
-import { Button } from "../ui/button.js";
-import Magic from "../ui/icons/magic.js";
-import { AISelector } from "./ai-selector.js";
+import { Button } from "../ui/button";
+import Magic from "../ui/icons/magic";
+import { AISelector } from "./ai-selector";
 
 interface GenerativeMenuSwitchProps {
 	children: ReactNode;

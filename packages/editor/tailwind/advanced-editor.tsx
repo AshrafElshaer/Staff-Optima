@@ -20,25 +20,21 @@ import {
 } from "novel";
 import { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { defaultExtensions } from "./extensions.js";
-import { ColorSelector } from "./selectors/color-selector.js";
-import { LinkSelector } from "./selectors/link-selector.js";
-import { MathSelector } from "./selectors/math-selector.js";
-import { NodeSelector } from "./selectors/node-selector.js";
-import { Separator } from "./ui/separator.js";
+import { defaultExtensions } from "./extensions";
+import { ColorSelector } from "./selectors/color-selector";
+import { LinkSelector } from "./selectors/link-selector";
+import { MathSelector } from "./selectors/math-selector";
+import { NodeSelector } from "./selectors/node-selector";
+import { Separator } from "./ui/separator";
 
-import GenerativeMenuSwitch from "./generative/generative-menu-switch.js";
-import { uploadFn } from "./image-upload.js";
-import { TextButtons } from "./selectors/text-buttons.js";
-import { slashCommand, suggestionItems } from "./slash-command.js";
+import GenerativeMenuSwitch from "./generative/generative-menu-switch";
+import { uploadFn } from "./image-upload";
+import { TextButtons } from "./selectors/text-buttons";
+import { slashCommand, suggestionItems } from "./slash-command";
 
 const hljs = require("highlight.js");
 
 const extensions = [...defaultExtensions, slashCommand];
-
-const demo = JSON.parse(
-	'{"type":"doc","content":[{"type":"paragraph","attrs":{"textAlign":null},"content":[{"type":"text","text":"Sure! Here’s a revised version of your text:"}]},{"type":"paragraph","attrs":{"textAlign":null},"content":[{"type":"text","text":"\\"Hello! How have you been?\\""}]},{"type":"paragraph","attrs":{"textAlign":null}},{"type":"paragraph","attrs":{"textAlign":null}}]}',
-);
 
 const TailwindAdvancedEditor = ({
 	content,
