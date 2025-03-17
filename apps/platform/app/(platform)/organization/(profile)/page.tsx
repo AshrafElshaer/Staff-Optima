@@ -1,4 +1,4 @@
-import { OrganizationProfileForm } from "@/features/organization/profile/profile-form";
+import { OrganizationProfileForm } from "@/features/organization/profile/views/profile-form";
 import { auth } from "@/lib/auth/auth";
 import { getUserOrganization } from "@optima/database/queries";
 import { headers } from "next/headers";
