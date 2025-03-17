@@ -2,6 +2,7 @@
 
 import { Command, CommandInput } from "../ui/command";
 
+import { TextShimmer } from "@optima/ui/components/text-shimmer";
 import { useCompletion } from "ai/react";
 import { ArrowUp } from "lucide-react";
 // @ts-ignore
@@ -58,9 +59,9 @@ export function AISelector({ onOpenChange }: AISelectorProps) {
 			)}
 
 			{isLoading && (
-				<div className="flex h-12 w-full items-center px-4 text-sm font-medium text-muted-foreground text-purple-500">
+				<div className="flex h-12 w-full items-center px-4 text-sm font-medium text-muted-foreground">
 					<Magic className="mr-2 h-4 w-4 shrink-0  " />
-					AI is thinking
+					<TextShimmer duration={1}>AI is thinking</TextShimmer>
 					<div className="ml-2 mt-1">
 						<CrazySpinner />
 					</div>

@@ -11,7 +11,7 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@optima/ui/components/avatar";
-import { Button } from "@optima/ui/components/button";
+import { Button, buttonVariants } from "@optima/ui/components/button";
 import {
 	Form,
 	FormControl,
@@ -406,6 +406,7 @@ export function OrganizationProfileForm({
 											placeholder="12345"
 											{...field}
 											value={field.value ?? ""}
+											inputMode="numeric"
 										/>
 									</FormControl>
 									<FormMessage />
@@ -453,7 +454,7 @@ export function OrganizationProfileForm({
 						<div className="flex items-center gap-4 w-full md:w-auto">
 							<Link
 								href={`https://jobs.staffoptima.co/${organization?.domain}`}
-								className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2 w-full md:w-auto"
+								className={buttonVariants({ variant: "secondary" })}
 								target="_blank"
 							>
 								Preview
@@ -468,7 +469,7 @@ export function OrganizationProfileForm({
 								<FormControl>
 									<div className="w-full border rounded-md min-h-96 p-4 grid">
 										<Editor
-											organizationId={form.getValues("id") ?? ""}
+											organizationId={organization?.id ?? ""}
 											content={field.value ?? ""}
 											onChange={(content) => {
 												form.setValue("profile", content, {
