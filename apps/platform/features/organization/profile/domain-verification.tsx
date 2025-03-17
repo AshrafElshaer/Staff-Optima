@@ -53,9 +53,8 @@ export function DomainVerification({
 		queryKey: ["domain-verification"],
 		queryFn: () => getDomainVerificationByOrganizationId(organizationId),
 	});
-	if (!domainVerification || domainVerification === undefined) return null;
 
-	const status = domainVerification.verificationStatus;
+	const status = domainVerification?.verificationStatus;
 
 	async function handleVerifyDomain() {
 		if (!domainVerification) return;
@@ -195,7 +194,7 @@ export function DomainVerification({
 			</CardHeader>
 			<Separator />
 			<CardContent className="space-y-4">
-				{domainVerification.verificationDate ? (
+				{domainVerification?.verificationDate ? (
 					<p className="text-secondary-foreground">
 						Verified at{" "}
 						{moment(domainVerification.verificationDate).format("MMM D, YYYY")}
@@ -221,8 +220,10 @@ export function DomainVerification({
 								Value
 							</div>
 							<div className="flex items-center justify-between text-sm overflow-auto">
-								{domainVerification.verificationToken}
-								<CopyToClipboard text={domainVerification.verificationToken} />
+								{domainVerification?.verificationToken}
+								<CopyToClipboard
+									text={domainVerification?.verificationToken ?? ""}
+								/>
 							</div>
 
 							<div className="text-sm font-medium text-muted-foreground">
