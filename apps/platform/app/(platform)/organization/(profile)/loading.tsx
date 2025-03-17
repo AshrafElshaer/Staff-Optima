@@ -60,18 +60,7 @@ export default function OrganizationProfileLoading() {
 					<CardTitle className="flex items-start gap-2">
 						<div className="flex flex-col gap-2 sm:flex-row sm:items-center">
 							<span className="min-w-fit">Domain Verification</span>
-							{/* <Badge
-							variant={
-								status === "pending"
-									? "warning"
-									: status === "verified"
-										? "success"
-										: "destructive"
-							}
-							className="rounded-sm capitalize"
-						>
-							{status}
-						</Badge> */}
+
 							<Skeleton className="w-18 h-7" />
 						</div>
 						<Button
