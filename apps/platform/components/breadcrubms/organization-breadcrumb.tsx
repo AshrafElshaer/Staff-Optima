@@ -23,6 +23,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 export function OrganizationBreadcrumb() {
+	if (typeof window === "undefined") return null;
 	const pathname = usePathname();
 	const segments = pathname.split("/").filter(Boolean);
 	const isMobile = useIsMobile();
@@ -33,11 +34,11 @@ export function OrganizationBreadcrumb() {
 	const memberId = segments[1] === "team" ? segments[2] : null;
 	const departmentId = segments[1] === "departments" ? segments[2] : null;
 
-	// const { data: department } = useQuery({
-	// 	queryKey: ["department", departmentId],
-	// 	queryFn: () => getDepartmentById(departmentId ?? ""),
-	// 	enabled: !!departmentId,
-	// });
+	const { data: department } = useQuery({
+		queryKey: ["department", departmentId],
+		queryFn: () => getDepartmentById(departmentId ?? ""),
+		enabled: !!departmentId,
+	});
 
 	const getSegmentLabel = (segment: string, index: number) => {
 		if (templateId && index === 2) {
@@ -52,8 +53,8 @@ export function OrganizationBreadcrumb() {
 		}
 
 		if (departmentId && index === 2) {
-			return "Engineering Department";
-			// return department?.name ?? "Loading...";
+			// return "Engineering Department";
+			return department?.name ?? "Loading...";
 		}
 
 		const labels: Record<string, string> = {
