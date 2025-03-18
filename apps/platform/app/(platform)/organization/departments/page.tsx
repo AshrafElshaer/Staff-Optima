@@ -24,7 +24,7 @@ export default async function OrganizationDepartmentsPage({
 	const departments = await getDepartmentsByUserId(userId ?? "", filters);
 
 	return (
-		<main className="flex flex-col gap-4 flex-1">
+		<main className="flex flex-col gap-8 flex-1">
 			<section className="flex items-center gap-4 justify-between">
 				<DepartmentSearch />
 				<NewDepartment />
@@ -37,7 +37,7 @@ export default async function OrganizationDepartmentsPage({
 					</p>
 				</div>
 			) : (
-				<section className=" flex-1 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+				<section className=" grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{departments.map((department) => (
 						<DepartmentCard key={department.id} department={department} />
 					))}
