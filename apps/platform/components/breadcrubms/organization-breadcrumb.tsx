@@ -23,13 +23,9 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 export function OrganizationBreadcrumb() {
-	if (typeof window === "undefined") return null;
 	const pathname = usePathname();
 	const segments = pathname.split("/").filter(Boolean);
 	const isMobile = useIsMobile();
-
-	if (!pathname.startsWith("/organization")) return null;
-
 	const templateId = segments[1] === "email-templates" ? segments[2] : null;
 	const memberId = segments[1] === "team" ? segments[2] : null;
 	const departmentId = segments[1] === "departments" ? segments[2] : null;
@@ -39,6 +35,10 @@ export function OrganizationBreadcrumb() {
 		queryFn: () => getDepartmentById(departmentId ?? ""),
 		enabled: !!departmentId,
 	});
+
+	// if (typeof window === "undefined") return null;
+	if (!pathname.startsWith("/organization")) return null;
+
 
 	const getSegmentLabel = (segment: string, index: number) => {
 		if (templateId && index === 2) {
