@@ -52,7 +52,7 @@ export default function AccountLayout({
 }) {
 	const pathname = usePathname();
 	return (
-		<main className="flex flex-col gap-4 flex-1">
+		<div className="flex flex-col gap-4 flex-1">
 			<nav className="flex items-center gap-2 w-full overflow-x-auto scrollbar-hide">
 				{ACCOUNT_ROUTES.map((tab) => {
 					const isActive =
@@ -77,6 +77,6 @@ export default function AccountLayout({
 				})}
 			</nav>
 			{children}
-		</main>
+		</div>
 	);
 }

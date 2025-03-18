@@ -15,7 +15,7 @@ import { MailSend02Icon } from "hugeicons-react";
 
 export default function OrganizationProfileLoading() {
 	return (
-		<main className="space-y-8 w-full max-w-3xl mx-auto px-4">
+		<div className="space-y-8 w-full max-w-3xl mx-auto px-4">
 			<section className="flex flex-col md:flex-row justify-between items-start w-full gap-4">
 				<div className="space-y-2 w-full">
 					<Label className="font-semibold text-base">Organization Logo</Label>
@@ -175,6 +175,6 @@ export default function OrganizationProfileLoading() {
 				</div>
 				<Skeleton className="w-full h-96 rounded-md" />
 			</section>
-		</main>
+		</div>
 	);
 }

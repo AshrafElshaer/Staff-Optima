@@ -8,7 +8,7 @@ export default async function JobDetailsPage({
 }) {
 	const { jobId } = await params;
 	return (
-		<main className="flex flex-col items-start flex-1 gap-4">
+		<div className="flex flex-col items-start flex-1 gap-4">
 			Job {jobId} details
 			<Link
 				href={`/jobs/${jobId}/edit`}
@@ -28,6 +28,6 @@ export default async function JobDetailsPage({
 			>
 				Campaigns
 			</Link>
-		</main>
+		</div>
 	);
 }

@@ -8,7 +8,7 @@ import { VerifyOtp } from "./verify-otp";
 export function Auth() {
 	const [{ activeTab }] = useQueryStates(authSearchParams);
 	return (
-		<main className="flex h-screen w-screen items-center justify-center">
+		<div className="flex h-screen w-screen items-center justify-center">
 			<AnimatePresence mode="wait" initial={false}>
 				{activeTab === "sign-in" ? (
 					<motion.div
@@ -33,6 +33,6 @@ export function Auth() {
 					</motion.div>
 				)}
 			</AnimatePresence>
-		</main>
+		</div>
 	);
 }

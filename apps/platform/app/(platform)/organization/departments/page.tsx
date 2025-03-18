@@ -24,7 +24,7 @@ export default async function OrganizationDepartmentsPage({
 	const departments = await getDepartmentsByUserId(userId ?? "", filters);
 
 	return (
-		<main className="flex flex-col gap-8 flex-1">
+		<div className="flex flex-col gap-8 flex-1">
 			<section className="flex items-center gap-4 justify-between">
 				<DepartmentSearch />
 				<NewDepartment />
@@ -43,6 +43,6 @@ export default async function OrganizationDepartmentsPage({
 					))}
 				</section>
 			)}
-		</main>
+		</div>
 	);
 }

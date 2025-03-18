@@ -5,8 +5,8 @@ export default async function JobApplicationsPage({
 }) {
 	const { jobId } = await params;
 	return (
-		<main className="flex flex-col items-start flex-1 gap-4">
+		<div className="flex flex-col items-start flex-1 gap-4">
 			Job Applications {jobId}
-		</main>
+		</div>
 	);
 }
