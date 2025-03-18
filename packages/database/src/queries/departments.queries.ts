@@ -47,12 +47,14 @@ export async function getDepartmentsByOrganizationId(
 	const query = db
 		.select()
 		.from(DepartmentsTable)
-		.innerJoin(MembersTable, eq(MembersTable.organizationId, DepartmentsTable.organizationId))
+		.innerJoin(
+			MembersTable,
+			eq(MembersTable.organizationId, DepartmentsTable.organizationId),
+		)
 		.where(and(...conditions));
 
 	return await query;
 }
-
 
 export async function getDepartmentById(id: string) {
 	const [data] = await db

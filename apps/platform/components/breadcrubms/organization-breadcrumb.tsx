@@ -39,7 +39,6 @@ export function OrganizationBreadcrumb() {
 	// if (typeof window === "undefined") return null;
 	if (!pathname.startsWith("/organization")) return null;
 
-
 	const getSegmentLabel = (segment: string, index: number) => {
 		if (templateId && index === 2) {
 			if (segment === "create") {

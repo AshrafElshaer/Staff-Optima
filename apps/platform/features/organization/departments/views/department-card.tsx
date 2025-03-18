@@ -22,14 +22,18 @@ import { useRouter } from "next/navigation";
 export function DepartmentCard({ department }: { department: Department }) {
 	const router = useRouter();
 	function handleNavigate(e: React.MouseEvent<HTMLDivElement>) {
-		if(e.target instanceof HTMLAnchorElement) {
+		if (e.target instanceof HTMLAnchorElement) {
 			e.preventDefault();
 			return;
 		}
 		router.push(`/organization/departments/${department.id}`);
 	}
 	return (
-		<Card key={department.id}  className= "bg-accent group h-fit" onClick={handleNavigate}>
+		<Card
+			key={department.id}
+			className="bg-accent group h-fit"
+			onClick={handleNavigate}
+		>
 			<div className="flex items-center  gap-4 px-4">
 				<p className="text-lg font-semibold mr-auto">{department.name}</p>
 				{/* 
