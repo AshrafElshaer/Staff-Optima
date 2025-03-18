@@ -98,7 +98,9 @@ export const memberUpdateSchema = memberSchema.partial().required({
 
 export const departmentSchema = z.object({
 	id: z.string().uuid().optional(),
-	name: z.string().min(1),
+	name: z.string().min(1, {
+		message: "Name is required",
+	}),
 	description: z.string().nullable().optional(),
 	organizationId: z.string().uuid(),
 	headUserId: z.string().uuid().nullable().optional(),

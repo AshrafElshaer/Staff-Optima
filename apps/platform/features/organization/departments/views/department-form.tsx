@@ -1,4 +1,6 @@
 "use client";
+import { MemberSelector } from "@/components/selectors/member-selector";
+import { useOrganizationStore } from "@/stores/organization";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { departmentInsertSchema } from "@optima/database/validations";
 import { Button } from "@optima/ui/components/button";
@@ -12,33 +14,49 @@ import {
 	FormMessage,
 } from "@optima/ui/components/form";
 import { Input } from "@optima/ui/components/inputs";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@optima/ui/components/select";
 import { Separator } from "@optima/ui/components/separator";
 import { Textarea } from "@optima/ui/components/textarea";
+import { Loader } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
-const formSchema = departmentInsertSchema.omit({
-	organizationId: true,
-});
+import { createDepartmentAction } from "../departments.actions";
+const formSchema = departmentInsertSchema;
 
-export function DepartmentForm() {
+export function DepartmentForm({
+	setOpen,
+}: { setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
+	const organization = useOrganizationStore((state) => state.organization);
+	const { execute, isExecuting } = useAction(createDepartmentAction, {
+		onSuccess: () => {
+			toast.success("Department created successfully");
+			setOpen(false);
+		},
+		onError: ({ error }) => {
+			toast.error(error.serverError);
+		},
+	});
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			name: "",
 			description: "",
 			headUserId: "",
+			organizationId: organization?.id,
 		},
 	});
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values);
+		if (!values.headUserId || values.headUserId === "") {
+			toast.error("Head of department is required");
+			form.setError("headUserId", {
+				message: "Head of department is required",
+			});
+			return;
+		}
+
+		execute(values);
 	}
 	return (
 		<Form {...form}>
@@ -62,10 +80,15 @@ export function DepartmentForm() {
 						name="description"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Description</FormLabel>
+								<FormLabel>
+									Description
+									<span className="text-sm text-muted-foreground">
+										(optional)
+									</span>
+								</FormLabel>
 								<FormControl>
 									<Textarea
-										placeholder="Information Technology"
+										placeholder="Describe the department"
 										{...field}
 										value={field.value ?? ""}
 									/>
@@ -74,25 +97,18 @@ export function DepartmentForm() {
 							</FormItem>
 						)}
 					/>
+
 					<FormField
 						control={form.control}
 						name="headUserId"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Head User</FormLabel>
+								<FormLabel>Head Of Department</FormLabel>
 								<FormControl>
-									<Select
-										onValueChange={field.onChange}
+									<MemberSelector
+										onChange={field.onChange}
 										value={field.value ?? ""}
-									>
-										<SelectTrigger className="bg-accent w-full border">
-											<SelectValue placeholder="Select a user" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem value="1">John Doe</SelectItem>
-											<SelectItem value="2">Jane Doe</SelectItem>
-										</SelectContent>
-									</Select>
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -102,11 +118,18 @@ export function DepartmentForm() {
 				<Separator />
 				<DialogFooter className="p-4 relative ">
 					<DialogClose asChild>
-						<Button variant="secondary" className="w-full sm:w-1/2">
+						<Button
+							variant="secondary"
+							className="w-full sm:w-1/2"
+							disabled={isExecuting}
+						>
 							Cancel
 						</Button>
 					</DialogClose>
-					<Button className="w-full sm:w-1/2">Create</Button>
+					<Button className="w-full sm:w-1/2" disabled={isExecuting}>
+						{isExecuting ? <Loader className="animate-spin" /> : null}
+						Create
+					</Button>
 				</DialogFooter>
 			</form>
 		</Form>

@@ -14,7 +14,7 @@ export function DepartmentSearch() {
 		<Input
 			placeholder="Search by name"
 			startIcon={<Search className="size-4" />}
-			value={name}
+			value={name ?? ""}
 			onChange={(e) => setName(e.target.value)}
 		/>
 	);

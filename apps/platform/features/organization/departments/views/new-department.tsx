@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@optima/ui/components/button";
 import {
 	Dialog,
@@ -12,16 +13,18 @@ import {
 import { Plus } from "lucide-react";
 import { DepartmentForm } from "./department-form";
 import { Separator } from "@optima/ui/components/separator";
+import { useState } from "react";
 export function NewDepartment() {
+	const [open, setOpen] = useState(false);
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button variant="secondary">
 					<Plus className="size-4" />
 					New Department
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="p-0 bg-sidebar">
+			<DialogContent className="p-0">
 				<DialogHeader className="p-4 pb-0">
 					<DialogTitle>New Department</DialogTitle>
 					<DialogDescription>
@@ -29,7 +32,7 @@ export function NewDepartment() {
 					</DialogDescription>
 				</DialogHeader>
 				<Separator />
-				<DepartmentForm />
+				<DepartmentForm setOpen={setOpen} />
 			</DialogContent>
 		</Dialog>
 	);

@@ -16,6 +16,7 @@
 	"dependencies": {
 		"@ai-sdk/openai": "^1.2.5",
 		"@better-auth/stripe": "^1.2.4",
+		"@better-fetch/fetch": "^1.1.15",
 		"@optima/database": "workspace:*",
 		"@optima/editor": "workspace:*",
 		"@optima/ui": "workspace:*",
@@ -45,7 +46,8 @@
 		"stripe": "^17.7.0",
 		"ts-pattern": "^5.6.2",
 		"usehooks-ts": "^3.1.1",
-		"zod": "^3.24.2"
+		"zod": "^3.24.2",
+		"zustand": "^5.0.3"
 	},
 	"devDependencies": {
 		"@optima/typescript-config": "workspace:*",

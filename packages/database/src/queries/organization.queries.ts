@@ -6,8 +6,9 @@ import {
 	DomainVerificationTable,
 	MembersTable,
 	OrganizationTable,
+	user,
 } from "../schema";
-import type { Organization } from "../types";
+import type { Organization, User } from "../types";
 
 export async function getUserOrganization(
 	userId: string,
@@ -57,4 +58,17 @@ export async function getDomainVerificationByOrganizationId(
 		.from(DomainVerificationTable)
 		.where(eq(DomainVerificationTable.organizationId, organizationId));
 	return domainVerification;
+}
+
+export async function getOrganizationMembers(organizationId: string) {
+	const members = await db
+		.select({
+			user: user,
+		})
+		.from(MembersTable)
+		.where(eq(MembersTable.organizationId, organizationId))
+		.leftJoin(user, eq(MembersTable.userId, user.id));
+	return members
+		.filter((member): member is { user: User } => member.user !== null)
+		.map((member) => member.user);
 }
