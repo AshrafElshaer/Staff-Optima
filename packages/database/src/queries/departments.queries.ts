@@ -1,5 +1,6 @@
 "use server";
 import { and, eq, ilike, like } from "drizzle-orm";
+import { unstable_cacheTag as cacheTag } from "next/cache";
 import { db } from "../database";
 import { DepartmentsTable, MembersTable } from "../schema";
 
@@ -12,7 +13,7 @@ export async function getDepartmentsByUserId(
 		conditions.push(ilike(DepartmentsTable.name, `%${filters.name}%`));
 	}
 
-	const query = db
+	const query = await db
 		.select({
 			id: DepartmentsTable.id,
 			name: DepartmentsTable.name,
@@ -32,6 +33,8 @@ export async function getDepartmentsByUserId(
 		)
 		.where(and(...conditions));
 
+	cacheTag("departments", userId);
+
 	return await query;
 }
 
@@ -44,7 +47,7 @@ export async function getDepartmentsByOrganizationId(
 		conditions.push(ilike(DepartmentsTable.name, `%${filters.name}%`));
 	}
 
-	const query = db
+	const query = await db
 		.select()
 		.from(DepartmentsTable)
 		.innerJoin(
@@ -52,6 +55,8 @@ export async function getDepartmentsByOrganizationId(
 			eq(MembersTable.organizationId, DepartmentsTable.organizationId),
 		)
 		.where(and(...conditions));
+
+	cacheTag("departments", organizationId);
 
 	return await query;
 }
@@ -61,6 +66,8 @@ export async function getDepartmentById(id: string) {
 		.select()
 		.from(DepartmentsTable)
 		.where(eq(DepartmentsTable.id, id));
+
+	cacheTag("department", id);
 
 	return data;
 }
