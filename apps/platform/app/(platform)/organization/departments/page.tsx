@@ -2,7 +2,7 @@ import { departmentSearchLoader } from "@/features/organization/departments/depa
 import { DepartmentCard } from "@/features/organization/departments/views/department-card";
 import { DepartmentSearch } from "@/features/organization/departments/views/department-search";
 import { NewDepartment } from "@/features/organization/departments/views/new-department";
-import { getDepartments, getUserOrganization } from "@optima/database/queries";
+import { getDepartmentsByUserId } from "@optima/database/queries";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { SearchParams } from "nuqs";
@@ -21,9 +21,7 @@ export default async function OrganizationDepartmentsPage({
 	if (!userId) {
 		redirect("/auth");
 	}
-	const organization = await getUserOrganization(userId);
-	const departments = await getDepartments(organization?.id ?? "", filters);
-
+	const departments = await getDepartmentsByUserId(userId ?? "", filters);
 
 	return (
 		<main className="flex flex-col gap-4 flex-1">
