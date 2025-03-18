@@ -1,5 +1,7 @@
+"use client";
 import type { Department } from "@optima/database/types";
 import {
+	cardClasses,
 	Card,
 	CardContent,
 	CardHeader,
@@ -11,14 +13,24 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@optima/ui/components/tooltip";
+import { cn } from "@optima/ui/lib/utils";
 import { JobLinkIcon } from "hugeicons-react";
 import { UserIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function DepartmentCard({ department }: { department: Department }) {
+	const router = useRouter();
+	function handleNavigate(e: React.MouseEvent<HTMLDivElement>) {
+		if(e.target instanceof HTMLAnchorElement) {
+			e.preventDefault();
+			return;
+		}
+		router.push(`/organization/departments/${department.id}`);
+	}
 	return (
-		<Card key={department.id} className="p-4  bg-accent group h-fit">
-			<div className="flex items-center  gap-4">
+		<Card key={department.id}  className= "bg-accent group h-fit" onClick={handleNavigate}>
+			<div className="flex items-center  gap-4 px-4">
 				<p className="text-lg font-semibold mr-auto">{department.name}</p>
 				{/* 
           <DepartmentDialog department={department}>
@@ -31,7 +43,7 @@ export function DepartmentCard({ department }: { department: Department }) {
           </DepartmentDialog>
           <DeleteDepartment department={department} /> */}
 			</div>
-			<div className="flex items-center justify-between gap-2">
+			<div className="flex items-center justify-between gap-2 px-4">
 				<TooltipProvider delayDuration={0}>
 					<Tooltip>
 						<TooltipTrigger asChild>

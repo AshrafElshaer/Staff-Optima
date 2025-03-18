@@ -1,5 +1,6 @@
 "use client";
 
+import { getDepartmentById } from "@optima/database/queries";
 import {
 	Breadcrumb,
 	BreadcrumbEllipsis,
@@ -16,6 +17,7 @@ import {
 	DropdownMenuTrigger,
 } from "@optima/ui/components/dropdown-menu";
 import { useIsMobile } from "@optima/ui/hooks/use-mobile";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -31,6 +33,12 @@ export function OrganizationBreadcrumb() {
 	const memberId = segments[1] === "team" ? segments[2] : null;
 	const departmentId = segments[1] === "departments" ? segments[2] : null;
 
+	const { data: department } = useQuery({
+		queryKey: ["department", departmentId],
+		queryFn: () => getDepartmentById(departmentId ?? ""),
+		enabled: !!departmentId,
+	});
+
 	const getSegmentLabel = (segment: string, index: number) => {
 		if (templateId && index === 2) {
 			if (segment === "create") {
@@ -44,7 +52,7 @@ export function OrganizationBreadcrumb() {
 		}
 
 		if (departmentId && index === 2) {
-			return "Engineering";
+			return department?.name ?? "Loading...";
 		}
 
 		const labels: Record<string, string> = {

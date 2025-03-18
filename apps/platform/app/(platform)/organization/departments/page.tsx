@@ -7,6 +7,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { SearchParams } from "nuqs";
 
+
 type Params = {
 	searchParams: Promise<SearchParams>;
 };
