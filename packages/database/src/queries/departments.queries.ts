@@ -8,6 +8,7 @@ export async function getDepartmentsByUserId(
 	userId: string,
 	filters?: { name?: string },
 ) {
+	"use cache";
 	const conditions = [eq(MembersTable.userId, userId)];
 	if (filters?.name) {
 		conditions.push(ilike(DepartmentsTable.name, `%${filters.name}%`));
@@ -42,6 +43,7 @@ export async function getDepartmentsByOrganizationId(
 	organizationId: string,
 	filters?: { name?: string },
 ) {
+	"use cache";
 	const conditions = [eq(MembersTable.organizationId, organizationId)];
 	if (filters?.name) {
 		conditions.push(ilike(DepartmentsTable.name, `%${filters.name}%`));
@@ -62,6 +64,7 @@ export async function getDepartmentsByOrganizationId(
 }
 
 export async function getDepartmentById(id: string) {
+	"use cache";
 	const [data] = await db
 		.select()
 		.from(DepartmentsTable)
