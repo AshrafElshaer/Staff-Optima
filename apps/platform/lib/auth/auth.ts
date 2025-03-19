@@ -15,7 +15,7 @@ import {
 	organization,
 } from "better-auth/plugins";
 import Stripe from "stripe";
-import { adminPlugin } from "./plugins/admin";
+
 import { stripePlugin } from "./plugins/stripe";
 
 // Only initialize Stripe if we have the secret key
@@ -61,7 +61,6 @@ export const auth = betterAuth({
 	plugins: [
 		stripePlugin,
 		multiSession(),
-		adminPlugin,
 		emailOTP({
 			expiresIn: 1000 * 60 * 10, // 10 minutes
 			otpLength: 6,

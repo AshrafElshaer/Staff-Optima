@@ -1,0 +1,1 @@
+ALTER TABLE "roles" ALTER COLUMN "permissions" DROP DEFAULT;

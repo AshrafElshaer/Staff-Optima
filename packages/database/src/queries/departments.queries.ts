@@ -36,7 +36,7 @@ export async function getDepartmentsByUserId(
 
 	cacheTag("departments", userId);
 
-	return  query;
+	return query;
 }
 
 export async function getDepartmentsByOrganizationId(

@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
 	boolean,
 	integer,
@@ -6,6 +7,7 @@ import {
 	timestamp,
 	uuid,
 } from "drizzle-orm/pg-core";
+import { RolesTable } from "./organization.schema";
 
 export const user = pgTable("user", {
 	id: uuid("id").primaryKey(),
@@ -16,10 +18,6 @@ export const user = pgTable("user", {
 	createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
 	updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
 	stripeCustomerId: text("stripe_customer_id"),
-	role: text("role"),
-	banned: boolean("banned"),
-	banReason: text("ban_reason"),
-	banExpires: timestamp("ban_expires", { withTimezone: true }),
 	phoneNumber: text("phone_number"),
 });
 
@@ -76,3 +74,25 @@ export const subscription = pgTable("subscription", {
 	cancelAtPeriodEnd: boolean("cancel_at_period_end"),
 	seats: integer("seats"),
 });
+
+export const userRoles = pgTable("user_roles", {
+	userId: uuid("user_id")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+	roleId: uuid("role_id")
+		.notNull()
+		.references(() => RolesTable.id, { onDelete: "cascade" }),
+	createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
+	updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
+});
+
+export const userRolesRelations = relations(userRoles, ({ one }) => ({
+	user: one(user, {
+		fields: [userRoles.userId],
+		references: [user.id],
+	}),
+	role: one(RolesTable, {
+		fields: [userRoles.roleId],
+		references: [RolesTable.id],
+	}),
+}));

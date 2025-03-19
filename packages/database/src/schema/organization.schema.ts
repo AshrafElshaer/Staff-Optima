@@ -128,6 +128,22 @@ export const DepartmentsTable = pgTable(
 	}),
 );
 
+export const RolesTable = pgTable("roles", {
+	id: uuid("id").primaryKey().defaultRandom(),
+	name: text("name").notNull(),
+	permissions: text("permissions").array(),
+	organizationId: uuid("organization_id").references(
+		() => OrganizationTable.id,
+		{ onDelete: "cascade" },
+	),
+	createdAt: timestamp("created_at", { withTimezone: true })
+		.notNull()
+		.defaultNow(),
+	updatedAt: timestamp("updated_at", { withTimezone: true })
+		.notNull()
+		.defaultNow(),
+});
+
 export const OrganizationRelations = relations(
 	OrganizationTable,
 	({ many, one }) => ({
@@ -141,6 +157,7 @@ export const OrganizationRelations = relations(
 			fields: [OrganizationTable.id],
 			references: [DomainVerificationTable.organizationId],
 		}),
+		roles: many(RolesTable),
 	}),
 );
 

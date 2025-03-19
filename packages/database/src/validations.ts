@@ -12,10 +12,6 @@ export const userSchema = z.object({
 	createdAt: z.date(),
 	updatedAt: z.date(),
 	stripeCustomerId: z.string().nullable().optional(),
-	role: z.string().nullable().optional(),
-	banned: z.boolean().nullable().optional(),
-	banReason: z.string().nullable().optional(),
-	banExpires: z.date().nullable().optional(),
 	phoneNumber: z.string().refine(
 		(val) => {
 			if (!val) return true;
@@ -142,3 +138,41 @@ export const domainVerificationUpdateSchema = domainVerificationSchema
 	.required({
 		id: true,
 	});
+
+export const roleSchema = z.object({
+	id: z.string().uuid().optional(),
+	name: z.string().min(1, {
+		message: "Name is required",
+	}),
+	permissions: z.array(z.string()).optional(),
+	organizationId: z.string().uuid(),
+	createdAt: z.date().optional(),
+	updatedAt: z.date().optional(),
+});
+
+export const roleInsertSchema = roleSchema.omit({
+	id: true,
+	createdAt: true,
+	updatedAt: true,
+});
+
+export const roleUpdateSchema = roleSchema.partial().required({
+	id: true,
+});
+
+export const userRoleSchema = z.object({
+	userId: z.string().uuid(),
+	roleId: z.string().uuid(),
+	createdAt: z.date().optional(),
+	updatedAt: z.date().optional(),
+});
+
+export const userRoleInsertSchema = userRoleSchema.omit({
+	createdAt: true,
+	updatedAt: true,
+});
+
+export const userRoleUpdateSchema = userRoleSchema.partial().required({
+	userId: true,
+	roleId: true,
+});

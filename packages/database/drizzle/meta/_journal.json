@@ -22,6 +22,20 @@
 			"when": 1742160343246,
 			"tag": "0002_lyrical_lord_hawal",
 			"breakpoints": true
+		},
+		{
+			"idx": 3,
+			"version": "5",
+			"when": 1742341759332,
+			"tag": "0003_strong_silverclaw",
+			"breakpoints": true
+		},
+		{
+			"idx": 4,
+			"version": "5",
+			"when": 1742342217583,
+			"tag": "0004_closed_talon",
+			"breakpoints": true
 		}
 	]
 }
