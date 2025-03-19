@@ -109,10 +109,9 @@ export const DepartmentsTable = pgTable(
 		id: uuid("id").primaryKey().defaultRandom(),
 		name: text("name").notNull(),
 		description: text("description"),
-		organizationId: uuid("organization_id").references(
-			() => OrganizationTable.id,
-			{ onDelete: "cascade" },
-		),
+		organizationId: uuid("organization_id")
+			.references(() => OrganizationTable.id, { onDelete: "cascade" })
+			.notNull(),
 		headUserId: uuid("head_user_id").references(() => user.id, {
 			onDelete: "set null",
 		}),
@@ -132,10 +131,9 @@ export const RolesTable = pgTable("roles", {
 	id: uuid("id").primaryKey().defaultRandom(),
 	name: text("name").notNull(),
 	permissions: text("permissions").array(),
-	organizationId: uuid("organization_id").references(
-		() => OrganizationTable.id,
-		{ onDelete: "cascade" },
-	),
+	organizationId: uuid("organization_id")
+		.references(() => OrganizationTable.id, { onDelete: "cascade" })
+		.notNull(),
 	createdAt: timestamp("created_at", { withTimezone: true })
 		.notNull()
 		.defaultNow(),

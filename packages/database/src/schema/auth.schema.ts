@@ -75,24 +75,28 @@ export const subscription = pgTable("subscription", {
 	seats: integer("seats"),
 });
 
-export const userRoles = pgTable("user_roles", {
+export const UserRolesTable = pgTable("user_roles", {
 	userId: uuid("user_id")
 		.notNull()
 		.references(() => user.id, { onDelete: "cascade" }),
 	roleId: uuid("role_id")
 		.notNull()
 		.references(() => RolesTable.id, { onDelete: "cascade" }),
-	createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
-	updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
+	createdAt: timestamp("created_at", { withTimezone: true })
+		.notNull()
+		.defaultNow(),
+	updatedAt: timestamp("updated_at", { withTimezone: true })
+		.notNull()
+		.defaultNow(),
 });
 
-export const userRolesRelations = relations(userRoles, ({ one }) => ({
+export const UserRolesRelations = relations(UserRolesTable, ({ one }) => ({
 	user: one(user, {
-		fields: [userRoles.userId],
+		fields: [UserRolesTable.userId],
 		references: [user.id],
 	}),
 	role: one(RolesTable, {
-		fields: [userRoles.roleId],
+		fields: [UserRolesTable.roleId],
 		references: [RolesTable.id],
 	}),
 }));

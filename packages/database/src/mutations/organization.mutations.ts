@@ -8,11 +8,13 @@ import {
 	DomainVerificationTable,
 	MembersTable,
 	OrganizationTable,
+	RolesTable,
 } from "../schema";
 import type {
 	memberInsertSchema,
 	memberUpdateSchema,
 	organizationInsertSchema,
+	roleUpdateSchema,
 	organizationUpdateSchema,
 } from "../validations";
 type OrganizationInsert = z.infer<typeof organizationInsertSchema> & {
@@ -22,6 +24,9 @@ type OrganizationUpdate = z.infer<typeof organizationUpdateSchema>;
 
 type OrganizationMemberInsert = z.infer<typeof memberInsertSchema>;
 type OrganizationMemberUpdate = z.infer<typeof memberUpdateSchema>;
+
+type InsertRole = typeof RolesTable.$inferInsert;
+type UpdateRole = z.infer<typeof roleUpdateSchema>;
 
 export async function createOrganization(data: OrganizationInsert) {
 	const [organization] = await db
@@ -90,3 +95,28 @@ export async function deleteOrganizationMember(id: string) {
 		.returning();
 	return member;
 }
+
+export const createRole = async (data: InsertRole) => {
+	const [newRole] = await db.insert(RolesTable).values(data).returning();
+	return newRole;
+};
+
+export const updateRole = async (data: UpdateRole) => {
+	if (!data.id) {
+		throw new Error("ID is required");
+	}
+	const [updatedRole] = await db
+		.update(RolesTable)
+		.set(data)
+		.where(eq(RolesTable.id, data.id))
+		.returning();
+	return updatedRole;
+};
+
+export const deleteRole = async (id: string) => {
+	const [deletedRole] = await db
+		.delete(RolesTable)
+		.where(eq(RolesTable.id, id))
+		.returning();
+	return deletedRole;
+};

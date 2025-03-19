@@ -1,20 +1,14 @@
 "use server";
 import crypto from "node:crypto";
-import { redis } from "@/lib/redis";
+
 import { authActionClient } from "@/lib/safe-action";
-// import { createServerClient } from "@/lib/supabase/server";
-import { WaitlistEmail } from "@optima/email";
 
 import {
-	// createUser,
-	// createUserAdmin,
-	// createUserAvailability,
-	// createUserPreferences,
 	createDomainVerification,
-	// createDomainVerification,
 	createOrganization,
 	createOrganizationMember,
-	createUser,
+	createRole,
+	createUserRole,
 	updateUser,
 } from "@optima/database/mutations";
 import { getOrganizationByDomain } from "@optima/database/queries";
@@ -22,9 +16,8 @@ import {
 	organizationInsertSchema,
 	userUpdateSchema,
 } from "@optima/database/validations";
-import { redirect } from "next/navigation";
-import { z } from "zod";
-// import { getOrganizationByDomain } from "@optima/supabase/queries";
+
+import { PERMISSIONS_ARRAY } from "@optima/constants";
 
 export const onboardUserAction = authActionClient
 	.metadata({
@@ -43,7 +36,7 @@ export const onboardOrganizationAction = authActionClient
 	})
 	.schema(organizationInsertSchema)
 	.action(async ({ ctx, parsedInput }) => {
-		const { user, resend } = ctx;
+		const { user } = ctx;
 
 		const existingOrganization = await getOrganizationByDomain(
 			parsedInput.domain,
@@ -62,6 +55,25 @@ export const onboardOrganizationAction = authActionClient
 
 		if (!organization) {
 			throw new Error("Failed to create organization");
+		}
+
+		const role = await createRole({
+			name: "owner",
+			permissions: [...PERMISSIONS_ARRAY],
+			organizationId: organization.id,
+		});
+
+		if (!role) {
+			throw new Error("Failed to create owner role");
+		}
+
+		const userRole = await createUserRole({
+			userId: user.id,
+			roleId: role.id,
+		});
+
+		if (!userRole) {
+			throw new Error("Failed to create user role");
 		}
 
 		await createOrganizationMember({

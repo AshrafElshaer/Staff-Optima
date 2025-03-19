@@ -17,6 +17,7 @@
 		"@ai-sdk/openai": "^1.2.5",
 		"@better-auth/stripe": "^1.2.4",
 		"@better-fetch/fetch": "^1.1.15",
+		"@optima/constants": "workspace:*",
 		"@optima/database": "workspace:*",
 		"@optima/editor": "workspace:*",
 		"@optima/ui": "workspace:*",

@@ -2,7 +2,8 @@
 
 import type * as React from "react";
 
-import { useSession } from "@/hooks/use-session";
+import { useUserRole } from "@/hooks/use-user-role";
+import { hasPermission } from "@/lib/auth/has-permission";
 import { Separator } from "@optima/ui/components/separator";
 import {
 	Sidebar,
@@ -19,7 +20,8 @@ import {
 	UserSearch01Icon,
 } from "hugeicons-react";
 import { NavMain } from "./nav-main";
-import { NavUser } from "./nav-user";
+
+import { PERMISSIONS } from "@optima/constants";
 import { OrganizationLogo } from "./organization-logo";
 
 const links = [
@@ -62,7 +64,16 @@ const settings = [
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const { data: session } = useSession();
+	const { data: userRole } = useUserRole();
+	const hasOrganizationPermission = hasPermission(userRole?.permissions ?? [], [
+		PERMISSIONS.settings.organization,
+		PERMISSIONS.settings.template,
+		PERMISSIONS.settings.workflow,
+		PERMISSIONS.settings.integration,
+		PERMISSIONS.user.add,
+		PERMISSIONS.user.update,
+		PERMISSIONS.user.delete,
+	]);
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
@@ -72,7 +83,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarContent>
 				<NavMain items={links} label="Workspace" />
 				<NavMain items={communication} label="Communication" />
-				{session?.user.role === "admin" || session?.user.role === "owner" ? (
+				{hasOrganizationPermission ? (
 					<NavMain items={settings} label="Settings" />
 				) : null}
 			</SidebarContent>
