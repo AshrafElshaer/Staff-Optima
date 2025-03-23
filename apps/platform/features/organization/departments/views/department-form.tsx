@@ -2,7 +2,7 @@
 import { MemberSelector } from "@/components/selectors/member-selector";
 import { useOrganizationStore } from "@/stores/organization";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { departmentInsertSchema } from "@optima/database/validations";
+import { departmentInsertSchema } from "@optima/supabase/validations";
 import { Button } from "@optima/ui/components/button";
 import { DialogClose, DialogFooter } from "@optima/ui/components/dialog";
 import {
@@ -27,7 +27,7 @@ const formSchema = departmentInsertSchema;
 export function DepartmentForm({
 	setOpen,
 }: { setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
-	const organization = useOrganizationStore((state) => state.organization);
+
 	const { execute, isExecuting } = useAction(createDepartmentAction, {
 		onSuccess: () => {
 			toast.success("Department created successfully");
@@ -43,7 +43,7 @@ export function DepartmentForm({
 			name: "",
 			description: "",
 			headUserId: "",
-			organizationId: organization?.id,
+
 		},
 	});
 

@@ -1,11 +1,6 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@optima/ui/components/button";
-import { Icons } from "@optima/ui/components/icons";
-import { Loader } from "lucide-react";
-
-import { authClient } from "@/lib/auth/auth-client";
 import {
 	Card,
 	CardContent,
@@ -14,6 +9,22 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@optima/ui/components/card";
+import { Icons } from "@optima/ui/components/icons";
+import { Input } from "@optima/ui/components/inputs";
+import { Label } from "@optima/ui/components/label";
+import { Separator } from "@optima/ui/components/separator";
+import { AnimatePresence, motion } from "motion/react";
+
+import { Mail01Icon } from "hugeicons-react";
+import { Loader } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
+import { useQueryStates } from "nuqs";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+
+import { z } from "zod";
+import { authSearchParams } from "../auth-search-params";
+import { signInAction } from "../auth.actions";
 import {
 	Form,
 	FormControl,
@@ -22,17 +33,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
-import { Input } from "@optima/ui/components/inputs/input";
-import { Separator } from "@optima/ui/components/separator";
-import { AnimatePresence, motion } from "motion/react";
-import { useAction } from "next-safe-action/hooks";
-import { useQueryStates } from "nuqs";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
-import { signInAction } from "../auth.actions";
-import { authSearchParams } from "../auth.searchparams";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 const formSchema = z.object({
 	email: z.string().email(),
 });
@@ -45,17 +48,22 @@ export function SignIn() {
 		},
 	});
 
-	const [, setSearchParams] = useQueryStates(authSearchParams);
 	const { execute, isExecuting } = useAction(signInAction, {
-		onSuccess: ({ data }) => {
-			setSearchParams({
-				activeTab: "verify-otp",
-				email: form.getValues("email"),
-			});
-		},
 		onError: ({ error }) => {
 			toast.error(error.serverError);
 		},
+		onSuccess: (res) => {
+			setAuthParams({
+				auth_type: res?.data?.properties?.verification_type as
+					| "signup"
+					| "magiclink",
+				email: res?.data?.user?.email,
+				active_tab: "verify-otp",
+			});
+		},
+	});
+	const [_, setAuthParams] = useQueryStates(authSearchParams, {
+		shallow: true,
 	});
 
 	async function onSubmit(data: z.infer<typeof formSchema>) {
@@ -63,7 +71,7 @@ export function SignIn() {
 	}
 
 	return (
-		<Card className="w-full max-w-sm pt-8">
+		<Card className="w-full max-w-sm pt-8 mx-auto">
 			<CardHeader className="items-center">
 				<Icons.Logo className="size-16" />
 				<CardTitle className="mt-6">Welcome back</CardTitle>

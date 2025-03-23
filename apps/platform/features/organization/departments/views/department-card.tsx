@@ -1,5 +1,5 @@
 "use client";
-import type { Department } from "@optima/database/types";
+import type { Department } from "@optima/supabase/types";
 import {
 	cardClasses,
 	Card,

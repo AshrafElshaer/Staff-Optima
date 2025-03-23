@@ -1,12 +1,15 @@
 import { OrganizationProfileForm } from "@/features/organization/profile/views/profile-form";
-import { auth } from "@/lib/auth/auth";
-import { getUserOrganization } from "@optima/database/queries";
+import { createServerClient } from "@/lib/supabase/server";
+
+import { getOrganizationById } from "@optima/supabase/queries";
 import { headers } from "next/headers";
 
 export default async function OrganizationProfilePage() {
+	const supabase = await createServerClient();
 	const headersList = await headers();
-	const userId = headersList.get("x-user-id");
 
-	const organization = await getUserOrganization(userId ?? "");
+	const organizationId = headersList.get("x-organization-id");
+
+	const {data:organization} = await getOrganizationById(supabase, organizationId ?? "");
 	return <OrganizationProfileForm organization={organization} />;
 }

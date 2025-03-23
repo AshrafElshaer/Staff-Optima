@@ -3,7 +3,7 @@
 import { TextGenerateEffect } from "@/components/magic-ui/text-animate";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { organizationInsertSchema } from "@optima/database/validations";
+import { organizationInsertSchema } from "@optima/supabase/validations";
 import { Button, buttonVariants } from "@optima/ui/components/button";
 import { Input } from "@optima/ui/components/inputs/input";
 import { UrlInput } from "@optima/ui/components/inputs/url-input";
@@ -29,7 +29,6 @@ import { useCountdown } from "usehooks-ts";
 import type { z } from "zod";
 import { onboardOrganizationAction } from "../onboarding.actions";
 
-import { authClient } from "@/lib/auth/auth-client";
 import {
 	Form,
 	FormControl,
@@ -91,18 +90,18 @@ function OrganizationForm() {
 		resolver: zodResolver(organizationInsertSchema),
 		defaultValues: {
 			country: "",
-			address1: "",
-			address2: "",
+			address_1: "",
+			address_2: "",
 			city: "",
 			state: "",
-			zipCode: "",
+			zip_code: "",
 			industry: "",
 			domain: "",
 			name: "",
 			profile: "",
 			timezone: "",
-			employeeCount: "",
-			taxId: "",
+			employee_count: "",
+			tax_id: "",
 		},
 	});
 
@@ -181,7 +180,7 @@ function OrganizationForm() {
 					/>
 					<FormField
 						control={form.control}
-						name="employeeCount"
+						name="employee_count"
 						render={({ field }) => (
 							<FormItem className="w-full">
 								<FormLabel>
@@ -217,7 +216,7 @@ function OrganizationForm() {
 					/>
 					<FormField
 						control={form.control}
-						name="taxId"
+						name="tax_id"
 						render={({ field }) => (
 							<FormItem className="w-full">
 								<FormLabel>
@@ -241,7 +240,7 @@ function OrganizationForm() {
 
 				<FormField
 					control={form.control}
-					name="address1"
+					name="address_1"
 					render={({ field }) => (
 						<FormItem className="w-full">
 							<FormLabel>
@@ -262,7 +261,7 @@ function OrganizationForm() {
 				<div className="flex flex-col sm:flex-row gap-6">
 					<FormField
 						control={form.control}
-						name="address2"
+						name="address_2"
 						render={({ field }) => (
 							<FormItem className="w-full">
 								<FormLabel>
@@ -326,7 +325,7 @@ function OrganizationForm() {
 
 					<FormField
 						control={form.control}
-						name="zipCode"
+						name="zip_code"
 						render={({ field }) => (
 							<FormItem className="w-full">
 								<FormLabel>

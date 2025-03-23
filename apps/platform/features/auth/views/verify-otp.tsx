@@ -7,13 +7,13 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@optima/ui/components/card";
+import { cn } from "@optima/ui/lib/utils";
 import {
 	InputOTP,
 	InputOTPGroup,
 	InputOTPSeparator,
 	InputOTPSlot,
 } from "@optima/ui/components/inputs/input-otp";
-import { cn } from "@optima/ui/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 
 import { REGEXP_ONLY_DIGITS } from "input-otp";
@@ -24,11 +24,11 @@ import { useQueryStates } from "nuqs";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useCountdown } from "usehooks-ts";
+import { authSearchParams } from "../auth-search-params";
 import { signInAction, verifyOtpAction } from "../auth.actions";
-import { authSearchParams } from "../auth.searchparams";
 
 export function VerifyOtp() {
-	const [{ email, redirectUrl }, setAuthParams] = useQueryStates(
+	const [{ auth_type, redirect_url, email }, setAuthParams] = useQueryStates(
 		authSearchParams,
 		{
 			shallow: true,
@@ -44,6 +44,11 @@ export function VerifyOtp() {
 		signInAction,
 		{
 			onSuccess: (res) => {
+				setAuthParams({
+					auth_type: res?.data?.properties?.verification_type as
+						| "signup"
+						| "magiclink",
+				});
 				resetResendTimer();
 				startResendTimer();
 			},
@@ -71,8 +76,9 @@ export function VerifyOtp() {
 	async function onComplete(code: string) {
 		execute({
 			email,
-			otp: code,
-			redirectUrl,
+			token: code,
+			auth_type: auth_type as "signup" | "magiclink",
+			redirect_url,
 		});
 	}
 
@@ -93,7 +99,7 @@ export function VerifyOtp() {
 						setAuthParams({
 							email: null,
 
-							activeTab: "sign-in",
+							active_tab: "sign-in",
 						});
 					}}
 					variant="outline"

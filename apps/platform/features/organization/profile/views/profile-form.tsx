@@ -3,9 +3,9 @@ import { DropZone, type DropzoneOptions } from "@/components/drop-zone";
 
 import { queryClient } from "@/lib/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { Organization } from "@optima/database/types";
-import { organizationSchema } from "@optima/database/validations";
 import Editor from "@optima/editor";
+import type { Organization } from "@optima/supabase/types";
+import { organizationSchema } from "@optima/supabase/validations";
 import {
 	Avatar,
 	AvatarFallback,
@@ -26,7 +26,7 @@ import { AlertDiamondIcon } from "hugeicons-react";
 
 import { OnChangeToast } from "@/components/toasts/on-change-toast";
 import { useActionToast } from "@/hooks/use-action-toast";
-import { createSupabaseClient } from "@/lib/supabase/client";
+import { createBrowserClient } from "@/lib/supabase/browser";
 import { uploadOrganizationLogo } from "@/lib/supabase/storage";
 import { CountrySelector } from "@optima/ui/components/selectors/country-selector";
 import { Separator } from "@optima/ui/components/separator";
@@ -59,7 +59,7 @@ const DROP_ZONE_OPTIONS: DropzoneOptions = {
 export function OrganizationProfileForm({
 	organization,
 }: {
-	organization: Organization | null;
+	organization: Organization;
 }) {
 	const [resetKey, setResetKey] = useState(0);
 	const formSubmitRef = useRef<HTMLButtonElement | null>(null);
@@ -104,11 +104,18 @@ export function OrganizationProfileForm({
 								...data,
 								profile: data.profile ?? undefined,
 								logo: data.logo ?? null,
-								adminId: data.adminId ?? undefined,
-								address1: data.address1 ?? null,
-								address2: data.address2 ?? null,
+								admin_id: data.admin_id ?? "",
+								address_1: data.address_1 ?? null,
+								address_2: data.address_2 ?? null,
 								city: data.city ?? null,
-							}
+								created_at: data.created_at ?? "",
+								updated_at: data.updated_at ?? "",
+								name: data.name ?? "",
+								domain: data.domain ?? "",
+								industry: data.industry ?? "",
+								country: data.country ?? "",
+								timezone: data.timezone ?? "",
+						  }
 						: undefined,
 					{
 						keepDirty: false,
@@ -116,26 +123,13 @@ export function OrganizationProfileForm({
 				);
 				setResetKey((prev) => prev + 1);
 				resetAction();
-				if (input.domain) {
-					router.refresh();
-				}
 			}, 3000);
 		},
 	});
 
 	const form = useForm<z.infer<typeof organizationSchema>>({
 		resolver: zodResolver(organizationSchema),
-		defaultValues: organization
-			? {
-					...organization,
-					profile: organization.profile ?? undefined,
-					logo: organization.logo ?? null,
-					adminId: organization.adminId,
-					address1: organization.address1 ?? null,
-					address2: organization.address2 ?? null,
-					city: organization.city ?? null,
-				}
-			: undefined,
+		defaultValues: organization,
 	});
 
 	function onSubmit(values: z.infer<typeof organizationSchema>) {
@@ -155,7 +149,7 @@ export function OrganizationProfileForm({
 	}
 
 	async function uploadLogo(file: File) {
-		const supabase = createSupabaseClient();
+		const supabase = createBrowserClient();
 		toast.promise(
 			async () => {
 				const url = await uploadOrganizationLogo({
@@ -180,9 +174,30 @@ export function OrganizationProfileForm({
 	}
 
 	const handleReset = () => {
-		form.reset();
+		form.reset(
+			organization ? {
+				...organization,
+				profile: organization.profile ?? undefined,
+				logo: organization.logo ?? null,
+				admin_id: organization.admin_id ?? "",
+				address_1: organization.address_1 ?? null,
+				address_2: organization.address_2 ?? null,
+				city: organization.city ?? null,
+				created_at: organization.created_at ?? "",
+				updated_at: organization.updated_at ?? "",
+				name: organization.name ?? "",
+				domain: organization.domain ?? "",
+				industry: organization.industry ?? "",
+				country: organization.country ?? "",
+				timezone: organization.timezone ?? "",
+			} : undefined,
+			{
+				keepDirty: false
+			}
+		);
 		setResetKey((prev) => prev + 1);
 	};
+	console.log("is dirty", form.formState.isDirty);
 
 	const ToastContent = useCallback(
 		({ toastId }: { toastId: string | number }) => {
@@ -310,7 +325,7 @@ export function OrganizationProfileForm({
 					<div className="grid gap-8 md:grid-cols-2">
 						<FormField
 							control={form.control}
-							name="address1"
+							name="address_1"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
@@ -331,7 +346,7 @@ export function OrganizationProfileForm({
 
 						<FormField
 							control={form.control}
-							name="address2"
+							name="address_2"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
@@ -394,7 +409,7 @@ export function OrganizationProfileForm({
 
 						<FormField
 							control={form.control}
-							name="zipCode"
+							name="zip_code"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>

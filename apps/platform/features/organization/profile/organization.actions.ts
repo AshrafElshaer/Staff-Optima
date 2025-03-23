@@ -3,20 +3,20 @@ import { authActionClient } from "@/lib/safe-action";
 // import { createServerClient } from "@/lib/supabase/server";
 
 import { resolveTxt } from "node:dns/promises";
+import { DnsVerificationEmail } from "@optima/email";
 import {
 	updateDomainVerification,
 	updateOrganization,
-} from "@optima/database/mutations";
+} from "@optima/supabase/mutations";
 import {
 	getDomainVerificationByOrganizationId,
 	getOrganizationById,
-} from "@optima/database/queries";
+} from "@optima/supabase/queries";
 import {
 	domainVerificationSchema,
 	domainVerificationUpdateSchema,
 	organizationUpdateSchema,
-} from "@optima/database/validations";
-import { DnsVerificationEmail } from "@optima/email";
+} from "@optima/supabase/validations";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 
@@ -29,13 +29,18 @@ export const updateOrganizationAction = authActionClient
 		},
 	})
 	.schema(organizationUpdateSchema)
-	.action(async ({ parsedInput }) => {
-		const updated = await updateOrganization(parsedInput);
+	.action(async ({ parsedInput, ctx }) => {
+		const { supabase } = ctx;
+		const { data, error } = await updateOrganization(supabase, parsedInput);
+
+		if (error) {
+			throw new Error(error.message);
+		}
 
 		revalidatePath("/organization");
 		revalidateTag("organization");
 
-		return updated;
+		return data;
 	});
 
 export const verifyDomainAction = authActionClient
@@ -47,16 +52,17 @@ export const verifyDomainAction = authActionClient
 		},
 	})
 	.schema(domainVerificationUpdateSchema)
-	.action(async ({ parsedInput }) => {
+	.action(async ({ parsedInput, ctx }) => {
+		const { supabase } = ctx;
 		let records: string[][] | null = null;
 		try {
 			records = await resolveTxt(
 				`staffoptima_verification.${parsedInput.domain}`,
 			);
 		} catch (error) {
-			await updateDomainVerification({
+			await updateDomainVerification(supabase, {
 				id: parsedInput.id,
-				verificationStatus: "failed",
+				verification_status: "failed",
 			});
 			throw new Error(
 				"Unable to verify domain. Please check your DNS settings and try again.",
@@ -65,30 +71,30 @@ export const verifyDomainAction = authActionClient
 
 		const isValid = records
 			.flat()
-			.includes(parsedInput.verificationToken ?? "");
+			.includes(parsedInput.verification_token ?? "");
 
 		if (!isValid) {
-			await updateDomainVerification({
+			await updateDomainVerification(supabase, {
 				id: parsedInput.id,
-				verificationStatus: "failed",
+				verification_status: "failed",
 			});
-			await updateOrganization({
+			await updateOrganization(supabase, {
 				id: parsedInput.organizationId ?? "",
-				isDomainVerified: false,
+				is_domain_verified: false,
 			});
 
 			throw new Error("Invalid verification token");
 		}
 
-		const updatedDomainVerification = await updateDomainVerification({
+		const updatedDomainVerification = await updateDomainVerification(supabase, {
 			id: parsedInput.id,
-			verificationStatus: "verified",
-			verificationDate: new Date(),
+			verification_status: "verified",
+			verification_date: new Date(),
 		});
 
-		const updatedOrganization = await updateOrganization({
+		const updatedOrganization = await updateOrganization(supabase, 	{
 			id: parsedInput.organizationId ?? "",
-			isDomainVerified: true,
+			is_domain_verified: true,
 		});
 
 		revalidatePath("/organization");

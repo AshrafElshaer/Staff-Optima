@@ -1,4 +1,4 @@
-import type { Organization } from "@optima/database/types";
+import type { Organization } from "@optima/supabase/types";
 import { create } from "zustand";
 
 type OrganizationStore = {

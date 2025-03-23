@@ -29,5 +29,12 @@
 	"deno.lint": true,
 	"deno.importMap": "./packages/supabase/functions/import-map.json",
 
-	"cSpell.words": ["hugeicons", "nuqs", "sonner", "supabase", "usehooks"]
+	"cSpell.words": [
+		"hugeicons",
+		"ilike",
+		"nuqs",
+		"sonner",
+		"supabase",
+		"usehooks"
+	]
 }

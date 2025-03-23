@@ -65,7 +65,7 @@ const settings = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { data: userRole } = useUserRole();
-	const hasOrganizationPermission = hasPermission(userRole?.permissions ?? [], [
+	const hasOrganizationPermission = hasPermission(userRole?.role.permissions ?? [], [
 		PERMISSIONS.settings.organization,
 		PERMISSIONS.settings.template,
 		PERMISSIONS.settings.workflow,

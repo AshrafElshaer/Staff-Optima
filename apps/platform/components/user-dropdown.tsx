@@ -1,5 +1,6 @@
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { useSession } from "@/hooks/use-session";
-import { authClient } from "@/lib/auth/auth-client";
+import { useSupabase } from "@/hooks/use-supabase";
 import { queryClient } from "@/lib/react-query";
 import {
 	Avatar,
@@ -30,8 +31,9 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 
 export function UserDropdown() {
-	const { data, isPending } = useSession();
+	const { data, isPending } = useCurrentUser();
 	const { setTheme } = useTheme();
+	const supabase = useSupabase();
 	const { toggleSidebar } = useSidebar();
 	const isMobile = useIsMobile();
 	const pathname = usePathname();
@@ -51,7 +53,7 @@ export function UserDropdown() {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-40">
 				<DropdownMenuLabel>
-					<span className="font-medium">{data?.user?.name}</span>
+					<span className="font-medium">{data?.first_name} {data?.last_name}</span>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
@@ -101,19 +103,15 @@ export function UserDropdown() {
 					className="cursor-pointer"
 					onSelect={(e) => {
 						e.preventDefault();
-						startTransition(() => {
-							authClient.signOut({
-								fetchOptions: {
-									onError: ({ error }) => {
-										toast.error(error.message);
-									},
-									onSuccess: () => {
-										queryClient.invalidateQueries({
-											queryKey: ["session"],
-										});
-										router.push(`/auth?redirectUrl=${pathname}`);
-									},
-								},
+						startTransition(async() => {
+							await supabase.auth.signOut().then(() => {
+								queryClient.invalidateQueries({
+									queryKey: ["session"],
+								});
+								queryClient.invalidateQueries({
+									queryKey: ["current-user"],
+								});
+								router.push(`/auth?redirect_url=${pathname}`);
 							});
 						});
 					}}

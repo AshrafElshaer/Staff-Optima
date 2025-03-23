@@ -1,6 +1,7 @@
 "use client";
 
-import { getDepartmentById } from "@optima/database/queries";
+import { useSupabase } from "@/hooks/use-supabase";
+import { getDepartmentById } from "@optima/supabase/queries";
 import {
 	Breadcrumb,
 	BreadcrumbEllipsis,
@@ -24,6 +25,7 @@ import React from "react";
 
 export function OrganizationBreadcrumb() {
 	const pathname = usePathname();
+	const supabase = useSupabase()
 	const segments = pathname.split("/").filter(Boolean);
 	const isMobile = useIsMobile();
 	const templateId = segments[1] === "email-templates" ? segments[2] : null;
@@ -32,7 +34,13 @@ export function OrganizationBreadcrumb() {
 
 	const { data: department } = useQuery({
 		queryKey: ["department", departmentId],
-		queryFn: () => getDepartmentById(departmentId ?? ""),
+		queryFn: async() => {
+			const {data, error} = await getDepartmentById(supabase, departmentId ?? "")
+			if(error){
+				throw error
+			}
+			return data
+		},
 		enabled: !!departmentId,
 	});
 
