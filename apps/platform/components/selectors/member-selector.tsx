@@ -23,17 +23,19 @@ type MemberSelectorProps = {
 	value: string;
 };
 export function MemberSelector({ onChange, value }: MemberSelectorProps) {
-
 	const { data: session } = useSession();
-	const supabase = useSupabase()
+	const supabase = useSupabase();
 	const { data: members, isLoading } = useQuery({
 		queryKey: ["members"],
-		queryFn: async() => {
-			const {data,error} = await getTeamMembers(supabase,session?.user.user_metadata.organization_id ?? "")
-			if(error){
-				throw error
+		queryFn: async () => {
+			const { data, error } = await getTeamMembers(
+				supabase,
+				session?.user.user_metadata.organization_id ?? "",
+			);
+			if (error) {
+				throw error;
 			}
-			return data
+			return data;
 		},
 	});
 
@@ -51,8 +53,8 @@ export function MemberSelector({ onChange, value }: MemberSelectorProps) {
 							</SelectItem>
 						))
 					: members?.map((member) => {
-						const firstName = member.first_name
-						const lastName = member.last_name
+							const firstName = member.first_name;
+							const lastName = member.last_name;
 
 							return (
 								<SelectItem key={member.id} value={member.id}>

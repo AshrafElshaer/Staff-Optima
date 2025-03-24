@@ -1,7 +1,5 @@
-import {
-	createBrowserClient,
-} from "@optima/supabase/client";
-import type {SupabaseInstance} from "@optima/supabase/types"
+import { createBrowserClient } from "@optima/supabase/client";
+import type { SupabaseInstance } from "@optima/supabase/types";
 // @ts-ignore
 import { createImageUpload } from "novel";
 import { toast } from "sonner";

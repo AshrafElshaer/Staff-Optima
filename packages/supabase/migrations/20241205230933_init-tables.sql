@@ -120,7 +120,6 @@ create index idx_user_roles_role on user_roles(role_id);
 create table departments (
     id uuid primary key default gen_random_uuid(),
     organization_id uuid not null references organizations(id)  on delete cascade,
-
     name text not null,
     description text,
     head_user_id uuid references users(id) on delete set null,

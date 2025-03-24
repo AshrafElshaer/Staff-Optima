@@ -27,7 +27,6 @@ const formSchema = departmentInsertSchema;
 export function DepartmentForm({
 	setOpen,
 }: { setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
-
 	const { execute, isExecuting } = useAction(createDepartmentAction, {
 		onSuccess: () => {
 			toast.success("Department created successfully");
@@ -42,15 +41,14 @@ export function DepartmentForm({
 		defaultValues: {
 			name: "",
 			description: "",
-			headUserId: "",
-
+			head_user_id: "",
 		},
 	});
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		if (!values.headUserId || values.headUserId === "") {
+		if (!values.head_user_id || values.head_user_id === "") {
 			toast.error("Head of department is required");
-			form.setError("headUserId", {
+			form.setError("head_user_id", {
 				message: "Head of department is required",
 			});
 			return;
@@ -100,7 +98,7 @@ export function DepartmentForm({
 
 					<FormField
 						control={form.control}
-						name="headUserId"
+						name="head_user_id"
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Head Of Department</FormLabel>

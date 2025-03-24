@@ -53,7 +53,9 @@ export function UserDropdown() {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-40">
 				<DropdownMenuLabel>
-					<span className="font-medium">{data?.first_name} {data?.last_name}</span>
+					<span className="font-medium">
+						{data?.first_name} {data?.last_name}
+					</span>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
@@ -103,7 +105,7 @@ export function UserDropdown() {
 					className="cursor-pointer"
 					onSelect={(e) => {
 						e.preventDefault();
-						startTransition(async() => {
+						startTransition(async () => {
 							await supabase.auth.signOut().then(() => {
 								queryClient.invalidateQueries({
 									queryKey: ["session"],

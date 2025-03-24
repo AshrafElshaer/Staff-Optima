@@ -1,4 +1,4 @@
-import type { SupabaseInstance } from "../types";
+import type { Department, SupabaseInstance } from "../types";
 
 export async function getDepartmentsByOrganizationId(
 	supabase: SupabaseInstance,
@@ -17,37 +17,17 @@ export async function getDepartmentsWithJobsAndApplications(
 		name?: string;
 	},
 ) {
+	// job_posts(*), applications:applications(*)
 	const query = supabase
 		.from("departments")
-		.select("*, job_posts(*), applications:applications(*)")
+		.select("*")
 		.eq("organization_id", organizationId);
 
 	if (filters?.name) {
 		query.ilike("name", `%${filters.name}%`);
 	}
 
-	return await query.returns<
-		{
-			id: string;
-			name: string;
-			description: string | null;
-			head_user_id: string | null;
-			created_at: string | null;
-			updated_at: string | null;
-			job_posts: {
-				id: string;
-				title: string;
-				created_at: string | null;
-				updated_at: string | null;
-			}[];
-			applications: {
-				id: string;
-				user_id: string;
-				created_at: string | null;
-				updated_at: string | null;
-			}[];
-		}[]
-	>();
+	return await query;
 }
 
 export async function getDepartmentById(

@@ -1,4 +1,3 @@
-
 import { getOrganizationById } from "@optima/supabase/queries";
 
 import { useOrganizationStore } from "@/stores/organization";

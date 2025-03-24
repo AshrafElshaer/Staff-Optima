@@ -34,7 +34,7 @@ import { Separator } from "@optima/ui/components/separator";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 
 import { Plus } from "lucide-react";
@@ -115,7 +115,7 @@ export function OrganizationProfileForm({
 								industry: data.industry ?? "",
 								country: data.country ?? "",
 								timezone: data.timezone ?? "",
-						  }
+							}
 						: undefined,
 					{
 						keepDirty: false,
@@ -127,9 +127,19 @@ export function OrganizationProfileForm({
 		},
 	});
 
+	const defaultValues = useMemo(() => {
+		if (!organization) return undefined;
+		return Object.fromEntries(
+			Object.entries(organization).map(([key, value]) => [
+				key,
+				value === null ? undefined : value,
+			]),
+		);
+	}, [organization]);
+
 	const form = useForm<z.infer<typeof organizationSchema>>({
 		resolver: zodResolver(organizationSchema),
-		defaultValues: organization,
+		defaultValues,
 	});
 
 	function onSubmit(values: z.infer<typeof organizationSchema>) {
@@ -175,25 +185,27 @@ export function OrganizationProfileForm({
 
 	const handleReset = () => {
 		form.reset(
-			organization ? {
-				...organization,
-				profile: organization.profile ?? undefined,
-				logo: organization.logo ?? null,
-				admin_id: organization.admin_id ?? "",
-				address_1: organization.address_1 ?? null,
-				address_2: organization.address_2 ?? null,
-				city: organization.city ?? null,
-				created_at: organization.created_at ?? "",
-				updated_at: organization.updated_at ?? "",
-				name: organization.name ?? "",
-				domain: organization.domain ?? "",
-				industry: organization.industry ?? "",
-				country: organization.country ?? "",
-				timezone: organization.timezone ?? "",
-			} : undefined,
+			organization
+				? {
+						...organization,
+						profile: organization.profile ?? undefined,
+						logo: organization.logo ?? null,
+						admin_id: organization.admin_id ?? "",
+						address_1: organization.address_1 ?? null,
+						address_2: organization.address_2 ?? null,
+						city: organization.city ?? null,
+						created_at: organization.created_at ?? "",
+						updated_at: organization.updated_at ?? "",
+						name: organization.name ?? "",
+						domain: organization.domain ?? "",
+						industry: organization.industry ?? "",
+						country: organization.country ?? "",
+						timezone: organization.timezone ?? "",
+					}
+				: undefined,
 			{
-				keepDirty: false
-			}
+				keepDirty: false,
+			},
 		);
 		setResetKey((prev) => prev + 1);
 	};

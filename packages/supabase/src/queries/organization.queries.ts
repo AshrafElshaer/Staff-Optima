@@ -35,3 +35,13 @@ export async function getDomainVerificationByOrganizationId(
 		.eq("organization_id", organizationId)
 		.single();
 }
+
+export async function getOrganizationRoles(
+	supabase: SupabaseInstance,
+	organization_id: string,
+) {
+	return await supabase
+		.from("roles")
+		.select("*")
+		.eq("organization_id", organization_id);
+}

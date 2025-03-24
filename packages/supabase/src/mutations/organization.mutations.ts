@@ -27,7 +27,6 @@ export async function createOrganization(
 	const { error: memberError } = await supabase
 		.from("organization_members")
 		.insert({
-			
 			organization_id: organization.id || "",
 			user_id: organization.admin_id || "",
 		});

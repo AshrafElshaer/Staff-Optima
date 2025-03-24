@@ -20,7 +20,11 @@ export default async function OrganizationDepartmentsPage({
 	const headersList = await headers();
 	const supabase = await createServerClient();
 	const organizationId = headersList.get("x-organization-id");
-	const {data:departments} = await getDepartmentsWithJobsAndApplications(supabase, organizationId ?? "", filters);
+	const { data: departments } = await getDepartmentsWithJobsAndApplications(
+		supabase,
+		organizationId ?? "",
+		filters,
+	);
 
 	return (
 		<div className="flex flex-col gap-8 flex-1">

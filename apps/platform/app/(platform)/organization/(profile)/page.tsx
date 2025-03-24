@@ -3,6 +3,7 @@ import { createServerClient } from "@/lib/supabase/server";
 
 import { getOrganizationById } from "@optima/supabase/queries";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 
 export default async function OrganizationProfilePage() {
 	const supabase = await createServerClient();
@@ -10,6 +11,13 @@ export default async function OrganizationProfilePage() {
 
 	const organizationId = headersList.get("x-organization-id");
 
-	const {data:organization} = await getOrganizationById(supabase, organizationId ?? "");
+	const { data: organization } = await getOrganizationById(
+		supabase,
+		organizationId ?? "",
+	);
+
+	if (!organization) {
+		notFound();
+	}
 	return <OrganizationProfileForm organization={organization} />;
 }

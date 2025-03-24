@@ -21,7 +21,6 @@ import { z } from "zod";
 export const onboardUserAction = authActionClient
 	.metadata({
 		name: "onboard-user",
-		
 	})
 	.schema(userInsertSchema)
 	.action(async ({ ctx, parsedInput }) => {
@@ -63,7 +62,7 @@ export const onboardOrganizationAction = authActionClient
 			await getOrganizationByDomain(supabase, parsedInput.domain);
 
 		if (existingOrganizationError) {
-			console.log("error")
+			console.log("error");
 			throw new Error(existingOrganizationError.message);
 		}
 

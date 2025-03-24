@@ -79,7 +79,7 @@ export const verifyDomainAction = authActionClient
 				verification_status: "failed",
 			});
 			await updateOrganization(supabase, {
-				id: parsedInput.organizationId ?? "",
+				id: parsedInput.organization_id ?? "",
 				is_domain_verified: false,
 			});
 
@@ -89,11 +89,11 @@ export const verifyDomainAction = authActionClient
 		const updatedDomainVerification = await updateDomainVerification(supabase, {
 			id: parsedInput.id,
 			verification_status: "verified",
-			verification_date: new Date(),
+			verification_date: new Date().toISOString(),
 		});
 
-		const updatedOrganization = await updateOrganization(supabase, 	{
-			id: parsedInput.organizationId ?? "",
+		const updatedOrganization = await updateOrganization(supabase, {
+			id: parsedInput.organization_id ?? "",
 			is_domain_verified: true,
 		});
 
@@ -112,20 +112,27 @@ export const sendDomainVerificationEmailAction = authActionClient
 	})
 	.schema(
 		z.object({
-			organizationId: z.string(),
+			organization_id: z.string(),
 			sendTo: z.string().email(),
 		}),
 	)
 	.action(async ({ parsedInput, ctx }) => {
-		const { user, resend } = ctx;
+		const { user, resend, supabase } = ctx;
 
-		const organization = await getOrganizationById(parsedInput.organizationId);
+		const { data: organization, error: organizationError } =
+			await getOrganizationById(supabase, parsedInput.organization_id);
 
-		const domainVerification = await getDomainVerificationByOrganizationId(
-			parsedInput.organizationId,
-		);
+		if (organizationError) {
+			throw new Error("Organization not found");
+		}
 
-		if (!domainVerification) {
+		const { data: domainVerification, error: domainVerificationError } =
+			await getDomainVerificationByOrganizationId(
+				supabase,
+				parsedInput.organization_id,
+			);
+
+		if (domainVerificationError) {
 			throw new Error("Domain verification not found");
 		}
 

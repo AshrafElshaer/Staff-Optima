@@ -2,10 +2,7 @@
 	"name": "staff-optima",
 	"version": "0.0.1",
 	"private": true,
-	"workspaces": [
-		"apps/*",
-		"packages/*"
-	],
+	"workspaces": ["apps/*", "packages/*"],
 	"scripts": {
 		"build": "turbo build",
 		"clean": "git clean -xdf node_modules",

@@ -5,7 +5,7 @@ export * from "./database";
 export type SupabaseInstance = SupabaseClient<Database>;
 
 // export type UserAccessRole = Enums<"user_role_enum">;
-export type DomainVerificationStatus = Enums<"domain_verification_status_enum">
+export type DomainVerificationStatus = Enums<"domain_verification_status_enum">;
 
 // export type JobLocation = Enums<"job_location_enum">;
 // export type InterviewStatus = Enums<"interview_status_enum">;
@@ -15,11 +15,11 @@ export type DomainVerificationStatus = Enums<"domain_verification_status_enum">
 // export type JobPostCampaignStatus = Enums<"job_post_campaign_status_enum">;
 
 export const domainVerificationStatusEnum: {
-  [key in DomainVerificationStatus]: key;
+	[key in DomainVerificationStatus]: key;
 } = {
-  pending: "pending",
-  verified: "verified",
-  failed: "failed",
+	pending: "pending",
+	verified: "verified",
+	failed: "failed",
 };
 
 // export const userRoleEnum: {

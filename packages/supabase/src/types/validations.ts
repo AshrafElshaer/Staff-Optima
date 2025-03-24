@@ -39,8 +39,8 @@ export const organizationSchema = z.object({
 	}),
 	tax_id: z.string().nullable(),
 	employee_count: z.string().nullable(),
-	created_at: z.string(),
-	updated_at: z.string(),
+	created_at: z.string().nullable(),
+	updated_at: z.string().nullable(),
 });
 
 export const organizationInsertSchema = organizationSchema.omit({
@@ -59,8 +59,8 @@ export const organizationUpdateSchema = organizationSchema.partial().required({
 export const organizationMemberSchema = z.object({
 	organization_id: z.string().uuid(),
 	user_id: z.string().uuid(),
-	created_at: z.string(),
-	updated_at: z.string(),
+	created_at: z.string().nullable(),
+	updated_at: z.string().nullable(),
 });
 export const organizationMemberInsertSchema = organizationMemberSchema.omit({
 	updated_at: true,
@@ -79,8 +79,8 @@ export const domainVerificationSchema = z.object({
 	verification_token: z.string(),
 	verification_status: z.nativeEnum(domainVerificationStatusEnum),
 	verification_date: z.string().nullable(),
-	created_at: z.string(),
-	updated_at: z.string(),
+	created_at: z.string().nullable(),
+	updated_at: z.string().nullable(),
 });
 
 export const domainVerificationInsertSchema = domainVerificationSchema.omit({
@@ -89,7 +89,11 @@ export const domainVerificationInsertSchema = domainVerificationSchema.omit({
 	updated_at: true,
 });
 
-export const domainVerificationUpdateSchema = domainVerificationSchema.partial()
+export const domainVerificationUpdateSchema = domainVerificationSchema
+	.partial()
+	.required({
+		id: true,
+	});
 export const departmentSchema = z.object({
 	id: z.string().uuid(),
 	organization_id: z.string().uuid(),
@@ -98,8 +102,8 @@ export const departmentSchema = z.object({
 	}),
 	description: z.string().nullable(),
 	head_user_id: z.string().uuid().nullable(),
-	created_at: z.string(),
-	updated_at: z.string(),
+	created_at: z.string().nullable(),
+	updated_at: z.string().nullable(),
 });
 
 export const departmentInsertSchema = departmentSchema.omit({
@@ -149,8 +153,8 @@ export const userSchema = z.object({
 	first_name: z.string().min(1, "First name is required."),
 	last_name: z.string().min(1, "Last name is required."),
 	image: z.string().url().nullable(),
-	created_at: z.string(),
-	updated_at: z.string(),
+	created_at: z.string().nullable(),
+	updated_at: z.string().nullable(),
 	phone_number: z.string().refine(isValidPhoneNumber, {
 		message: "Invalid phone number",
 	}),
@@ -382,8 +386,8 @@ export const userUpdateSchema = userSchema.partial().required({
 //   timezone: z.string().min(1, {
 //     message: "Timezone is required",
 //   }),
-//   created_at: z.string(),
-//   updated_at: z.string(),
+//   created_at: z.string().nullable(),
+//   updated_at: z.string().nullable(),
 // });
 
 // export const candidateInsertSchema = candidateSchema.omit({
@@ -413,8 +417,8 @@ export const userUpdateSchema = userSchema.partial().required({
 //   screening_question_answers: z.array(screeningQuestionAnswerSchema).nullable(),
 //   source: z.string().nullable(),
 //   stage_id: z.string().nullable(),
-//   created_at: z.string(),
-//   updated_at: z.string(),
+//   created_at: z.string().nullable(),
+//   updated_at: z.string().nullable(),
 // });
 
 // export const applicationInsertSchema = applicationSchema.omit({
@@ -442,8 +446,8 @@ export const userUpdateSchema = userSchema.partial().required({
 //     message: "Must be minimum 2 characters",
 //   }),
 //   file_url: z.string().url(),
-//   created_at: z.string(),
-//   updated_at: z.string(),
+//   created_at: z.string().nullable(),
+//   updated_at: z.string().nullable(),
 // });
 
 // export const attachmentInsertSchema = attachmentSchema.omit({

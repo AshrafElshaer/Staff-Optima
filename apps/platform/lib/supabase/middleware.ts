@@ -1,5 +1,5 @@
 import type { Database } from "@optima/supabase/types";
-import { createServerClient} from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
 import type { NextRequest, NextResponse } from "next/server";
 
 export const updateSession = async (

@@ -41,7 +41,7 @@ export function DomainVerification({
 	organizationId: string;
 }) {
 	const router = useRouter();
-	const supabase = useSupabase()
+	const supabase = useSupabase();
 	const { executeAsync: verifyDomain, isExecuting } = useAction(
 		verifyDomainAction,
 		{
@@ -53,11 +53,14 @@ export function DomainVerification({
 	const { data: domainVerification, isLoading } = useQuery({
 		queryKey: ["domain-verification"],
 		queryFn: async () => {
-			const {data,error} = await getDomainVerificationByOrganizationId(supabase, organizationId)
-			if(error){
-				throw error
+			const { data, error } = await getDomainVerificationByOrganizationId(
+				supabase,
+				organizationId,
+			);
+			if (error) {
+				throw error;
 			}
-			return data
+			return data;
 		},
 	});
 
@@ -69,6 +72,8 @@ export function DomainVerification({
 			async () => {
 				const result = await verifyDomain({
 					...domainVerification,
+					created_at: undefined,
+					updated_at: undefined,
 				});
 				if (result?.serverError) {
 					throw new Error(result.serverError);
@@ -298,7 +303,10 @@ export function ForwardDnsEmail({
 	});
 
 	const onSubmit = (data: z.infer<typeof formSchema>) => {
-		sendDomainVerificationEmail({ organizationId, sendTo: data.email });
+		sendDomainVerificationEmail({
+			organization_id: organizationId,
+			sendTo: data.email,
+		});
 	};
 
 	return (

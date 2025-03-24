@@ -65,15 +65,18 @@ const settings = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { data: userRole } = useUserRole();
-	const hasOrganizationPermission = hasPermission(userRole?.role.permissions ?? [], [
-		PERMISSIONS.settings.organization,
-		PERMISSIONS.settings.template,
-		PERMISSIONS.settings.workflow,
-		PERMISSIONS.settings.integration,
-		PERMISSIONS.user.add,
-		PERMISSIONS.user.update,
-		PERMISSIONS.user.delete,
-	]);
+	const hasOrganizationPermission = hasPermission(
+		userRole?.role.permissions ?? [],
+		[
+			PERMISSIONS.settings.organization,
+			PERMISSIONS.settings.template,
+			PERMISSIONS.settings.workflow,
+			PERMISSIONS.settings.integration,
+			PERMISSIONS.user.add,
+			PERMISSIONS.user.update,
+			PERMISSIONS.user.delete,
+		],
+	);
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
