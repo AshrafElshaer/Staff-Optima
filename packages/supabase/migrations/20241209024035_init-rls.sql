@@ -34,6 +34,24 @@ create policy "Organization Admin Can Create Organization Member" on organizatio
 create policy "Organization Admin Can Update Organization Member" on organization_members for update using (is_user_organization_admin(organization_id) or has_permission('user:update'));
 create policy "Organization Admin Can Delete Organization Member" on organization_members for delete using (is_user_organization_admin(organization_id) or has_permission('user:delete'));
 
+-- Roles
+
+alter table roles enable row level security;
+
+create policy "Public can read role" on roles for select using (true);
+create policy "Organization Admin Can Create Role" on roles for insert with check (is_user_organization_admin(organization_id) or has_permission('settings:roles'));
+create policy "Organization Admin Can Update Role" on roles for update using (is_user_organization_admin(organization_id) or has_permission('settings:roles'));
+create policy "Organization Admin Can Delete Role" on roles for delete using (is_user_organization_admin(organization_id) or has_permission('settings:roles'));
+
+-- User Roles
+
+alter table user_roles enable row level security;
+
+create policy "Public can read user role" on user_roles for select using (true);
+create policy "Organization Admin Can Create User Role" on user_roles for insert with check (has_permission('settings:roles'));
+create policy "Organization Admin Can Update User Role" on user_roles for update using (has_permission('settings:roles'));
+create policy "Organization Admin Can Delete User Role" on user_roles for delete using (has_permission('settings:roles'));
+
 -- Departments
 alter table departments enable row level security;
 

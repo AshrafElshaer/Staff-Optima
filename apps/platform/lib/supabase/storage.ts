@@ -41,7 +41,7 @@ export async function uploadOrganizationLogo({
 }: UploadOrganizationLogoProps) {
 	return uploadFile({
 		supabase,
-		bucket: "organization_logos",
+		bucket: "organization-logos",
 		path: organizationId,
 		file,
 	});

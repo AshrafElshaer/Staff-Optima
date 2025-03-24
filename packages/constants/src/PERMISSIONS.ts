@@ -45,6 +45,8 @@ export const PERMISSIONS = {
 		template: "settings:template",
 		organization: "settings:organization",
 		integration: "settings:integration",
+		roles: "settings:roles",
+		departments: "settings:departments",
 	},
 } as const;
 
