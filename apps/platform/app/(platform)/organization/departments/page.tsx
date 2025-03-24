@@ -2,7 +2,8 @@ import { departmentSearchLoader } from "@/features/organization/departments/depa
 import { DepartmentCard } from "@/features/organization/departments/views/department-card";
 import { DepartmentSearch } from "@/features/organization/departments/views/department-search";
 import { NewDepartment } from "@/features/organization/departments/views/new-department";
-import { getDepartmentsByUserId } from "@optima/database/queries";
+import { createServerClient } from "@/lib/supabase/server";
+import { getDepartmentsWithJobsAndApplications } from "@optima/supabase/queries";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { SearchParams } from "nuqs";
@@ -17,11 +18,13 @@ export default async function OrganizationDepartmentsPage({
 	const filters = await departmentSearchLoader(searchParams);
 
 	const headersList = await headers();
-	const userId = headersList.get("x-user-id");
-	if (!userId) {
-		redirect("/auth");
-	}
-	const departments = await getDepartmentsByUserId(userId ?? "", filters);
+	const supabase = await createServerClient();
+	const organizationId = headersList.get("x-organization-id");
+	const { data: departments } = await getDepartmentsWithJobsAndApplications(
+		supabase,
+		organizationId ?? "",
+		filters,
+	);
 
 	return (
 		<div className="flex flex-col gap-8 flex-1">
@@ -29,7 +32,7 @@ export default async function OrganizationDepartmentsPage({
 				<DepartmentSearch />
 				<NewDepartment />
 			</section>
-			{departments.length === 0 ? (
+			{departments?.length === 0 ? (
 				<div className="flex flex-col gap-2 flex-1 items-center justify-center">
 					<p className="text-sm text-muted-foreground">No departments found</p>
 					<p className="text-muted-foreground">
@@ -38,7 +41,7 @@ export default async function OrganizationDepartmentsPage({
 				</div>
 			) : (
 				<section className=" grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-					{departments.map((department) => (
+					{departments?.map((department) => (
 						<DepartmentCard key={department.id} department={department} />
 					))}
 				</section>

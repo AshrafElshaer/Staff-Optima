@@ -1,3 +1,5 @@
+// import { getUser } from "@optima/supabase/queries";
+import { createServerClient } from "@/lib/supabase/server";
 import { setupAnalytics } from "@optima/analytics/server";
 import { ratelimit } from "@optima/kv/ratelimit";
 import { logger } from "@optima/logger";
@@ -8,8 +10,7 @@ import {
 } from "next-safe-action";
 import { headers } from "next/headers";
 import { z } from "zod";
-import { auth } from "./auth/auth";
-import { resend } from "./resend";
+import { resend } from "@/lib/resend";
 
 const handleServerError = (e: Error) => {
 	console.error("Action error:", e.message);
@@ -78,17 +79,18 @@ export const authActionClient = actionClientWithMeta
 		});
 	})
 	.use(async ({ next, metadata }) => {
-		const session = await auth.api.getSession({
-			headers: await headers(), // you need to pass the headers object.
-		});
+		const supabase = await createServerClient();
+		const {
+			data: { user },
+		} = await supabase.auth.getUser();
 
-		if (!session) {
+		if (!user) {
 			throw new Error("Unauthorized");
 		}
 
 		if (metadata) {
 			const analytics = await setupAnalytics({
-				userId: session.user.id,
+				userId: user.id,
 			});
 			if (metadata.track) {
 				analytics.track(metadata.track);
@@ -97,16 +99,12 @@ export const authActionClient = actionClientWithMeta
 
 		return next({
 			ctx: {
-				user: session.user,
+				supabase,
+				user,
 			},
 		});
 
 		// return Sentry.withServerActionInstrumentation(metadata.name, async () => {
-		//   return next({
-		//     ctx: {
-		//       supabase,
-		//       user,
-		//     },
-		//   });
+
 		// });
 	});

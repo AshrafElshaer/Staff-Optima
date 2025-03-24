@@ -14,7 +14,7 @@ import {
 	Text,
 } from "@react-email/components";
 
-import type { DomainVerification } from "@optima/database/types";
+import type { DomainVerification } from "@optima/supabase/types";
 import { colors } from "../components/colors";
 import Logo from "../components/logo";
 
@@ -131,7 +131,7 @@ export function DnsVerificationEmail({
 										<Text
 											className={`text-[14px] text-left text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 										>
-											{record.verificationToken}
+											{record.verification_token}
 										</Text>
 									</Column>
 								</Row>
@@ -202,9 +202,9 @@ DnsVerificationEmail.PreviewProps = {
 			id: "1",
 			type: "TXT",
 			name: "staffoptima_verification",
-			verificationToken: "staffoptima-site-verification=123456",
-			verificationStatus: "pending",
-			verificationDate: null,
+			verification_token: "staffoptima-site-verification=123456",
+			verification_status: "pending",
+			verification_date: null,
 			organizationId: "1",
 		},
 	],

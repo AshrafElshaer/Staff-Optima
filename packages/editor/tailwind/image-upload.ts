@@ -1,7 +1,5 @@
-import {
-	type SupabaseInstance,
-	createSupabaseClient,
-} from "@optima/database/supabase";
+import { createBrowserClient } from "@optima/supabase/client";
+import type { SupabaseInstance } from "@optima/supabase/types";
 // @ts-ignore
 import { createImageUpload } from "novel";
 import { toast } from "sonner";
@@ -37,7 +35,7 @@ export async function uploadFile({
 }
 
 const onUpload = async (file: File) => {
-	const supabase = createSupabaseClient();
+	const supabase = createBrowserClient();
 
 	return new Promise((resolve, reject) => {
 		return toast.promise(

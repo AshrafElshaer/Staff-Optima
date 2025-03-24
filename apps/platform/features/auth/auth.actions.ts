@@ -1,60 +1,103 @@
 "use server";
-import { auth } from "@/lib/auth/auth";
-import { actionClient } from "@/lib/safe-action";
-import { getUserOrganization } from "@optima/database/queries";
-import { headers } from "next/headers";
+
+import { redis } from "@/lib/redis";
+import { resend } from "@/lib/resend";
+import { actionClientWithMeta } from "@/lib/safe-action";
+import { createServerClient } from "@/lib/supabase/server";
+import { OtpEmail } from "@optima/email";
+import { isAuthApiError } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
-export const signInAction = actionClient
+export const signInAction = actionClientWithMeta
+	.metadata({
+		name: "sign-in",
+		track: {
+			event: "sign-in",
+			channel: "auth",
+		},
+	})
 	.schema(
 		z.object({
 			email: z.string().email(),
 		}),
 	)
-	.action(async ({ parsedInput: { email } }) => {
-		const { success } = await auth.api.sendVerificationOTP({
-			body: {
-				email,
-				type: "sign-in",
-			},
-			headers: await headers(),
+	.action(async ({ parsedInput }) => {
+		const supabase = await createServerClient({ isAdmin: true });
+
+		const { data, error } = await supabase.auth.admin.generateLink({
+			email: parsedInput.email,
+			type: "magiclink",
 		});
 
-		return { success };
-	});
-
-export const verifyOtpAction = actionClient
-	.schema(
-		z.object({
-			email: z.string().email(),
-			otp: z.string(),
-			redirectUrl: z.string(),
-		}),
-	)
-	.action(async ({ parsedInput: { email, otp, redirectUrl } }) => {
-		const { user } = await auth.api.signInEmailOTP({
-			body: {
-				email,
-				otp,
-			},
-			headers: await headers(),
-		});
-
-		const organization = await getUserOrganization(user.id);
-
-		if (!organization) {
-			redirect("/onboarding");
+		if (error || isAuthApiError(error)) {
+			throw new Error(error.message);
 		}
 
-		redirect(redirectUrl);
+		if (!data?.properties?.email_otp) {
+			throw new Error("No OTP code generated");
+		}
+
+		const { error: emailError, data: emailData } = await resend.emails.send({
+			from: "Staff Optima Access <onboarding@staffoptima.co>",
+			to: [parsedInput.email],
+			subject: "Staff Optima OTP Access",
+			react: OtpEmail({
+				otpCode: data.properties?.email_otp,
+			}),
+			headers: {
+				"X-Entity-Ref-ID": data.user?.id,
+			},
+		});
+
+		if (emailError) {
+			throw new Error(emailError.message);
+		}
+
+		return data;
 	});
 
-export const signOutAction = actionClient
-	.schema(z.object({ redirectUrl: z.string() }))
-	.action(async ({ parsedInput: { redirectUrl } }) => {
-		await auth.api.signOut({
-			headers: await headers(),
+export const verifyOtpAction = actionClientWithMeta
+	.metadata({
+		name: "verify-otp",
+		track: {
+			event: "verify-otp",
+			channel: "auth",
+		},
+	})
+	.schema(
+		z.object({
+			email: z.string().email(),
+			token: z.string(),
+			auth_type: z.enum(["signup", "magiclink"]),
+			redirect_url: z.string().optional(),
+		}),
+	)
+	.action(async ({ parsedInput }) => {
+		let redirect_url = parsedInput.redirect_url ?? "/";
+		const supabase = await createServerClient({ isAdmin: true });
+
+		const { data, error } = await supabase.auth.verifyOtp({
+			email: parsedInput.email,
+			token: parsedInput.token,
+			type: parsedInput.auth_type,
 		});
-		redirect(redirectUrl);
+
+		if (error) {
+			throw new Error(error.message);
+		}
+
+		const allowedOrganization = await redis.sismember(
+			"allowed_organizations",
+			data.user?.user_metadata.organization_id ?? "",
+		);
+		if (!allowedOrganization && data.user?.user_metadata.organization_id) {
+			redirect("/waitlist");
+		}
+
+		if (!data.user?.user_metadata.organization_id) {
+			redirect_url = "/onboarding";
+		}
+
+		redirect(redirect_url);
 	});

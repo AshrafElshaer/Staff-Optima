@@ -1,7 +1,4 @@
-import {
-	getOrganizationById,
-	getUserOrganization,
-} from "@optima/database/queries";
+import { getOrganizationById } from "@optima/supabase/queries";
 import {
 	CheckSquare,
 	Code,
@@ -20,6 +17,7 @@ import {
 // @ts-ignore
 import { Command, createSuggestionItems, renderItems } from "novel";
 
+import { createBrowserClient } from "@optima/supabase/client";
 import { toast } from "sonner";
 import { uploadFn } from "./image-upload";
 
@@ -252,7 +250,11 @@ export const getSuggestionItems = (organizationId: string) => {
 		command: async ({ editor, range }) => {
 			toast.promise(
 				async () => {
-					const organization = await getOrganizationById(organizationId);
+					const supabase = createBrowserClient();
+					const { data: organization, error } = await getOrganizationById(
+						supabase,
+						organizationId,
+					);
 
 					if (!organization) {
 						throw new Error("Company not found");

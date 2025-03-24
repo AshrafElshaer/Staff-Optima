@@ -8,13 +8,13 @@
 		"clean": "git clean -xdf node_modules",
 		"clean:workspaces": "turbo clean",
 		"dev": "turbo dev --parallel",
-		"dev:jobs": "turbo jobs --filter=@optima/jobs",
+		"dev:trigger.dev": "turbo jobs --filter=@optima/trigger.dev",
 		"dev:platform": "turbo dev --filter=@optima/platform",
 		"dev:web": "turbo dev --filter=@optima/web",
 		"dev:jobs-web": "turbo dev --filter=@optima/jobs-web",
 		"start:platform": "turbo start --filter=@optima/platform",
 		"start:web": "turbo start --filter=@optima/web",
-		"start:jobs": "turbo start --filter=@optima/jobs",
+		"start:trigger.dev": "turbo start --filter=@optima/trigger.dev",
 		"start:jobs-web": "turbo start --filter=@optima/jobs-web",
 		"test": "turbo test --parallel",
 		"format": "biome format --write .",
@@ -28,7 +28,7 @@
 		"@optima/typescript-config": "workspace:*",
 		"prettier": "^3.5.1",
 		"turbo": "^2.4.2",
-		"typescript": "5.7.3"
+		"typescript": "^5.8.2"
 	},
 	"packageManager": "bun@1.0.30",
 	"engines": {

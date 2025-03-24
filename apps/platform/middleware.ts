@@ -1,15 +1,11 @@
-import { betterFetch } from "@better-fetch/fetch";
-// import type { Session } from "better-auth";
-import { getSessionCookie } from "better-auth/cookies";
 import {
 	type MiddlewareConfig,
 	type NextRequest,
 	NextResponse,
 } from "next/server";
-import type { auth } from "./lib/auth/auth";
+import { updateSession } from "./lib/supabase/middleware";
 
 const publicRoutes = ["/auth"];
-type Session = typeof auth.$Infer.Session;
 
 export async function middleware(request: NextRequest) {
 	const pathname = request.nextUrl.pathname;
@@ -17,28 +13,24 @@ export async function middleware(request: NextRequest) {
 	next.headers.set("x-pathname", pathname);
 
 	// Skip auth API routes to prevent infinite loop
-	if (pathname.startsWith("/api/auth") || publicRoutes.includes(pathname)) {
+	if (pathname.startsWith("/api") || publicRoutes.includes(pathname)) {
 		return next;
 	}
 
-	const { data: session } = await betterFetch<Session>(
-		"/api/auth/get-session",
-		{
-			baseURL: request.nextUrl.origin,
-			headers: {
-				cookie: request.headers.get("cookie") || "",
-			},
-		},
-	);
+	const { response, user } = await updateSession(request, next);
 
-	if (!session) {
+	if (!user) {
 		return NextResponse.redirect(
-			new URL(`/auth?redirectUrl=${pathname}`, request.url),
+			new URL(`/auth?redirect_url=${pathname}`, request.url),
 		);
 	}
-	next.headers.set("x-user-id", session.user.id);
+	response.headers.set("x-user-id", user.id);
+	response.headers.set(
+		"x-organization-id",
+		user?.user_metadata.organization_id ?? "",
+	);
 
-	return next;
+	return response;
 }
 
 export const config: MiddlewareConfig = {

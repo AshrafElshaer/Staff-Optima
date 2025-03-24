@@ -1,4 +1,4 @@
-import type { SupabaseInstance } from "./client";
+import type { SupabaseInstance } from "@optima/supabase/types";
 type UploadFileProps = {
 	supabase: SupabaseInstance;
 	bucket: string;
@@ -41,7 +41,7 @@ export async function uploadOrganizationLogo({
 }: UploadOrganizationLogoProps) {
 	return uploadFile({
 		supabase,
-		bucket: "organization-logos",
+		bucket: "organization_logos",
 		path: organizationId,
 		file,
 	});

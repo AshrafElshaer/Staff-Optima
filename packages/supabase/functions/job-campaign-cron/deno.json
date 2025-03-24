@@ -1,0 +1,5 @@
+{
+	"imports": {
+		"trigger.dev": "npm:@trigger.dev/sdk@3.0.0/v3"
+	}
+}

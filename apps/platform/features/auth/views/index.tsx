@@ -1,38 +1,33 @@
 "use client";
+
 import { AnimatePresence, motion } from "motion/react";
 import { useQueryStates } from "nuqs";
-import { authSearchParams } from "../auth.searchparams";
+import React from "react";
+import { authSearchParams } from "../auth-search-params";
 import { SignIn } from "./sign-in";
 import { VerifyOtp } from "./verify-otp";
 
-export function Auth() {
-	const [{ activeTab }] = useQueryStates(authSearchParams);
+export function AuthComponent() {
+	const [{ auth_type, active_tab }] = useQueryStates(authSearchParams, {
+		shallow: true,
+	});
+
 	return (
-		<div className="flex h-screen w-screen items-center justify-center">
-			<AnimatePresence mode="wait" initial={false}>
-				{activeTab === "sign-in" ? (
-					<motion.div
-						key="sign-in"
-						initial={{ opacity: 0, y: 10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: -10 }}
-						transition={{ duration: 0.4 }}
-					>
-						<SignIn />
-					</motion.div>
-				) : (
-					<motion.div
-						key="verify-otp"
-						initial={{ opacity: 0, y: 10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: -10 }}
-						transition={{ duration: 0.4 }}
-						className="w-full"
-					>
-						<VerifyOtp />
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</div>
+		<AnimatePresence mode="wait" initial={false}>
+			<motion.div
+				key={active_tab}
+				initial={{ opacity: 0, y: 20 }}
+				animate={{ opacity: 1, y: 0 }}
+				exit={{ opacity: 0, y: -20 }}
+				transition={{ duration: 0.25 }}
+				className="w-full"
+			>
+				{active_tab === "sign-in" ? (
+					<SignIn />
+				) : active_tab === "verify-otp" ? (
+					<VerifyOtp />
+				) : null}
+			</motion.div>
+		</AnimatePresence>
 	);
 }

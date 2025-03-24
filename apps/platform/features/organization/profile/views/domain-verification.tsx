@@ -1,6 +1,6 @@
 "use client";
 import { CopyToClipboard } from "@/components/copy-to-clipboard";
-// import { useSupabase } from "@/hooks/use-supabase";
+import { useSupabase } from "@/hooks/use-supabase";
 import { queryClient } from "@/lib/react-query";
 // import { getDomainVerificationByOrganizationId } from "@optima/supabase/queries";
 import { Badge } from "@optima/ui/components/badge";
@@ -41,6 +41,7 @@ export function DomainVerification({
 	organizationId: string;
 }) {
 	const router = useRouter();
+	const supabase = useSupabase();
 	const { executeAsync: verifyDomain, isExecuting } = useAction(
 		verifyDomainAction,
 		{
@@ -51,10 +52,19 @@ export function DomainVerification({
 	);
 	const { data: domainVerification, isLoading } = useQuery({
 		queryKey: ["domain-verification"],
-		queryFn: () => getDomainVerificationByOrganizationId(organizationId),
+		queryFn: async () => {
+			const { data, error } = await getDomainVerificationByOrganizationId(
+				supabase,
+				organizationId,
+			);
+			if (error) {
+				throw error;
+			}
+			return data;
+		},
 	});
 
-	const status = domainVerification?.verificationStatus;
+	const status = domainVerification?.verification_status;
 
 	async function handleVerifyDomain() {
 		if (!domainVerification) return;
@@ -62,6 +72,8 @@ export function DomainVerification({
 			async () => {
 				const result = await verifyDomain({
 					...domainVerification,
+					created_at: undefined,
+					updated_at: undefined,
 				});
 				if (result?.serverError) {
 					throw new Error(result.serverError);
@@ -194,10 +206,10 @@ export function DomainVerification({
 			</CardHeader>
 			<Separator />
 			<CardContent className="space-y-4">
-				{domainVerification?.verificationDate ? (
+				{domainVerification?.verification_date ? (
 					<p className="text-secondary-foreground">
 						Verified at{" "}
-						{moment(domainVerification.verificationDate).format("MMM D, YYYY")}
+						{moment(domainVerification.verification_date).format("MMM D, YYYY")}
 					</p>
 				) : null}
 				<div className="overflow-auto -mx-6 px-6">
@@ -220,9 +232,9 @@ export function DomainVerification({
 								Value
 							</div>
 							<div className="flex items-center justify-between text-sm overflow-auto">
-								{domainVerification?.verificationToken}
+								{domainVerification?.verification_token}
 								<CopyToClipboard
-									text={domainVerification?.verificationToken ?? ""}
+									text={domainVerification?.verification_token ?? ""}
 								/>
 							</div>
 
@@ -242,9 +254,8 @@ export function DomainVerification({
 	);
 }
 
-import { createSupabaseClient } from "@/lib/supabase/client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getDomainVerificationByOrganizationId } from "@optima/database/queries";
+import { getDomainVerificationByOrganizationId } from "@optima/supabase/queries";
 import {
 	Form,
 	FormControl,
@@ -292,7 +303,10 @@ export function ForwardDnsEmail({
 	});
 
 	const onSubmit = (data: z.infer<typeof formSchema>) => {
-		sendDomainVerificationEmail({ organizationId, sendTo: data.email });
+		sendDomainVerificationEmail({
+			organization_id: organizationId,
+			sendTo: data.email,
+		});
 	};
 
 	return (

@@ -1,7 +1,8 @@
 "use client";
 import { useSession } from "@/hooks/use-session";
+import { useSupabase } from "@/hooks/use-supabase";
 import { useOrganizationStore } from "@/stores/organization";
-import { getOrganizationMembers } from "@optima/database/queries";
+import { getTeamMembers } from "@optima/supabase/queries";
 import {
 	Avatar,
 	AvatarFallback,
@@ -22,11 +23,20 @@ type MemberSelectorProps = {
 	value: string;
 };
 export function MemberSelector({ onChange, value }: MemberSelectorProps) {
-	const organization = useOrganizationStore((state) => state.organization);
 	const { data: session } = useSession();
+	const supabase = useSupabase();
 	const { data: members, isLoading } = useQuery({
 		queryKey: ["members"],
-		queryFn: () => getOrganizationMembers(organization?.id ?? ""),
+		queryFn: async () => {
+			const { data, error } = await getTeamMembers(
+				supabase,
+				session?.user.user_metadata.organization_id ?? "",
+			);
+			if (error) {
+				throw error;
+			}
+			return data;
+		},
 	});
 
 	return (
@@ -43,7 +53,9 @@ export function MemberSelector({ onChange, value }: MemberSelectorProps) {
 							</SelectItem>
 						))
 					: members?.map((member) => {
-							const [firstName, lastName] = member.name.split(" ");
+							const firstName = member.first_name;
+							const lastName = member.last_name;
+
 							return (
 								<SelectItem key={member.id} value={member.id}>
 									<Avatar className="size-5 rounded-full ">
@@ -53,7 +65,7 @@ export function MemberSelector({ onChange, value }: MemberSelectorProps) {
 											{lastName?.charAt(0)}
 										</AvatarFallback>
 									</Avatar>
-									{member.name}
+									{firstName} {lastName}
 									{member.id === session?.user?.id && (
 										<span className="text-sm text-muted-foreground ">You</span>
 									)}

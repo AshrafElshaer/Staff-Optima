@@ -81,16 +81,18 @@ export const PERMISSIONS_ARRAY = [
 	"interview:feedback",
 
 	// Reports & Analytics
-	"reports:view",
-	"reports:create",
-	"analytics:access",
-	"metrics:view",
+	// "reports:view",
+	// "reports:create",
+	// "analytics:access",
+	// "metrics:view",
 
 	// Settings
 	"settings:workflow",
 	"settings:template",
 	"settings:organization",
 	"settings:integration",
+	"settings:roles",
+	"settings:departments",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS_ARRAY)[number];
