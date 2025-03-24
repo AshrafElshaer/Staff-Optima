@@ -87,14 +87,6 @@ export const verifyOtpAction = actionClientWithMeta
 			throw new Error(error.message);
 		}
 
-		const allowedOrganization = await redis.sismember(
-			"allowed_organizations",
-			data.user?.user_metadata.organization_id ?? "",
-		);
-		if (!allowedOrganization && data.user?.user_metadata.organization_id) {
-			redirect("/waitlist");
-		}
-
 		if (!data.user?.user_metadata.organization_id) {
 			redirect_url = "/onboarding";
 		}
