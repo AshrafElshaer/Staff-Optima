@@ -1,7 +1,6 @@
 "use client";
 
 import { buttonVariants } from "@optima/ui/components/button";
-import { cn } from "@optima/ui/lib/utils";
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -19,6 +18,7 @@ import {
 	SidebarMenuSubItem,
 	useSidebar,
 } from "@optima/ui/components/sidebar";
+import { cn } from "@optima/ui/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -54,6 +54,7 @@ export function NavMain({
 							tooltip={item.title}
 						>
 							<Link
+								prefetch={true}
 								href={item.url}
 								className={buttonVariants({
 									variant: isActive ? "secondary" : "ghost",
