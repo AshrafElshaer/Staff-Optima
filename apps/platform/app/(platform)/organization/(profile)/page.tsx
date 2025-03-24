@@ -2,8 +2,14 @@ import { OrganizationProfileForm } from "@/features/organization/profile/views/p
 import { createServerClient } from "@/lib/supabase/server";
 
 import { getOrganizationById } from "@optima/supabase/queries";
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+	title: "Profile",
+	description: "Manage Organization Public Profile",
+};
 
 export default async function OrganizationProfilePage() {
 	const supabase = await createServerClient();

@@ -1,7 +1,11 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { getOrganizationRoles } from "@optima/supabase/queries";
 import { headers } from "next/headers";
-
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Roles & Permissions",
+	description: "Manage Organization Roles & Access",
+};
 export default async function AccessControlPage() {
 	const supabase = await createServerClient();
 	const headersList = await headers();

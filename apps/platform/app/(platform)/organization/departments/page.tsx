@@ -4,9 +4,15 @@ import { DepartmentSearch } from "@/features/organization/departments/views/depa
 import { NewDepartment } from "@/features/organization/departments/views/new-department";
 import { createServerClient } from "@/lib/supabase/server";
 import { getDepartmentsWithJobsAndApplications } from "@optima/supabase/queries";
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { SearchParams } from "nuqs";
+
+export const metadata: Metadata = {
+	title: "Departments",
+	description: "Manage Organization Departments",
+};
 
 type Params = {
 	searchParams: Promise<SearchParams>;
