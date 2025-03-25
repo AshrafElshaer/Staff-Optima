@@ -68,13 +68,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const hasOrganizationPermission = hasPermission(
 		userRole?.role.permissions ?? [],
 		[
-			PERMISSIONS.settings.organization,
-			PERMISSIONS.settings.template,
-			PERMISSIONS.settings.workflow,
-			PERMISSIONS.settings.integration,
-			PERMISSIONS.user.add,
-			PERMISSIONS.user.update,
-			PERMISSIONS.user.delete,
+			"settings:organization",
+			"settings:template",
+			"settings:workflow",
+			"settings:integration",
+			"user:add",
+			"user:update",
+			"user:delete",
 		],
 	);
 	return (

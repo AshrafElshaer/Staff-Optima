@@ -70,6 +70,30 @@ export const organizationMemberInsertSchema = organizationMemberSchema.omit({
 export const organizationMemberUpdateSchema =
 	organizationMemberSchema.partial();
 
+export const userSchema = z.object({
+	id: z.string().uuid(),
+	email: z.string().email(),
+	first_name: z.string().min(1, "First name is required."),
+	last_name: z.string().min(1, "Last name is required."),
+	image: z.string().url().nullable(),
+	created_at: z.string().nullable(),
+	updated_at: z.string().nullable(),
+	phone_number: z.string().refine(isValidPhoneNumber, {
+		message: "Invalid phone number",
+	}),
+});
+
+export const userInsertSchema = userSchema.omit({
+	id: true,
+	created_at: true,
+	updated_at: true,
+	image: true,
+});
+
+export const userUpdateSchema = userSchema.partial().required({
+	id: true,
+});
+
 export const domainVerificationSchema = z.object({
 	id: z.string().uuid(),
 	organization_id: z.string().uuid(),
@@ -115,6 +139,30 @@ export const departmentInsertSchema = departmentSchema.omit({
 
 export const departmentUpdateSchema = departmentSchema.partial();
 
+export const roleSchema = z.object({
+	id: z.string().uuid(),
+	organization_id: z.string().uuid(),
+	name: z.string().min(2, {
+		message: "Role name is required",
+	}),
+	permissions: z.array(z.string()).min(1, {
+		message: "At least one required",
+	}),
+	created_at: z.string().nullable(),
+	updated_at: z.string().nullable(),
+});
+
+export const roleInsertSchema = roleSchema.omit({
+	id: true,
+	organization_id: true,
+	created_at: true,
+	updated_at: true,
+});
+
+export const roleUpdateSchema = roleSchema.partial().required({
+	id: true,
+});
+
 // export const pipelineStageSchema = z.object({
 //   id: z.string().uuid(),
 //   organization_id: z.string().uuid(),
@@ -147,29 +195,6 @@ export const departmentUpdateSchema = departmentSchema.partial();
 //     id: true,
 //   });
 
-export const userSchema = z.object({
-	id: z.string().uuid(),
-	email: z.string().email(),
-	first_name: z.string().min(1, "First name is required."),
-	last_name: z.string().min(1, "Last name is required."),
-	image: z.string().url().nullable(),
-	created_at: z.string().nullable(),
-	updated_at: z.string().nullable(),
-	phone_number: z.string().refine(isValidPhoneNumber, {
-		message: "Invalid phone number",
-	}),
-});
-
-export const userInsertSchema = userSchema.omit({
-	id: true,
-	created_at: true,
-	updated_at: true,
-	image: true,
-});
-
-export const userUpdateSchema = userSchema.partial().required({
-	id: true,
-});
 // export const userPreferencesSchema = z.object({
 //   user_id: z.string().uuid(),
 //   timezone: z.string(),

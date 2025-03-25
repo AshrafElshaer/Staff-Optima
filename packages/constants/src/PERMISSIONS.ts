@@ -1,54 +1,93 @@
-export const PERMISSIONS = {
-	user: {
-		add: "user:add",
-		update: "user:update",
-		delete: "user:delete",
-		role: "user:role",
+export const PERMISSIONS = [
+	{
+		category: "User Management",
+		key: "user",
+		permissions: [
+			{ value: "user:add", label: "Invite Team Members" },
+			{ value: "user:update", label: "Manage Team Members" },
+			{ value: "user:delete", label: "Remove Team Members" },
+			{ value: "user:role", label: "Manage User Roles" },
+		],
 	},
-	job: {
-		create: "job:create",
-		update: "job:update",
-		status: "job:status",
-		delete: "job:delete",
-		publish: "job:publish",
+	{
+		category: "Job Management",
+		key: "job",
+		permissions: [
+			{ value: "job:create", label: "Create Job Postings" },
+			{ value: "job:update", label: "Edit Job Postings" },
+			{ value: "job:status", label: "Change Job Status" },
+			{ value: "job:delete", label: "Delete Job Postings" },
+			{ value: "job:publish", label: "Publish Job Postings" },
+		],
 	},
-	candidate: {
-		create: "candidate:create",
-		update: "candidate:update",
-		delete: "candidate:delete",
-		notes: "candidate:notes",
-		tags: "candidate:tags",
+	{
+		category: "Candidate Management",
+		key: "candidate",
+		permissions: [
+			{ value: "candidate:create", label: "Add Candidates" },
+			{ value: "candidate:update", label: "Edit Candidate Info" },
+			{ value: "candidate:delete", label: "Remove Candidates" },
+			{ value: "candidate:notes", label: "Manage Candidate Notes" },
+			{ value: "candidate:tags", label: "Assign Candidate Tags" },
+		],
 	},
-	application: {
-		status: "application:status",
-		feedback: "application:feedback",
-		stage: "application:stage",
+	{
+		category: "Application Management",
+		key: "application",
+		permissions: [
+			{ value: "application:status", label: "Update Application Status" },
+			{ value: "application:feedback", label: "Provide Application Feedback" },
+			{ value: "application:stage", label: "Move Application Stages" },
+		],
 	},
-	interview: {
-		schedule: "interview:schedule",
-		update: "interview:update",
-		cancel: "interview:cancel",
-		feedback: "interview:feedback",
+	{
+		category: "Interview Management",
+		key: "interview",
+		permissions: [
+			{ value: "interview:schedule", label: "Schedule Interviews" },
+			{ value: "interview:update", label: "Modify Interview Details" },
+			{ value: "interview:cancel", label: "Cancel Interviews" },
+			{ value: "interview:feedback", label: "Submit Interview Feedback" },
+		],
 	},
-	reports: {
-		view: "reports:view",
-		create: "reports:create",
+	// {
+	// 	category: "Reports & Analytics",
+	// 	key: "reports",
+	// 	permissions: [
+	// 		{ value: "reports:view", label: "View Reports" },
+	// 		{ value: "reports:create", label: "Generate Reports" },
+	// 	],
+	// },
+	// {
+	// 	category: "Analytics & Metrics",
+	// 	key: "analytics",
+	// 	permissions: [
+	// 		{ value: "analytics:access", label: "Access Analytics" },
+	// 	],
+	// },
+	// {
+	// 	category: "Metrics",
+	// 	key: "metrics",
+	// 	permissions: [
+	// 		{ value: "metrics:view", label: "View Metrics" },
+	// 	],
+	// },
+	{
+		category: "Settings",
+		key: "settings",
+		permissions: [
+			{ value: "settings:workflow", label: "Manage Interviews Workflows" },
+			{ value: "settings:template", label: "Edit Email Templates" },
+			{
+				value: "settings:organization",
+				label: "Configure Organization Settings",
+			},
+			{ value: "settings:integration", label: "Manage Integrations" },
+			{ value: "settings:roles", label: "Define Organization Roles" },
+			{ value: "settings:departments", label: "Manage Departments" },
+		],
 	},
-	analytics: {
-		access: "analytics:access",
-	},
-	metrics: {
-		view: "metrics:view",
-	},
-	settings: {
-		workflow: "settings:workflow",
-		template: "settings:template",
-		organization: "settings:organization",
-		integration: "settings:integration",
-		roles: "settings:roles",
-		departments: "settings:departments",
-	},
-} as const;
+] as const;
 
 export const PERMISSIONS_ARRAY = [
 	// User Management
