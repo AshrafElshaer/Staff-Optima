@@ -1,7 +1,15 @@
 "use client";
-import React from "react";
 import { PERMISSIONS } from "@optima/constants";
 import type { AccessRole } from "@optima/supabase/types";
+import { Button } from "@optima/ui/components/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@optima/ui/components/dropdown-menu";
 import {
 	Table,
 	TableBody,
@@ -12,11 +20,17 @@ import {
 	TableHeader,
 	TableRow,
 } from "@optima/ui/components/table";
+import { PencilEdit02Icon } from "hugeicons-react";
+import { MoreVertical, Trash } from "lucide-react";
+import React from "react";
 type Props = {
 	roles: AccessRole[];
 };
 export function RolesTable({ roles }: Props) {
-	const groupedByname = Object.groupBy(roles, (role) => role.name);
+	const groupedByname = Object.groupBy(roles, (role) => role.name) as Record<
+		string,
+		AccessRole[]
+	>;
 	return (
 		<div className="flex-1 border rounded-md flex flex-col">
 			<Table className="">
@@ -25,8 +39,13 @@ export function RolesTable({ roles }: Props) {
 					<TableRow className="bg-accent hover:bg-accent divide-x ">
 						<TableHead className="text-foreground">Permissions</TableHead>
 						{Object.keys(groupedByname).map((roleName) => (
-							<TableHead key={roleName} className="text-foreground">
-								{roleName}
+							<TableHead key={roleName} className="text-foreground  w-fit">
+								<div className="flex items-center justify-between gap-2">
+									{roleName}
+									{roleName !== "Owner" ? (
+										<RoleDropdown role={groupedByname[roleName]?.[0]} />
+									) : null}
+								</div>
 							</TableHead>
 						))}
 					</TableRow>
@@ -38,10 +57,7 @@ export function RolesTable({ roles }: Props) {
 								key={`${perm.key}-${permIndex}-header`}
 								className="bg-muted hover:bg-muted"
 							>
-								<TableCell
-									className="font-medium text-base"
-									colSpan={roles.length + 1}
-								>
+								<TableCell className="font-medium " colSpan={roles.length + 1}>
 									{perm.category}
 								</TableCell>
 							</TableRow>
@@ -56,6 +72,7 @@ export function RolesTable({ roles }: Props) {
 									{Object.keys(groupedByname).map((roleName) => (
 										<TableCell
 											key={`${perm.key}-${permIndex}-${p.value}-${pIndex}-${roleName}`}
+											className="text-center"
 										>
 											{groupedByname[roleName]?.find((r) =>
 												r.permissions.includes(p.value),
@@ -71,5 +88,29 @@ export function RolesTable({ roles }: Props) {
 				</TableBody>
 			</Table>
 		</div>
+	);
+}
+
+function RoleDropdown({ role }: { role: AccessRole | undefined }) {
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button variant="ghost" size="icon" className="ml-auto p-0 size-auto">
+					<MoreVertical className="h-4 w-4" strokeWidth={2} />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent>
+				<DropdownMenuLabel>Actions</DropdownMenuLabel>
+				<DropdownMenuSeparator />
+				<DropdownMenuItem>
+					<PencilEdit02Icon className="size-4" strokeWidth={2} />
+					Rename
+				</DropdownMenuItem>
+				<DropdownMenuItem>
+					<Trash className="size-4" strokeWidth={2} />
+					Delete
+				</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 }

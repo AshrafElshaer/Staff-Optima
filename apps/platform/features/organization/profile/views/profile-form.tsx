@@ -34,7 +34,7 @@ import { Separator } from "@optima/ui/components/separator";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useRef, useState, useMemo } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Plus } from "lucide-react";
@@ -143,16 +143,14 @@ export function OrganizationProfileForm({
 	});
 
 	function onSubmit(values: z.infer<typeof organizationSchema>) {
-		const touchedFields = Object.keys(form.formState.touchedFields).map(
-			(key) => {
-				return {
-					[key]: values[key as keyof typeof values],
-				};
-			},
-		);
+		const dirtyFields = Object.keys(form.formState.dirtyFields).map((key) => {
+			return {
+				[key]: values[key as keyof typeof values],
+			};
+		});
 		const payload = {
 			id: values.id,
-			...Object.assign({}, ...touchedFields),
+			...Object.assign({}, ...dirtyFields),
 		};
 
 		updateOrganization(payload);

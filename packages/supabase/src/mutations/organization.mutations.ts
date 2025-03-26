@@ -39,7 +39,7 @@ export async function createOrganization(
 	}
 
 	const { data: role, error: userError } = await createRole(supabase, {
-		name: "owner",
+		name: "Owner",
 		organization_id: organization.id,
 		permissions: [...PERMISSIONS_ARRAY],
 	});
