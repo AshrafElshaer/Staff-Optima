@@ -24,7 +24,7 @@ import {
 	SheetTrigger,
 } from "@optima/ui/components/sheet";
 import { FingerPrintAddIcon } from "hugeicons-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
@@ -56,8 +56,14 @@ export default function NewRole() {
 	function onSubmit(data: z.infer<typeof roleInsertSchema>) {
 		execute(data);
 	}
+
+	useEffect(() => {
+		if (!open) {
+			form.reset();
+		}
+	}, [open]);
 	return (
-		<Sheet open={open} onOpenChange={setOpen}>
+		<Sheet open={open} onOpenChange={(open) => !isExecuting && setOpen(open)}>
 			<SheetTrigger asChild>
 				<Button className="w-fit ml-auto" variant="secondary">
 					<FingerPrintAddIcon className="h-4 w-4" strokeWidth={2} /> Create Role
@@ -107,7 +113,7 @@ export default function NewRole() {
 													<h3 className="text-sm font-medium text-muted-foreground">
 														{category.category}
 													</h3>
-													<div className="grid grid-cols-2 gap-4">
+													<div className="grid gap-4">
 														{category.permissions.map((perm) => (
 															<Label
 																key={perm.value}

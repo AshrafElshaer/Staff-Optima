@@ -4,6 +4,8 @@ import { createServerClient } from "@/lib/supabase/server";
 import { getOrganizationRoles } from "@optima/supabase/queries";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { RolesTable } from "@/features/organization/roles-and-permissions/views/roles-table";
+
 export const metadata: Metadata = {
 	title: "Roles & Permissions",
 	description: "Manage Organization Roles & Access",
@@ -17,15 +19,17 @@ export default async function AccessControlPage() {
 		organization_id ?? "",
 	);
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex flex-col gap-4 flex-1">
 			<PermissionGuard requiredPermissions={["settings:roles"]}>
 				<NewRole />
 			</PermissionGuard>
-			<div className="flex flex-col gap-2">
-				{roles?.map((role) => (
-					<h1 key={role.id}>{role.name}</h1>
-				))}
-			</div>
+			{!roles ? (
+				<div className="flex-1 flex justify-center items-center">
+					<h3>No roles found start by creating new role</h3>
+				</div>
+			) : (
+				<RolesTable roles={roles} />
+			)}
 		</div>
 	);
 }
