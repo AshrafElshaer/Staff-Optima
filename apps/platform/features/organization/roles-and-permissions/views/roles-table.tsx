@@ -32,7 +32,8 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { updateRolesAction } from "../roles.actions";
+import { updateBulkRolesAction } from "../roles.actions";
+import { RenameRole } from "./rename-role";
 
 const formSchema = z.object({
 	roles: z.array(roleSchema),
@@ -62,7 +63,7 @@ export function RolesTable({ roles }: Props) {
 		status,
 		result,
 		reset: resetAction,
-	} = useAction(updateRolesAction, {
+	} = useAction(updateBulkRolesAction, {
 		onError: ({ error }) => {
 			toast.error(error?.serverError);
 		},
@@ -222,13 +223,15 @@ function RoleDropdown({ role }: { role: AccessRole | null }) {
 			<DropdownMenuContent align="end">
 				<DropdownMenuLabel>Actions</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
-					<PencilEdit02Icon
-						className="size-4 text-foreground"
-						strokeWidth={2}
-					/>
-					Rename
-				</DropdownMenuItem>
+				<RenameRole role={role}>
+					<DropdownMenuItem asDialogTrigger>
+						<PencilEdit02Icon
+							className="size-4 text-foreground"
+							strokeWidth={2}
+						/>
+						Rename
+					</DropdownMenuItem>
+				</RenameRole>
 				<DropdownMenuItem variant="destructive">
 					<Trash className="size-4" strokeWidth={2} />
 					Delete

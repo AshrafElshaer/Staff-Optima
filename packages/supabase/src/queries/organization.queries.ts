@@ -43,5 +43,6 @@ export async function getOrganizationRoles(
 	return await supabase
 		.from("roles")
 		.select("*")
+		.order("created_at", { ascending: true })
 		.eq("organization_id", organization_id);
 }

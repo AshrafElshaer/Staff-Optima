@@ -1,7 +1,11 @@
 "use server";
 
 import { authActionClient } from "@/lib/safe-action";
-import { createRole, updateBulkRoles } from "@optima/supabase/mutations";
+import {
+	createRole,
+	updateBulkRoles,
+	updateRole,
+} from "@optima/supabase/mutations";
 import {
 	roleInsertSchema,
 	roleSchema,
@@ -33,11 +37,11 @@ export const createRoleAction = authActionClient
 		return data;
 	});
 
-export const updateRolesAction = authActionClient
+export const updateBulkRolesAction = authActionClient
 	.metadata({
-		name: "update-role",
+		name: "update-bulk-roles",
 		track: {
-			event: "update-role",
+			event: "update-bulk-roles",
 			channel: "organization",
 		},
 	})
@@ -45,6 +49,26 @@ export const updateRolesAction = authActionClient
 	.action(async ({ parsedInput, ctx }) => {
 		const { supabase, user } = ctx;
 		const { data, error } = await updateBulkRoles(supabase, parsedInput);
+
+		if (error) {
+			throw new Error(error.message);
+		}
+		revalidatePath("organization/access-control");
+		return data;
+	});
+
+export const updateRoleAction = authActionClient
+	.metadata({
+		name: "update-role",
+		track: {
+			event: "update-role",
+			channel: "organization",
+		},
+	})
+	.schema(roleUpdateSchema)
+	.action(async ({ parsedInput, ctx }) => {
+		const { supabase } = ctx;
+		const { data, error } = await updateRole(supabase, parsedInput);
 
 		if (error) {
 			throw new Error(error.message);
