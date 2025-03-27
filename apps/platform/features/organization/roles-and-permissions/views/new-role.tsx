@@ -33,10 +33,12 @@ import { Input } from "@optima/ui/components/inputs";
 import { Separator } from "@optima/ui/components/separator";
 import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { createRoleAction } from "../roles.actions";
 export default function NewRole() {
 	const [open, setOpen] = useState(false);
+	const router = useRouter();
 	const form = useForm<z.infer<typeof roleInsertSchema>>({
 		defaultValues: {
 			name: "",
@@ -51,6 +53,7 @@ export default function NewRole() {
 		onSuccess: () => {
 			toast.success("Role Created Successfully");
 			setOpen(false);
+			router.refresh();
 		},
 	});
 	function onSubmit(data: z.infer<typeof roleInsertSchema>) {

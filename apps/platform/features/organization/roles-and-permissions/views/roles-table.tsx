@@ -183,14 +183,16 @@ export function RolesTable({ roles }: Props) {
 												key={`${p.value}-${role?.id}`}
 												className="text-center"
 											>
-												<RoleCheckbox
-													roleId={role?.id || ""}
-													permission={p.value}
-													disabled={roleName === "Owner"}
-													checked={
-														role?.permissions?.includes(p.value) ?? false
-													}
-												/>
+												<div className="flex items-center">
+													<RoleCheckbox
+														roleId={role?.id || ""}
+														permission={p.value}
+														disabled={roleName === "Owner"}
+														checked={
+															role?.permissions?.includes(p.value) ?? false
+														}
+													/>
+												</div>
 											</TableCell>
 										);
 									})}
