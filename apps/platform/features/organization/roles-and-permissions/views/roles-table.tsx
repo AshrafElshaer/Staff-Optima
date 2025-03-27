@@ -26,7 +26,7 @@ import {
 } from "@optima/ui/components/table";
 import { PencilEdit02Icon } from "hugeicons-react";
 import { MoreVertical, Trash } from "lucide-react";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
@@ -52,6 +52,10 @@ export function RolesTable({ roles }: Props) {
 		defaultValues: { roles },
 		resolver: zodResolver(formSchema),
 	});
+
+	useEffect(() => {
+		form.reset({ roles }, { keepDirty: false });
+	}, [roles, form]);
 
 	const {
 		execute,
@@ -183,7 +187,7 @@ export function RolesTable({ roles }: Props) {
 												key={`${p.value}-${role?.id}`}
 												className="text-center"
 											>
-												<div className="flex items-center">
+												<div className="flex items-center justify-center w-full">
 													<RoleCheckbox
 														roleId={role?.id || ""}
 														permission={p.value}
