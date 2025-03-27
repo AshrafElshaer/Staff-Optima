@@ -166,6 +166,18 @@ export async function updateRole(
 		.single();
 }
 
+export async function updateBulkRoles(
+	supabase: SupabaseInstance,
+	roles: Required<
+		Pick<
+			TablesUpdate<"roles">,
+			"id" | "name" | "organization_id" | "permissions"
+		>
+	>[],
+) {
+	return await supabase.from("roles").upsert(roles).select();
+}
+
 export async function deleteRole(supabase: SupabaseInstance, roleId: string) {
 	return supabase.from("roles").delete().eq("id", roleId).select().single();
 }

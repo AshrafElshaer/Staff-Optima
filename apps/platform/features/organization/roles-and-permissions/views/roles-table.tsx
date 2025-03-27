@@ -1,7 +1,13 @@
 "use client";
+
+import { OnChangeToast } from "@/components/toasts/on-change-toast";
+import { useActionToast } from "@/hooks/use-action-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PERMISSIONS } from "@optima/constants";
 import type { AccessRole } from "@optima/supabase/types";
+import { roleSchema } from "@optima/supabase/validations";
 import { Button } from "@optima/ui/components/button";
+import { Checkbox } from "@optima/ui/components/checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -13,37 +19,139 @@ import {
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
-	TableFooter,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from "@optima/ui/components/table";
 import { PencilEdit02Icon } from "hugeicons-react";
 import { MoreVertical, Trash } from "lucide-react";
-import React from "react";
+import React, { useCallback } from "react";
+
+import { useAction } from "next-safe-action/hooks";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { updateRolesAction } from "../roles.actions";
+
+const formSchema = z.object({
+	roles: z.array(roleSchema),
+});
+
 type Props = {
 	roles: AccessRole[];
 };
+
 export function RolesTable({ roles }: Props) {
-	const groupedByname = Object.groupBy(roles, (role) => role.name) as Record<
+	const groupedByName = Object.groupBy(roles, (role) => role.name) as Record<
 		string,
 		AccessRole[]
 	>;
+
+	const form = useForm<z.infer<typeof formSchema>>({
+		defaultValues: { roles },
+		resolver: zodResolver(formSchema),
+	});
+
+	const {
+		execute,
+		status,
+		result,
+		reset: resetAction,
+	} = useAction(updateRolesAction, {
+		onError: ({ error }) => {
+			toast.error(error?.serverError);
+		},
+		onSuccess: ({ data }) => {
+			setTimeout(() => {
+				data &&
+					form.reset(
+						{ roles: data },
+						{
+							keepDirty: false,
+						},
+					);
+				resetAction();
+			}, 3000);
+		},
+	});
+
+	function onCheckedChange(
+		roleId: string,
+		permission: string,
+		isChecked: boolean,
+	) {
+		// Get the current roles
+		const updatedRoles = form.getValues("roles").map((r) => {
+			if (r.id === roleId) {
+				// Directly modify only the affected role
+				const newPermissions = isChecked
+					? [...new Set([...(r.permissions || []), permission])] // Ensure uniqueness
+					: (r.permissions || []).filter((perm) => perm !== permission);
+				return { ...r, permissions: newPermissions };
+			}
+			return r;
+		});
+
+		// Update form state efficiently
+		form.setValue("roles", updatedRoles, {
+			shouldValidate: false,
+			shouldDirty: true,
+		});
+	}
+
+	const RoleCheckbox = React.memo(
+		({
+			roleId,
+			permission,
+			checked,
+		}: { roleId: string; permission: string; checked: boolean }) => {
+			return (
+				<Checkbox
+					checked={checked}
+					onCheckedChange={(isChecked) =>
+						onCheckedChange(roleId, permission, isChecked as boolean)
+					}
+				/>
+			);
+		},
+	);
+
+	function onSubmit(data: z.infer<typeof formSchema>) {
+		console.log("Updated Roles:", data);
+	}
+
+	const ToastContent = useCallback(
+		({ toastId }: { toastId: string | number }) => {
+			return (
+				<OnChangeToast
+					state={status}
+					onReset={() => form.reset()}
+					onSave={() => execute(form.getValues("roles"))}
+					errorMessage={result?.serverError}
+				/>
+			);
+		},
+		[status, result?.serverError],
+	);
+
+	useActionToast({
+		show: form.formState.isDirty,
+		ToastContent,
+	});
+
 	return (
 		<div className="flex-1 border rounded-md flex flex-col">
-			<Table className="">
-				{/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-				<TableHeader className="bg-accent hover:bg-accent">
+			<Table>
+				<TableHeader className="">
 					<TableRow className="bg-accent hover:bg-accent divide-x ">
 						<TableHead className="text-foreground">Permissions</TableHead>
-						{Object.keys(groupedByname).map((roleName) => (
-							<TableHead key={roleName} className="text-foreground  w-fit">
+						{Object.keys(groupedByName).map((roleName) => (
+							<TableHead key={roleName} className="text-foreground w-fit">
 								<div className="flex items-center justify-between gap-2">
 									{roleName}
 									{roleName !== "Owner" ? (
-										<RoleDropdown role={groupedByname[roleName]?.[0]} />
+										<RoleDropdown role={groupedByName[roleName]?.[0] || null} />
 									) : null}
 								</div>
 							</TableHead>
@@ -51,36 +159,37 @@ export function RolesTable({ roles }: Props) {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{PERMISSIONS.map((perm, permIndex) => (
-						<React.Fragment key={`${perm.key}-${permIndex}`}>
-							<TableRow
-								key={`${perm.key}-${permIndex}-header`}
-								className="bg-muted hover:bg-muted"
-							>
-								<TableCell className="font-medium " colSpan={roles.length + 1}>
+					{PERMISSIONS.map((perm) => (
+						<React.Fragment key={perm.key}>
+							<TableRow className="bg-muted hover:bg-muted">
+								<TableCell className="font-medium" colSpan={roles.length + 1}>
 									{perm.category}
 								</TableCell>
 							</TableRow>
-							{perm.permissions.map((p, pIndex) => (
-								<TableRow
-									key={`${perm.key}-${permIndex}-${p.value}-${pIndex}`}
-									className="divide-x"
-								>
+							{perm.permissions.map((p) => (
+								<TableRow key={p.value} className="divide-x">
 									<TableCell className="text-muted-foreground">
 										{p.label}
 									</TableCell>
-									{Object.keys(groupedByname).map((roleName) => (
-										<TableCell
-											key={`${perm.key}-${permIndex}-${p.value}-${pIndex}-${roleName}`}
-											className="text-center"
-										>
-											{groupedByname[roleName]?.find((r) =>
-												r.permissions.includes(p.value),
-											)
-												? "Yes"
-												: "No"}
-										</TableCell>
-									))}
+									{Object.keys(groupedByName).map((roleName) => {
+										const role = form
+											.watch("roles")
+											.find((r) => r.name === roleName);
+										return (
+											<TableCell
+												key={`${p.value}-${role?.id}`}
+												className="text-center"
+											>
+												<RoleCheckbox
+													roleId={role?.id || ""}
+													permission={p.value}
+													checked={
+														role?.permissions?.includes(p.value) ?? false
+													}
+												/>
+											</TableCell>
+										);
+									})}
 								</TableRow>
 							))}
 						</React.Fragment>
@@ -91,7 +200,8 @@ export function RolesTable({ roles }: Props) {
 	);
 }
 
-function RoleDropdown({ role }: { role: AccessRole | undefined }) {
+function RoleDropdown({ role }: { role: AccessRole | null }) {
+	if (!role) return null;
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -99,14 +209,17 @@ function RoleDropdown({ role }: { role: AccessRole | undefined }) {
 					<MoreVertical className="h-4 w-4" strokeWidth={2} />
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent>
+			<DropdownMenuContent align="end">
 				<DropdownMenuLabel>Actions</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>
-					<PencilEdit02Icon className="size-4" strokeWidth={2} />
+					<PencilEdit02Icon
+						className="size-4 text-foreground"
+						strokeWidth={2}
+					/>
 					Rename
 				</DropdownMenuItem>
-				<DropdownMenuItem>
+				<DropdownMenuItem variant="destructive">
 					<Trash className="size-4" strokeWidth={2} />
 					Delete
 				</DropdownMenuItem>
