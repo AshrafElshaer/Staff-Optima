@@ -105,10 +105,17 @@ export function RolesTable({ roles }: Props) {
 			roleId,
 			permission,
 			checked,
-		}: { roleId: string; permission: string; checked: boolean }) => {
+			disabled,
+		}: {
+			roleId: string;
+			permission: string;
+			checked: boolean;
+			disabled?: boolean;
+		}) => {
 			return (
 				<Checkbox
 					checked={checked}
+					disabled={disabled}
 					onCheckedChange={(isChecked) =>
 						onCheckedChange(roleId, permission, isChecked as boolean)
 					}
@@ -116,10 +123,6 @@ export function RolesTable({ roles }: Props) {
 			);
 		},
 	);
-
-	function onSubmit(data: z.infer<typeof formSchema>) {
-		console.log("Updated Roles:", data);
-	}
 
 	const ToastContent = useCallback(
 		({ toastId }: { toastId: string | number }) => {
@@ -183,6 +186,7 @@ export function RolesTable({ roles }: Props) {
 												<RoleCheckbox
 													roleId={role?.id || ""}
 													permission={p.value}
+													disabled={roleName === "Owner"}
 													checked={
 														role?.permissions?.includes(p.value) ?? false
 													}
