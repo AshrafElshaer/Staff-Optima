@@ -44,10 +44,10 @@ type Props = {
 };
 
 export function RolesTable({ roles }: Props) {
-	const groupedByName = Object.groupBy(roles, (role) => role.name) as Record<
-		string,
-		AccessRole[]
-	>;
+	const groupedByName = roles.reduce<Record<string, AccessRole[]>>((acc, role) => {
+		acc[role.name] = [...(acc[role.name] || []), role];
+		return acc;
+	}, {});
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		defaultValues: { roles },
