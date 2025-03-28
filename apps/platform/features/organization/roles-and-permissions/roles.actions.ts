@@ -3,6 +3,7 @@
 import { authActionClient } from "@/lib/safe-action";
 import {
 	createRole,
+	deleteRole,
 	updateBulkRoles,
 	updateRole,
 } from "@optima/supabase/mutations";
@@ -76,3 +77,25 @@ export const updateRoleAction = authActionClient
 		revalidatePath("organization/access-control");
 		return data;
 	});
+
+export const deleteRoleActions = authActionClient
+.metadata({
+	name: "update-role",
+	track: {
+		event: "update-role",
+		channel: "organization",
+	},
+})
+.schema(z.object({
+	roleId:z.string().uuid()
+}))
+.action(async ({ parsedInput, ctx }) => {
+	const { supabase } = ctx;
+	const { data, error } = await deleteRole(supabase, parsedInput.roleId);
+
+	if (error) {
+		throw new Error(error.message);
+	}
+	revalidatePath("organization/access-control");
+	return data;
+});

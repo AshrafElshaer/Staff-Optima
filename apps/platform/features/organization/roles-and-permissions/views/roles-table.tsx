@@ -28,11 +28,13 @@ import { PencilEdit02Icon } from "hugeicons-react";
 import { MoreVertical, Trash } from "lucide-react";
 import React, { useCallback, useEffect } from "react";
 
+import { Separator } from "@optima/ui/components/separator";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { updateBulkRolesAction } from "../roles.actions";
+import { DeleteRole } from "./delete-role";
 import { RenameRole } from "./rename-role";
 
 const formSchema = z.object({
@@ -44,10 +46,13 @@ type Props = {
 };
 
 export function RolesTable({ roles }: Props) {
-	const groupedByName = roles.reduce<Record<string, AccessRole[]>>((acc, role) => {
-		acc[role.name] = [...(acc[role.name] || []), role];
-		return acc;
-	}, {});
+	const groupedByName = roles.reduce<Record<string, AccessRole[]>>(
+		(acc, role) => {
+			acc[role.name] = [...(acc[role.name] || []), role];
+			return acc;
+		},
+		{},
+	);
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		defaultValues: { roles },
@@ -149,14 +154,14 @@ export function RolesTable({ roles }: Props) {
 	});
 
 	return (
-		<div className="flex-1 border rounded-md flex flex-col">
+		<div className="flex-1 border rounded-md flex flex-col max-h-[calc(100svh_-_8rem)]">
 			<Table>
 				<TableHeader className="">
-					<TableRow className="bg-accent hover:bg-accent divide-x ">
-						<TableHead className="text-foreground">Permissions</TableHead>
+					<TableRow className="bg-accent hover:bg-accent divide-x sticky top-0">
+						<TableHead className="text-foreground bg-accent hover:bg-accent">Permissions</TableHead>
 						{Object.keys(groupedByName).map((roleName) => (
 							<TableHead key={roleName} className="text-foreground w-fit">
-								<div className="flex items-center justify-between gap-2">
+								<div className="flex items-center justify-between gap-2 w-full">
 									{roleName}
 									{roleName !== "Owner" ? (
 										<RoleDropdown role={groupedByName[roleName]?.[0] || null} />
@@ -170,7 +175,7 @@ export function RolesTable({ roles }: Props) {
 					{PERMISSIONS.map((perm) => (
 						<React.Fragment key={perm.key}>
 							<TableRow className="bg-muted hover:bg-muted">
-								<TableCell className="font-medium" colSpan={roles.length + 1}>
+								<TableCell className="font-medium text-center" colSpan={roles.length + 1}>
 									{perm.category}
 								</TableCell>
 							</TableRow>
@@ -232,10 +237,12 @@ function RoleDropdown({ role }: { role: AccessRole | null }) {
 						Rename
 					</DropdownMenuItem>
 				</RenameRole>
-				<DropdownMenuItem variant="destructive">
-					<Trash className="size-4" strokeWidth={2} />
-					Delete
-				</DropdownMenuItem>
+				<DeleteRole role={role}>
+					<DropdownMenuItem asDialogTrigger>
+						<Trash className="size-4 text-foreground" strokeWidth={2} />
+						Delete
+					</DropdownMenuItem>
+				</DeleteRole>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
