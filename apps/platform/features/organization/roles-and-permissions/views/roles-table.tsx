@@ -154,7 +154,7 @@ export function RolesTable({ roles }: Props) {
 	});
 
 	return (
-		<div className="flex-1 border rounded-md flex flex-col max-h-[calc(100svh_-_8rem)]">
+		<div className="flex-1 border rounded-md flex flex-col max-h-[calc(100svh_-_8.25rem)]">
 			<Table>
 				<TableHeader className="">
 					<TableRow className="bg-accent hover:bg-accent divide-x sticky top-0">
