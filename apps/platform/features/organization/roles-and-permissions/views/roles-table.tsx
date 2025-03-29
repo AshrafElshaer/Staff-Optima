@@ -158,7 +158,9 @@ export function RolesTable({ roles }: Props) {
 			<Table>
 				<TableHeader className="">
 					<TableRow className="bg-accent hover:bg-accent divide-x sticky top-0">
-						<TableHead className="text-foreground bg-accent hover:bg-accent">Permissions</TableHead>
+						<TableHead className="text-foreground bg-accent hover:bg-accent">
+							Permissions
+						</TableHead>
 						{Object.keys(groupedByName).map((roleName) => (
 							<TableHead key={roleName} className="text-foreground w-fit">
 								<div className="flex items-center justify-between gap-2 w-full">
@@ -175,7 +177,10 @@ export function RolesTable({ roles }: Props) {
 					{PERMISSIONS.map((perm) => (
 						<React.Fragment key={perm.key}>
 							<TableRow className="bg-muted hover:bg-muted">
-								<TableCell className="font-medium text-center" colSpan={roles.length + 1}>
+								<TableCell
+									className="font-medium text-center"
+									colSpan={roles.length + 1}
+								>
 									{perm.category}
 								</TableCell>
 							</TableRow>

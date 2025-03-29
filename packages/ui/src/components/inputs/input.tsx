@@ -6,6 +6,7 @@ interface InputProps extends React.ComponentProps<"input"> {
 	startIcon?: React.ReactNode;
 	endIcon?: React.ReactNode;
 	isUrl?: boolean;
+	wrapperClassName?: string;
 }
 
 function Input({
@@ -14,10 +15,11 @@ function Input({
 	startIcon,
 	endIcon,
 	isUrl,
+	wrapperClassName,
 	...props
 }: InputProps) {
 	return (
-		<div className="relative flex items-center">
+		<div className={cn("relative flex items-center", wrapperClassName)}>
 			{startIcon && (
 				<div className="absolute left-3 flex items-center pointer-events-none text-muted-foreground">
 					{startIcon}
