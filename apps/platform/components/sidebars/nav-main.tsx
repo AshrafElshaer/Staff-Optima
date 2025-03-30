@@ -54,7 +54,6 @@ export function NavMain({
 							tooltip={item.title}
 						>
 							<Link
-								prefetch={true}
 								href={item.url}
 								className={buttonVariants({
 									variant: isActive ? "secondary" : "ghost",

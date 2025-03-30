@@ -82,7 +82,7 @@ export function RolesTable({ roles }: Props) {
 						},
 					);
 				resetAction();
-			}, 3000);
+			}, 5000);
 		},
 	});
 
