@@ -39,7 +39,7 @@ export function UserDropdown() {
 	const pathname = usePathname();
 	const router = useRouter();
 	const [isLoggingOut, startTransition] = useTransition();
-	if (isPending) {
+	if (isPending || !data) {
 		return <Skeleton className="h-8 w-8 rounded-full" />;
 	}
 
@@ -47,14 +47,14 @@ export function UserDropdown() {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Avatar>
-					<AvatarImage src="https://github.com/shadcn.png" />
-					<AvatarFallback>CN</AvatarFallback>
+					<AvatarImage src={data?.image ?? undefined} />
+					<AvatarFallback>{(data?.first_name?.[0] ?? '') + (data?.last_name?.[0] ?? '')}</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-40">
 				<DropdownMenuLabel>
 					<span className="font-medium">
-						{data?.first_name} {data?.last_name}
+						{data?.first_name ?? ''} {data?.last_name ?? ''}
 					</span>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
