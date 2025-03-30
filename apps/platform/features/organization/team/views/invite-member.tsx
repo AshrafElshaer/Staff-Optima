@@ -17,7 +17,7 @@ import { PhoneInput } from "@/components/phone-number-input";
 import { RoleSelector } from "@/components/selectors/role-selsctor";
 import { userInsertSchema } from "@optima/supabase/validations";
 import { Button } from "@optima/ui/components/button";
-// import {inviteMemberAction} from "../team.actions";
+
 import {
 	Form,
 	FormControl,
@@ -27,12 +27,14 @@ import {
 	FormMessage,
 } from "@optima/ui/components/form";
 import { UserAdd02Icon } from "hugeicons-react";
+import { Loader } from "lucide-react";
 import { Type } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { inviteMemberAction } from "../team.actions";
 
 const formSchema = userInsertSchema.extend({
 	role_id: z.string().uuid(),
@@ -43,8 +45,18 @@ export function InviteTeamMember() {
 		resolver: zodResolver(formSchema),
 	});
 
+	const { execute, isExecuting } = useAction(inviteMemberAction, {
+		onSuccess: () => {
+			toast.success("Member invited successfully");
+			setOpen(false);
+		},
+		onError: ({ error }) => {
+			toast.error(error.serverError);
+		},
+	});
+
 	function onSubmit(data: z.infer<typeof formSchema>) {
-		console.log(data);
+		execute(data);
 	}
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
@@ -147,9 +159,16 @@ export function InviteTeamMember() {
 						<Separator />
 						<DialogFooter>
 							<DialogClose asChild>
-								<Button variant="outline">Cancel</Button>
+								<Button variant="outline" disabled={isExecuting}>
+									Cancel
+								</Button>
 							</DialogClose>
-							<Button>Invite</Button>
+							<Button type="submit" disabled={isExecuting}>
+								{isExecuting ? (
+									<Loader className="size-4 animate-spin" />
+								) : null}
+								Invite
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>
