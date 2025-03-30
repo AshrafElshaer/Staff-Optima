@@ -48,13 +48,15 @@ export function UserDropdown() {
 			<DropdownMenuTrigger asChild>
 				<Avatar>
 					<AvatarImage src={data?.image ?? undefined} />
-					<AvatarFallback>{(data?.first_name?.[0] ?? '') + (data?.last_name?.[0] ?? '')}</AvatarFallback>
+					<AvatarFallback>
+						{(data?.first_name?.[0] ?? "") + (data?.last_name?.[0] ?? "")}
+					</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-40">
 				<DropdownMenuLabel>
 					<span className="font-medium">
-						{data?.first_name ?? ''} {data?.last_name ?? ''}
+						{data?.first_name ?? ""} {data?.last_name ?? ""}
 					</span>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />

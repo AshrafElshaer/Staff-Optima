@@ -46,14 +46,15 @@ const links = [
 		url: "/candidates",
 		icon: <UserSearch01Icon strokeWidth={2} size={20} />,
 	},
-];
-const communication = [
 	{
 		title: "Chat",
 		url: "/chat",
 		icon: <Chatting01Icon strokeWidth={2} size={20} />,
 	},
 ];
+// const communication = [
+
+// ];
 
 const settings = [
 	{
@@ -85,7 +86,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<Separator />
 			<SidebarContent>
 				<NavMain items={links} label="Workspace" />
-				<NavMain items={communication} label="Communication" />
+				{/* <NavMain items={communication} label="Communication" /> */}
 				{hasOrganizationPermission ? (
 					<NavMain items={settings} label="Settings" />
 				) : null}
