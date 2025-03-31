@@ -1,18 +1,13 @@
-import { Button } from "@optima/ui/components/button";
-import { Input } from "@optima/ui/components/inputs";
+import { Features } from "@/components/sections/features";
+import { Hero } from "@/components/sections/hero";
+import { Pricing } from "@/components/sections/pricing";
+
 export default function Page() {
 	return (
-		<div className="flex items-center justify-center min-h-svh">
-			<div className="flex flex-col items-center justify-center gap-4">
-				<h1 className="text-2xl font-bold text-muted-foreground">
-					Hello World
-				</h1>
-				<h1 className="text-2xl font-bold text-secondary-foreground">
-					Hello World
-				</h1>
-				<Button size="sm">Button</Button>
-				<Input />
-			</div>
+		<div className="min-h-screen w-full flex flex-col   p-4">
+			<Hero />
+			{/* <Features /> */}
+			{/* <Pricing /> */}
 		</div>
 	);
 }
