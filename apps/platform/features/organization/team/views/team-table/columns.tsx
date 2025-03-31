@@ -6,6 +6,7 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@optima/ui/components/avatar";
+import { buttonVariants } from "@optima/ui/components/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
@@ -36,7 +37,12 @@ export const columns: ColumnDef<Member>[] = [
 		accessorKey: "email",
 		header: "Email",
 		cell: ({ row }) => (
-			<Link href={`mailto:${row.original.email}`}>{row.original.email}</Link>
+			<Link
+				href={`mailto:${row.original.email}`}
+				className={buttonVariants({ variant: "link" })}
+			>
+				{row.original.email}
+			</Link>
 		),
 	},
 	{
@@ -47,7 +53,10 @@ export const columns: ColumnDef<Member>[] = [
 		accessorFn: (row) => row.phone_number,
 		header: "Phone Number",
 		cell: ({ row }) => (
-			<Link href={`tel:${row.original.phone_number}`}>
+			<Link
+				href={`tel:${row.original.phone_number}`}
+				className={buttonVariants({ variant: "link" })}
+			>
 				{row.original.phone_number}
 			</Link>
 		),
