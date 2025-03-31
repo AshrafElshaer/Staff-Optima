@@ -1,10 +1,10 @@
 import { PermissionGuard } from "@/components/permission-gaurd";
 import NewRole from "@/features/organization/roles-and-permissions/views/new-role";
+import { RolesTable } from "@/features/organization/roles-and-permissions/views/roles-table";
 import { createServerClient } from "@/lib/supabase/server";
 import { getOrganizationRoles } from "@optima/supabase/queries";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { RolesTable } from "@/features/organization/roles-and-permissions/views/roles-table";
 
 export const metadata: Metadata = {
 	title: "Roles & Permissions",

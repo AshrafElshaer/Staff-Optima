@@ -5,6 +5,7 @@ import { columns } from "@/features/organization/team/views/team-table/columns";
 import { createServerClient } from "@/lib/supabase/server";
 import { getMembersWithRole } from "@optima/supabase/queries";
 import { headers } from "next/headers";
+
 export default async function OrganizationTeamPage() {
 	const supabase = await createServerClient();
 	const headersList = await headers();
