@@ -13,7 +13,7 @@ import Link from "next/link";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export interface Member extends User {
-	role: AccessRole | undefined;
+	role: AccessRole | null;
 }
 
 export const columns: ColumnDef<Member>[] = [

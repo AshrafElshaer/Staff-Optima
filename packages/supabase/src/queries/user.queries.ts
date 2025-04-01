@@ -63,27 +63,25 @@ export async function getMembersWithRole(
 	organizationId: string,
 	filters?: {
 		name?: string;
-		role?: string;
+		role: string[] | null;
 	},
 ) {
 	const query = supabase
 		.from("organization_members")
-		.select("users(* , role:user_roles(roles(*)))")
+		.select("users(*, user_roles!inner(roles!inner(*)))")
 		.eq("organization_id", organizationId);
 
 	if (filters?.name) {
 		query.or(
 			`last_name.ilike.%${filters.name}%,first_name.ilike.%${filters.name}%`,
 			{
-				referencedTable: "user",
+				referencedTable: "users",
 			},
 		);
 	}
 
 	if (filters?.role) {
-		query.or(`user_roles.name.ilike.%${filters.role}%`, {
-			referencedTable: "user_roles",
-		});
+		query.in("users.user_roles.roles.id", filters.role);
 	}
 
 	const { data, error } = await query;
@@ -96,10 +94,12 @@ export async function getMembersWithRole(
 	}
 
 	return {
-		data: data.map((member) => ({
-			...member.users,
-			role: member.users.role[0]?.roles,
-		})),
+		data: data
+			.map((member) => ({
+				...member.users,
+				role: member.users?.user_roles?.[0]?.roles || null,
+			}))
+			.filter((member) => member.role !== null),
 		error: null,
 	};
 }

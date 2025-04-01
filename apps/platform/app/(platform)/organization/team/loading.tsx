@@ -10,18 +10,21 @@ import {
 	TableHeader,
 	TableRow,
 } from "@optima/ui/components/table";
-import { UserAdd02Icon } from "hugeicons-react";
+import { FilterAddIcon, UserAdd02Icon } from "hugeicons-react";
 import { Search } from "lucide-react";
 
 export default function TeamLoading() {
 	return (
 		<div className="flex flex-col gap-4 flex-1">
-			<section className="flex items-center justify-between">
+			<section className="flex items-center gap-4 ">
 				<Input
 					startIcon={<Search className="size-4" />}
 					placeholder="Search by name"
 					disabled
 				/>
+				<Button variant="outline" className="min-w-fit py-2 mr-auto">
+					<FilterAddIcon className="size-4" strokeWidth={2} />
+				</Button>
 				<Button variant="secondary" className="ml-auto" disabled>
 					<UserAdd02Icon className="h-4 w-4" />
 					Invite Member
