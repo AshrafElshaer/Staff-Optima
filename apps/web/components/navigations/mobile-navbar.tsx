@@ -120,14 +120,7 @@ export const MobileNavbar = () => {
 							size="lg"
 							onClick={() => {
 								setIsMobileMenuOpen(false);
-								const emailInput = document.getElementById("waitlist-email");
-								if (emailInput) {
-									scrollToSection("hero").then(() => {
-										setTimeout(() => {
-											emailInput.focus();
-										}, 100);
-									});
-								}
+								router.push("/waitlist");
 							}}
 						>
 							Join Waitlist

@@ -42,7 +42,7 @@ export function Navbar() {
 					<FaGithub className="size-4 " /> Github
 				</Link>
 				<Link
-					href="https://x.com/AshrafElshaer98"
+					href="https://x.com/staffoptima"
 					className={buttonVariants({ variant: "ghost" })}
 					target="_blank"
 				>

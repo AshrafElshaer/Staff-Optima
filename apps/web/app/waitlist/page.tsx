@@ -1,16 +1,9 @@
 "use client";
 import { joinWaitlistAction } from "@/actions/join-waitlist";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@optima/ui/components/button";
+import { Button, buttonVariants } from "@optima/ui/components/button";
 import confetti from "canvas-confetti";
 
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@optima/ui/components/card";
 import {
 	Form,
 	FormControl,
@@ -24,8 +17,11 @@ import { Input } from "@optima/ui/components/inputs";
 import { Separator } from "@optima/ui/components/separator";
 import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { BsGithub } from "react-icons/bs";
+import { FaXTwitter } from "react-icons/fa6";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -75,57 +71,82 @@ export default function Waitlist() {
 		execute(data);
 	}
 	return (
-		<div className="flex-1 flex flex-col px-4 justify-center items-center">
-			<Card className="w-full max-w-sm bg-sidebar">
-				<CardHeader className="justify-center items-center">
-					<CardTitle>Join the Waitlist – Be the First to Know!</CardTitle>
-					<CardDescription>
-						Sign up for early access and exclusive updates!
-					</CardDescription>
-				</CardHeader>
-				<Separator />
-				<CardContent>
-					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-							<FormField
-								control={form.control}
-								name="name"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Full Name</FormLabel>
-										<FormControl>
-											<Input placeholder="John Doe" {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="email"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Email Address</FormLabel>
-										<FormControl>
-											<Input placeholder="example@domain.com" {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+		<div className="flex-1 flex flex-col px-4 pt-10 justify-center items-center">
+			<h1 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold  md:text-center mb-4">
+				Join the Waitlist – Be the First to Know!
+			</h1>
+			<p className="w-2/3 mx-auto text-sm text-center mb-8">
+				Sign up for early access and stay ahead! Be the first to get updates,
+				exclusive features, and launch details.
+			</p>
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className="space-y-4 w-full max-w-sm mb-12"
+				>
+					<FormField
+						control={form.control}
+						name="name"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Full Name</FormLabel>
+								<FormControl>
+									<Input placeholder="John Doe" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="email"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Email Address</FormLabel>
+								<FormControl>
+									<Input placeholder="example@domain.com" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 
-							<Button
-								className="w-full"
-								variant={"secondary"}
-								disabled={isExecuting}
-							>
-								{isExecuting ? <Loader className="animate-spin" /> : null}
-								Join Waitlist
-							</Button>
-						</form>
-					</Form>
-				</CardContent>
-			</Card>
+					<Button
+						className="w-full"
+						variant={"secondary"}
+						disabled={isExecuting}
+					>
+						{isExecuting ? <Loader className="animate-spin" /> : null}
+						Join Waitlist
+					</Button>
+				</form>
+			</Form>
+
+			<div className="flex flex-col items-center gap-4 justify-center">
+				<p className="text-lg text-center">Follow Us On</p>
+				<div className="flex items-center justify-center gap-4">
+					<Link
+						href="https://github.com/AshrafElshaer/staff-Optima"
+						className={buttonVariants({
+							variant: "outline",
+							className: "h-auto",
+						})}
+						target="_blank"
+					>
+						<BsGithub className="size-12" />
+					</Link>
+					<Link
+						href="https://x.com/staffoptima"
+						className={buttonVariants({
+							variant: "outline",
+							className: "h-auto",
+						})}
+						target="_blank"
+					>
+						<FaXTwitter className="size-12 " />
+					</Link>
+				</div>
+			</div>
 		</div>
 	);
 }
