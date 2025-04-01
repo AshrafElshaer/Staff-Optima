@@ -1,13 +1,11 @@
 import { Badge } from "@optima/ui/components/badge";
-import { Button, buttonVariants } from "@optima/ui/components/button";
-import { Input } from "@optima/ui/components/inputs";
+import { buttonVariants } from "@optima/ui/components/button";
 import { BorderBeam } from "@optima/ui/components/magicui/border-beam";
 import { Meteors } from "@optima/ui/components/magicui/meteors";
-import { RainbowButton } from "@optima/ui/components/magicui/rainbow-button";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Waitlist } from "../waitlist";
 
 export function Hero() {
 	return (
