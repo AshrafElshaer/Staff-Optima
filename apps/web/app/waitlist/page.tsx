@@ -38,6 +38,10 @@ const formSchema = z.object({
 
 export default function Waitlist() {
 	const form = useForm<z.infer<typeof formSchema>>({
+		defaultValues: {
+			name: "",
+			email: "",
+		},
 		resolver: zodResolver(formSchema),
 	});
 	const router = useRouter();
@@ -55,7 +59,10 @@ export default function Waitlist() {
 			toast.error(error.serverError);
 		},
 		onSuccess: () => {
-			form.reset();
+			form.reset({
+				name: "",
+				email: "",
+			});
 			runConfetti();
 			toast.success("You are on the waitlist, stay tuned!");
 			setTimeout(() => {
