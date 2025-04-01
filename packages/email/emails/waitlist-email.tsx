@@ -56,9 +56,14 @@ export function WaitlistEmail({ name }: { name: string }) {
 						<Heading
 							className={`text-2xl text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}] w-full text-left font-semibold mb-6`}
 						>
-							{name} 🎉 You&apos;re on the List!
+							  You&apos;re on the List! 🎉
 						</Heading>
 
+						<Text
+							className={`text-base text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}] mb-4`}
+						>
+							Hi {name}.
+						</Text>
 						<Text
 							className={`text-base text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}] mb-4`}
 						>
