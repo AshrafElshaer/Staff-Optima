@@ -75,7 +75,7 @@ export default function Waitlist() {
 			<h1 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold  md:text-center mb-4">
 				Join the Waitlist – Be the First to Know!
 			</h1>
-			<p className="w-2/3 mx-auto text-sm text-center mb-8">
+			<p className="w-2/3 mx-auto text-sm text-center mb-8 hidden md:block">
 				Sign up for early access and stay ahead! Be the first to get updates,
 				exclusive features, and launch details.
 			</p>
