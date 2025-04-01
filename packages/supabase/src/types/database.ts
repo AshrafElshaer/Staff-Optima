@@ -309,6 +309,30 @@ export type Database = {
 				};
 				Relationships: [];
 			};
+			waitlist: {
+				Row: {
+					created_at: string | null;
+					email: string;
+					is_granted: boolean | null;
+					name: string;
+					updated_at: string | null;
+				};
+				Insert: {
+					created_at?: string | null;
+					email: string;
+					is_granted?: boolean | null;
+					name: string;
+					updated_at?: string | null;
+				};
+				Update: {
+					created_at?: string | null;
+					email?: string;
+					is_granted?: boolean | null;
+					name?: string;
+					updated_at?: string | null;
+				};
+				Relationships: [];
+			};
 		};
 		Views: {
 			[_ in never]: never;

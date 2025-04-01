@@ -63,7 +63,7 @@ export default function RootLayout({
 			<body
 				className={cn(
 					` ${GeistSans.variable} ${GeistMono.variable}`,
-					"antialiased dark",
+					"antialiased dark flex flex-col min-h-[100svh]",
 				)}
 			>
 				<Toaster

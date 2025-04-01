@@ -14,7 +14,7 @@
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.141 0.005 285.823);
-	--primary: oklch(54.61% 0.2152 262.88);
+	--primary: oklch(0.141 0.005 285.823);
 	--primary-foreground: oklch(0.979 0.021 166.113);
 	--secondary: oklch(0.967 0.001 286.375);
 	--secondary-foreground: oklch(0.21 0.006 285.885);
@@ -47,6 +47,11 @@
 
 	--success: oklch(0.68 0.16 151.05 / 1);
 	--success-foreground: oklch(1 0 0);
+	--color-1: hsl(0 100% 63%);
+	--color-2: hsl(270 100% 63%);
+	--color-3: hsl(210 100% 63%);
+	--color-4: hsl(195 100% 63%);
+	--color-5: hsl(90 100% 63%);
 }
 .dark {
 	--background: oklch(18.22% 0 0);
@@ -55,8 +60,8 @@
 	--card-foreground: oklch(98.51% 0 0);
 	--popover: oklch(18.22% 0 0);
 	--popover-foreground: oklch(98.51% 0 0);
-	--primary: oklch(62.31% 0.188 259.81);
-	--primary-foreground: oklch(0.979 0.021 166.113);
+	--primary: oklch(98.51% 0 0);
+	--primary-foreground: oklch(18.22% 0 0);
 	--secondary: oklch(22.64% 0 0);
 	--secondary-foreground: oklch(0.985 0 0);
 	--muted: oklch(20.02% 0 0); /* Custom */
@@ -87,6 +92,11 @@
 
 	--success: oklch(0.68 0.16 151.05 / 1);
 	--success-foreground: oklch(1 0 0);
+	--color-1: hsl(0 100% 63%);
+	--color-2: hsl(270 100% 63%);
+	--color-3: hsl(210 100% 63%);
+	--color-4: hsl(195 100% 63%);
+	--color-5: hsl(90 100% 63%);
 }
 
 @theme inline {
@@ -148,6 +158,11 @@
 	--animate-accordion-up: accordion-up 0.2s ease-out;
 	--animate-shake: shake 0.5s ease-in-out;
 	--animate-meteor: meteor 0.5s ease-in-out infinite;
+	--color-color-5: var(----color-5);
+	--color-color-4: var(----color-4);
+	--color-color-3: var(----color-3);
+	--color-color-2: var(----color-2);
+	--color-color-1: var(----color-1);
 
 	@keyframes meteor {
 		0% {
@@ -202,6 +217,16 @@
 		}
 		to {
 			height: 0;
+		}
+	}
+	--animate-rainbow: rainbow var(--speed, 2s) infinite linear;
+
+	@keyframes rainbow {
+		0% {
+			background-position: 0%;
+		}
+		100% {
+			background-position: 200%;
 		}
 	}
 }

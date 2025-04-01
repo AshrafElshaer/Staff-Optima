@@ -45,6 +45,15 @@ create index idx_users_email on users(email);
 -- );
 
 
+create table waitlist (
+    email text primary key not null unique,
+    name text not null,
+    is_granted boolean default false,
+    created_at timestamp with time zone default now(),
+    updated_at timestamp with time zone default now()
+)
+
+
 create table organizations (
     id uuid primary key default gen_random_uuid(),
     name text not null,

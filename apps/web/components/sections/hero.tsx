@@ -1,10 +1,12 @@
-import { Meteors } from "@optima/ui/components/magicui/meteors";
 import { Badge } from "@optima/ui/components/badge";
-import { Button } from "@optima/ui/components/button";
+import { Button, buttonVariants } from "@optima/ui/components/button";
 import { Input } from "@optima/ui/components/inputs";
-import Image from "next/image";
-import React from "react";
 import { BorderBeam } from "@optima/ui/components/magicui/border-beam";
+import { Meteors } from "@optima/ui/components/magicui/meteors";
+import { RainbowButton } from "@optima/ui/components/magicui/rainbow-button";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 import { Waitlist } from "../waitlist";
 
 export function Hero() {
@@ -29,8 +31,16 @@ export function Hero() {
 				Streamline your hiring process with our intelligent applicant tracking
 				system that simplifies recruitment workflows and candidate management.
 			</p>
-			<Waitlist />
 
+			<Link
+				className={buttonVariants({
+					variant: "default",
+					className: "w-fit mx-auto",
+				})}
+				href="/waitlist"
+			>
+				Join Waitlist
+			</Link>
 			<div className="relative w-full overflow-hidden rounded-md border bg-background mt-12">
 				<Image
 					src="/dashboard.png"

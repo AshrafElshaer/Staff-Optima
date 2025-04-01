@@ -59,7 +59,7 @@ const links = [
 
 export function Footer() {
 	return (
-		<footer className="pt-12">
+		<footer>
 			{/* <div className="grid  grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
         <div className="flex flex-col gap-2">
           <p className=" font-bold mb-2">Sections</p>

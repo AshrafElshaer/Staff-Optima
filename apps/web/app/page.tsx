@@ -4,7 +4,7 @@ import { Pricing } from "@/components/sections/pricing";
 
 export default function Page() {
 	return (
-		<div className="min-h-screen w-full flex flex-col   p-4">
+		<div className="flex-1 w-full flex flex-col   p-4">
 			<Hero />
 			{/* <Features /> */}
 			{/* <Pricing /> */}

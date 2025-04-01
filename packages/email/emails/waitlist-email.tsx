@@ -14,7 +14,7 @@ import React from "react";
 import { colors } from "../components/colors";
 import Logo from "../components/logo";
 
-export function WaitlistEmail() {
+export function WaitlistEmail({ name }: { name: string }) {
 	return (
 		<Html>
 			<Tailwind>
@@ -56,7 +56,7 @@ export function WaitlistEmail() {
 						<Heading
 							className={`text-2xl text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}] w-full text-left font-semibold mb-6`}
 						>
-							🎉 You&apos;re on the List!
+							{name} 🎉 You&apos;re on the List!
 						</Heading>
 
 						<Text
