@@ -133,7 +133,7 @@ export default function Waitlist() {
 						})}
 						target="_blank"
 					>
-						<BsGithub className="size-12" />
+						<BsGithub className="size-10" />
 					</Link>
 					<Link
 						href="https://x.com/staffoptima"
@@ -143,7 +143,7 @@ export default function Waitlist() {
 						})}
 						target="_blank"
 					>
-						<FaXTwitter className="size-12 " />
+						<FaXTwitter className="size-10 " />
 					</Link>
 				</div>
 			</div>
