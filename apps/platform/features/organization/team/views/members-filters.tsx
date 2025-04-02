@@ -79,11 +79,14 @@ export function MembersFilters() {
 
 	const handleRemoveFilter = (label: string, value: string) => {
 		const target = label.toLowerCase() as keyof typeof selectedFilters;
+
 		setSelectedFilters((prev) => ({
 			...prev,
 			[target]: Array.isArray(prev[target])
-				? prev[target].filter((v: string) => v !== value)
-				: [],
+				? prev[target].filter((v: string) => v !== value).length > 0
+					? prev[target].filter((v: string) => v !== value)
+					: null
+				: null,
 		}));
 	};
 
@@ -167,46 +170,43 @@ export function MembersFilters() {
 				{Object.keys(selectedFilters).length > 0 && (
 					<>
 						<div className="flex items-center gap-2  min-w-fit">
-							{Object.entries(selectedFilters).map(
-								([key, values]) =>
-									key !== "name" &&
-									values?.length &&
-									values.length > 0 && (
-										<div
-											key={key}
-											className="flex items-stretch gap-2 text-sm bg-accent px-3 py-2 rounded-md font-medium border min-w-fit"
-										>
-											<p className="text-secondary-foreground capitalize">
-												{key}
-											</p>
-											<Separator orientation="vertical" className="h-4" />
-											<div className="flex items-center gap-2 min-w-fit">
-												{Array.isArray(values) &&
-													values.map((value: string) => (
-														<p key={value} className="capitalize min-w-fit">
-															{key === "role"
-																? (roles?.find((r) => r.id === value)?.name ??
-																	value)
-																: value.split("_").join(" ")}
-															,
-														</p>
-													))}
-											</div>
-											<Separator orientation="vertical" />
-											<button
-												type="button"
-												onClick={() => handleRemoveLabel(key)}
-											>
-												<X className="size-4" />
-											</button>
+							{Object.entries(selectedFilters).map(([key, values]) =>
+								key !== "name" && values?.length && values.length > 0 ? (
+									<div
+										key={key}
+										className="flex items-stretch gap-2 text-sm bg-accent px-3 py-2 rounded-md font-medium border min-w-fit"
+									>
+										<p className="text-secondary-foreground capitalize">
+											{key}
+										</p>
+										<Separator orientation="vertical" className="h-4" />
+										<div className="flex items-center gap-2 min-w-fit">
+											{Array.isArray(values) &&
+												values.map((value: string) => (
+													<p key={value} className="capitalize min-w-fit">
+														{key === "role"
+															? (roles?.find((r) => r.id === value)?.name ??
+																value)
+															: value.split("_").join(" ")}
+														,
+													</p>
+												))}
 										</div>
-									),
+										<Separator orientation="vertical" />
+										<button
+											type="button"
+											onClick={() => handleRemoveLabel(key)}
+										>
+											<X className="size-4" />
+										</button>
+									</div>
+								) : null,
 							)}
 						</div>
 						{Object.entries(selectedFilters).some(
 							([key, values]) =>
 								key !== "name" && values?.length && values.length > 0,
-						) && (
+						) ? (
 							<Button
 								variant="outline"
 								onClick={handleClearFilters}
@@ -214,7 +214,7 @@ export function MembersFilters() {
 							>
 								Clear all
 							</Button>
-						)}
+						) : null}
 					</>
 				)}
 			</div>

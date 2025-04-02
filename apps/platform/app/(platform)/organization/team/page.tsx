@@ -28,7 +28,7 @@ export default async function OrganizationTeamPage({ searchParams }: Props) {
 	);
 	return (
 		<div className="flex flex-col gap-4 flex-1">
-			<section className="flex flex-col sm:flex-row items-center ">
+			<section className="flex flex-col sm:flex-row items-center gap-2 ">
 				<MembersFilters />
 				<InviteTeamMember />
 			</section>
