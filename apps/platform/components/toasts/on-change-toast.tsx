@@ -150,7 +150,7 @@ export function OnChangeToast({
 								Reset
 							</Button>
 							<Button
-								className=" text-white hover:text-white rounded-full transition-colors duration-200"
+								className=" bg-white text-black hover:text-black rounded-full transition-colors duration-200"
 								size="sm"
 								onClick={handleSave}
 							>

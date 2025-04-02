@@ -196,6 +196,7 @@ export function MembersFilters() {
 										<button
 											type="button"
 											onClick={() => handleRemoveLabel(key)}
+											className="cursor-pointer"
 										>
 											<X className="size-4" />
 										</button>
