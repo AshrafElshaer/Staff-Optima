@@ -52,6 +52,12 @@
 	--color-3: hsl(210 100% 63%);
 	--color-4: hsl(195 100% 63%);
 	--color-5: hsl(90 100% 63%);
+
+	--chart-1: hsl(221.2 83.2% 53.3%);
+	--chart-2: hsl(212 95% 68%);
+	--chart-3: hsl(216 92% 60%);
+	--chart-4: hsl(210 98% 78%);
+	--chart-5: hsl(212 97% 87%);
 }
 .dark {
 	--background: oklch(18.22% 0 0);
@@ -97,6 +103,12 @@
 	--color-3: hsl(210 100% 63%);
 	--color-4: hsl(195 100% 63%);
 	--color-5: hsl(90 100% 63%);
+
+	--chart-1: hsl(221.2 83.2% 53.3%);
+	--chart-2: hsl(212 95% 68%);
+	--chart-3: hsl(216 92% 60%);
+	--chart-4: hsl(210 98% 78%);
+	--chart-5: hsl(212 97% 87%);
 }
 
 @theme inline {
@@ -163,6 +175,12 @@
 	--color-color-3: var(----color-3);
 	--color-color-2: var(----color-2);
 	--color-color-1: var(----color-1);
+
+	--color-chart-1: var(--chart-1);
+	--color-chart-2: var(--chart-2);
+	--color-chart-3: var(--chart-3);
+	--color-chart-4: var(--chart-4);
+	--color-chart-5: var(--chart-5);
 
 	@keyframes meteor {
 		0% {
