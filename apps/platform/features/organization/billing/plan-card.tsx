@@ -25,7 +25,7 @@ export function PlanCard() {
 						Monthly
 					</Badge>
 					<p className="ml-auto">
-						15 $ <span className="text-muted-foreground text-sm">/ month</span>
+						15 <span className="text-muted-foreground text-sm">Seats</span>
 					</p>
 				</CardTitle>
 			</CardHeader>
@@ -38,7 +38,7 @@ export function PlanCard() {
 						<div
 							key={index.toString()}
 							className={cn(
-								"w-2 h-8 bg-accent rounded-full flex-1",
+								"w-2 h-8 bg-accent rounded-sm flex-1",
 								index + 1 <= daysPassed && "bg-success",
 							)}
 						/>
