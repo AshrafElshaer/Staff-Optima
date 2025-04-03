@@ -7,12 +7,17 @@ import { DayPicker } from "react-day-picker";
 import { buttonVariants } from "@optima/ui/components/button";
 import { cn } from "@optima/ui/lib/utils";
 
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+	hideNavigation?: boolean;
+};
+
 function Calendar({
 	className,
 	classNames,
 	showOutsideDays = true,
+	hideNavigation = false,
 	...props
-}: React.ComponentProps<typeof DayPicker>) {
+}: CalendarProps) {
 	return (
 		<DayPicker
 			showOutsideDays={showOutsideDays}
@@ -25,7 +30,8 @@ function Calendar({
 				nav: "flex items-center gap-1",
 				nav_button: cn(
 					buttonVariants({ variant: "outline" }),
-					"size-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+					"h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+					hideNavigation && "hidden",
 				),
 				nav_button_previous: "absolute left-1",
 				nav_button_next: "absolute right-1",
