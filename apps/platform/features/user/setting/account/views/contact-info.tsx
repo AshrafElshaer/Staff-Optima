@@ -75,7 +75,11 @@ export function ContactInfo({ user }: { user: User }) {
 								<FormItem className=" w-full md:w-1/3">
 									<FormLabel>Email Address</FormLabel>
 									<FormControl>
-										<Input placeholder="example@domain.com" inputMode="email" {...field} />
+										<Input
+											placeholder="example@domain.com"
+											inputMode="email"
+											{...field}
+										/>
 									</FormControl>
 									<FormMessage />
 								</FormItem>

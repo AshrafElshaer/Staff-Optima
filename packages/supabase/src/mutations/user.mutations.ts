@@ -5,8 +5,8 @@ type UserInsert = TablesInsert<"users">;
 type UserUpdate = TablesUpdate<"users">;
 type UserRoleInsert = TablesInsert<"user_roles">;
 type UserRoleUpdate = TablesUpdate<"user_roles">;
-// type UserPreferencesInsert = TablesInsert<"user_preferences">;
-// type UserPreferencesUpdate = TablesUpdate<"user_preferences">;
+type UserPreferencesInsert = TablesInsert<"user_preferences">;
+type UserPreferencesUpdate = TablesUpdate<"user_preferences">;
 // type UserAvailabilityInsert = TablesInsert<"user_availability">;
 // type UserAvailabilityUpdate = TablesUpdate<"user_availability">;
 
@@ -91,28 +91,28 @@ export async function createUserRole(
 	return await supabase.from("user_roles").insert(data).select().single();
 }
 
-// export async function createUserPreferences(
-//   supabase: SupabaseInstance,
-//   data: UserPreferencesInsert,
-// ) {
-//   return await supabase.from("user_preferences").insert(data).select().single();
-// }
+export async function createUserPreferences(
+	supabase: SupabaseInstance,
+	data: UserPreferencesInsert,
+) {
+	return await supabase.from("user_preferences").insert(data).select().single();
+}
 
-// export async function updateUserPreferences(
-//   supabase: SupabaseInstance,
-//   data: UserPreferencesUpdate,
-// ) {
-//   if (!data.user_id) {
-//     throw new Error("User id is required");
-//   }
+export async function updateUserPreferences(
+	supabase: SupabaseInstance,
+	data: UserPreferencesUpdate,
+) {
+	if (!data.user_id) {
+		throw new Error("User id is required");
+	}
 
-//   return await supabase
-//     .from("user_preferences")
-//     .update(data)
-//     .eq("user_id", data.user_id)
-//     .select()
-//     .single();
-// }
+	return await supabase
+		.from("user_preferences")
+		.update(data)
+		.eq("user_id", data.user_id)
+		.select()
+		.single();
+}
 
 // export async function createUserAvailability(
 //   supabase: SupabaseInstance,

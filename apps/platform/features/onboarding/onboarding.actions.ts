@@ -62,7 +62,6 @@ export const onboardOrganizationAction = authActionClient
 			await getOrganizationByDomain(supabase, parsedInput.domain);
 
 		if (existingOrganizationError) {
-			console.log("error");
 			throw new Error(existingOrganizationError.message);
 		}
 

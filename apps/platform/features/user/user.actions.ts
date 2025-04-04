@@ -1,15 +1,17 @@
 "use server";
 import { authActionClient } from "@/lib/safe-action";
 import {
+	createUserPreferences,
 	// createUserAvailability,
 	updateUser,
 	// updateUserAvailability,
-	// updateUserPreferences,
+	updateUserPreferences,
 } from "@optima/supabase/mutations";
 import {
+	userPreferencesInsertSchema,
 	// userAvailabilityInsertSchema,
 	// userAvailabilityUpdateSchema,
-	// userPreferencesUpdateSchema,
+	userPreferencesUpdateSchema,
 	userUpdateSchema,
 } from "@optima/supabase/validations";
 import { revalidatePath } from "next/cache";
@@ -37,30 +39,55 @@ export const updateUserAction = authActionClient
 		const { error, data: user } = await updateUser(supabase, { id, ...data });
 		if (error) throw new Error(error.message);
 
-		revalidatePath("/account-settings");
+		revalidatePath("/account");
 		return user;
 	});
 
+export const createUserPreferencesAction = authActionClient
+	.metadata({
+		name: "create-user-preferences",
+		track: {
+			event: "create-user-preferences",
+			channel: "user",
+		},
+	})
+	.schema(userPreferencesInsertSchema.omit({ user_id: true }))
+	.action(async ({ ctx, parsedInput }) => {
+		const { supabase, user } = ctx;
+		const { timezone, date_format, reminder_period } = parsedInput;
+		const { error, data: userPreferences } = await createUserPreferences(
+			supabase,
+			{
+				user_id: user.id,
+				timezone,
+				date_format,
+				reminder_period,
+			},
+		);
+		if (error) throw new Error(error.message);
+		revalidatePath("/account/preferences");
+		return userPreferences;
+	});
 export const updateUserPreferencesAction = authActionClient
 	.metadata({
 		name: "update-user-preferences",
 	})
-	// .schema(userPreferencesUpdateSchema.omit({ user_id: true }))
+	.schema(userPreferencesUpdateSchema.omit({ user_id: true }))
 	.action(async ({ ctx, parsedInput }) => {
-		// const { supabase, user } = ctx;
-		// const { timezone, date_format, reminder_period } = parsedInput;
-		// const { error, data: userPreferences } = await updateUserPreferences(
-		//   supabase,
-		//   {
-		//     user_id: user.id,
-		//     timezone,
-		//     date_format,
-		//     reminder_period,
-		//   },
-		// );
-		// if (error) throw new Error(error.message);
-		// revalidatePath("/account-settings/preferences");
-		// return userPreferences;
+		const { supabase, user } = ctx;
+		const { timezone, date_format, reminder_period } = parsedInput;
+		const { error, data: userPreferences } = await updateUserPreferences(
+			supabase,
+			{
+				user_id: user.id,
+				timezone,
+				date_format,
+				reminder_period,
+			},
+		);
+		if (error) throw new Error(error.message);
+		revalidatePath("/account-settings/preferences");
+		return userPreferences;
 	});
 
 export const createUserAvailabilityAction = authActionClient

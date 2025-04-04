@@ -195,25 +195,25 @@ export const roleUpdateSchema = roleSchema.partial().required({
 //     id: true,
 //   });
 
-// export const userPreferencesSchema = z.object({
-//   user_id: z.string().uuid(),
-//   timezone: z.string(),
-//   date_format: z.string(),
-//   reminder_period: z.number().positive(),
-//   created_at: z.string(),
-//   updated_at: z.string(),
-// });
+export const userPreferencesSchema = z.object({
+	user_id: z.string().uuid(),
+	timezone: z.string(),
+	date_format: z.string(),
+	reminder_period: z.number().positive(),
+	created_at: z.string(),
+	updated_at: z.string(),
+});
 
-// export const userPreferencesInsertSchema = userPreferencesSchema.omit({
-//   created_at: true,
-//   updated_at: true,
-// });
+export const userPreferencesInsertSchema = userPreferencesSchema.omit({
+	created_at: true,
+	updated_at: true,
+});
 
-// export const userPreferencesUpdateSchema = userPreferencesSchema
-//   .partial()
-//   .required({
-//     user_id: true,
-//   });
+export const userPreferencesUpdateSchema = userPreferencesSchema
+	.partial()
+	.required({
+		user_id: true,
+	});
 // export const userAvailabilitySchema = z.object({
 //   user_id: z.string().uuid(),
 //   available_slots: z.array(

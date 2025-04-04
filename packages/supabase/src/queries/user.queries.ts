@@ -112,9 +112,9 @@ export async function getUserRole(supabase: SupabaseInstance, userId: string) {
 		.single();
 }
 
-// export async function getUserPreferences(supabase: SupabaseInstance) {
-//   return await supabase.from("user_preferences").select("*").single();
-// }
+export async function getUserPreferences(supabase: SupabaseInstance) {
+	return await supabase.from("user_preferences").select("*").single();
+}
 
 // export async function getUserAvailability(
 //   supabase: SupabaseInstance,

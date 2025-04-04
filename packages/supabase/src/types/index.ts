@@ -95,7 +95,7 @@ export type UserRole = Tables<"user_roles">;
 // export type Application = Tables<"applications">;
 export type DomainVerification = Tables<"domain_verification">;
 // export type JobPostCampaign = Tables<"job_posts_campaigns">;
-// export type UserPreferences = Tables<"user_preferences">;
+export type UserPreferences = Tables<"user_preferences">;
 // export type UserAvailability = Omit<
 //   Tables<"user_availability">,
 //   "available_slots"

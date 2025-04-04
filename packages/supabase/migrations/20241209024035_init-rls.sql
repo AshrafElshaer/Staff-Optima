@@ -88,11 +88,11 @@ create policy "Organization Admin Can Delete Department" on departments for dele
 
 
 -- User Preferences
--- alter table user_preferences enable row level security;
+alter table user_preferences enable row level security;
 
--- create policy "Users can view their own preferences" on user_preferences for select using (auth.uid() = user_id);
--- create policy "Users can update their own preferences" on user_preferences for update using (auth.uid() = user_id);
--- create policy "Users or admins can insert their own preferences" on user_preferences for insert with check (auth.uid() = user_id or is_user_admin());
+create policy "Users can view their own preferences" on user_preferences for select using (auth.uid() = user_id);
+create policy "Users can update their own preferences" on user_preferences for update using (auth.uid() = user_id);
+create policy "Users or admins can insert their own preferences" on user_preferences for insert with check (auth.uid() = user_id);
 
 -- User Availability
 -- alter table user_availability enable row level security;
