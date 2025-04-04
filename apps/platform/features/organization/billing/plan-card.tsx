@@ -20,12 +20,13 @@ export function PlanCard() {
 		<Card>
 			<CardHeader>
 				<CardTitle className="flex items-center gap-4">
-					Starter Plan{" "}
-					<Badge variant="success" className="rounded-sm" size="md">
-						Monthly
-					</Badge>
+					<p>
+						<span className="font-mono">300$</span>
+						<span className="text-muted-foreground text-sm"> / Month</span>
+					</p>
 					<p className="ml-auto">
-						15 <span className="text-muted-foreground text-sm">Seats</span>
+						<span className="font-mono">15 </span>
+						<span className="text-muted-foreground text-sm">Seats</span>
 					</p>
 				</CardTitle>
 			</CardHeader>
@@ -33,7 +34,7 @@ export function PlanCard() {
 				<p className="text-sm">
 					Next Billing Cycle in {daysInMonth - daysPassed} days
 				</p>
-				<div className="flex items-center w-full gap-2">
+				<div className="flex items-center w-full gap-1 sm:gap1.5 md:gap-2">
 					{Array.from({ length: daysInMonth }).map((_, index) => (
 						<div
 							key={index.toString()}
