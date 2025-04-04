@@ -22,6 +22,7 @@ interface DatePickerWithRangeProps
 	date: DateRange | undefined;
 	fromDate?: Date;
 	toDate?: Date;
+	align?: "start" | "center" | "end";
 }
 
 export function DatePickerWithRange({
@@ -30,6 +31,7 @@ export function DatePickerWithRange({
 	date,
 	fromDate,
 	toDate,
+	align = "end",
 }: DatePickerWithRangeProps) {
 	// const [selectedDate, setSelectedDate] = React.useState<DateRange | undefined>(
 	//   date,
@@ -65,7 +67,7 @@ export function DatePickerWithRange({
 						)}
 					</Button>
 				</PopoverTrigger>
-				<PopoverContentWithoutPortal className="w-auto p-0">
+				<PopoverContentWithoutPortal className="w-auto p-0" align={align}>
 					<Calendar
 						initialFocus
 						mode="range"
