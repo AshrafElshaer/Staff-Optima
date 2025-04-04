@@ -104,7 +104,7 @@ export default function Waitlist() {
 							<FormItem>
 								<FormLabel>Email Address</FormLabel>
 								<FormControl>
-									<Input placeholder="example@domain.com" {...field} />
+									<Input placeholder="example@domain.com" inputMode="email" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
