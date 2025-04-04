@@ -22,6 +22,7 @@ import {
 } from "@optima/ui/components/form";
 import { Input } from "@optima/ui/components/inputs";
 import { Separator } from "@optima/ui/components/separator";
+import { Skeleton } from "@optima/ui/components/skeleton";
 import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
@@ -119,6 +120,33 @@ export function FullName({ user }: { user: User }) {
 					</CardFooter>
 				</form>
 			</Form>
+		</Card>
+	);
+}
+
+import { Label } from "@optima/ui/components/label";
+
+export function FullNameLoading() {
+	return (
+		<Card>
+			<CardHeader>
+				<CardTitle className="font-semibold ">Full Name</CardTitle>
+			</CardHeader>
+			<Separator />
+			<CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
+				<div className="space-y-2  w-full md:w-1/3">
+					<Label>First Name</Label>
+					<Skeleton className="h-9 w-full" />
+				</div>
+				<div className="space-y-2  w-full md:w-1/3">
+					<Label>Last Name</Label>
+					<Skeleton className="h-9 w-full" />
+				</div>
+			</CardContent>
+			<Separator />
+			<CardFooter className="flex justify-end gap-2 items-center">
+				<Button disabled>Save</Button>
+			</CardFooter>
 		</Card>
 	);
 }

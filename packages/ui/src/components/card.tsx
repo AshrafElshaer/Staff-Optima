@@ -3,7 +3,7 @@ import type * as React from "react";
 import { cn } from "@optima/ui/lib/utils";
 
 export const cardClasses = {
-	card: "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border p-4 shadow-sm",
+	card: "bg-card text-card-foreground flex flex-col gap-4 rounded-xl border p-4 shadow-sm",
 	header: "flex flex-col gap-1.5 px-4",
 	title: "leading-none font-semibold",
 	description: "text-muted-foreground text-sm",

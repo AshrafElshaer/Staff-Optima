@@ -3,6 +3,7 @@
 import { DropZone } from "@/components/drop-zone";
 import { updateUserAction } from "@/features/user/user.actions";
 import { useSupabase } from "@/hooks/use-supabase";
+import { queryClient } from "@/lib/react-query";
 import { uploadUserAvatar } from "@/lib/supabase/storage";
 import type { User } from "@optima/supabase/types";
 import {
@@ -19,11 +20,11 @@ import {
 	CardTitle,
 } from "@optima/ui/components/card";
 import { Separator } from "@optima/ui/components/separator";
+import { Skeleton } from "@optima/ui/components/skeleton";
 import { Plus } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { queryClient } from "@/lib/react-query";
 
 export function ProfilePic({ user }: { user: User }) {
 	const supabase = useSupabase();
@@ -94,8 +95,11 @@ export function ProfilePic({ user }: { user: User }) {
 						},
 					}}
 				>
-					<Avatar className="size-20">
-						<AvatarImage src={user?.image ?? undefined} />
+					<Avatar className="size-20 rounded-sm">
+						<AvatarImage
+							src={user?.image ?? undefined}
+							className="rounded-sm"
+						/>
 						<AvatarFallback className="border-0">
 							{user?.first_name[0]}
 							{user?.last_name[0]}
@@ -105,6 +109,33 @@ export function ProfilePic({ user }: { user: User }) {
 						<Plus className="size-10 text-secondary-foreground" />
 					</div>
 				</DropZone>
+			</CardContent>
+			<Separator />
+			<CardFooter>
+				<CardDescription>
+					This is your avatar. Click on the avatar to upload a custom one from
+					your files.
+				</CardDescription>
+			</CardFooter>
+		</Card>
+	);
+}
+
+export function ProfilePicLoading() {
+	return (
+		<Card>
+			<CardHeader>
+				<CardTitle className="font-semibold ">Profile Picture</CardTitle>
+			</CardHeader>
+			<Separator />
+			<CardContent className="flex items-center justify-between gap-4">
+				<p className="text-sm text-muted-foreground">
+					Accepts : PNG, JPG, or SVG. <br />
+					Max size : 1MB <br />
+					Recommended dimensions: <br />
+					200x200 pixels.
+				</p>
+				<Skeleton className="size-20 rounded-sm" />
 			</CardContent>
 			<Separator />
 			<CardFooter>
