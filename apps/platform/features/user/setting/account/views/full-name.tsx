@@ -73,7 +73,7 @@ export function FullName({ user }: { user: User }) {
 							control={form.control}
 							name="first_name"
 							render={({ field }) => (
-								<FormItem className="space-y-2 w-full md:w-1/3">
+								<FormItem className=" w-full md:w-1/3">
 									<FormLabel>First Name</FormLabel>
 									<FormControl>
 										<Input placeholder="Enter your first name" {...field} />
@@ -86,7 +86,7 @@ export function FullName({ user }: { user: User }) {
 							control={form.control}
 							name="last_name"
 							render={({ field }) => (
-								<FormItem className="space-y-2 w-full md:w-1/3">
+								<FormItem className=" w-full md:w-1/3">
 									<FormLabel>Last Name</FormLabel>
 									<FormControl>
 										<Input placeholder="Enter your last name" {...field} />
@@ -134,11 +134,11 @@ export function FullNameLoading() {
 			</CardHeader>
 			<Separator />
 			<CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
-				<div className="space-y-3  w-full md:w-1/3">
+				<div className="grid gap-3  w-full md:w-1/3">
 					<Label>First Name</Label>
 					<Skeleton className="h-9 w-full" />
 				</div>
-				<div className="space-y-3  w-full md:w-1/3">
+				<div className="grid gap-3  w-full md:w-1/3">
 					<Label>Last Name</Label>
 					<Skeleton className="h-9 w-full" />
 				</div>

@@ -1,12 +1,11 @@
 "use client";
-import { Button } from "@optima/ui/components/button";
-import { Label } from "@optima/ui/components/label";
-import { parsePhoneNumber } from "react-phone-number-input";
 import { PhoneInput } from "@/components/phone-number-input";
 import { updateUserAction } from "@/features/user/user.actions";
+import { queryClient } from "@/lib/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { User } from "@optima/supabase/types";
 import { userUpdateSchema } from "@optima/supabase/validations";
+import { Button } from "@optima/ui/components/button";
 import {
 	Card,
 	CardContent,
@@ -14,13 +13,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@optima/ui/components/card";
-import { Input } from "@optima/ui/components/inputs";
-import { Separator } from "@optima/ui/components/separator";
-import { Loader } from "lucide-react";
-import { useAction } from "next-safe-action/hooks";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import type { z } from "zod";
 import {
 	Form,
 	FormControl,
@@ -29,8 +21,16 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
-import { queryClient } from "@/lib/react-query";
+import { Input } from "@optima/ui/components/inputs";
+import { Label } from "@optima/ui/components/label";
+import { Separator } from "@optima/ui/components/separator";
 import { Skeleton } from "@optima/ui/components/skeleton";
+import { Loader } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
+import { useForm } from "react-hook-form";
+import { parsePhoneNumber } from "react-phone-number-input";
+import { toast } from "sonner";
+import type { z } from "zod";
 
 export function ContactInfo({ user }: { user: User }) {
 	const { execute: updateUser, isExecuting } = useAction(updateUserAction, {
@@ -72,7 +72,7 @@ export function ContactInfo({ user }: { user: User }) {
 							control={form.control}
 							name="email"
 							render={({ field }) => (
-								<FormItem className="space-y-2 w-full md:w-1/3">
+								<FormItem className=" w-full md:w-1/3">
 									<FormLabel>Email Address</FormLabel>
 									<FormControl>
 										<Input placeholder="example@domain.com" {...field} />
@@ -85,7 +85,7 @@ export function ContactInfo({ user }: { user: User }) {
 							control={form.control}
 							name="phone_number"
 							render={({ field }) => (
-								<FormItem className="space-y-2 w-full md:w-1/3">
+								<FormItem className=" w-full md:w-1/3">
 									<FormLabel>Phone Number</FormLabel>
 									<FormControl>
 										<PhoneInput
@@ -137,11 +137,11 @@ export function ContactInfoLoading() {
 			</CardHeader>
 			<Separator />
 			<CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
-				<div className="space-y-3  w-full md:w-1/3">
+				<div className="grid gap-3  w-full md:w-1/3">
 					<Label>Email</Label>
 					<Skeleton className="h-9 w-full" />
 				</div>
-				<div className="space-y-3  w-full md:w-1/3">
+				<div className="grid gap-3  w-full md:w-1/3">
 					<Label>Phone Number</Label>
 					<Skeleton className="h-9 w-full" />
 				</div>
