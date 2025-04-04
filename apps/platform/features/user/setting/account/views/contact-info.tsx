@@ -137,11 +137,11 @@ export function ContactInfoLoading() {
 			</CardHeader>
 			<Separator />
 			<CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
-				<div className="space-y-2  w-full md:w-1/3">
+				<div className="space-y-3  w-full md:w-1/3">
 					<Label>Email</Label>
 					<Skeleton className="h-9 w-full" />
 				</div>
-				<div className="space-y-2  w-full md:w-1/3">
+				<div className="space-y-3  w-full md:w-1/3">
 					<Label>Phone Number</Label>
 					<Skeleton className="h-9 w-full" />
 				</div>
