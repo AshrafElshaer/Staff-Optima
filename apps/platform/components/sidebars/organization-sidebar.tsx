@@ -25,26 +25,29 @@ import { useRouter } from "next/navigation";
 import type * as React from "react";
 
 import { useOrganization } from "@/hooks/use-organization";
+import { Icons } from "@optima/ui/components/icons";
 import { cn } from "@optima/ui/lib/utils";
 import { Building2 } from "lucide-react";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import { NavMain } from "./nav-main";
-
 const general = [
 	{
 		title: "Departments",
 		url: "/organization/departments",
-		icon: <DashboardSquare03Icon strokeWidth={2} size={20} />,
+		icon: <Icons.DashboardSquare width={20} height={20} />,
+		iconFill: <Icons.DashboardSquareFill width={20} height={20} />,
 	},
 	{
-		title: "Roles & Permissions",
+		title: "Roles & Permission",
 		url: "/organization/access-control",
-		icon: <FingerPrintIcon strokeWidth={2} size={20} />,
+		icon: <Icons.FingerPrint width={20} height={20} />,
+		iconFill: <Icons.FingerPrintFill width={20} height={20} />,
 	},
 	{
 		title: "Team",
 		url: "/organization/team",
-		icon: <UserMultipleIcon strokeWidth={2} size={20} />,
+		icon: <Icons.Users width={20} height={20} />,
+		iconFill: <Icons.UsersFill width={20} height={20} />,
 	},
 	{
 		title: "Integrations",
@@ -87,7 +90,8 @@ export function OrganizationSidebar({
 		{
 			title: "Public Profile",
 			url: "/organization",
-			icon: <Profile02Icon strokeWidth={2} size={20} />,
+			icon: <Icons.Profile width={20} height={20} />,
+			iconFill: <Icons.ProfileFill width={20} height={20} />,
 			isError: organization ? !organization.is_domain_verified : false,
 		},
 		...general,
@@ -98,7 +102,7 @@ export function OrganizationSidebar({
 			<SidebarHeader>
 				<SidebarMenuItem
 					className={cn(
-						"flex items-center gap-2 p-2",
+						"flex items-center gap-2 px-2",
 						state === "collapsed" && " justify-center",
 						isMobile && state === "collapsed" && "justify-start ",
 					)}

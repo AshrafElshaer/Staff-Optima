@@ -30,6 +30,7 @@ export function NavMain({
 		title: string;
 		url: string;
 		icon: React.ReactNode;
+		iconFill?: React.ReactNode;
 		isError?: boolean;
 	}[];
 	label: string;
@@ -62,7 +63,7 @@ export function NavMain({
 									),
 								})}
 							>
-								{item.icon}
+								{isActive ? item.iconFill : item.icon}
 								{item.title}
 								{item.isError && (
 									<div className="ml-auto bg-destructive size-2  rounded-full" />

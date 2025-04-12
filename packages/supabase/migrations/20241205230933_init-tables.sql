@@ -12,19 +12,19 @@
 -- - user_integrations
 
 
-create table users (
-    id uuid not null references auth.users on delete cascade primary key,
-    email text not null unique,
-    first_name text not null,
-    last_name text not null,
-    image text,
-    phone_number text not null,
-    created_at timestamp with time zone default now(),
-    updated_at timestamp with time zone default now()
-);
+-- create table users (
+--     id uuid not null references auth.users on delete cascade primary key,
+--     email text not null unique,
+--     first_name text not null,
+--     last_name text not null,
+--     image text,
+--     phone_number text not null,
+--     created_at timestamp with time zone default now(),
+--     updated_at timestamp with time zone default now()
+-- );
 
-create index idx_users_id on users(id);
-create index idx_users_email on users(email);
+-- create index idx_users_id on users(id);
+-- create index idx_users_email on users(email);
 
 
 

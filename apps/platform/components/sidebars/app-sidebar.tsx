@@ -4,6 +4,7 @@ import type * as React from "react";
 
 import { useUserRole } from "@/hooks/use-user-role";
 import { hasPermission } from "@/lib/auth/has-permission";
+import { Icons } from "@optima/ui/components/icons";
 import { Separator } from "@optima/ui/components/separator";
 import {
 	Sidebar,
@@ -28,28 +29,33 @@ const links = [
 	{
 		title: "Dashboard",
 		url: "/",
-		icon: <Home01Icon strokeWidth={2} size={20} />,
+		icon: <Icons.Home width={20} height={20} />,
+		iconFill: <Icons.HomeFill width={20} height={20} />,
 	},
 	{
 		title: "Calendar",
 		url: "/calendar",
-		icon: <Calendar03Icon strokeWidth={2} size={20} />,
+		icon: <Icons.Calendar width={20} height={20} />,
+		iconFill: <Icons.CalendarFill width={20} height={20} />,
 	},
 	{
 		title: "Jobs",
 		url: "/jobs",
-		icon: <JobLinkIcon strokeWidth={2} size={20} />,
+		icon: <Icons.JobLink width={20} height={20} />,
+		iconFill: <Icons.JobLinkFill width={20} height={20} />,
 	},
 
 	{
 		title: "Candidates",
 		url: "/candidates",
-		icon: <UserSearch01Icon strokeWidth={2} size={20} />,
+		icon: <Icons.UserSearch width={20} height={20} />,
+		iconFill: <Icons.UserSearchFill width={20} height={20} />,
 	},
 	{
-		title: "Chat",
-		url: "/chat",
-		icon: <Chatting01Icon strokeWidth={2} size={20} />,
+		title: "Messages",
+		url: "/messages",
+		icon: <Icons.Messages width={20} height={20} />,
+		iconFill: <Icons.MessagesFill width={20} height={20} />,
 	},
 ];
 // const communication = [
@@ -60,7 +66,8 @@ const settings = [
 	{
 		title: "Organization",
 		url: "/organization",
-		icon: <Building01Icon strokeWidth={2} size={20} />,
+		icon: <Icons.Plaza width={20} height={20} />,
+		iconFill: <Icons.PlazaFill width={20} height={20} />,
 	},
 ];
 

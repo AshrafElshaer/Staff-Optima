@@ -13,8 +13,8 @@ import { cn } from "@optima/ui/lib/utils";
 
 export function Inset({ children }: { children: React.ReactNode }) {
 	return (
-		<SidebarInset className="m-2 border md:ml-0 rounded-md">
-			<header className="flex h-10 shrink-0 border-b items-center gap-2 transition-[width,height] ease-linear  px-4">
+		<SidebarInset className="my-2 mx-4  gap-4   rounded-md">
+			<header className="flex h-10 bg-sidebar shrink-0 border rounded-md items-center gap-2 transition-[width,height] ease-linear  px-2">
 				<SidebarTrigger />
 				<div className="flex items-center gap-2 w-full  overflow-x-auto scrollbar-hide">
 					<Separator
