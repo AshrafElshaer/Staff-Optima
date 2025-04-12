@@ -94,7 +94,7 @@ export function OrganizationSidebar({
 	];
 
 	return (
-		<Sidebar collapsible="icon" {...props}>
+		<Sidebar collapsible="icon" variant="floating" {...props}>
 			<SidebarHeader>
 				<SidebarMenuItem
 					className={cn(

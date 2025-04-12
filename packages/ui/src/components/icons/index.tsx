@@ -3,7 +3,7 @@ import { BuildingIcon } from "./building";
 import { GoogleCalendar } from "./google-calendar";
 import { GoogleMeet } from "./google-meet";
 import { LogoSvg } from "./logo";
-import { Mail } from "./mail";
+import { Mail, MailFill } from "./mail";
 import { Pdf } from "./pdf";
 import { Slack } from "./slack";
 import { Zoom } from "./zoom";
@@ -21,4 +21,5 @@ export const Icons = {
 	GoogleCalendar,
 	Pdf,
 	Mail,
+	MailFill,
 };

@@ -36,7 +36,7 @@ export function OrganizationLogoClient() {
 		<SidebarMenu>
 			<SidebarMenuItem
 				className={cn(
-					"flex items-center gap-2 p-2",
+					"flex items-center gap-2 px-2",
 					state === "collapsed" && "p-0 justify-center",
 					isMobile && state === "collapsed" && "justify-start !p-2",
 				)}
@@ -49,9 +49,7 @@ export function OrganizationLogoClient() {
 					</AvatarFallback>
 				</Avatar>
 				{(state === "expanded" || (isMobile && state === "collapsed")) && (
-					<span className="text-compact-large font-bold">
-						{organization?.name}
-					</span>
+					<span className="text-sm font-bold">{organization?.name}</span>
 				)}
 			</SidebarMenuItem>
 		</SidebarMenu>
