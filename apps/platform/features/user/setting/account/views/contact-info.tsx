@@ -21,11 +21,11 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
+import { Icons } from "@optima/ui/components/icons";
 import { Input } from "@optima/ui/components/inputs";
 import { Label } from "@optima/ui/components/label";
 import { Separator } from "@optima/ui/components/separator";
 import { Skeleton } from "@optima/ui/components/skeleton";
-import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { parsePhoneNumber } from "react-phone-number-input";
@@ -107,7 +107,7 @@ export function ContactInfo({ user }: { user: User }) {
 							)}
 						/>
 					</CardContent>
-					<Separator />
+					{/* <Separator /> */}
 					<CardFooter className="flex justify-end  gap-2 items-center">
 						{form.formState.isDirty && (
 							<Button
@@ -115,6 +115,7 @@ export function ContactInfo({ user }: { user: User }) {
 								disabled={isExecuting}
 								onClick={() => form.reset()}
 								type="button"
+								size="sm"
 							>
 								Reset
 							</Button>
@@ -122,8 +123,11 @@ export function ContactInfo({ user }: { user: User }) {
 						<Button
 							disabled={!form.formState.isDirty || isExecuting}
 							type="submit"
+							size="sm"
 						>
-							{isExecuting ? <Loader className="w-4 h-4 animate-spin" /> : null}
+							{isExecuting ? (
+								<Icons.Loader className="w-4 h-4 animate-spin" />
+							) : null}
 							Save
 						</Button>
 					</CardFooter>

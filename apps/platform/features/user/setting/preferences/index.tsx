@@ -165,7 +165,7 @@ export function UserPreferences({ preferences }: UserPreferencesProps) {
 				<CardHeader>
 					<CardTitle>Appearance</CardTitle>
 				</CardHeader>
-				<Separator />
+				{/* <Separator /> */}
 				<CardContent className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
 					<CardDescription>
 						Choose how Optima looks and feels. This affects the color scheme and
@@ -202,7 +202,7 @@ export function UserPreferences({ preferences }: UserPreferencesProps) {
 				<CardHeader>
 					<CardTitle>Time Zone</CardTitle>
 				</CardHeader>
-				<Separator />
+				{/* <Separator /> */}
 				<CardContent className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
 					<CardDescription>
 						Defines the default time zone used for displaying times in the app.
@@ -223,7 +223,7 @@ export function UserPreferences({ preferences }: UserPreferencesProps) {
 				<CardHeader>
 					<CardTitle>Date Format</CardTitle>
 				</CardHeader>
-				<Separator />
+				{/* <Separator /> */}
 				<CardContent className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
 					<CardDescription>
 						Select the format used to display dates throughout the app.
@@ -252,7 +252,7 @@ export function UserPreferences({ preferences }: UserPreferencesProps) {
 				<CardHeader>
 					<CardTitle>Reminders Period</CardTitle>
 				</CardHeader>
-				<Separator />
+				{/* <Separator /> */}
 				<CardContent className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
 					<CardDescription>
 						Select the period of time before your appointments to receive

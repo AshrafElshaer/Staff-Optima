@@ -14,7 +14,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@optima/ui/components/select";
-import { Loader } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useAction } from "next-safe-action/hooks";
 
@@ -39,6 +38,7 @@ import {
 	FormMessage,
 } from "@optima/ui/components/form";
 import { TimezoneSelector } from "@optima/ui/components/selectors/timezone-selector";
+import { Icons } from "@optima/ui/components/icons";
 export function OrganizationOnboarding() {
 	const [counter, { startCountdown }] = useCountdown({
 		countStart: 3,
@@ -391,7 +391,7 @@ function OrganizationForm() {
 					disabled={form.formState.isSubmitting || status === "hasSucceeded"}
 				>
 					{form.formState.isSubmitting ? (
-						<Loader className="size-4 animate-spin mr-2" />
+						<Icons.Loader className="size-4 animate-spin mr-2" />
 					) : null}
 					Complete Setup
 				</Button>

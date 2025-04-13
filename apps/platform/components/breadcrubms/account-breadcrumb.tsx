@@ -28,7 +28,7 @@ export function AccountBreadcrumb() {
 	const page = segments[1]?.replace("-", " ") || "account";
 
 	return (
-		<h1 className="font-medium truncate w-full">
+		<h1 className="font-medium truncate w-full text-sm">
 			Manage your {page} settings and preferences.
 		</h1>
 	);

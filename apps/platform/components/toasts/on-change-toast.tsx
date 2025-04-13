@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@optima/ui/components/button";
+import { Icons } from "@optima/ui/components/icons";
 import { cn } from "@optima/ui/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, Info, Loader } from "lucide-react";
@@ -42,7 +43,9 @@ const saveStates = {
 		text: "Unsaved changes",
 	},
 	executing: {
-		icon: <Loader className="w-[15px] h-[15px] animate-spin text-white" />,
+		icon: (
+			<Icons.Loader className="w-[15px] h-[15px] animate-spin text-white" />
+		),
 		text: "Saving changes...",
 	},
 	hasSucceeded: {

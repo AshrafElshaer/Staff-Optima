@@ -19,6 +19,7 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@optima/ui/components/dropdown-menu";
+import { Icons } from "@optima/ui/components/icons";
 import { useSidebar } from "@optima/ui/components/sidebar";
 import { Skeleton } from "@optima/ui/components/skeleton";
 import { useIsMobile } from "@optima/ui/hooks/use-mobile";
@@ -121,7 +122,7 @@ export function UserDropdown() {
 					}}
 				>
 					{isLoggingOut ? (
-						<Loader className="size-4 animate-spin" />
+						<Icons.Loader className="size-4 animate-spin" />
 					) : (
 						<Door01Icon strokeWidth={2} />
 					)}

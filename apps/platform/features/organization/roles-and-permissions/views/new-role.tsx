@@ -31,11 +31,11 @@ import type { z } from "zod";
 import { PERMISSIONS } from "@optima/constants";
 import { Input } from "@optima/ui/components/inputs";
 import { Separator } from "@optima/ui/components/separator";
-import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { createRoleAction } from "../roles.actions";
+import { Icons } from "@optima/ui/components/icons";
 export default function NewRole() {
 	const [open, setOpen] = useState(false);
 	const router = useRouter();
@@ -170,7 +170,9 @@ export default function NewRole() {
 						className="flex-1"
 						onClick={form.handleSubmit(onSubmit)}
 					>
-						{isExecuting ? <Loader className="h-4 w-4 animate-spin" /> : null}
+						{isExecuting ? (
+							<Icons.Loader className="h-4 w-4 animate-spin" />
+						) : null}
 						Create
 					</Button>
 				</SheetFooter>

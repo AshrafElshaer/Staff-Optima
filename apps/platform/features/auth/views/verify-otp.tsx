@@ -17,7 +17,6 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 
 import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 
 import { useQueryStates } from "nuqs";
@@ -26,6 +25,7 @@ import { toast } from "sonner";
 import { useCountdown } from "usehooks-ts";
 import { authSearchParams } from "../auth-search-params";
 import { signInAction, verifyOtpAction } from "../auth.actions";
+import { Icons } from "@optima/ui/components/icons";
 
 export function VerifyOtp() {
 	const [{ auth_type, redirect_url, email }, setAuthParams] = useQueryStates(
@@ -154,7 +154,7 @@ export function VerifyOtp() {
 								transition={{ duration: 0.2 }}
 								className="flex items-center justify-center w-full"
 							>
-								<Loader className="mr-2 h-4 w-4 animate-spin" />
+								<Icons.Loader className="mr-2 h-4 w-4 animate-spin" />
 								Verifying Pass code ...
 							</motion.div>
 						) : isResending ? (
@@ -166,7 +166,7 @@ export function VerifyOtp() {
 								key="resending-passcode"
 								transition={{ duration: 0.2 }}
 							>
-								<Loader className="mr-2 h-4 w-4 animate-spin" />
+								<Icons.Loader className="mr-2 h-4 w-4 animate-spin" />
 								Resending Pass Code ...
 							</motion.div>
 						) : resendTimer !== 0 ? (

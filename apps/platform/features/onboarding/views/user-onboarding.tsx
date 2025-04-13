@@ -17,7 +17,6 @@ import {
 import { Input } from "@optima/ui/components/inputs/input";
 import { AnimatePresence, motion } from "framer-motion";
 import type { CountryCode } from "libphonenumber-js";
-import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -27,6 +26,7 @@ import { useCountdown } from "usehooks-ts";
 import type { z } from "zod";
 import { onboardUserAction } from "../onboarding.actions";
 import { useSession } from "@/hooks/use-session";
+import { Icons } from "@optima/ui/components/icons";
 
 type UserFormData = {
 	email: string;
@@ -187,7 +187,7 @@ function UserForm({ countryCode }: { countryCode: string }) {
 					disabled={form.formState.isSubmitting || status === "hasSucceeded"}
 				>
 					{form.formState.isSubmitting ? (
-						<Loader className="size-4 animate-spin " />
+						<Icons.Loader className="size-4 animate-spin " />
 					) : null}
 					Continue
 				</Button>

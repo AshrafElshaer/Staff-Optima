@@ -13,9 +13,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
+import { Icons } from "@optima/ui/components/icons";
 import { Input } from "@optima/ui/components/inputs";
 import { Separator } from "@optima/ui/components/separator";
-import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -120,7 +120,7 @@ export default function Waitlist() {
 						variant={"secondary"}
 						disabled={isExecuting}
 					>
-						{isExecuting ? <Loader className="animate-spin" /> : null}
+						{isExecuting ? <Icons.Loader className="animate-spin" /> : null}
 						Join Waitlist
 					</Button>
 				</form>

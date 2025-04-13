@@ -267,6 +267,7 @@ import { Skeleton } from "@optima/ui/components/skeleton";
 import { Check, CheckCircleIcon, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Icons } from "@optima/ui/components/icons";
 
 const formSchema = z.object({
 	email: z.string().email(),
@@ -352,7 +353,7 @@ export function ForwardDnsEmail({
 										exit={{ opacity: 0 }}
 										transition={{ duration: 0.1 }}
 									>
-										<Loader2 className="w-4 h-4 animate-spin" />
+										<Icons.Loader className="w-4 h-4 animate-spin" />
 									</motion.div>
 								) : status === "hasSucceeded" ? (
 									<motion.div

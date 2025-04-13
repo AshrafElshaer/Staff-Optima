@@ -14,7 +14,6 @@ import {
 
 import { Input } from "@optima/ui/components/inputs";
 import { Separator } from "@optima/ui/components/separator";
-import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 
@@ -22,6 +21,7 @@ import { toast } from "sonner";
 
 import { Label } from "@optima/ui/components/label";
 import { deleteRoleActions } from "../roles.actions";
+import { Icons } from "@optima/ui/components/icons";
 
 type DeleteRoleProps = {
 	children: React.ReactNode;
@@ -75,7 +75,9 @@ export function DeleteRole({ children: trigger, role }: DeleteRoleProps) {
 						disabled={isExecuting || confirmation !== role.name}
 						variant="destructive"
 					>
-						{isExecuting ? <Loader className=" size-4 animate-spin" /> : null}
+						{isExecuting ? (
+							<Icons.Loader className=" size-4 animate-spin" />
+						) : null}
 						Confirm
 					</Button>
 				</DialogFooter>

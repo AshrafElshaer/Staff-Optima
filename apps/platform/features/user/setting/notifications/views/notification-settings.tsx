@@ -20,7 +20,7 @@ export function NotificationSettings() {
 					Manage your personal notification settings for this account.
 				</CardDescription>
 			</CardHeader>
-			<Separator />
+			{/* <Separator /> */}
 			<CardContent className="flex flex-col gap-4">
 				<h3 className="font-medium mb-4">In-App Notifications</h3>
 

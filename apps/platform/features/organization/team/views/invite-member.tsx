@@ -27,14 +27,13 @@ import {
 	FormMessage,
 } from "@optima/ui/components/form";
 import { UserAdd02Icon } from "hugeicons-react";
-import { Loader } from "lucide-react";
-import { Type } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { inviteMemberAction } from "../team.actions";
+import { Icons } from "@optima/ui/components/icons";
 
 const formSchema = userInsertSchema.extend({
 	role_id: z.string().uuid(),
@@ -165,7 +164,7 @@ export function InviteTeamMember() {
 							</DialogClose>
 							<Button type="submit" disabled={isExecuting}>
 								{isExecuting ? (
-									<Loader className="size-4 animate-spin" />
+									<Icons.Loader className="size-4 animate-spin" />
 								) : null}
 								Invite
 							</Button>

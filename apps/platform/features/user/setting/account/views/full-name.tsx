@@ -20,10 +20,11 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
+import { Icons } from "@optima/ui/components/icons";
 import { Input } from "@optima/ui/components/inputs";
 import { Separator } from "@optima/ui/components/separator";
 import { Skeleton } from "@optima/ui/components/skeleton";
-import { Loader } from "lucide-react";
+
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -96,10 +97,11 @@ export function FullName({ user }: { user: User }) {
 							)}
 						/>
 					</CardContent>
-					<Separator />
+					{/* <Separator /> */}
 					<CardFooter className="flex justify-end gap-2 items-center">
 						{form.formState.isDirty && (
 							<Button
+								size="sm"
 								variant="outline"
 								type="button"
 								disabled={!form.formState.isDirty || isExecuting}
@@ -111,10 +113,13 @@ export function FullName({ user }: { user: User }) {
 							</Button>
 						)}
 						<Button
+							size="sm"
 							disabled={!form.formState.isDirty || isExecuting}
 							type="submit"
 						>
-							{isExecuting ? <Loader className="w-4 h-4 animate-spin" /> : null}
+							{isExecuting ? (
+								<Icons.Loader className="w-4 h-4 animate-spin" />
+							) : null}
 							Save
 						</Button>
 					</CardFooter>

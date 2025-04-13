@@ -16,12 +16,12 @@ import {
 import { Input } from "@optima/ui/components/inputs";
 import { Separator } from "@optima/ui/components/separator";
 import { Textarea } from "@optima/ui/components/textarea";
-import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
 import { createDepartmentAction } from "../departments.actions";
+import { Icons } from "@optima/ui/components/icons";
 const formSchema = departmentInsertSchema;
 
 export function DepartmentForm({
@@ -125,7 +125,7 @@ export function DepartmentForm({
 						</Button>
 					</DialogClose>
 					<Button className="w-full sm:w-1/2" disabled={isExecuting}>
-						{isExecuting ? <Loader className="animate-spin" /> : null}
+						{isExecuting ? <Icons.Loader className="animate-spin" /> : null}
 						Create
 					</Button>
 				</DialogFooter>

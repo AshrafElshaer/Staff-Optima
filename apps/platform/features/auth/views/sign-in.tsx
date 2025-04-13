@@ -15,11 +15,8 @@ import { Label } from "@optima/ui/components/label";
 import { Separator } from "@optima/ui/components/separator";
 import { AnimatePresence, motion } from "motion/react";
 
-import { Mail01Icon } from "hugeicons-react";
-import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useQueryStates } from "nuqs";
-import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { z } from "zod";
@@ -125,7 +122,7 @@ export function SignIn() {
 										transition={{ duration: 0.3 }}
 										className="flex items-center gap-2"
 									>
-										<Loader className="size-4 animate-spin " />
+										<Icons.Loader className="size-4 animate-spin " />
 										Sending one time code...
 									</motion.span>
 								)}

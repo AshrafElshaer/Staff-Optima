@@ -22,13 +22,13 @@ import {
 } from "@optima/ui/components/form";
 import { Input } from "@optima/ui/components/inputs";
 import { Separator } from "@optima/ui/components/separator";
-import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
 import { updateRoleAction } from "../roles.actions";
+import { Icons } from "@optima/ui/components/icons";
 
 type RenameRoleProps = {
 	children: React.ReactNode;
@@ -91,7 +91,7 @@ export function RenameRole({ children: trigger, role }: RenameRoleProps) {
 							</DialogClose>
 							<Button type="submit" disabled={isExecuting}>
 								{isExecuting ? (
-									<Loader className=" size-4 animate-spin" />
+									<Icons.Loader className=" size-4 animate-spin" />
 								) : null}
 								Save
 							</Button>
