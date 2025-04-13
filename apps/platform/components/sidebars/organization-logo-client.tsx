@@ -23,7 +23,7 @@ export function OrganizationLogoClient() {
 		return (
 			<div
 				className={cn(
-					"flex items-center gap-2 p-2",
+					"flex items-center gap-2 px-2",
 					state === "collapsed" && "justify-center !p-0",
 				)}
 			>

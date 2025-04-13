@@ -7,7 +7,7 @@ import { PERMISSIONS } from "@optima/constants";
 import type { AccessRole } from "@optima/supabase/types";
 import { roleSchema } from "@optima/supabase/validations";
 import { Button } from "@optima/ui/components/button";
-import { Checkbox } from "@optima/ui/components/checkbox";
+import { Checkbox } from "@optima/ui/components/animate-ui/radix-checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
