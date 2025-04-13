@@ -113,7 +113,7 @@ ApplicationSubmitEmail.PreviewProps = {
 	candidateName: "John Doe",
 	jobTitle: "Software Engineer",
 	companyName: "Staff Optima",
-	companyLogo: "https://dashboard.staffoptima.co/logo-dark.png",
+	companyLogo: "https://app.staffoptima.co/logo-dark.png",
 };
 
 export default ApplicationSubmitEmail;

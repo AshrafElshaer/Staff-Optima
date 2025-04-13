@@ -14,7 +14,7 @@ import React from "react";
 import { colors } from "../components/colors";
 import Logo from "../components/logo";
 
-const baseUrl = "https://dashboard.staffoptima.co";
+const baseUrl = "https://app.staffoptima.co";
 
 export function NewEmployeeEmail({
 	name,

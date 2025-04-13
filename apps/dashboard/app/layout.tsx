@@ -5,7 +5,7 @@ import "@optima/ui/prosemirror.css";
 import { Providers } from "@/components/providers";
 import type { Metadata } from "next";
 
-const baseUrl = "https://platform.staffoptima.co";
+const baseUrl = "https://app.staffoptima.co";
 
 export const metadata: Metadata = {
 	metadataBase: new URL(baseUrl),
