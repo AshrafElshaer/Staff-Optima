@@ -98,6 +98,6 @@ export const deleteRoleActions = authActionClient
 		if (error) {
 			throw new Error(error.message);
 		}
-		revalidatePath("organization/access-control");
+		revalidatePath("company/access-control");
 		return data;
 	});

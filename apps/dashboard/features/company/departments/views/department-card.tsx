@@ -26,7 +26,7 @@ export function DepartmentCard({ department }: { department: Department }) {
 			e.preventDefault();
 			return;
 		}
-		router.push(`/organization/departments/${department.id}`);
+		router.push(`/company/departments/${department.id}`);
 	}
 	return (
 		<Card
