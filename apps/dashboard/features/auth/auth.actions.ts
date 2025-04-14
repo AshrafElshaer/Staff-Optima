@@ -87,7 +87,7 @@ export const verifyOtpAction = actionClientWithMeta
 			throw new Error(error.message);
 		}
 
-		if (!data.user?.user_metadata.organization_id) {
+		if (!data.user?.user_metadata.company_id) {
 			redirect_url = "/onboarding";
 		}
 
