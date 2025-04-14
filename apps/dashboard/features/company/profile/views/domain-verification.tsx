@@ -72,14 +72,14 @@ export function DomainVerification({
 			async () => {
 				const result = await verifyDomain({
 					...domainVerification,
-					created_at: undefined,
-					updated_at: undefined,
+					// created_at: undefined,
+					// updated_at: undefined,
 				});
 				if (result?.serverError) {
 					throw new Error(result.serverError);
 				}
 				queryClient.invalidateQueries({
-					queryKey: ["organization"],
+					queryKey: ["company"],
 				});
 				queryClient.invalidateQueries({
 					queryKey: ["domain-verification"],
