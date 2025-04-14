@@ -6,13 +6,13 @@ import { createServerClient } from "@/lib/supabase/server";
 import { WaitlistEmail } from "@optima/email";
 
 import {
+	createCompany,
 	createDomainVerification,
-	createOrganization,
 	createUserAdmin,
 } from "@optima/supabase/mutations";
-import { getOrganizationByDomain } from "@optima/supabase/queries";
+import { getCompanyByDomain } from "@optima/supabase/queries";
 import {
-	organizationInsertSchema,
+	companyInsertSchema,
 	userInsertSchema,
 } from "@optima/supabase/validations";
 import { redirect } from "next/navigation";
@@ -47,31 +47,31 @@ export const onboardUserAction = authActionClient
 		return data;
 	});
 
-export const onboardOrganizationAction = authActionClient
+export const onboardCompanyAction = authActionClient
 	.metadata({
-		name: "onboard-organization",
+		name: "onboard-company",
 	})
-	.schema(organizationInsertSchema)
+	.schema(companyInsertSchema)
 	.action(async ({ ctx, parsedInput }) => {
 		const { user, resend } = ctx;
 		const supabase = await createServerClient({
 			isAdmin: true,
 		});
 
-		const { data: existingOrganization, error: existingOrganizationError } =
-			await getOrganizationByDomain(supabase, parsedInput.domain);
+		const { data: existingCompany, error: existingCompanyError } =
+			await getCompanyByDomain(supabase, parsedInput.domain);
 
-		if (existingOrganizationError) {
-			throw new Error(existingOrganizationError.message);
+		if (existingCompanyError) {
+			throw new Error(existingCompanyError.message);
 		}
 
-		if (existingOrganization.length) {
+		if (existingCompany.length) {
 			throw new Error(
-				`Organization already exists with this domain ${parsedInput.domain} , please use a different domain or contact support`,
+				`Company already exists with this domain ${parsedInput.domain} , please use a different domain or contact support`,
 			);
 		}
 
-		const { data: organization, error } = await createOrganization(supabase, {
+		const { data: company, error } = await createCompany(supabase, {
 			...parsedInput,
 			admin_id: user.id,
 			profile: null,
@@ -84,8 +84,8 @@ export const onboardOrganizationAction = authActionClient
 		const { error: domainVerificationError } = await createDomainVerification(
 			supabase,
 			{
-				organization_id: organization.id,
-				domain: organization.domain,
+				company_id: company.id,
+				domain: company.domain,
 				verification_token: crypto.randomBytes(16).toString("hex"),
 			},
 		);
@@ -94,5 +94,5 @@ export const onboardOrganizationAction = authActionClient
 			throw new Error(domainVerificationError.message);
 		}
 
-		return organization;
+		return company;
 	});

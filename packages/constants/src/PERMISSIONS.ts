@@ -79,11 +79,11 @@ export const PERMISSIONS = [
 			{ value: "settings:workflow", label: "Manage Interviews Workflows" },
 			{ value: "settings:template", label: "Edit Email Templates" },
 			{
-				value: "settings:organization",
-				label: "Configure Organization Settings",
+				value: "settings:company",
+				label: "Configure Company Settings",
 			},
 			{ value: "settings:integration", label: "Manage Integrations" },
-			{ value: "settings:roles", label: "Define Organization Roles" },
+			{ value: "settings:roles", label: "Define Company Roles" },
 			{ value: "settings:departments", label: "Manage Departments" },
 		],
 	},
@@ -130,7 +130,7 @@ export const PERMISSIONS_ARRAY = [
 	// Settings
 	"settings:workflow",
 	"settings:template",
-	"settings:organization",
+	"settings:company",
 	"settings:integration",
 	"settings:roles",
 	"settings:departments",

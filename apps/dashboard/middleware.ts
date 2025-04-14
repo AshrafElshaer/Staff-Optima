@@ -1,3 +1,4 @@
+import { authSearchParamsSerializer } from "@/features/auth/auth-search-params";
 import {
 	type MiddlewareConfig,
 	type NextRequest,
@@ -21,14 +22,17 @@ export async function middleware(request: NextRequest) {
 
 	if (!user) {
 		return NextResponse.redirect(
-			new URL(`/auth?redirect_url=${pathname}`, request.url),
+			new URL(
+				`/auth${authSearchParamsSerializer({
+					redirect_url: pathname,
+					active_tab: "sign-in",
+				})}`,
+				request.url,
+			),
 		);
 	}
 	response.headers.set("x-user-id", user.id);
-	response.headers.set(
-		"x-organization-id",
-		user?.user_metadata.organization_id ?? "",
-	);
+	response.headers.set("x-company-id", user?.user_metadata.company_id ?? "");
 
 	return response;
 }

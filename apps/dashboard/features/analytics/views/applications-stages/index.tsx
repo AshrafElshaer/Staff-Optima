@@ -6,7 +6,7 @@ import { ApplicationsStagesChartClient } from "./chart.client";
 export async function ApplicationsStagesChart() {
 	// const supabase = await createServerClient();
 	const headersList = await headers();
-	const organizationId = headersList.get("x-organization-id");
+	// const organizationId = headersList.get("x-organization-id");
 	// const { data: applicationStages } = await getApplicationStages(
 	//   supabase,
 	//   organizationId as string,

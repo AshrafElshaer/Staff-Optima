@@ -11,7 +11,7 @@ import { domainVerificationStatusEnum } from ".";
 //   userRoleEnum,
 // } from "./index";
 
-export const organizationSchema = z.object({
+export const companySchema = z.object({
 	id: z.string().uuid(),
 	name: z.string().min(2, {
 		message: "Organization name is required",
@@ -43,7 +43,7 @@ export const organizationSchema = z.object({
 	updated_at: z.string().nullable(),
 });
 
-export const organizationInsertSchema = organizationSchema.omit({
+export const companyInsertSchema = companySchema.omit({
 	id: true,
 	created_at: true,
 	updated_at: true,
@@ -52,23 +52,22 @@ export const organizationInsertSchema = organizationSchema.omit({
 	is_domain_verified: true,
 });
 
-export const organizationUpdateSchema = organizationSchema.partial().required({
+export const companyUpdateSchema = companySchema.partial().required({
 	id: true,
 });
 
-export const organizationMemberSchema = z.object({
-	organization_id: z.string().uuid(),
+export const companyMemberSchema = z.object({
+	company_id: z.string().uuid(),
 	user_id: z.string().uuid(),
 	created_at: z.string().nullable(),
 	updated_at: z.string().nullable(),
 });
-export const organizationMemberInsertSchema = organizationMemberSchema.omit({
+export const companyMemberInsertSchema = companyMemberSchema.omit({
 	updated_at: true,
 	created_at: true,
 });
 
-export const organizationMemberUpdateSchema =
-	organizationMemberSchema.partial();
+export const companyMemberUpdateSchema = companyMemberSchema.partial();
 
 export const userSchema = z.object({
 	id: z.string().uuid(),
@@ -96,7 +95,7 @@ export const userUpdateSchema = userSchema.partial().required({
 
 export const domainVerificationSchema = z.object({
 	id: z.string().uuid(),
-	organization_id: z.string().uuid(),
+	company_id: z.string().uuid(),
 	domain: z
 		.string()
 		.regex(/^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/, "Invalid domain format"),
@@ -120,7 +119,7 @@ export const domainVerificationUpdateSchema = domainVerificationSchema
 	});
 export const departmentSchema = z.object({
 	id: z.string().uuid(),
-	organization_id: z.string().uuid(),
+	company_id: z.string().uuid(),
 	name: z.string().min(2, {
 		message: "Must be minimum 2 characters",
 	}),
@@ -132,7 +131,7 @@ export const departmentSchema = z.object({
 
 export const departmentInsertSchema = departmentSchema.omit({
 	id: true,
-	organization_id: true,
+	company_id: true,
 	created_at: true,
 	updated_at: true,
 });
@@ -141,7 +140,7 @@ export const departmentUpdateSchema = departmentSchema.partial();
 
 export const roleSchema = z.object({
 	id: z.string().uuid(),
-	organization_id: z.string().uuid(),
+	company_id: z.string().uuid(),
 	name: z.string().min(2, {
 		message: "Role name is required",
 	}),
@@ -154,7 +153,7 @@ export const roleSchema = z.object({
 
 export const roleInsertSchema = roleSchema.omit({
 	id: true,
-	organization_id: true,
+	company_id: true,
 	created_at: true,
 	updated_at: true,
 });

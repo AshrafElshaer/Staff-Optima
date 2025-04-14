@@ -1,6 +1,6 @@
 "use client";
 
-import { useOrganization } from "@/hooks/use-organization";
+import { useCompany } from "@/hooks/use-company";
 import {
 	Avatar,
 	AvatarFallback,
@@ -17,9 +17,9 @@ import { cn } from "@optima/ui/lib/utils";
 export function OrganizationLogoClient() {
 	const { state, isMobile } = useSidebar();
 
-	const { data: organization, isLoading } = useOrganization();
+	const { data: company, isLoading } = useCompany();
 
-	if (isLoading || !organization) {
+	if (isLoading || !company) {
 		return (
 			<div
 				className={cn(
@@ -42,14 +42,14 @@ export function OrganizationLogoClient() {
 				)}
 			>
 				<Avatar className="size-6 rounded-sm">
-					<AvatarImage src={organization?.logo ?? ""} className="rounded-sm" />
+					<AvatarImage src={company?.logo ?? ""} className="rounded-sm" />
 					<AvatarFallback className="border text-sm rounded-sm font-bold">
-						{organization?.name[0]}
-						{organization?.name[1]}
+						{company?.name[0]}
+						{company?.name[1]}
 					</AvatarFallback>
 				</Avatar>
 				{(state === "expanded" || (isMobile && state === "collapsed")) && (
-					<span className="text-sm font-bold">{organization?.name}</span>
+					<span className="text-sm font-bold">{company?.name}</span>
 				)}
 			</SidebarMenuItem>
 		</SidebarMenu>

@@ -8,10 +8,10 @@ import { headers } from "next/headers";
 
 export async function OpenJobsWidget() {
 	const headersList = await headers();
-	const organizationId = headersList.get("x-organization-id");
-	const supabase = await createServerClient({
-		isAdmin: true,
-	});
+	// const organizationId = headersList.get("x-organization-id");
+	// const supabase = await createServerClient({
+	// 	isAdmin: true,
+	// });
 	// const { data: jobPosts } = await getJobPosts(
 	//   supabase,
 	//   organizationId as string,

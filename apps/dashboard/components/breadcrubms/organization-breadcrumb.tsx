@@ -48,7 +48,7 @@ export function OrganizationBreadcrumb() {
 	});
 
 	// if (typeof window === "undefined") return null;
-	if (!pathname.startsWith("/organization")) return null;
+	if (!pathname.startsWith("/company")) return null;
 
 	const getSegmentLabel = (segment: string, index: number) => {
 		if (templateId && index === 2) {

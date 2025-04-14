@@ -17,7 +17,7 @@ export default async function OnboardingUserPage() {
 	const { data: user } = await getCurrentUser(supabase);
 
 	if (user) {
-		redirect("/onboarding/organization");
+		redirect("/onboarding/company");
 	}
 
 	return <UserOnboarding countryCode={countryCode} />;

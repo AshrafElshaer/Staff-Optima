@@ -29,20 +29,20 @@ export async function uploadFile({
 	return publicUrl;
 }
 
-type UploadOrganizationLogoProps = {
+type UploadCompanyLogoProps = {
 	supabase: SupabaseInstance;
-	organizationId: string;
+	companyId: string;
 	file: File;
 };
-export async function uploadOrganizationLogo({
+export async function uploadCompanyLogo({
 	supabase,
-	organizationId,
+	companyId,
 	file,
-}: UploadOrganizationLogoProps) {
+}: UploadCompanyLogoProps) {
 	return uploadFile({
 		supabase,
-		bucket: "organization-logos",
-		path: organizationId,
+		bucket: "company-logos",
+		path: companyId,
 		file,
 	});
 }

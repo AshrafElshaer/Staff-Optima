@@ -3,6 +3,7 @@
 import { TextGenerateEffect } from "@/components/magic-ui/text-animate";
 import { PhoneInput } from "@/components/phone-number-input";
 
+import { useSession } from "@/hooks/use-session";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userInsertSchema } from "@optima/supabase/validations";
 import { Button } from "@optima/ui/components/button";
@@ -14,6 +15,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
+import { Icons } from "@optima/ui/components/icons";
 import { Input } from "@optima/ui/components/inputs/input";
 import { AnimatePresence, motion } from "framer-motion";
 import type { CountryCode } from "libphonenumber-js";
@@ -25,8 +27,6 @@ import { toast } from "sonner";
 import { useCountdown } from "usehooks-ts";
 import type { z } from "zod";
 import { onboardUserAction } from "../onboarding.actions";
-import { useSession } from "@/hooks/use-session";
-import { Icons } from "@optima/ui/components/icons";
 
 type UserFormData = {
 	email: string;
@@ -98,7 +98,7 @@ function UserForm({ countryCode }: { countryCode: string }) {
 			toast.error(error.serverError);
 		},
 		onSuccess: () => {
-			router.push("/onboarding/organization");
+			router.push("/onboarding/company");
 		},
 	});
 
@@ -182,6 +182,7 @@ function UserForm({ countryCode }: { countryCode: string }) {
 				</div>
 
 				<Button
+					size="sm"
 					type="submit"
 					className="w-full"
 					disabled={form.formState.isSubmitting || status === "hasSucceeded"}

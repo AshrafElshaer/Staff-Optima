@@ -1,4 +1,4 @@
-import { getOrganizationById } from "@optima/supabase/queries";
+import { getCompanyById } from "@optima/supabase/queries";
 import {
 	CheckSquare,
 	Code,
@@ -240,7 +240,7 @@ export const suggestionItems = createSuggestionItems([
 	},
 ]);
 
-export const getSuggestionItems = (organizationId: string) => {
+export const getSuggestionItems = (companyId: string) => {
 	const items = [...suggestionItems];
 	items.splice(10, 0, {
 		title: "Logo",
@@ -251,15 +251,15 @@ export const getSuggestionItems = (organizationId: string) => {
 			toast.promise(
 				async () => {
 					const supabase = createBrowserClient();
-					const { data: organization, error } = await getOrganizationById(
+					const { data: company, error } = await getCompanyById(
 						supabase,
-						organizationId,
+						companyId,
 					);
 
-					if (!organization) {
+					if (!company) {
 						throw new Error("Company not found");
 					}
-					const logo = organization.logo;
+					const logo = company.logo;
 					if (!logo) {
 						throw new Error("Company logo not found");
 					}
@@ -270,7 +270,7 @@ export const getSuggestionItems = (organizationId: string) => {
 						.setImage({
 							src: logo,
 							alt: "Organization Logo",
-							title: organization?.name,
+							title: company?.name,
 						})
 						.run();
 				},

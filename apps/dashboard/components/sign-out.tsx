@@ -7,7 +7,7 @@ export function SignOut() {
 	const pathname = usePathname();
 
 	return (
-		<Button variant="destructive" className="w-full">
+		<Button size="sm" variant="destructive" className="w-full">
 			Sign out
 		</Button>
 	);

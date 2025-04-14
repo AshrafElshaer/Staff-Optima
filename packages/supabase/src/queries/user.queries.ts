@@ -21,15 +21,15 @@ export async function getCurrentUser(supabase: SupabaseInstance) {
 
 export async function getTeamMembers(
 	supabase: SupabaseInstance,
-	organizationId: string,
+	companyId: string,
 	filters?: {
 		name?: string;
 	},
 ) {
 	const query = supabase
-		.from("organization_members")
+		.from("company_members")
 		.select("user:users(*)")
-		.eq("organization_id", organizationId);
+		.eq("company_id", companyId);
 
 	if (filters?.name) {
 		query.or(
@@ -60,16 +60,16 @@ export async function getTeamMembers(
 
 export async function getMembersWithRole(
 	supabase: SupabaseInstance,
-	organizationId: string,
+	companyId: string,
 	filters?: {
 		name?: string;
 		role: string[] | null;
 	},
 ) {
 	const query = supabase
-		.from("organization_members")
+		.from("company_members")
 		.select("users(*, user_roles!inner(roles!inner(*)))")
-		.eq("organization_id", organizationId);
+		.eq("company_id", companyId);
 
 	if (filters?.name) {
 		query.or(

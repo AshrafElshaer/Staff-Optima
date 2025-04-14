@@ -3,6 +3,7 @@ import {
 	parseAsInteger,
 	parseAsString,
 	parseAsStringEnum,
+	createSerializer,
 } from "nuqs/server";
 // Note: import from 'nuqs/server' to avoid the "use client" directive
 
@@ -16,5 +17,5 @@ export const authSearchParams = {
 		"sign-in",
 	),
 };
-
+export const authSearchParamsSerializer = createSerializer(authSearchParams);
 export const authSearchParamsCache = createSearchParamsCache(authSearchParams);

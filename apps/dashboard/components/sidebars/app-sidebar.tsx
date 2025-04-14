@@ -64,8 +64,8 @@ const links = [
 
 const settings = [
 	{
-		title: "Organization",
-		url: "/organization",
+		title: "Company",
+		url: "/company",
 		icon: <Icons.Plaza width={20} height={20} />,
 		iconFill: <Icons.PlazaFill width={20} height={20} />,
 	},
@@ -73,18 +73,15 @@ const settings = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { data: userRole } = useUserRole();
-	const hasOrganizationPermission = hasPermission(
-		userRole?.role.permissions ?? [],
-		[
-			"settings:organization",
-			"settings:template",
-			"settings:workflow",
-			"settings:integration",
-			"user:add",
-			"user:update",
-			"user:delete",
-		],
-	);
+	const hasCompanyPermission = hasPermission(userRole?.role.permissions ?? [], [
+		"settings:company",
+		"settings:template",
+		"settings:workflow",
+		"settings:integration",
+		"user:add",
+		"user:update",
+		"user:delete",
+	]);
 	return (
 		<Sidebar collapsible="icon" variant="floating" {...props}>
 			<SidebarHeader>
@@ -94,7 +91,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarContent>
 				<NavMain items={links} label="Workspace" />
 				{/* <NavMain items={communication} label="Communication" /> */}
-				{hasOrganizationPermission ? (
+				{hasCompanyPermission ? (
 					<NavMain items={settings} label="Settings" />
 				) : null}
 			</SidebarContent>

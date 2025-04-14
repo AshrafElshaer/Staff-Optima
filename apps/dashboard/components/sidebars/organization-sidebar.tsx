@@ -24,7 +24,7 @@ import {
 import { useRouter } from "next/navigation";
 import type * as React from "react";
 
-import { useOrganization } from "@/hooks/use-organization";
+import { useCompany } from "@/hooks/use-company";
 import { Icons } from "@optima/ui/components/icons";
 import { cn } from "@optima/ui/lib/utils";
 import { Building2 } from "lucide-react";
@@ -33,37 +33,37 @@ import { NavMain } from "./nav-main";
 const general = [
 	{
 		title: "Departments",
-		url: "/organization/departments",
+		url: "/company/departments",
 		icon: <Icons.DashboardSquare width={20} height={20} />,
 		iconFill: <Icons.DashboardSquareFill width={20} height={20} />,
 	},
 	{
 		title: "Roles & Permission",
-		url: "/organization/access-control",
+		url: "/company/access-control",
 		icon: <Icons.FingerPrint width={20} height={20} />,
 		iconFill: <Icons.FingerPrintFill width={20} height={20} />,
 	},
 	{
 		title: "Team",
-		url: "/organization/team",
+		url: "/company/team",
 		icon: <Icons.Users width={20} height={20} />,
 		iconFill: <Icons.UsersFill width={20} height={20} />,
 	},
 	{
 		title: "Integrations",
-		url: "/organization/integrations",
+		url: "/company/integrations",
 		icon: <SlidersHorizontalIcon strokeWidth={2} size={20} />,
 	},
 	{
 		title: "Billing & Usage",
-		url: "/organization/billing",
+		url: "/company/billing",
 		icon: <CreditCardIcon strokeWidth={2} size={20} />,
 	},
 ];
 const applications = [
 	{
 		title: "Workflows",
-		url: "/organization/workflows",
+		url: "/company/workflows",
 		icon: <WorkflowSquare10Icon strokeWidth={2} size={20} />,
 	},
 ];
@@ -76,7 +76,7 @@ const communication = [
 	// },
 	{
 		title: "Email Templates",
-		url: "/organization/email-templates",
+		url: "/company/email-templates",
 		icon: <MailAdd02Icon strokeWidth={2} className="size-[20px]" />,
 	},
 ];
@@ -85,14 +85,14 @@ export function OrganizationSidebar({
 }: React.ComponentProps<typeof Sidebar>) {
 	const router = useRouter();
 	const { state, isMobile } = useSidebar();
-	const { data: organization } = useOrganization();
+	const { data: company } = useCompany();
 	const settings = [
 		{
 			title: "Public Profile",
-			url: "/organization",
+			url: "/company",
 			icon: <Icons.Profile width={20} height={20} />,
 			iconFill: <Icons.ProfileFill width={20} height={20} />,
-			isError: organization ? !organization.is_domain_verified : false,
+			isError: company ? !company.is_domain_verified : false,
 		},
 		...general,
 	];

@@ -42,13 +42,13 @@ const hljs = require("highlight.js");
 const TailwindAdvancedEditor = ({
 	content,
 	onChange,
-	organizationId,
+	companyId,
 }: {
 	content: string;
 	onChange: (content: string) => void;
-	organizationId: string;
+	companyId: string;
 }) => {
-	const extensions = [...defaultExtensions, slashCommand(organizationId)];
+	const extensions = [...defaultExtensions, slashCommand(companyId)];
 	const [initialContent, setInitialContent] = useState<null | JSONContent>(
 		generateJSON(content, extensions),
 	);
@@ -105,7 +105,7 @@ const TailwindAdvancedEditor = ({
 							No results
 						</EditorCommandEmpty>
 						<EditorCommandList>
-							{getSuggestionItems(organizationId).map((item) => (
+							{getSuggestionItems(companyId).map((item) => (
 								<EditorCommandItem
 									value={item.title}
 									onCommand={(val) => item.command?.(val)}

@@ -19,13 +19,13 @@ export async function createUserAdmin(
 export async function createUser(
 	supabase: SupabaseInstance,
 	data: Omit<UserInsert, "id">,
-	organizationId: string,
+	companyId: string,
 ) {
 	const { data: auth, error: authError } = await supabase.auth.admin.createUser(
 		{
 			email: data.email,
 			user_metadata: {
-				organization_id: organizationId,
+				company_id: companyId,
 			},
 		},
 	);
@@ -53,9 +53,9 @@ export async function createUser(
 		};
 	}
 
-	await supabase.from("organization_members").insert({
+	await supabase.from("company_members").insert({
 		user_id: auth.user.id,
-		organization_id: organizationId,
+		company_id: companyId,
 	});
 
 	return {

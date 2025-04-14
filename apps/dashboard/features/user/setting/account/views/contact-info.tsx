@@ -156,7 +156,9 @@ export function ContactInfoLoading() {
 			</CardContent>
 			<Separator />
 			<CardFooter className="flex justify-end gap-2 items-center">
-				<Button disabled>Save</Button>
+				<Button size="sm" disabled>
+					Save
+				</Button>
 			</CardFooter>
 		</Card>
 	);

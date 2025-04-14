@@ -2,7 +2,7 @@
 import { useSession } from "@/hooks/use-session";
 import { useSupabase } from "@/hooks/use-supabase";
 
-import { getOrganizationRoles } from "@optima/supabase/queries";
+import { getCompanyRoles } from "@optima/supabase/queries";
 
 import {
 	Select,
@@ -24,9 +24,9 @@ export function RoleSelector({ onChange, value }: MemberSelectorProps) {
 	const { data: roles, isLoading } = useQuery({
 		queryKey: ["roles"],
 		queryFn: async () => {
-			const { data, error } = await getOrganizationRoles(
+			const { data, error } = await getCompanyRoles(
 				supabase,
-				session?.user.user_metadata.organization_id ?? "",
+				session?.user.user_metadata.company_id ?? "",
 			);
 			if (error) {
 				throw error;

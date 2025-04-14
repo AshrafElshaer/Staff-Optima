@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "@/hooks/use-session";
 import { useSupabase } from "@/hooks/use-supabase";
-import { useOrganizationStore } from "@/stores/organization";
+
 import { getTeamMembers } from "@optima/supabase/queries";
 import {
 	Avatar,
@@ -30,7 +30,7 @@ export function MemberSelector({ onChange, value }: MemberSelectorProps) {
 		queryFn: async () => {
 			const { data, error } = await getTeamMembers(
 				supabase,
-				session?.user.user_metadata.organization_id ?? "",
+				session?.user.user_metadata.company_id ?? "",
 			);
 			if (error) {
 				throw error;
@@ -47,7 +47,7 @@ export function MemberSelector({ onChange, value }: MemberSelectorProps) {
 			<SelectContent>
 				{isLoading
 					? [1, 2, 3].map((i) => (
-							<SelectItem key={i} value={i.toString()}>
+							<SelectItem key={i} value={i.toString()} disabled={true}>
 								<Skeleton className="size-5 rounded-full" />
 								<Skeleton className="h-4 w-20" />
 							</SelectItem>

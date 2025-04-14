@@ -1,4 +1,4 @@
-export * from "./organization.queries";
+export * from "./company.queries";
 export * from "./user.queries";
 export * from "./departments.queries";
 // export * from "./application-stages.queries";

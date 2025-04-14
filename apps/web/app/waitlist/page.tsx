@@ -116,6 +116,7 @@ export default function Waitlist() {
 					/>
 
 					<Button
+						size="sm"
 						className="w-full"
 						variant={"secondary"}
 						disabled={isExecuting}

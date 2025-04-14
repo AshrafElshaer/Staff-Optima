@@ -49,7 +49,7 @@ export function UserDropdown() {
 			<DropdownMenuTrigger asChild>
 				<Avatar className="size-6">
 					<AvatarImage src={data?.image ?? undefined} />
-					<AvatarFallback>
+					<AvatarFallback className="text-sm">
 						{(data?.first_name?.[0] ?? "") + (data?.last_name?.[0] ?? "")}
 					</AvatarFallback>
 				</Avatar>

@@ -84,7 +84,7 @@ export const domainVerificationStatusEnum: {
 // };
 
 export type User = Tables<"users">;
-export type Organization = Tables<"organizations">;
+export type Company = Tables<"companies">;
 export type AccessRole = Tables<"roles">;
 export type Department = Tables<"departments">;
 export type UserRole = Tables<"user_roles">;

@@ -44,7 +44,7 @@ export function NavMain({
 				{items.map((item) => {
 					const isActive =
 						pathname === item.url ||
-						(pathname.includes("/organization")
+						(pathname.includes("/company")
 							? item.url === pathname.split("/").slice(0, 3).join("/")
 							: item.url === pathname.split("/").slice(0, 2).join("/"));
 					return (

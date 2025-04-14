@@ -9,7 +9,7 @@
 		"lint": "biome check . ",
 		"format": "biome format --write .",
 		"typecheck": "tsc --noEmit ",
-		"ts:generate": "bunx supabase gen types typescript --project-id bzczobzamvcqdtejaauv --schema public > src/types/database.ts"
+		"ts:generate": "bunx supabase gen types typescript --project-id cdyzzvkquqofxxmlzzzy --schema public > src/types/database.ts"
 	},
 	"dependencies": {
 		"@optima/logger": "workspace:*",
@@ -19,7 +19,7 @@
 		"libphonenumber-js": "^1.11.18",
 		"react": "^19.0.0",
 		"server-only": "^0.0.1",
-		"supabase": "^2.0.0",
+		"supabase": "^2.20.12",
 		"zod": "^3.24.2"
 	},
 	"devDependencies": {

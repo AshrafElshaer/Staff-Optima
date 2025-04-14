@@ -20,13 +20,12 @@ const baseUrl = "https://app.staffoptima.co";
 
 export function InvitationEmail({
 	name,
-
-	organization,
+	company,
 }: {
 	name: string;
 
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	organization: any;
+	company: any;
 }) {
 	return (
 		<Html>
@@ -56,7 +55,7 @@ export function InvitationEmail({
 						fontStyle="normal"
 					/>
 				</head>
-				<Preview>Invitation to Join {organization.name}!</Preview>
+				<Preview>Invitation to Join {company.name}!</Preview>
 				<Body
 					className={` bg-[${colors.lightTheme.background}] dark:bg-[${colors.darkTheme.background}] py-8 `}
 				>
@@ -65,10 +64,10 @@ export function InvitationEmail({
 							"w-[560px] rounded-lg  bg-transparent p-8 py-16 mx-auto shadow "
 						}
 					>
-						{organization.logo_url && (
+						{company.logo_url && (
 							<Img
-								src={organization.logo_url}
-								alt={organization.name}
+								src={company.logo_url}
+								alt={company.name}
 								className="mx-auto h-14 w-14 mb-8"
 							/>
 						)}
@@ -81,9 +80,9 @@ export function InvitationEmail({
 						<Text
 							className={`text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 						>
-							We are thrilled to invite you to join us at {organization.name}!
-							As part of our growing team, you’ll have the opportunity to make
-							an impact and work in a dynamic, collaborative environment.
+							We are thrilled to invite you to join us at {company.name}! As
+							part of our growing team, you’ll have the opportunity to make an
+							impact and work in a dynamic, collaborative environment.
 						</Text>
 
 						<Text
@@ -118,7 +117,7 @@ export function InvitationEmail({
 							className={`text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 						>
 							We are excited to have you on board and look forward to seeing you
-							grow with {organization.name}.
+							grow with {company.name}.
 						</Text>
 						<Section className="mt-[16px] text-center">
 							<Text
@@ -129,7 +128,7 @@ export function InvitationEmail({
 							<Text
 								className={`text-[14px] text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}] mt-2`}
 							>
-								The {organization.name} Team
+								The {company.name} Team
 							</Text>
 						</Section>
 					</Container>
@@ -141,7 +140,7 @@ export function InvitationEmail({
 
 InvitationEmail.PreviewProps = {
 	name: "Ashraf Elshaer",
-	organization: {
+	company: {
 		name: "Staff Optima",
 		logo_url: "",
 	},

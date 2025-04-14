@@ -7,7 +7,7 @@ import { headers } from "next/headers";
 
 export async function ApplicationsWidget() {
 	const headersList = await headers();
-	const organizationId = headersList.get("x-organization-id");
+	// const organizationId = headersList.get("x-organization-id");
 	// const supabase = await createServerClient({
 	//   isAdmin: true,
 	// });
