@@ -31,18 +31,18 @@ export async function uploadFile({
 
 type UploadOrganizationLogoProps = {
 	supabase: SupabaseInstance;
-	organizationId: string;
+	companyId: string;
 	file: File;
 };
 export async function uploadOrganizationLogo({
 	supabase,
-	organizationId,
+	companyId,
 	file,
 }: UploadOrganizationLogoProps) {
 	return uploadFile({
 		supabase,
-		bucket: "organization_logos",
-		path: organizationId,
+		bucket: "company_logos",
+		path: companyId,
 		file,
 	});
 }
