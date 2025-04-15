@@ -83,7 +83,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 		"user:delete",
 	]);
 	return (
-		<Sidebar collapsible="icon" variant="floating" {...props}>
+		<Sidebar collapsible="offcanvas" variant="floating" {...props}>
 			<SidebarHeader>
 				<OrganizationLogo />
 			</SidebarHeader>

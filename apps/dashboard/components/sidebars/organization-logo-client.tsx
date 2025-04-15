@@ -21,26 +21,15 @@ export function OrganizationLogoClient() {
 
 	if (isLoading || !company) {
 		return (
-			<div
-				className={cn(
-					"flex items-center gap-2 px-2",
-					state === "collapsed" && "justify-center !p-0",
-				)}
-			>
+			<div className={cn("flex items-center gap-2 px-2")}>
 				<Skeleton className="size-6 rounded-sm" />
-				{state === "expanded" && <Skeleton className="w-full h-6 rounded-sm" />}
+				<Skeleton className="w-full h-6 rounded-sm" />
 			</div>
 		);
 	}
 	return (
 		<SidebarMenu>
-			<SidebarMenuItem
-				className={cn(
-					"flex items-center gap-2 px-2",
-					state === "collapsed" && "p-0 justify-center",
-					isMobile && state === "collapsed" && "justify-start !p-2",
-				)}
-			>
+			<SidebarMenuItem className={cn("flex items-center gap-2 px-2")}>
 				<Avatar className="size-6 rounded-sm">
 					<AvatarImage src={company?.logo ?? ""} className="rounded-sm" />
 					<AvatarFallback className="border text-sm rounded-sm font-bold">
@@ -48,9 +37,9 @@ export function OrganizationLogoClient() {
 						{company?.name[1]}
 					</AvatarFallback>
 				</Avatar>
-				{(state === "expanded" || (isMobile && state === "collapsed")) && (
-					<span className="text-sm font-bold">{company?.name}</span>
-				)}
+				<span className="text-sm font-bold">{company?.name}</span>
+				{/* {(state === "expanded" || (isMobile && state === "collapsed")) && (
+				)} */}
 			</SidebarMenuItem>
 		</SidebarMenu>
 	);

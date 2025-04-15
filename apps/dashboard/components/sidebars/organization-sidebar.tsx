@@ -102,15 +102,9 @@ export function OrganizationSidebar({
 	];
 
 	return (
-		<Sidebar collapsible="icon" variant="floating" {...props}>
+		<Sidebar collapsible="offcanvas" variant="floating" {...props}>
 			<SidebarHeader>
-				<SidebarMenuItem
-					className={cn(
-						"flex items-center gap-2 px-2",
-						state === "collapsed" && " justify-center",
-						isMobile && state === "collapsed" && "justify-start ",
-					)}
-				>
+				<SidebarMenuItem className={cn("flex items-center gap-2 px-2")}>
 					<button
 						type="button"
 						className="cursor-pointer"
@@ -119,9 +113,7 @@ export function OrganizationSidebar({
 						<HiArrowUturnLeft strokeWidth={2} size={14} />
 						<span className="sr-only">Back</span>
 					</button>
-					{(state === "expanded" || (isMobile && state === "collapsed")) && (
-						<span className="text-compact-large font-bold">Settings</span>
-					)}
+					<span className="text-compact-large font-bold">Settings</span>
 				</SidebarMenuItem>
 			</SidebarHeader>
 			<Separator />
