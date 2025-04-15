@@ -15,7 +15,12 @@ import { GoogleMeet } from "@optima/ui/components/icons/google-meet";
 import { Home, HomeFill } from "@optima/ui/components/icons/home";
 import { JobLink, JobLinkFill } from "@optima/ui/components/icons/job-link";
 import { LogoSvg } from "@optima/ui/components/icons/logo";
-import { Mail, MailFill } from "@optima/ui/components/icons/mail";
+import {
+	Mail,
+	MailAdd,
+	MailAddFill,
+	MailFill,
+} from "@optima/ui/components/icons/mail";
 import { Messages, MessagesFill } from "@optima/ui/components/icons/messages";
 import { Package, PackageFill } from "@optima/ui/components/icons/package";
 import { Pdf } from "@optima/ui/components/icons/pdf";
@@ -31,6 +36,11 @@ import { Check, Loader2, LogOut } from "lucide-react";
 import { BsGrid, BsGridFill } from "react-icons/bs";
 import { IoLayers, IoLayersOutline } from "react-icons/io5";
 import { PiUsers, PiUsersFill } from "react-icons/pi";
+import { AccountSetting, AccountSettingFill } from "./account-settings";
+import { Bell, BellFill } from "./bell";
+import { CreditCard, CreditCardFill } from "./credit-card";
+import { Store, StoreFill } from "./store";
+import { Workflow, WorkflowFill } from "./workflow";
 
 export const Icons = {
 	SignOut: LogOut,
@@ -57,6 +67,8 @@ export const Icons = {
 	UsersFill: PiUsersFill,
 	Mail,
 	MailFill,
+	MailAdd,
+	MailAddFill,
 	Door,
 	DoorFill,
 	CopyFill,
@@ -75,4 +87,14 @@ export const Icons = {
 	DashboardSquareFill,
 	FingerPrint,
 	FingerPrintFill,
+	CreditCard,
+	CreditCardFill,
+	Workflow,
+	WorkflowFill,
+	AccountSetting,
+	AccountSettingFill,
+	Bell,
+	BellFill,
+	Store,
+	StoreFill,
 };

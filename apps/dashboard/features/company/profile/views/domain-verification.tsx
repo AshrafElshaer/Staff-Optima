@@ -70,11 +70,7 @@ export function DomainVerification({
 		if (!domainVerification) return;
 		toast.promise(
 			async () => {
-				const result = await verifyDomain({
-					...domainVerification,
-					// created_at: undefined,
-					// updated_at: undefined,
-				});
+				const result = await verifyDomain(domainVerification);
 				if (result?.serverError) {
 					throw new Error(result.serverError);
 				}
@@ -268,11 +264,11 @@ import {
 	FormItem,
 	FormMessage,
 } from "@optima/ui/components/form";
+import { Icons } from "@optima/ui/components/icons";
 import { Skeleton } from "@optima/ui/components/skeleton";
 import { Check, CheckCircleIcon, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Icons } from "@optima/ui/components/icons";
 
 const formSchema = z.object({
 	email: z.string().email(),

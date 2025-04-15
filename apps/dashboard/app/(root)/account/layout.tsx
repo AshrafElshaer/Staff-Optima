@@ -1,5 +1,6 @@
 "use client";
 import { buttonVariants } from "@optima/ui/components/button";
+import { Icons } from "@optima/ui/components/icons";
 import { cn } from "@optima/ui/lib/utils";
 import {
 	AccountSetting01Icon,
@@ -8,6 +9,7 @@ import {
 	Store01Icon,
 	TimeQuarterPassIcon,
 } from "hugeicons-react";
+import { ClockFading, SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -15,33 +17,39 @@ const ACCOUNT_ROUTES = [
 	{
 		label: "Account",
 		href: "/account",
-		icon: AccountSetting01Icon,
+		icon: <Icons.AccountSetting width={16} height={16} />,
+		iconFill: <Icons.AccountSettingFill width={16} height={16} />,
 		disabled: false,
 	},
 	{
 		label: "Preferences",
 		href: "/account/preferences",
-		icon: PreferenceHorizontalIcon,
+		icon: <SlidersHorizontal size={20} />,
+		iconFill: <SlidersHorizontal size={20} />,
 		disabled: false,
 	},
 	{
 		label: "Notifications",
 		href: "/account/notifications",
-		icon: Notification01Icon,
+		icon: <Icons.Bell width={16} height={16} />,
+		iconFill: <Icons.BellFill width={16} height={16} />,
 		disabled: false,
 	},
 	{
 		label: "Availability",
 		href: "/account/availability",
-		icon: TimeQuarterPassIcon,
+		// icon: TimeQuarterPassIcon,
+		icon: <ClockFading size={20} />,
+		iconFill: <ClockFading size={20} />,
 		disabled: false,
 	},
 
 	{
 		label: "App Store",
 		href: "/account/app-store",
-		icon: Store01Icon,
-		disabled: false,
+		icon: <Icons.Store width={16} height={16} />,
+		iconFill: <Icons.StoreFill width={16} height={16} />,
+		disabled: true,
 	},
 ];
 
@@ -70,7 +78,7 @@ export default function AccountLayout({
 									"pointer-events-none cursor-not-allowed opacity-50",
 							)}
 						>
-							<tab.icon size={16} strokeWidth={2} />
+							{isActive ? tab.iconFill : tab.icon}
 							<span>{tab.label}</span>
 						</Link>
 					);

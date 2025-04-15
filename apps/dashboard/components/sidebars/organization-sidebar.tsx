@@ -27,7 +27,7 @@ import type * as React from "react";
 import { useCompany } from "@/hooks/use-company";
 import { Icons } from "@optima/ui/components/icons";
 import { cn } from "@optima/ui/lib/utils";
-import { Building2 } from "lucide-react";
+import { Building2, SlidersHorizontal } from "lucide-react";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import { NavMain } from "./nav-main";
 const general = [
@@ -52,19 +52,22 @@ const general = [
 	{
 		title: "Integrations",
 		url: "/company/integrations",
-		icon: <SlidersHorizontalIcon strokeWidth={2} size={20} />,
+		icon: <SlidersHorizontal size={20} />,
+		iconFill: <SlidersHorizontal size={20} />,
 	},
 	{
 		title: "Billing & Usage",
 		url: "/company/billing",
-		icon: <CreditCardIcon strokeWidth={2} size={20} />,
+		icon: <Icons.CreditCard width={20} height={20} />,
+		iconFill: <Icons.CreditCardFill width={20} height={20} />,
 	},
 ];
 const applications = [
 	{
 		title: "Workflows",
 		url: "/company/workflows",
-		icon: <WorkflowSquare10Icon strokeWidth={2} size={20} />,
+		icon: <Icons.Workflow width={20} height={20} />,
+		iconFill: <Icons.WorkflowFill width={20} height={20} />,
 	},
 ];
 
@@ -77,7 +80,8 @@ const communication = [
 	{
 		title: "Email Templates",
 		url: "/company/email-templates",
-		icon: <MailAdd02Icon strokeWidth={2} className="size-[20px]" />,
+		icon: <Icons.MailAdd width={20} height={20} />,
+		iconFill: <Icons.MailAddFill width={20} height={20} />,
 	},
 ];
 export function OrganizationSidebar({

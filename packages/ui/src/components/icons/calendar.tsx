@@ -46,7 +46,6 @@ export const CalendarFill = (props: React.SVGProps<SVGSVGElement>) => (
 		height={24}
 		viewBox="0 0 24 24"
 		xmlns="http://www.w3.org/2000/svg"
-		data-src="https://cdn.hugeicons.com/icons/calendar-03-solid-rounded.svg"
 		role="img"
 		color="currentColor"
 		{...props}
