@@ -1,7 +1,7 @@
 export * from "./user.mutations";
 export * from "./company.mutations";
 export * from "./department.mutations";
-// export * from "./application-stages.mutations";
+export * from "./application-stages.mutations";
 // export * from "./email-templates.mutations";
 // export * from "./job-posts.mutations";
 // export * from "./candidate.mutations";

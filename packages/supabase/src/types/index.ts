@@ -6,6 +6,8 @@ export type SupabaseInstance = SupabaseClient<Database>;
 
 // export type UserAccessRole = Enums<"user_role_enum">;
 export type DomainVerificationStatus = Enums<"domain_verification_status_enum">;
+export type ApplicationStageTriggerCondition =
+	Enums<"application_stage_trigger_condition">;
 
 // export type JobLocation = Enums<"job_location_enum">;
 // export type InterviewStatus = Enums<"interview_status_enum">;
@@ -22,6 +24,12 @@ export const domainVerificationStatusEnum: {
 	failed: "failed",
 };
 
+export const applicationStageTriggerConditionEnum: {
+	[key in ApplicationStageTriggerCondition]: key;
+} = {
+	on_start: "on_start",
+	on_complete: "on_complete",
+};
 // export const userRoleEnum: {
 //   [key in UserAccessRole]: key;
 // } = {
@@ -88,7 +96,8 @@ export type Company = Tables<"companies">;
 export type AccessRole = Tables<"roles">;
 export type Department = Tables<"departments">;
 export type UserRole = Tables<"user_roles">;
-// export type ApplicationStage = Tables<"application_stages">;
+export type ApplicationStage = Tables<"application_stages">;
+export type ApplicationStageTrigger = Tables<"application_stage_triggers">;
 // export type EmailTemplate = Tables<"email_templates">;
 // export type JobPost = Tables<"job_posts">;
 // export type Candidate = Tables<"candidates">;

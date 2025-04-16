@@ -1,16 +1,17 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import type * as React from "react";
+import * as React from "react";
 
 import { cn } from "@optima/ui/lib/utils";
 
 const alertVariants = cva(
-	"relative w-full rounded-lg border px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
+	"relative w-full rounded-md border px-4 pl-6 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7 ",
 	{
 		variants: {
 			variant: {
-				default: "bg-background text-foreground",
-				destructive:
-					"text-destructive-foreground [&>svg]:text-current *:data-[slot=alert-description]:text-destructive-foreground/80",
+				default: "",
+				destructive: " [&>svg]:text-destructive",
+				warning: " [&>svg]:text-warning",
+				info: " [&>svg]:text-info",
 			},
 		},
 		defaultVariants: {
@@ -19,48 +20,51 @@ const alertVariants = cva(
 	},
 );
 
-function Alert({
-	className,
-	variant,
-	...props
-}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
-	return (
+const Alert = React.forwardRef<
+	HTMLDivElement,
+	React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
+>(({ className, variant, children, ...props }, ref) => (
+	<div
+		ref={ref}
+		role="alert"
+		className={cn(alertVariants({ variant }), "relative", className)}
+		{...props}
+	>
+		{children}
 		<div
-			data-slot="alert"
-			role="alert"
-			className={cn(alertVariants({ variant }), className)}
-			{...props}
-		/>
-	);
-}
-
-function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
-	return (
-		<div
-			data-slot="alert-title"
 			className={cn(
-				"col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight",
-				className,
+				"absolute left-2 rounded-full top-2 bottom-2 w-1 bg-subtitle",
+				variant === "destructive" && "bg-destructive",
+				variant === "warning" && "bg-warning",
+				variant === "info" && "bg-blue-500",
 			)}
-			{...props}
 		/>
-	);
-}
+	</div>
+));
+Alert.displayName = "Alert";
 
-function AlertDescription({
-	className,
-	...props
-}: React.ComponentProps<"div">) {
-	return (
-		<div
-			data-slot="alert-description"
-			className={cn(
-				"text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed",
-				className,
-			)}
-			{...props}
-		/>
-	);
-}
+const AlertTitle = React.forwardRef<
+	HTMLParagraphElement,
+	React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+	<h5
+		ref={ref}
+		className={cn("mb-2 font-bold leading-none tracking-tight", className)}
+		{...props}
+	/>
+));
+AlertTitle.displayName = "AlertTitle";
+
+const AlertDescription = React.forwardRef<
+	HTMLParagraphElement,
+	React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+	<div
+		ref={ref}
+		className={cn("text-sm [&_p]:leading-relaxed text-subtitle", className)}
+		{...props}
+	/>
+));
+AlertDescription.displayName = "AlertDescription";
 
 export { Alert, AlertTitle, AlertDescription };

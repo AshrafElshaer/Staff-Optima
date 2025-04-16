@@ -54,3 +54,20 @@ create policy "Public can read user role" on user_roles for select using (true);
 create policy "Company Admin Can Create User Role" on user_roles for insert with check (is_user_company_admin(company_id) or has_permission('settings:roles'));
 create policy "Company Admin Can Update User Role" on user_roles for update using (is_user_company_admin(company_id) or has_permission('settings:roles'));
 create policy "Company Admin Can Delete User Role" on user_roles for delete using (is_user_company_admin(company_id) or has_permission('settings:roles'));
+
+
+alter table application_stages enable row level security;
+
+create policy "Anyone can read application stages" on application_stages for select using (true);
+create policy "Company Admins can create application stages" on application_stages for insert with check (is_user_company_admin(company_id) or has_permission('settings:workflow'));
+create policy "Company Admins can update application stages" on application_stages for update using (is_user_company_admin(company_id) or has_permission('settings:workflow'));
+create policy "Company Admins can delete application stages" on application_stages for delete using (is_user_company_admin(company_id) or has_permission('settings:workflow'));
+
+
+alter table application_stage_triggers enable row level security;
+
+create policy "Anyone can read application stage triggers" on application_stage_triggers for select using (true);
+create policy "Company Admins can create application stage triggers" on application_stage_triggers for insert with check (is_user_company_admin(company_id) or has_permission('settings:workflow'));
+create policy "Company Admins can update application stage triggers" on application_stage_triggers for update using (is_user_company_admin(company_id) or has_permission('settings:workflow'));
+create policy "Company Admins can delete application stage triggers" on application_stage_triggers for delete using (is_user_company_admin(company_id) or has_permission('settings:workflow'));
+

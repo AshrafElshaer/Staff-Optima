@@ -9,6 +9,95 @@ export type Json =
 export type Database = {
 	public: {
 		Tables: {
+			application_stage_triggers: {
+				Row: {
+					action_data: Json;
+					action_type: string;
+					company_id: string;
+					created_at: string;
+					id: string;
+					stage_id: string;
+					trigger_condition: Database["public"]["Enums"]["application_stage_trigger_condition"];
+					updated_at: string;
+				};
+				Insert: {
+					action_data: Json;
+					action_type: string;
+					company_id: string;
+					created_at?: string;
+					id?: string;
+					stage_id: string;
+					trigger_condition: Database["public"]["Enums"]["application_stage_trigger_condition"];
+					updated_at?: string;
+				};
+				Update: {
+					action_data?: Json;
+					action_type?: string;
+					company_id?: string;
+					created_at?: string;
+					id?: string;
+					stage_id?: string;
+					trigger_condition?: Database["public"]["Enums"]["application_stage_trigger_condition"];
+					updated_at?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "application_stage_triggers_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "application_stage_triggers_stage_id_fkey";
+						columns: ["stage_id"];
+						isOneToOne: false;
+						referencedRelation: "application_stages";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			application_stages: {
+				Row: {
+					company_id: string;
+					created_at: string;
+					description: string;
+					id: string;
+					indicator_color: string;
+					stage_order: number;
+					title: string;
+					updated_at: string;
+				};
+				Insert: {
+					company_id: string;
+					created_at?: string;
+					description: string;
+					id?: string;
+					indicator_color: string;
+					stage_order: number;
+					title: string;
+					updated_at?: string;
+				};
+				Update: {
+					company_id?: string;
+					created_at?: string;
+					description?: string;
+					id?: string;
+					indicator_color?: string;
+					stage_order?: number;
+					title?: string;
+					updated_at?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "application_stages_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+				];
+			};
 			companies: {
 				Row: {
 					address_1: string | null;
@@ -401,6 +490,7 @@ export type Database = {
 			};
 		};
 		Enums: {
+			application_stage_trigger_condition: "on_start" | "on_complete";
 			domain_verification_status_enum: "pending" | "verified" | "failed";
 		};
 		CompositeTypes: {
@@ -517,6 +607,7 @@ export type CompositeTypes<
 export const Constants = {
 	public: {
 		Enums: {
+			application_stage_trigger_condition: ["on_start", "on_complete"],
 			domain_verification_status_enum: ["pending", "verified", "failed"],
 		},
 	},

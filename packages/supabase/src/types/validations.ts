@@ -162,37 +162,35 @@ export const roleUpdateSchema = roleSchema.partial().required({
 	id: true,
 });
 
-// export const pipelineStageSchema = z.object({
-//   id: z.string().uuid(),
-//   organization_id: z.string().uuid(),
-//   title: z.string().min(2, {
-//     message: "Must be minimum 2 characters",
-//   }),
-//   description: z.string().min(2, {
-//     message: "Must be minimum 2 characters",
-//   }),
-//   indicator_color: z.string().min(2, {
-//     message: "Must be minimum 2 characters",
-//   }),
-//   stage_order: z.string().min(1, {
-//     message: "Must be positive number",
-//   }),
-//   created_at: z.string(),
-//   updated_at: z.string(),
-// });
+export const applicationStageSchema = z.object({
+	id: z.string().uuid(),
+	company_id: z.string().uuid(),
+	description: z.string().min(2, {
+		message: "Must be minimum 2 characters",
+	}),
+	title: z.string().min(2, {
+		message: "Must be minimum 2 characters",
+	}),
+	indicator_color: z.string().min(2, {
+		message: "Must be minimum 2 characters",
+	}),
+	stage_order: z.number().positive(),
+	created_at: z.string().optional(),
+	updated_at: z.string().optional(),
+});
 
-// export const pipelineStageInsertSchema = pipelineStageSchema.omit({
-//   id: true,
-//   organization_id: true,
-//   created_at: true,
-//   updated_at: true,
-// });
+export const applicationStageInsertSchema = applicationStageSchema.omit({
+	id: true,
+	company_id: true,
+	created_at: true,
+	updated_at: true,
+});
 
-// export const pipelineStageUpdateSchema = pipelineStageSchema
-//   .partial()
-//   .required({
-//     id: true,
-//   });
+export const applicationStageUpdateSchema = applicationStageSchema
+	.partial()
+	.required({
+		id: true,
+	});
 
 export const userPreferencesSchema = z.object({
 	user_id: z.string().uuid(),
