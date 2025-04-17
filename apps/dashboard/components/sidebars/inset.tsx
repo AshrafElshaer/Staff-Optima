@@ -5,6 +5,7 @@ import { HomeBreadcrumb } from "@/components/breadcrubms/home-breadcrumb";
 import { JobsBreadcrumb } from "@/components/breadcrubms/jobs-breadcrumb";
 import { OrganizationBreadcrumb } from "@/components/breadcrubms/organization-breadcrumb";
 import { UserDropdown } from "@/components/user-dropdown";
+import { SetupMenu } from "@/features/onboarding/views/setup-menu";
 import { Separator } from "@optima/ui/components/separator";
 import { SidebarTrigger } from "@optima/ui/components/sidebar";
 
@@ -29,6 +30,7 @@ export function Inset({ children }: { children: React.ReactNode }) {
 				<UserDropdown />
 			</header>
 			<div className="flex flex-1 flex-col gap-4 ">{children}</div>
+			<SetupMenu />
 		</SidebarInset>
 	);
 }

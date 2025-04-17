@@ -12,9 +12,9 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 
 export const metadata: Metadata = {
-	title: "Pipeline",
+	title: "Workflows",
 	description:
-		"Design and manage your interview pipeline with customizable stages and automated triggers to streamline your hiring process.",
+		"Design and manage your interview workflows with customizable stages and automated triggers to streamline your hiring process.",
 };
 
 export default async function CompanyWorkflowsPage() {

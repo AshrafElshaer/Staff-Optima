@@ -21,7 +21,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 				<QueryClientProvider client={queryClient}>
 					{children}
 					<Toaster richColors duration={5000} position="top-right" />
-					<ReactQueryDevtools initialIsOpen={false} />
+					{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 				</QueryClientProvider>
 			</NuqsAdapter>
 		</NextThemesProvider>

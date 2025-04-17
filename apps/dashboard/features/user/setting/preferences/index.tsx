@@ -50,6 +50,7 @@ import {
 	createUserPreferencesAction,
 	updateUserPreferencesAction,
 } from "../../user.actions";
+import { queryClient } from "@/lib/react-query";
 
 const formSchema = userPreferencesSchema.omit({ user_id: true });
 
@@ -81,6 +82,9 @@ export function UserPreferences({ preferences }: UserPreferencesProps) {
 					);
 				}, 200);
 			}
+			queryClient.invalidateQueries({
+				queryKey: ["user-preferences"],
+			});
 		},
 		onError: ({ error }) => {
 			toast.error(error.serverError);

@@ -23,6 +23,7 @@ import {
 import { NavMain } from "./nav-main";
 
 import { PERMISSIONS } from "@optima/constants";
+import { Button } from "@optima/ui/components/button";
 import { OrganizationLogo } from "./organization-logo";
 
 const links = [
@@ -73,7 +74,7 @@ const settings = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { data: userRole } = useUserRole();
-	const hasCompanyPermission = hasPermission(userRole?.role.permissions ?? [], [
+	const hasCompanyPermission = hasPermission(userRole?.permissions ?? [], [
 		"settings:company",
 		"settings:template",
 		"settings:workflow",

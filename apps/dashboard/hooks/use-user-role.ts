@@ -15,7 +15,7 @@ export function useUserRole() {
 			if (error) {
 				throw error;
 			}
-			return data;
+			return data.role;
 		},
 		enabled: !!session?.user.id,
 	});

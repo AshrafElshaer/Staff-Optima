@@ -102,24 +102,19 @@ function PanelTabs() {
 				<TabsTrigger
 					value="tab-2"
 					className="w-full relative rounded-none py-2 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:bg-primary space-x-2"
-					disabled
+					// disabled
 				>
 					<Sparkles className="size-4" />
 					<span>Actions</span>
 				</TabsTrigger>
 			</TabsList>
 
-			<TabsContent value="tab-1" className="flex-1 flex flex-col">
+			<TabsContent value="tab-1" className="flex-1 flex flex-col pt-4">
 				<StageForm />
 			</TabsContent>
 			<TabsContent value="tab-2">
 				<p className="p-4 text-center text-xs text-muted-foreground">
 					Content for Tab 2
-				</p>
-			</TabsContent>
-			<TabsContent value="tab-3">
-				<p className="p-4 text-center text-xs text-muted-foreground">
-					Content for Tab 3
 				</p>
 			</TabsContent>
 		</Tabs>
