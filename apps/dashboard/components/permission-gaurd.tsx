@@ -8,9 +8,9 @@ type Props = {
 	requiredPermissions: Permission[];
 };
 export function PermissionGuard({ children, requiredPermissions }: Props) {
-	const { data } = useUserRole();
-	if (!data?.role) return null;
-	const canAccess = hasPermission(data?.role?.permissions, requiredPermissions);
+	const { data: userRole } = useUserRole();
+	if (!userRole) return null;
+	const canAccess = hasPermission(userRole?.permissions, requiredPermissions);
 
 	if (!canAccess) return null;
 	return <>{children}</>;

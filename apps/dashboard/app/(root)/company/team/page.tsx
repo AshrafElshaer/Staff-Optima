@@ -1,3 +1,4 @@
+import { PermissionGuard } from "@/components/permission-gaurd";
 import { teamSearchParamsLoader } from "@/features/company/team/team.search-params";
 import { InviteTeamMember } from "@/features/company/team/views/invite-member";
 import { MembersSearch } from "@/features/company/team/views/member-search";
@@ -30,7 +31,9 @@ export default async function OrganizationTeamPage({ searchParams }: Props) {
 		<div className="flex flex-col gap-4 flex-1">
 			<section className="flex flex-col sm:flex-row items-center gap-2 ">
 				<MembersFilters />
-				<InviteTeamMember />
+				<PermissionGuard requiredPermissions={["user:add"]}>
+					<InviteTeamMember />
+				</PermissionGuard>
 			</section>
 			<MembersTable columns={columns} data={members ?? []} />
 		</div>
