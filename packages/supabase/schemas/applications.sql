@@ -8,7 +8,7 @@ create table application_stages(
     indicator_color text not null,
 
     created_at timestamp with time zone default now() not null,
-    updated_at timestamp with time zone default now() not null,
+    updated_at timestamp with time zone default now() not null
 );
 
 create index idx_application_stages_company_id on application_stages(company_id);

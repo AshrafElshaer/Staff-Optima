@@ -18,6 +18,7 @@ create table "public"."application_stages" (
     "id" uuid not null default gen_random_uuid(),
     "company_id" uuid not null,
     "title" text not null,
+    "description" text not null,
     "stage_order" numeric not null,
     "indicator_color" text not null,
     "created_at" timestamp with time zone not null default now(),
@@ -54,7 +55,6 @@ alter table "public"."application_stages" add constraint "application_stages_com
 
 alter table "public"."application_stages" validate constraint "application_stages_company_id_fkey";
 
-alter table "public"."application_stages" add constraint "application_stages_company_id_stage_order_key" UNIQUE using index "application_stages_company_id_stage_order_key";
 
 grant delete on table "public"."application_stage_triggers" to "anon";
 

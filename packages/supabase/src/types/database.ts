@@ -294,6 +294,88 @@ export type Database = {
 					},
 				];
 			};
+			job_posts: {
+				Row: {
+					benefits: string[] | null;
+					company_id: string;
+					created_at: string;
+					created_by: string | null;
+					department_id: string | null;
+					employment_type: Database["public"]["Enums"]["employment_type_enum"];
+					experience_level: Database["public"]["Enums"]["experience_level_enum"];
+					id: string;
+					job_details: string;
+					location: string | null;
+					required_skills: string[] | null;
+					salary_range: string | null;
+					screening_questions: Json | null;
+					status: Database["public"]["Enums"]["job_post_status_enum"];
+					title: string;
+					updated_at: string;
+					work_mode: Database["public"]["Enums"]["work_mode_enum"];
+				};
+				Insert: {
+					benefits?: string[] | null;
+					company_id: string;
+					created_at?: string;
+					created_by?: string | null;
+					department_id?: string | null;
+					employment_type: Database["public"]["Enums"]["employment_type_enum"];
+					experience_level: Database["public"]["Enums"]["experience_level_enum"];
+					id?: string;
+					job_details: string;
+					location?: string | null;
+					required_skills?: string[] | null;
+					salary_range?: string | null;
+					screening_questions?: Json | null;
+					status?: Database["public"]["Enums"]["job_post_status_enum"];
+					title: string;
+					updated_at?: string;
+					work_mode: Database["public"]["Enums"]["work_mode_enum"];
+				};
+				Update: {
+					benefits?: string[] | null;
+					company_id?: string;
+					created_at?: string;
+					created_by?: string | null;
+					department_id?: string | null;
+					employment_type?: Database["public"]["Enums"]["employment_type_enum"];
+					experience_level?: Database["public"]["Enums"]["experience_level_enum"];
+					id?: string;
+					job_details?: string;
+					location?: string | null;
+					required_skills?: string[] | null;
+					salary_range?: string | null;
+					screening_questions?: Json | null;
+					status?: Database["public"]["Enums"]["job_post_status_enum"];
+					title?: string;
+					updated_at?: string;
+					work_mode?: Database["public"]["Enums"]["work_mode_enum"];
+				};
+				Relationships: [
+					{
+						foreignKeyName: "job_posts_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "job_posts_created_by_fkey";
+						columns: ["created_by"];
+						isOneToOne: false;
+						referencedRelation: "users";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "job_posts_department_id_fkey";
+						columns: ["department_id"];
+						isOneToOne: false;
+						referencedRelation: "departments";
+						referencedColumns: ["id"];
+					},
+				];
+			};
 			roles: {
 				Row: {
 					company_id: string;
@@ -492,6 +574,14 @@ export type Database = {
 		Enums: {
 			application_stage_trigger_condition: "on_start" | "on_complete";
 			domain_verification_status_enum: "pending" | "verified" | "failed";
+			employment_type_enum:
+				| "full_time"
+				| "part_time"
+				| "contract"
+				| "internship";
+			experience_level_enum: "junior" | "mid" | "senior" | "lead" | "executive";
+			job_post_status_enum: "draft" | "archived";
+			work_mode_enum: "remote" | "hybrid" | "on_site";
 		};
 		CompositeTypes: {
 			[_ in never]: never;
@@ -609,6 +699,15 @@ export const Constants = {
 		Enums: {
 			application_stage_trigger_condition: ["on_start", "on_complete"],
 			domain_verification_status_enum: ["pending", "verified", "failed"],
+			employment_type_enum: [
+				"full_time",
+				"part_time",
+				"contract",
+				"internship",
+			],
+			experience_level_enum: ["junior", "mid", "senior", "lead", "executive"],
+			job_post_status_enum: ["draft", "archived"],
+			work_mode_enum: ["remote", "hybrid", "on_site"],
 		},
 	},
 } as const;

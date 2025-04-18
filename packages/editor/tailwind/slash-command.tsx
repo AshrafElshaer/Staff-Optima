@@ -251,9 +251,14 @@ export const getSuggestionItems = (companyId: string) => {
 			toast.promise(
 				async () => {
 					const supabase = createBrowserClient();
+					const { data: session } = await supabase.auth.getUser();
+					if (!session || !session.user) {
+						throw new Error("User not found");
+					}
+
 					const { data: company, error } = await getCompanyById(
 						supabase,
-						companyId,
+						session.user.user_metadata.company_id,
 					);
 
 					if (!company) {

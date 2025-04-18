@@ -1,6 +1,12 @@
 import { isValidPhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
-import { domainVerificationStatusEnum } from ".";
+import {
+	domainVerificationStatusEnum,
+	employmentTypeEnum,
+	experienceLevelEnum,
+	jobPostStatusEnum,
+	workModeEnum,
+} from ".";
 
 // import {
 //   attachmentTypeEnum,
@@ -211,6 +217,57 @@ export const userPreferencesUpdateSchema = userPreferencesSchema
 	.required({
 		user_id: true,
 	});
+
+export const screeningQuestionSchema = z.object({
+	question: z.string().min(2, {
+		message: "Must be minimum 2 characters",
+	}),
+	type: z.enum(["single-choice", "multiple-choice", "text"]),
+	is_required: z.boolean(),
+	options: z
+		.array(
+			z.string().min(2, {
+				message: "Must be minimum 2 characters",
+			}),
+		)
+		.optional(),
+});
+
+export const jobPostSchema = z.object({
+	id: z.string().uuid(),
+	company_id: z.string().uuid(),
+	created_by: z.string().uuid().nullable(),
+	department_id: z.string().uuid().nullable(),
+	title: z.string().min(2, {
+		message: "Must be minimum 2 characters",
+	}),
+	employment_type: z.nativeEnum(employmentTypeEnum),
+	salary_range: z.string().nullable(),
+	experience_level: z.nativeEnum(experienceLevelEnum),
+	work_mode: z.nativeEnum(workModeEnum),
+	location: z.string().nullable(),
+	status: z.nativeEnum(jobPostStatusEnum),
+	screening_questions: z.array(screeningQuestionSchema).nullable(),
+	required_skills: z.array(z.string()).nullable(),
+	benefits: z.array(z.string()).nullable(),
+	job_details: z.string().min(2, {
+		message: "Must be minimum 2 characters",
+	}),
+	created_at: z.string(),
+	updated_at: z.string(),
+});
+
+export const jobPostInsertSchema = jobPostSchema.omit({
+	id: true,
+	created_by: true,
+	created_at: true,
+	updated_at: true,
+});
+
+export const jobPostUpdateSchema = jobPostSchema.partial().required({
+	id: true,
+});
+
 // export const userAvailabilitySchema = z.object({
 //   user_id: z.string().uuid(),
 //   available_slots: z.array(

@@ -71,3 +71,15 @@ create policy "Company Admins can create application stage triggers" on applicat
 create policy "Company Admins can update application stage triggers" on application_stage_triggers for update using (is_user_company_admin(company_id) or has_permission('settings:workflow'));
 create policy "Company Admins can delete application stage triggers" on application_stage_triggers for delete using (is_user_company_admin(company_id) or has_permission('settings:workflow'));
 
+
+alter table job_posts enable row level security;
+
+create policy "Company Admin Can Create Job Post" on job_posts for insert with check (is_user_company_admin(company_id) or has_permission('job:create'));
+
+create policy "Public Can View Job Post" on job_posts for select using (true);
+
+create policy "Company Admin Can Update Job Post" on job_posts for update using 
+(is_user_company_admin(company_id) or has_permission('job:update'));
+
+create policy "Company Admin Can Delete Job Post" on job_posts for delete using (is_user_company_admin(company_id) or has_permission('job:delete'));
+

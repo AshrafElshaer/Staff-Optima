@@ -1,5 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type z from "zod";
 import type { Database, Enums, Tables } from "./database";
+import type { screeningQuestionSchema } from "./validations";
 export * from "./database";
 
 export type SupabaseInstance = SupabaseClient<Database>;
@@ -9,10 +11,11 @@ export type DomainVerificationStatus = Enums<"domain_verification_status_enum">;
 export type ApplicationStageTriggerCondition =
 	Enums<"application_stage_trigger_condition">;
 
-// export type JobLocation = Enums<"job_location_enum">;
+export type WorkMode = Enums<"work_mode_enum">;
+export type ExperienceLevel = Enums<"experience_level_enum">;
+export type EmploymentType = Enums<"employment_type_enum">;
+export type JobPostStatus = Enums<"job_post_status_enum">;
 // export type InterviewStatus = Enums<"interview_status_enum">;
-// export type ExperienceLevel = Enums<"experience_level_enum">;
-// export type EmploymentType = Enums<"employment_type_enum">;
 // export type AttachmentType = Enums<"attachment_type_enum">;
 // export type JobPostCampaignStatus = Enums<"job_post_campaign_status_enum">;
 
@@ -30,22 +33,21 @@ export const applicationStageTriggerConditionEnum: {
 	on_start: "on_start",
 	on_complete: "on_complete",
 };
-// export const userRoleEnum: {
-//   [key in UserAccessRole]: key;
-// } = {
-//   admin: "admin",
-//   hiring_manager: "hiring_manager",
-//   interviewer: "interviewer",
-//   recruiter: "recruiter",
-// };
 
-// export const jobLocationEnum: {
-//   [key in JobLocation]: key;
-// } = {
-//   remote: "remote",
-//   on_site: "on_site",
-//   hybrid: "hybrid",
-// };
+export const workModeEnum: {
+	[key in WorkMode]: key;
+} = {
+	remote: "remote",
+	on_site: "on_site",
+	hybrid: "hybrid",
+};
+
+export const jobPostStatusEnum: {
+	[key in JobPostStatus]: key;
+} = {
+	draft: "draft",
+	archived: "archived",
+};
 
 // export const jobPostCampaignStatusEnum: {
 //   [key in JobPostCampaignStatus]: key;
@@ -58,24 +60,24 @@ export const applicationStageTriggerConditionEnum: {
 //   archived: "archived",
 // };
 
-// export const experienceLevelEnum: {
-//   [key in ExperienceLevel]: key;
-// } = {
-//   junior: "junior",
-//   mid: "mid",
-//   senior: "senior",
-//   lead: "lead",
-//   executive: "executive",
-// };
+export const experienceLevelEnum: {
+	[key in ExperienceLevel]: key;
+} = {
+	junior: "junior",
+	mid: "mid",
+	senior: "senior",
+	lead: "lead",
+	executive: "executive",
+};
 
-// export const employmentTypeEnum: {
-//   [key in EmploymentType]: key;
-// } = {
-//   full_time: "full_time",
-//   part_time: "part_time",
-//   contract: "contract",
-//   internship: "internship",
-// };
+export const employmentTypeEnum: {
+	[key in EmploymentType]: key;
+} = {
+	full_time: "full_time",
+	part_time: "part_time",
+	contract: "contract",
+	internship: "internship",
+};
 
 // export const attachmentTypeEnum: {
 //   [key in AttachmentType]: key;
@@ -99,7 +101,9 @@ export type UserRole = Tables<"user_roles">;
 export type ApplicationStage = Tables<"application_stages">;
 export type ApplicationStageTrigger = Tables<"application_stage_triggers">;
 // export type EmailTemplate = Tables<"email_templates">;
-// export type JobPost = Tables<"job_posts">;
+export interface JobPost extends Tables<"job_posts"> {
+	screening_questions: z.infer<typeof screeningQuestionSchema>[];
+}
 // export type Candidate = Tables<"candidates">;
 // export type Application = Tables<"applications">;
 export type DomainVerification = Tables<"domain_verification">;
