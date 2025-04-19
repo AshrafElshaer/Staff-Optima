@@ -16,6 +16,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@optima/ui/components/card";
+import { Icons } from "@optima/ui/components/icons";
 import { ScrollArea, ScrollBar } from "@optima/ui/components/scroll-area";
 import {
 	Calendar03Icon,
@@ -96,7 +97,7 @@ export default async function Page() {
 					<ApplicationsWidget />
 				</Suspense>
 				<Card className="flex-row items-center  p-4 gap-2 bg-accent">
-					<Calendar03Icon strokeWidth={2} size={20} />
+					<Icons.CalendarFill width={20} height={20} />
 					<span className="font-semibold">Interviews</span>
 					<span className="text-sm text-secondary-foreground">This week</span>
 					<span className="text-lg font-semibold font-mono ml-auto">5</span>
