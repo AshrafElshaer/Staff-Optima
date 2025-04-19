@@ -137,7 +137,7 @@ export function JobPostForm({ job }: JobPostFormProps) {
 	return (
 		<Form {...form}>
 			<form
-				className="flex flex-col gap-12 flex-1"
+				className="flex flex-col gap-12 flex-1 w-full"
 				onSubmit={form.handleSubmit(handleSubmit)}
 			>
 				<section className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -352,15 +352,18 @@ export function JobPostForm({ job }: JobPostFormProps) {
 										question={question}
 										index={index}
 									>
-										<p className="text-sm flex items-center pr-8 font-medium flex-1 cursor-pointer">
+										<div className="text-sm flex-col items-start pr-8 font-medium flex-1 cursor-pointer">
 											<span className="flex-1">{question.question}</span>
-											<span className="text-muted-foreground text-sm ml-2 capitalize">
-												{question.type.replace("-", " ")}
-											</span>
-											<span className="text-muted-foreground text-sm ml-2">
-												- {question.is_required ? "Required" : "Optional"}
-											</span>
-										</p>
+											<div className="flex items-center gap-2">
+												<span className="text-muted-foreground text-sm capitalize">
+													{question.type.replace("-", " ")}
+												</span>
+
+												<span className="text-muted-foreground text-sm ">
+													- {question.is_required ? "Required" : "Optional"}
+												</span>
+											</div>
+										</div>
 									</ScreeningQuestionSheet>
 
 									<Button
