@@ -1,3 +1,5 @@
+"use client"
+
 import { JobPostForm } from "@/features/job-post/views/job-post-form";
 
 export default function CreateJobPage() {
