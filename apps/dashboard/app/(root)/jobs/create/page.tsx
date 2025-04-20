@@ -7,7 +7,7 @@ export default function CreateJobPage() {
 	return (
 		<div className="flex flex-col items-start flex-1 gap-4">
 			<Suspense fallback={<div>Loading...</div>}>
-				<JobPostForm />
+				<JobPostForm job={null} />
 			</Suspense>
 		</div>
 	);

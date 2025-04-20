@@ -3,7 +3,7 @@ create type experience_level_enum as enum ('junior', 'mid', 'senior', 'lead', 'e
 
 create type work_mode_enum as enum ('remote','hybrid','on_site');
 
-create type job_post_status_enum as enum ('draft','archived');
+create type job_post_status_enum as enum ('draft','archived','active');
 
 create table job_posts (
     id uuid primary key default gen_random_uuid(),

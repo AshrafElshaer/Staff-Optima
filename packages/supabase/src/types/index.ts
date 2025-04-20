@@ -46,6 +46,7 @@ export const jobPostStatusEnum: {
 	[key in JobPostStatus]: key;
 } = {
 	draft: "draft",
+	active: "active",
 	archived: "archived",
 };
 

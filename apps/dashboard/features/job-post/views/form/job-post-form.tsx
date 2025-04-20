@@ -40,7 +40,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
-import { createJobPostAction } from "../../job-post.actions";
+import {
+	createJobPostAction,
+	updateJobPostAction,
+} from "../../job-post.actions";
 import { ScreeningQuestionSheet } from "./screening-question-sheet";
 // import { PublishJobDialog } from "./publish-job-dialog";
 
@@ -60,10 +63,7 @@ const COMPANY_BENEFITS = [
 ];
 
 type JobPostFormProps = {
-	job?: JobPost & {
-		department: Department;
-		// campaigns: JobPostCampaign[];
-	};
+	job: JobPost | null;
 };
 export function JobPostForm({ job }: JobPostFormProps) {
 	const { execute: createJobPost, isExecuting: isCreating } = useAction(
@@ -78,18 +78,18 @@ export function JobPostForm({ job }: JobPostFormProps) {
 		},
 	);
 
-	//   const { execute: updateJobPost, isExecuting: isUpdating } = useAction(
-	//     updateJobPostAction,
-	//     {
-	//       onSuccess: ({ data }) => {
-	//         toast.success("Job post updated successfully");
-	//         form.reset(data);
-	//       },
-	//       onError: ({ error }) => {
-	//         toast.error(error.serverError);
-	//       },
-	//     },
-	//   );
+	const { execute: updateJobPost, isExecuting: isUpdating } = useAction(
+		updateJobPostAction,
+		{
+			onSuccess: () => {
+				toast.success("Job post updated successfully");
+				queryClient.invalidateQueries({ queryKey: ["job-post", job?.id] });
+			},
+			onError: ({ error }) => {
+				toast.error(error.serverError);
+			},
+		},
+	);
 
 	const form = useForm<z.infer<typeof jobPostSchema>>({
 		resolver: zodResolver(jobPostSchema),
@@ -98,27 +98,25 @@ export function JobPostForm({ job }: JobPostFormProps) {
 			benefits: job?.benefits ?? [],
 			screening_questions: job?.screening_questions ?? null,
 			required_skills: job?.required_skills ?? [],
-			salary_range: "",
-			title: "",
-			department_id: "",
-			job_details: "",
-			created_at: "",
-			updated_at: "",
-			company_id: "",
-			created_by: "",
-			work_mode: undefined,
-			experience_level: undefined,
-			employment_type: undefined,
-			status: "draft",
-			location: "",
+			salary_range: job?.salary_range ?? "",
+			title: job?.title ?? "",
+			department_id: job?.department_id ?? "",
+			job_details: job?.job_details ?? "",
+			created_at: job?.created_at ?? "",
+			updated_at: job?.updated_at ?? "",
+			company_id: job?.company_id ?? "",
+			created_by: job?.created_by ?? "",
+			work_mode: job?.work_mode ?? undefined,
+			experience_level: job?.experience_level ?? undefined,
+			employment_type: job?.employment_type ?? undefined,
+			status: job?.status ?? "draft",
+			location: job?.location ?? "",
 		},
 	});
 
 	function handleSubmit(data: z.infer<typeof jobPostSchema>) {
 		if (data.id.length > 0) {
-			//   updateJobPost(data);
-
-			queryClient.invalidateQueries({ queryKey: ["job-post", data.id] });
+			updateJobPost(data);
 		} else {
 			const { id, created_at, updated_at, company_id, created_by, ...rest } =
 				data;
@@ -127,7 +125,6 @@ export function JobPostForm({ job }: JobPostFormProps) {
 			});
 		}
 	}
-
 	return (
 		<Form {...form}>
 			<form
@@ -141,9 +138,9 @@ export function JobPostForm({ job }: JobPostFormProps) {
 							size="sm"
 							className="w-full sm:w-auto"
 							type="submit"
-							disabled={isCreating}
+							disabled={isCreating || isUpdating}
 						>
-							{isCreating ? (
+							{isCreating || isUpdating ? (
 								<Icons.Loader className="size-4 animate-spin" />
 							) : (
 								<CheckmarkBadge03Icon className="size-4" strokeWidth={2} />
