@@ -48,6 +48,7 @@ const TailwindAdvancedEditor = ({
 	onChange: (content: string) => void;
 	companyId: string;
 }) => {
+	if (typeof window === "undefined") return null;
 	const extensions = [...defaultExtensions, slashCommand(companyId)];
 	const [initialContent, setInitialContent] = useState<null | JSONContent>(
 		generateJSON(content, extensions),

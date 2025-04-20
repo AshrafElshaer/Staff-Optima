@@ -40,6 +40,7 @@ import { AccountSetting, AccountSettingFill } from "./account-settings";
 import { Bell, BellFill } from "./bell";
 import { CreditCard, CreditCardFill } from "./credit-card";
 import { Store, StoreFill } from "./store";
+import { UserAdd, UserAddFill } from "./user";
 import { Workflow, WorkflowFill } from "./workflow";
 
 export const Icons = {
@@ -97,4 +98,6 @@ export const Icons = {
 	BellFill,
 	Store,
 	StoreFill,
+	UserAdd,
+	UserAddFill,
 };

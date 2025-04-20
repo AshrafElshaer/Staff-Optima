@@ -234,9 +234,9 @@ export const screeningQuestionSchema = z.object({
 });
 
 export const jobPostSchema = z.object({
-	id: z.string().uuid(),
-	company_id: z.string().uuid(),
-	created_by: z.string().uuid().nullable(),
+	id: z.string(),
+	company_id: z.string(),
+	created_by: z.string().nullable(),
 	department_id: z.string().uuid().nullable(),
 	title: z.string().min(2, {
 		message: "Must be minimum 2 characters",

@@ -19,32 +19,35 @@ import { useIsMobile } from "@optima/ui/hooks/use-mobile";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getJobPostById } from "@optima/supabase/queries";
+import { useSupabase } from "@/hooks/use-supabase";
 
 export function JobsBreadcrumb() {
 	const pathname = usePathname();
 	const segments = pathname.split("/").filter(Boolean);
 	const isMobile = useIsMobile();
-
+	const supabase = useSupabase();
 	const isCreatePage = segments[1] === "create";
 	const jobId = !isCreatePage ? segments[1] : null;
 
-	// const { data: jobDetails, isLoading } = useJob(jobId);
-	const jobDetails = {
-		title: "Frontend Engineer",
-	};
+	const { data: jobDetails, isLoading } = useQuery({
+		queryKey: ["job-post", jobId],
+		enabled: !!jobId,
+		queryFn: async () => {
+			if (!jobId) return null;
+			const { data, error } = await getJobPostById(supabase, jobId);
+			if (error) throw error;
+			return data;
+		},
+	});
 
 	if (!pathname.startsWith("/jobs")) return null;
 
-	// Add a mapping for segment labels
 	const getSegmentLabel = (segment: string, index: number) => {
-		// If it's the job ID segment and we're loading
-		// if (index === 1 && jobId && isLoading) {
-		// 	return "Loading...";
-		// }
-
 		// If it's the job ID segment and we have job details
-		if (index === 1 && jobId && jobDetails) {
-			return jobDetails.title;
+		if (index === 1 && jobId) {
+			return jobDetails?.title ?? "Loading...";
 		}
 
 		const labels: Record<string, string> = {

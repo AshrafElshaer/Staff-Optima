@@ -1,4 +1,4 @@
-import { JobPostForm } from "@/features/job-post/views/job-post-form";
+import { JobPostForm } from "@/features/job-post/views/form/job-post-form";
 
 import { Suspense } from "react";
 

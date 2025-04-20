@@ -9,6 +9,7 @@ import Editor from "@optima/editor";
 import { Button } from "@optima/ui/components/button";
 import { Checkbox } from "@optima/ui/components/checkbox";
 
+import { queryClient } from "@/lib/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type {
 	Department,
@@ -24,6 +25,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
+import { Icons } from "@optima/ui/components/icons";
 import {
 	AutoResizeTextArea,
 	Input,
@@ -38,8 +40,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
+import { createJobPostAction } from "../../job-post.actions";
 import { ScreeningQuestionSheet } from "./screening-question-sheet";
-// import { createJobPostAction, updateJobPostAction } from "../job-posts.actions";
 // import { PublishJobDialog } from "./publish-job-dialog";
 
 const COMPANY_BENEFITS = [
@@ -64,18 +66,17 @@ type JobPostFormProps = {
 	};
 };
 export function JobPostForm({ job }: JobPostFormProps) {
-	const [openPublishDialog, setOpenPublishDialog] = useState(false);
-	//   const { execute: createJobPost, isExecuting: isCreating } = useAction(
-	//     createJobPostAction,
-	//     {
-	//       onSuccess: () => {
-	//         toast.success("Job post created successfully");
-	//       },
-	//       onError: ({ error }) => {
-	//         toast.error(error.serverError);
-	//       },
-	//     },
-	//   );
+	const { execute: createJobPost, isExecuting: isCreating } = useAction(
+		createJobPostAction,
+		{
+			onSuccess: () => {
+				toast.success("Job post created successfully");
+			},
+			onError: ({ error }) => {
+				toast.error(error.serverError);
+			},
+		},
+	);
 
 	//   const { execute: updateJobPost, isExecuting: isUpdating } = useAction(
 	//     updateJobPostAction,
@@ -114,24 +115,17 @@ export function JobPostForm({ job }: JobPostFormProps) {
 	});
 
 	function handleSubmit(data: z.infer<typeof jobPostSchema>) {
-		// if (data.id.length > 0) {
-		//   updateJobPost(data);
-		// } else {
-		//   const {
-		//     id,
-		//     created_at,
-		//     updated_at,
-		//     organization_id,
-		//     created_by,
-		//     ...rest
-		//   } = data;
-		//   createJobPost({
-		//     ...rest,
-		//     status: "draft",
-		//     start_date: new Date().toISOString(),
-		//     end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days from now
-		//   });
-		// }
+		if (data.id.length > 0) {
+			//   updateJobPost(data);
+
+			queryClient.invalidateQueries({ queryKey: ["job-post", data.id] });
+		} else {
+			const { id, created_at, updated_at, company_id, created_by, ...rest } =
+				data;
+			createJobPost({
+				...rest,
+			});
+		}
 	}
 
 	return (
@@ -147,13 +141,13 @@ export function JobPostForm({ job }: JobPostFormProps) {
 							size="sm"
 							className="w-full sm:w-auto"
 							type="submit"
-							// disabled={isCreating || isUpdating || !form.formState.isDirty}
+							disabled={isCreating}
 						>
-							{/* {isCreating || isUpdating ? (
-								<Loader className="size-4 animate-spin" />
+							{isCreating ? (
+								<Icons.Loader className="size-4 animate-spin" />
 							) : (
 								<CheckmarkBadge03Icon className="size-4" strokeWidth={2} />
-							)} */}
+							)}
 							Save
 						</Button>
 					</div>
