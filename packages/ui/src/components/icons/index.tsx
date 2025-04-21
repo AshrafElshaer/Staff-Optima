@@ -39,10 +39,10 @@ import { PiUsers, PiUsersFill } from "react-icons/pi";
 import { AccountSetting, AccountSettingFill } from "./account-settings";
 import { Bell, BellFill } from "./bell";
 import { CreditCard, CreditCardFill } from "./credit-card";
+import { Megaphone, MegaphoneFill } from "./megaphone";
 import { Store, StoreFill } from "./store";
 import { UserAdd, UserAddFill } from "./user";
 import { Workflow, WorkflowFill } from "./workflow";
-import { Megaphone, MegaphoneFill } from "./megaphone";
 
 export const Icons = {
 	SignOut: LogOut,
