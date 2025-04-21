@@ -2,7 +2,7 @@ import { PermissionGuard } from "@/components/permission-gaurd";
 import {
 	type JobPostWithDepartment,
 	JobsList,
-} from "@/features/job-post/views/jobs-list";
+} from "@/features/job-post/views/list/jobs-list";
 import { createServerClient } from "@/lib/supabase/server";
 import { getJobPosts } from "@optima/supabase/queries";
 import { buttonVariants } from "@optima/ui/components/button";

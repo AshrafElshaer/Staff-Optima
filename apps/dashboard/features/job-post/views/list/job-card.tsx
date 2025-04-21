@@ -20,6 +20,7 @@ import {
 } from "@optima/ui/components/card";
 import { Progress } from "@optima/ui/components/progress";
 import { Separator } from "@optima/ui/components/separator";
+import { Skeleton } from "@optima/ui/components/skeleton";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -107,6 +108,44 @@ export function JobCard({ job }: { job: JobPostWithDepartment }) {
 						</TooltipContent>
 					</Tooltip>
 				</TooltipProvider>
+			</CardFooter>
+		</Card>
+	);
+}
+
+export function JobCardLoading() {
+	return (
+		<Card className=" bg-accent border h-fit ">
+			<CardHeader>
+				<CardTitle className="flex items-center">
+					<Skeleton className="w-20 h-4" />
+					<Skeleton className="w-16 ml-auto h-6" />
+				</CardTitle>
+				<CardDescription className=" capitalize flex items-center gap-2">
+					<Skeleton className="w-12 h-4 mr-auto" />
+
+					<div className="flex items-center gap-1">
+						<Skeleton className="w-12 h-4" />
+						-
+						<Skeleton className="w-12 h-4" />
+					</div>
+				</CardDescription>
+			</CardHeader>
+			<CardContent className="space-y-1">
+				{/* <CampaignStatus campaign={onGoingCampaign} /> */}
+				<Skeleton className="w-20 h-3" />
+				<Skeleton className="w-full h-3 rounded-full" />
+			</CardContent>
+			<Separator />
+			<CardFooter className="flex items-center justify-between gap-2 text-sm">
+				<div className="flex items-center gap-2">
+					<Icons.CalendarFill width={16} height={16} />
+					<Skeleton className="w-4 h-4" />
+				</div>
+				<div className="flex items-center gap-2">
+					<Icons.UserAddFill width={16} height={16} />
+					<Skeleton className="w-4 h-4" />
+				</div>
 			</CardFooter>
 		</Card>
 	);
