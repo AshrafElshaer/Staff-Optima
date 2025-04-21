@@ -12,6 +12,8 @@ import {
 	SidebarInset,
 	SidebarMenu,
 	SidebarMenuButton,
+	SidebarMenuItem,
+	SidebarMenuSkeleton,
 	SidebarProvider,
 	SidebarTrigger,
 } from "@optima/ui/components/sidebar";
@@ -33,23 +35,11 @@ export default function ShellLoading() {
 					<SidebarGroup>
 						<SidebarGroupLabel>Workspace</SidebarGroupLabel>
 						<SidebarMenu>
-							{sidebarLinks.map((item) => {
-								return (
-									<SidebarMenuButton
-										asChild
-										key={item.title}
-										tooltip={item.title}
-									>
-										<Button
-											variant="ghost"
-											className="w-full justify-start font-semibold"
-										>
-											{item.icon}
-											{item.title}
-										</Button>
-									</SidebarMenuButton>
-								);
-							})}
+							{Array.from({ length: 5 }).map((_, index) => (
+								<SidebarMenuItem key={index.toString()}>
+									<SidebarMenuSkeleton />
+								</SidebarMenuItem>
+							))}
 						</SidebarMenu>
 					</SidebarGroup>
 				</SidebarContent>
