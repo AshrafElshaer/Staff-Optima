@@ -10,6 +10,7 @@ import {
 import moment from "moment";
 import Link from "next/link";
 import { JobDetailsNavigation } from "./navigation";
+import { cn } from "@optima/ui/lib/utils";
 
 type Props = {
 	children: React.ReactNode;
@@ -47,7 +48,16 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 				<Card className="bg-accent">
 					<CardHeader className="flex flex-row items-center justify-between">
 						<CardTitle>Status</CardTitle>
-						<div className=" font-bold capitalize">{job?.status}</div>
+						<div
+							className={cn(
+								" font-bold capitalize",
+								job?.status === "active" && "text-success",
+								job?.status === "archived" && "text-destructive",
+								job?.status === "draft" && "text-warning",
+							)}
+						>
+							{job?.status}
+						</div>
 					</CardHeader>
 				</Card>
 				<Card className="bg-accent">
