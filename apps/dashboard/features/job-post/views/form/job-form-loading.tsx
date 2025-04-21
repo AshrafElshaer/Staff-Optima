@@ -36,7 +36,7 @@ export function JobPostFormLoading() {
 				</div>
 			</section>
 
-			<section className="flex flex-col lg:flex-row items-start gap-8 pl-px">
+			<section className="flex flex-col lg:flex-row items-start gap-8 pl-[3px]">
 				<div className="flex-1 space-y-6 w-full">
 					<div className="flex flex-col md:flex-row items-start gap-8 w-full">
 						<div className="space-y-3 w-full">
