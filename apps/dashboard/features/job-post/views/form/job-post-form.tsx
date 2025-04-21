@@ -1,6 +1,5 @@
 "use client";
 
-// import { BackButton } from "@/components/back-button";
 import { DepartmentSelector } from "@/components/selectors/department-selector";
 import { EmploymentTypeSelector } from "@/components/selectors/employment-type-selector";
 import { ExperienceLevelSelector } from "@/components/selectors/experience-level-selector";
@@ -11,11 +10,7 @@ import { Checkbox } from "@optima/ui/components/checkbox";
 
 import { queryClient } from "@/lib/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type {
-	Department,
-	JobPost,
-	//   JobPostCampaign,
-} from "@optima/supabase/types";
+import type { JobPost } from "@optima/supabase/types";
 import { jobPostSchema } from "@optima/supabase/validations";
 import {
 	Form,
@@ -26,17 +21,12 @@ import {
 	FormMessage,
 } from "@optima/ui/components/form";
 import { Icons } from "@optima/ui/components/icons";
-import {
-	AutoResizeTextArea,
-	Input,
-	TagsInput,
-} from "@optima/ui/components/inputs";
+import { Input, TagsInput } from "@optima/ui/components/inputs";
 import { Label } from "@optima/ui/components/label";
-import { CheckmarkBadge03Icon, Megaphone01Icon } from "hugeicons-react";
-import { PlusIcon, X } from "lucide-react";
-import { Loader } from "lucide-react";
+import { CheckmarkBadge03Icon } from "hugeicons-react";
+import { X } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import { useState } from "react";
+
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
@@ -150,7 +140,7 @@ export function JobPostForm({ job }: JobPostFormProps) {
 					</div>
 				</section>
 
-				<section className="flex flex-col lg:flex-row items-start gap-8">
+				<section className="flex flex-col lg:flex-row items-start gap-8 pl-[3px]">
 					<div className="flex-1 space-y-6 w-full">
 						<div className="flex flex-col md:flex-row items-start gap-8 w-full">
 							<FormField
