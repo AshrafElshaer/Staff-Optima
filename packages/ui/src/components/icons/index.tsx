@@ -42,6 +42,7 @@ import { CreditCard, CreditCardFill } from "./credit-card";
 import { Store, StoreFill } from "./store";
 import { UserAdd, UserAddFill } from "./user";
 import { Workflow, WorkflowFill } from "./workflow";
+import { Megaphone, MegaphoneFill } from "./megaphone";
 
 export const Icons = {
 	SignOut: LogOut,
@@ -100,4 +101,6 @@ export const Icons = {
 	StoreFill,
 	UserAdd,
 	UserAddFill,
+	Megaphone,
+	MegaphoneFill,
 };

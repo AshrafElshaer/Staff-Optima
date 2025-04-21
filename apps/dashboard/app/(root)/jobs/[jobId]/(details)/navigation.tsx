@@ -1,8 +1,9 @@
 "use client";
 import { buttonVariants } from "@optima/ui/components/button";
+import { Icons } from "@optima/ui/components/icons";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-
+import { IoDocuments, IoDocumentsOutline } from "react-icons/io5";
 export function JobDetailsNavigation() {
 	const params = useParams();
 	const pathname = usePathname();
@@ -18,6 +19,11 @@ export function JobDetailsNavigation() {
 					variant: isActive(`/jobs/${params.jobId}`) ? "secondary" : "ghost",
 				})}
 			>
+				{isActive(`/jobs/${params.jobId}`) ? (
+					<IoDocuments />
+				) : (
+					<IoDocumentsOutline />
+				)}
 				Applications
 			</Link>
 			<Link
@@ -28,6 +34,11 @@ export function JobDetailsNavigation() {
 						: "ghost",
 				})}
 			>
+				{isActive(`/jobs/${params.jobId}/campaigns`) ? (
+					<Icons.MegaphoneFill />
+				) : (
+					<Icons.Megaphone />
+				)}
 				Campaigns
 			</Link>
 		</div>

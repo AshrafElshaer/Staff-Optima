@@ -47,7 +47,7 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 				<Card className="bg-accent">
 					<CardHeader className="flex flex-row items-center justify-between">
 						<CardTitle>Status</CardTitle>
-						<div className=" font-bold">Active</div>
+						<div className=" font-bold capitalize">{job?.status}</div>
 					</CardHeader>
 				</Card>
 				<Card className="bg-accent">
