@@ -26,7 +26,7 @@ import { PERMISSIONS } from "@optima/constants";
 import { Button } from "@optima/ui/components/button";
 import { OrganizationLogo } from "./organization-logo";
 
-const links = [
+export const sidebarLinks = [
 	{
 		title: "Dashboard",
 		url: "/",
@@ -63,7 +63,7 @@ const links = [
 
 // ];
 
-const settings = [
+export const sidebarSettings = [
 	{
 		title: "Company",
 		url: "/company",
@@ -90,10 +90,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<Separator />
 			<SidebarContent>
-				<NavMain items={links} label="Workspace" />
+				<NavMain items={sidebarLinks} label="Workspace" />
 				{/* <NavMain items={communication} label="Communication" /> */}
 				{hasCompanyPermission ? (
-					<NavMain items={settings} label="Settings" />
+					<NavMain items={sidebarSettings} label="Settings" />
 				) : null}
 			</SidebarContent>
 		</Sidebar>
