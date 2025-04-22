@@ -83,3 +83,14 @@ create policy "Company Admin Can Update Job Post" on job_posts for update using
 
 create policy "Company Admin Can Delete Job Post" on job_posts for delete using (is_user_company_admin(company_id) or has_permission('job:delete'));
 
+
+
+-- Job Posts Campaigns
+alter table job_posts_campaigns enable row level security;
+create policy "Company Admins Can Create Job Post Campaign" on job_posts_campaigns for insert with check (is_user_company_admin(company_id) or has_permission('job:publish'));
+
+create policy "Company Admins Can Update Job Post Campaign" on job_posts_campaigns for update using (is_user_company_admin(company_id) or has_permission('job:status'));
+
+create policy "Company Admins Can Delete Job Post Campaign" on job_posts_campaigns for delete using (is_user_company_admin(company_id) or has_permission('job:status'));
+
+create policy "Public Can View Job Post Campaign" on job_posts_campaigns for select using (true);

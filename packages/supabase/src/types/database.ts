@@ -376,6 +376,57 @@ export type Database = {
 					},
 				];
 			};
+			job_posts_campaigns: {
+				Row: {
+					company_id: string;
+					created_at: string;
+					end_date: string | null;
+					id: string;
+					is_integration_enabled: boolean;
+					job_post_id: string;
+					start_date: string;
+					status: Database["public"]["Enums"]["job_post_campaign_status_enum"];
+					updated_at: string;
+				};
+				Insert: {
+					company_id: string;
+					created_at?: string;
+					end_date?: string | null;
+					id?: string;
+					is_integration_enabled?: boolean;
+					job_post_id: string;
+					start_date: string;
+					status?: Database["public"]["Enums"]["job_post_campaign_status_enum"];
+					updated_at?: string;
+				};
+				Update: {
+					company_id?: string;
+					created_at?: string;
+					end_date?: string | null;
+					id?: string;
+					is_integration_enabled?: boolean;
+					job_post_id?: string;
+					start_date?: string;
+					status?: Database["public"]["Enums"]["job_post_campaign_status_enum"];
+					updated_at?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "job_posts_campaigns_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "job_posts_campaigns_job_post_id_fkey";
+						columns: ["job_post_id"];
+						isOneToOne: false;
+						referencedRelation: "job_posts";
+						referencedColumns: ["id"];
+					},
+				];
+			};
 			roles: {
 				Row: {
 					company_id: string;
@@ -580,6 +631,11 @@ export type Database = {
 				| "contract"
 				| "internship";
 			experience_level_enum: "junior" | "mid" | "senior" | "lead" | "executive";
+			job_post_campaign_status_enum:
+				| "active"
+				| "paused"
+				| "completed"
+				| "scheduled";
 			job_post_status_enum: "draft" | "archived" | "active";
 			work_mode_enum: "remote" | "hybrid" | "on_site";
 		};
@@ -706,6 +762,12 @@ export const Constants = {
 				"internship",
 			],
 			experience_level_enum: ["junior", "mid", "senior", "lead", "executive"],
+			job_post_campaign_status_enum: [
+				"active",
+				"paused",
+				"completed",
+				"scheduled",
+			],
 			job_post_status_enum: ["draft", "archived", "active"],
 			work_mode_enum: ["remote", "hybrid", "on_site"],
 		},

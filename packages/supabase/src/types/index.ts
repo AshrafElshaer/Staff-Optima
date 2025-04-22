@@ -17,7 +17,7 @@ export type EmploymentType = Enums<"employment_type_enum">;
 export type JobPostStatus = Enums<"job_post_status_enum">;
 // export type InterviewStatus = Enums<"interview_status_enum">;
 // export type AttachmentType = Enums<"attachment_type_enum">;
-// export type JobPostCampaignStatus = Enums<"job_post_campaign_status_enum">;
+export type JobPostCampaignStatus = Enums<"job_post_campaign_status_enum">;
 
 export const domainVerificationStatusEnum: {
 	[key in DomainVerificationStatus]: key;
@@ -50,16 +50,14 @@ export const jobPostStatusEnum: {
 	archived: "archived",
 };
 
-// export const jobPostCampaignStatusEnum: {
-//   [key in JobPostCampaignStatus]: key;
-// } = {
-//   active: "active",
-//   scheduled: "scheduled",
-//   completed: "completed",
-//   paused: "paused",
-//   draft: "draft",
-//   archived: "archived",
-// };
+export const jobPostCampaignStatusEnum: {
+	[key in JobPostCampaignStatus]: key;
+} = {
+	active: "active",
+	scheduled: "scheduled",
+	completed: "completed",
+	paused: "paused",
+};
 
 export const experienceLevelEnum: {
 	[key in ExperienceLevel]: key;

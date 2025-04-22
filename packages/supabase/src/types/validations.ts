@@ -4,6 +4,7 @@ import {
 	domainVerificationStatusEnum,
 	employmentTypeEnum,
 	experienceLevelEnum,
+	jobPostCampaignStatusEnum,
 	jobPostStatusEnum,
 	workModeEnum,
 } from ".";
@@ -267,6 +268,32 @@ export const jobPostInsertSchema = jobPostSchema.omit({
 export const jobPostUpdateSchema = jobPostSchema.partial().required({
 	id: true,
 });
+export const jobPostCampaignSchema = z.object({
+	id: z.string(),
+	company_id: z.string(),
+	job_post_id: z.string(),
+	start_date: z.date().min(new Date(), {
+		message: "Start date must be in the future",
+	}),
+	end_date: z.date().nullable(),
+	is_integration_enabled: z.boolean(),
+	status: z.nativeEnum(jobPostCampaignStatusEnum),
+	created_at: z.string(),
+	updated_at: z.string(),
+});
+
+export const jobPostCampaignInsertSchema = jobPostCampaignSchema.omit({
+	id: true,
+
+	created_at: true,
+	updated_at: true,
+});
+
+export const jobPostCampaignUpdateSchema = jobPostCampaignSchema
+	.partial()
+	.required({
+		id: true,
+	});
 
 // export const userAvailabilitySchema = z.object({
 //   user_id: z.string().uuid(),

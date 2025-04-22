@@ -29,7 +29,3 @@ create table application_stage_triggers(
 
 create index idx_application_stage_triggers_company_id on application_stage_triggers(company_id);
 create index idx_application_stage_triggers_stage_id on application_stage_triggers(stage_id);
-
-
-
-

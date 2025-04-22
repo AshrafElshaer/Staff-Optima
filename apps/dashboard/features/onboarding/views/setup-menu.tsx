@@ -37,25 +37,30 @@ export function SetupMenu() {
 	const hasCompanyPermission = hasPermission(userRole?.permissions ?? [], [
 		"settings:company",
 	]);
-	const { data: domainVerification, isLoading } = useQuery({
-		queryKey: ["domain-verification"],
-		enabled: hasCompanyPermission,
-		queryFn: async () => {
-			const { data, error } = await getDomainVerificationByCompanyId(
-				supabase,
-				session?.user.user_metadata.company_id,
-			);
-			if (error) {
-				throw error;
-			}
-			return data;
-		},
-	});
+	const { data: domainVerification, isLoading: isDomainVerificationLoading } =
+		useQuery({
+			queryKey: ["domain-verification"],
+			enabled: hasCompanyPermission,
+			queryFn: async () => {
+				const { data, error } = await getDomainVerificationByCompanyId(
+					supabase,
+					session?.user.user_metadata.company_id,
+				);
+				if (error) {
+					throw error;
+				}
+				return data;
+			},
+		});
 
 	const { data: company, isLoading: isCompanyLoading } = useCompany();
 	const { data: userPreferences, isLoading: isUserPreferencesLoading } =
 		useUserPreferences();
-	if (isCompanyLoading || isUserPreferencesLoading) {
+	if (
+		isCompanyLoading ||
+		isUserPreferencesLoading ||
+		isDomainVerificationLoading
+	) {
 		return null;
 	}
 
