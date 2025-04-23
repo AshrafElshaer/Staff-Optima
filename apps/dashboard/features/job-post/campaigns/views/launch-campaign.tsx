@@ -23,11 +23,16 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@optima/ui/components/form";
+import { Icons } from "@optima/ui/components/icons";
 import { Input } from "@optima/ui/components/inputs";
 import { Label } from "@optima/ui/components/label";
 import moment from "moment";
+import { useAction } from "next-safe-action/hooks";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
+import { launchCampaignAction } from "../campaigns.actions";
 
 type LaunchCampaignProps = {
 	jobPostId: string;
@@ -52,6 +57,18 @@ const formSchema = jobPostCampaignInsertSchema
 	);
 
 export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
+	const [open, setOpen] = useState(false);
+	const { execute, isExecuting } = useAction(launchCampaignAction, {
+		onSuccess: () => {
+			toast.success("Campaign scheduled successfully");
+			setOpen(false);
+			form.reset();
+		},
+		onError: ({ error }) => {
+			console.log(error);
+			toast.error(error.serverError || "Something went wrong");
+		},
+	});
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -60,16 +77,49 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 			start_date: new Date(),
 			end_date: null,
 			is_integration_enabled: false,
-			status: "active",
+			status: "scheduled",
 			start_time: "",
 			end_time: "",
 		},
 	});
 	function onSubmit(data: z.infer<typeof formSchema>) {
-		console.log(data);
+		const start_date = moment(data.start_date)
+			.hour(Number.parseInt(data.start_time.split(":")[0] ?? "0"))
+			.minute(Number.parseInt(data.start_time.split(":")[1] ?? "0"))
+			.toDate();
+
+		const end_date = data.end_date
+			? moment(data.end_date)
+					.hour(Number.parseInt(data.end_time?.split(":")[0] ?? "0"))
+					.minute(Number.parseInt(data.end_time?.split(":")[1] ?? "0"))
+					.toDate()
+			: null;
+
+		const payload = {
+			job_post_id: data.job_post_id,
+			is_integration_enabled: data.is_integration_enabled,
+			status: data.status,
+			start_date,
+			end_date,
+		};
+		if (payload.start_date < new Date()) {
+			toast.error("Start date cannot be in the past");
+			return;
+		}
+
+		if (payload.end_date && payload.end_date < payload.start_date) {
+			toast.error("End date cannot be before start date");
+			return;
+		}
+		execute(payload);
 	}
 	return (
-		<Dialog>
+		<Dialog
+			open={open}
+			onOpenChange={(value) => {
+				if (!isExecuting) setOpen(value);
+			}}
+		>
 			<DialogTrigger asChild>
 				<Button className="w-fit ml-auto" variant="secondary" size="sm">
 					Launch Campaign
@@ -119,6 +169,7 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 													type="time"
 													{...field}
 													disabled={!form.watch("start_date")}
+													wrapperClassName="w-full"
 												/>
 											</FormControl>
 											<FormMessage />
@@ -164,6 +215,7 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 													type="time"
 													{...field}
 													disabled={!form.watch("end_date")}
+													wrapperClassName="w-full"
 												/>
 											</FormControl>
 											<FormMessage />
@@ -184,7 +236,7 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 													onCheckedChange={(isChecked) =>
 														field.onChange(!!isChecked)
 													}
-													// disabled={true}
+													disabled={true}
 													aria-describedby="publish-job-checkbox-description"
 													aria-controls="publish-job-checkbox-input"
 												/>
@@ -200,7 +252,7 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 															id="publish-job-checkbox-description"
 															className="text-sm text-muted-foreground"
 														>
-															Publish your job posting through connected
+															Launch your job posting through connected
 															platforms.
 														</p>
 													</div>
@@ -213,15 +265,19 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 						</div>
 						<DialogFooter className="flex-row">
 							<DialogClose asChild>
-								<Button variant="outline" className="flex-1" type="button">
+								<Button
+									variant="outline"
+									className="flex-1"
+									type="button"
+									disabled={isExecuting}
+								>
 									Cancel
 								</Button>
 							</DialogClose>
-							<Button
-								type="submit"
-								className="flex-1"
-								disabled={form.formState.isSubmitting}
-							>
+							<Button type="submit" className="flex-1" disabled={isExecuting}>
+								{isExecuting ? (
+									<Icons.Loader className="w-4 h-4 animate-spin" />
+								) : null}
 								Launch
 							</Button>
 						</DialogFooter>

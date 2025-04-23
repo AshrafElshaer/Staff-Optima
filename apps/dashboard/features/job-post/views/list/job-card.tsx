@@ -25,6 +25,7 @@ import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { JobPostWithDepartment } from "./jobs-list";
+import { CampaignStatus } from "./campiagn-status";
 export function JobCard({ job }: { job: JobPostWithDepartment }) {
 	const { data: userPreferences } = useUserPreferences();
 	const router = useRouter();
@@ -40,6 +41,17 @@ export function JobCard({ job }: { job: JobPostWithDepartment }) {
 		}
 		router.push(`/jobs/${jobId}`);
 	};
+
+	const onGoingCampaign =
+		job.campaigns?.find(
+			(campaign) =>
+				campaign.status === "active" || campaign.status === "scheduled",
+		) ||
+		// if no on going campaign, return the laat campaign
+		job.campaigns?.sort(
+			(a, b) =>
+				new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+		)[0];
 	return (
 		<Card
 			className=" bg-accent border h-fit cursor-pointer"
@@ -72,9 +84,7 @@ export function JobCard({ job }: { job: JobPostWithDepartment }) {
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="space-y-1">
-				{/* <CampaignStatus campaign={onGoingCampaign} /> */}
-				<p className="text-sm font-medium">Deadline in 3 days</p>
-				<Progress value={50} indicatorBg="bg-success" />
+				<CampaignStatus campaign={onGoingCampaign} />
 			</CardContent>
 			<Separator />
 			<CardFooter className="flex items-center gap-2 text-sm">

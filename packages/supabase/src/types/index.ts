@@ -99,6 +99,7 @@ export type Department = Tables<"departments">;
 export type UserRole = Tables<"user_roles">;
 export type ApplicationStage = Tables<"application_stages">;
 export type ApplicationStageTrigger = Tables<"application_stage_triggers">;
+export type JobPostCampaign = Tables<"job_posts_campaigns">;
 // export type EmailTemplate = Tables<"email_templates">;
 export interface JobPost extends Tables<"job_posts"> {
 	screening_questions: z.infer<typeof screeningQuestionSchema>[];

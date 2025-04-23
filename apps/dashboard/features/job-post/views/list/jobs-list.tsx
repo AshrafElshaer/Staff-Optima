@@ -1,8 +1,13 @@
-import type { Department, JobPost } from "@optima/supabase/types";
+import type {
+	Department,
+	JobPost,
+	JobPostCampaign,
+} from "@optima/supabase/types";
 
 import { JobCard } from "./job-card";
 export interface JobPostWithDepartment extends JobPost {
 	department: Department | null;
+	campaigns: JobPostCampaign[] | null;
 }
 
 export function JobsList({ jobs }: { jobs: JobPostWithDepartment[] | null }) {

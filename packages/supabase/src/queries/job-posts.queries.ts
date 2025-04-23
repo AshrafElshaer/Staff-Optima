@@ -27,7 +27,7 @@ export async function getJobPosts(
 ) {
 	const query = supabase
 		.from("job_posts")
-		.select("*, department:department_id (*)")
+		.select("*, department:department_id (*), campaigns:job_posts_campaigns(*)")
 		.eq("company_id", company_id);
 
 	// if (filters?.status?.length) {
