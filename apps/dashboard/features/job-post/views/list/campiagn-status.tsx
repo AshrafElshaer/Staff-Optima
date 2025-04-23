@@ -27,7 +27,7 @@ export function CampaignStatus({
 			</>
 		);
 	}
-	if (status === "active") {
+	if (status === "running") {
 		const progress = campaign.end_date
 			? Math.min(
 					100,

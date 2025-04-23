@@ -26,6 +26,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { JobPostWithDepartment } from "./jobs-list";
 import { CampaignStatus } from "./campiagn-status";
+import { jobPostCampaignStatusEnum } from "@optima/supabase/types";
 export function JobCard({ job }: { job: JobPostWithDepartment }) {
 	const { data: userPreferences } = useUserPreferences();
 	const router = useRouter();
@@ -45,7 +46,8 @@ export function JobCard({ job }: { job: JobPostWithDepartment }) {
 	const onGoingCampaign =
 		job.campaigns?.find(
 			(campaign) =>
-				campaign.status === "active" || campaign.status === "scheduled",
+				campaign.status === jobPostCampaignStatusEnum.running ||
+				campaign.status === jobPostCampaignStatusEnum.scheduled,
 		) ||
 		// if no on going campaign, return the laat campaign
 		job.campaigns?.sort(

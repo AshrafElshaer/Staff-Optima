@@ -632,11 +632,11 @@ export type Database = {
 				| "internship";
 			experience_level_enum: "junior" | "mid" | "senior" | "lead" | "executive";
 			job_post_campaign_status_enum:
-				| "active"
+				| "running"
 				| "paused"
 				| "completed"
 				| "scheduled";
-			job_post_status_enum: "draft" | "archived" | "active";
+			job_post_status_enum: "draft" | "archived" | "published";
 			work_mode_enum: "remote" | "hybrid" | "on_site";
 		};
 		CompositeTypes: {
@@ -763,12 +763,12 @@ export const Constants = {
 			],
 			experience_level_enum: ["junior", "mid", "senior", "lead", "executive"],
 			job_post_campaign_status_enum: [
-				"active",
+				"running",
 				"paused",
 				"completed",
 				"scheduled",
 			],
-			job_post_status_enum: ["draft", "archived", "active"],
+			job_post_status_enum: ["draft", "archived", "published"],
 			work_mode_enum: ["remote", "hybrid", "on_site"],
 		},
 	},

@@ -169,7 +169,7 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 											<FormLabel>Start Time</FormLabel>
 											<FormControl>
 												<Input
-													type="time"
+													type="range"
 													{...field}
 													disabled={!form.watch("start_date")}
 													wrapperClassName="w-full"

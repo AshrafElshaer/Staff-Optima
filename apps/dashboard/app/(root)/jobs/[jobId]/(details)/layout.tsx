@@ -51,7 +51,7 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 						<div
 							className={cn(
 								" font-bold capitalize",
-								job?.status === "active" && "text-success",
+								job?.status === "published" && "text-success",
 								job?.status === "archived" && "text-destructive",
 								job?.status === "draft" && "text-warning",
 							)}

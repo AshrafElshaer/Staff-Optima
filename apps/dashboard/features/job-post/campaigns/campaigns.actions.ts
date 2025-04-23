@@ -5,11 +5,14 @@ import {
 	updateJobCampaign,
 	updateJobPost,
 } from "@optima/supabase/mutations";
+import {
+	jobPostCampaignStatusEnum,
+	jobPostStatusEnum,
+} from "@optima/supabase/types";
 import { jobPostCampaignInsertSchema } from "@optima/supabase/validations";
+import moment from "moment";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import moment from "moment";
-import { jobPostCampaignStatusEnum } from "@optima/supabase/types";
 
 export const launchCampaignAction = authActionClient
 	.metadata({
@@ -25,12 +28,15 @@ export const launchCampaignAction = authActionClient
 			.eq("company_id", user.user_metadata.company_id)
 			.eq("job_post_id", parsedInput.job_post_id)
 			.or(
-				`status.eq.${jobPostCampaignStatusEnum.active},status.eq.${jobPostCampaignStatusEnum.scheduled}`,
+				`status.eq.${jobPostCampaignStatusEnum.running},status.eq.${jobPostCampaignStatusEnum.scheduled}`,
 			);
 
 		if (runningCampaign?.length) {
 			const campaign = runningCampaign[0];
-			if (campaign?.status === "active" || campaign?.status === "scheduled") {
+			if (
+				campaign?.status === jobPostCampaignStatusEnum.running ||
+				campaign?.status === jobPostCampaignStatusEnum.scheduled
+			) {
 				throw new Error("Job post already has an active or scheduled campaign");
 			}
 		}
@@ -47,7 +53,7 @@ export const launchCampaignAction = authActionClient
 		}
 		const { error: jobPostError } = await updateJobPost(supabase, {
 			id: parsedInput.job_post_id,
-			status: "active",
+			status: jobPostStatusEnum.published,
 		});
 
 		if (jobPostError) {

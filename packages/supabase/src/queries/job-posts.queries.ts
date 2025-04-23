@@ -8,16 +8,20 @@
 import type {
 	EmploymentType,
 	ExperienceLevel,
+	JobPostCampaignStatus,
 	JobPostStatus,
 	SupabaseInstance,
 	WorkMode,
 } from "../types";
+import { jobPostCampaignStatusEnum, jobPostStatusEnum } from "../types";
+
+type StatusFilter = JobPostStatus | JobPostCampaignStatus;
 
 export async function getJobPosts(
 	supabase: SupabaseInstance,
 	company_id: string,
 	filters?: {
-		status?: JobPostStatus[];
+		status?: StatusFilter[];
 		type?: EmploymentType[];
 		workMode?: WorkMode[];
 		experience?: ExperienceLevel[];
@@ -30,16 +34,25 @@ export async function getJobPosts(
 		.select("*, department:department_id (*), campaigns:job_posts_campaigns(*)")
 		.eq("company_id", company_id);
 
-	// if (filters?.status?.length) {
-	// 	const statuses = filters.status.map((status) => `status.eq.${status}`);
-	// 	query.or(statuses.join(","), {
-	// 		referencedTable: "job_posts_campaigns",
-	// 	});
-	// } else {
-	// 	query.or("status.neq.archived", {
-	// 		referencedTable: "job_posts_campaigns",
-	// 	});
-	// }
+	const isJobPost = filters?.status?.some((status) =>
+		Object.values(jobPostStatusEnum).includes(status as JobPostStatus),
+	);
+	const isJobPostCampaign = filters?.status?.some((status) =>
+		Object.values(jobPostCampaignStatusEnum).includes(
+			status as JobPostCampaignStatus,
+		),
+	);
+
+	if (filters?.status && isJobPost) {
+		query.in("status", filters?.status as JobPostStatus[]);
+	}
+
+	if (filters?.status && isJobPostCampaign) {
+		const statuses = filters.status.map((status) => `status.eq.${status}`);
+		query.or(statuses.join(","), {
+			referencedTable: "job_posts_campaigns",
+		});
+	}
 
 	if (filters?.type?.length) {
 		query.in("employment_type", filters.type);

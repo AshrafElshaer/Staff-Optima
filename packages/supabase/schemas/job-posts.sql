@@ -3,7 +3,7 @@ create type experience_level_enum as enum ('junior', 'mid', 'senior', 'lead', 'e
 
 create type work_mode_enum as enum ('remote','hybrid','on_site');
 
-create type job_post_status_enum as enum ('draft','archived','active');
+create type job_post_status_enum as enum ('draft','archived','published');
 
 create table job_posts (
     id uuid primary key default gen_random_uuid(),
@@ -32,7 +32,7 @@ create index idx_job_posts_id on job_posts(id);
 create index idx_job_posts_company on job_posts(company_id);
 
 
-create type job_post_campaign_status_enum as enum ('active', 'paused', 'completed','scheduled');
+create type job_post_campaign_status_enum as enum ('running', 'paused', 'completed','scheduled');
 
 create table job_posts_campaigns (
     id uuid primary key default gen_random_uuid(),

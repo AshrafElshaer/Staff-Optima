@@ -81,7 +81,7 @@ export function CampaignsList({ campaigns }: CampaignsListProps) {
 								{campaign.is_integration_enabled ? "Yes" : "No"}
 							</TableCell>
 							<TableCell>
-								{campaign.status === "active" ? (
+								{campaign.status === "running" ? (
 									<Button variant="ghost" size="icon">
 										<FaPause className="h-4 w-4" />
 									</Button>
