@@ -26,6 +26,7 @@ const badgeVariants = cva(
 				sm: "px-2 py-0.5 text-xs",
 				md: "px-2.5 py-1 text-sm",
 				lg: "px-3 py-1.5 text-base",
+				xs: "px-0.5 py-0.5 text-xs",
 			},
 		},
 		defaultVariants: {
@@ -38,6 +39,7 @@ const badgeVariants = cva(
 function Badge({
 	className,
 	variant,
+	size,
 	asChild = false,
 	...props
 }: React.ComponentProps<"span"> &
@@ -47,7 +49,7 @@ function Badge({
 	return (
 		<Comp
 			data-slot="badge"
-			className={cn(badgeVariants({ variant }), className)}
+			className={cn(badgeVariants({ variant, size }), className)}
 			{...props}
 		/>
 	);

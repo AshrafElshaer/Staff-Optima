@@ -37,7 +37,6 @@ export function JobCard({ job }: { job: JobPostWithDepartment }) {
 	) => {
 		const target = e.target as HTMLElement;
 		if (target.tagName === "A" || target.closest("a")) {
-			console.log("clicked");
 			return;
 		}
 		router.push(`/jobs/${jobId}`);

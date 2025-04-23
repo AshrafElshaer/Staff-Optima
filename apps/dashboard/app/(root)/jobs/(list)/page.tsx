@@ -1,4 +1,6 @@
 import { PermissionGuard } from "@/components/permission-gaurd";
+import { loadJobPostsSearchParams } from "@/features/job-post/job-posts.search-params";
+import { JobPostHeader } from "@/features/job-post/views/list/job-posts-header";
 import {
 	type JobPostWithDepartment,
 	JobsList,
@@ -8,12 +10,22 @@ import { getJobPosts } from "@optima/supabase/queries";
 import { buttonVariants } from "@optima/ui/components/button";
 import { headers } from "next/headers";
 import Link from "next/link";
+import type { SearchParams } from "nuqs";
 
-export default async function JobsPage() {
+export default async function JobsPage({
+	searchParams,
+}: {
+	searchParams: Promise<SearchParams>;
+}) {
+	const filters = await loadJobPostsSearchParams(searchParams);
 	const supabase = await createServerClient();
 	const headersList = await headers();
 	const companyId = headersList.get("x-company-id");
-	const { data: jobs, error } = await getJobPosts(supabase, companyId ?? "");
+	const { data: jobs, error } = await getJobPosts(
+		supabase,
+		companyId ?? "",
+		filters,
+	);
 
 	if (error) {
 		throw new Error(error.message);
@@ -21,17 +33,8 @@ export default async function JobsPage() {
 
 	return (
 		<div className="flex flex-col items-start flex-1 gap-4">
-			<PermissionGuard requiredPermissions={["job:create"]}>
-				<Link
-					href="/jobs/create"
-					className={buttonVariants({
-						variant: "secondary",
-						className: "ml-auto",
-					})}
-				>
-					Create Job
-				</Link>
-			</PermissionGuard>
+			<JobPostHeader />
+
 			<JobsList jobs={jobs as JobPostWithDepartment[]} />
 		</div>
 	);

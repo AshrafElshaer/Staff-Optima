@@ -15,15 +15,14 @@ import type {
 } from "../types";
 import { jobPostCampaignStatusEnum, jobPostStatusEnum } from "../types";
 
-type StatusFilter = JobPostStatus | JobPostCampaignStatus;
-
 export async function getJobPosts(
 	supabase: SupabaseInstance,
 	company_id: string,
 	filters?: {
-		status?: StatusFilter[];
+		job_status?: JobPostStatus[];
+		campaign_status?: JobPostCampaignStatus[];
 		type?: EmploymentType[];
-		workMode?: WorkMode[];
+		work_mode?: WorkMode[];
 		experience?: ExperienceLevel[];
 		department?: string[];
 		title?: string;
@@ -34,21 +33,23 @@ export async function getJobPosts(
 		.select("*, department:department_id (*), campaigns:job_posts_campaigns(*)")
 		.eq("company_id", company_id);
 
-	const isJobPost = filters?.status?.some((status) =>
-		Object.values(jobPostStatusEnum).includes(status as JobPostStatus),
-	);
-	const isJobPostCampaign = filters?.status?.some((status) =>
-		Object.values(jobPostCampaignStatusEnum).includes(
-			status as JobPostCampaignStatus,
-		),
-	);
+	// if (filters?.job_status || filters?.campaign_status) {
+	// 	query.select(
+	// 		"*, department:department_id (*), campaigns:job_posts_campaigns!inner(*)",
+	// 	);
+	// }
 
-	if (filters?.status && isJobPost) {
-		query.in("status", filters?.status as JobPostStatus[]);
+	if (filters?.job_status?.length) {
+		query.in("status", filters.job_status as JobPostStatus[]);
 	}
 
-	if (filters?.status && isJobPostCampaign) {
-		const statuses = filters.status.map((status) => `status.eq.${status}`);
+	if (filters?.campaign_status?.length) {
+		query.select(
+			"*, department:department_id (*), campaigns:job_posts_campaigns!inner(*)",
+		);
+		const statuses = filters.campaign_status.map(
+			(status) => `status.eq.${status}`,
+		);
 		query.or(statuses.join(","), {
 			referencedTable: "job_posts_campaigns",
 		});
@@ -58,8 +59,8 @@ export async function getJobPosts(
 		query.in("employment_type", filters.type);
 	}
 
-	if (filters?.workMode?.length) {
-		query.in("work_mode", filters.workMode);
+	if (filters?.work_mode?.length) {
+		query.in("work_mode", filters.work_mode);
 	}
 
 	if (filters?.experience?.length) {
