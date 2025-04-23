@@ -25,7 +25,7 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 	const { data: job } = await getJobPostById(supabase, jobId);
 
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex flex-col gap-4 flex-1">
 			<div className="flex items-center justify-between">
 				<div className="space-y-1">
 					<h1 className="text-2xl font-semibold tracking-tight">
@@ -45,7 +45,7 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 				</div>
 			</div>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-				<Card className="bg-accent">
+				<Card className="bg-accent h-fit">
 					<CardHeader className="flex flex-row items-center justify-between">
 						<CardTitle>Status</CardTitle>
 						<div
@@ -60,16 +60,16 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 						</div>
 					</CardHeader>
 				</Card>
-				<Card className="bg-accent">
+				<Card className="bg-accent h-fit">
 					<CardHeader className="flex flex-row items-center justify-between">
 						<CardTitle>Applications</CardTitle>
 						<div className="font-mono font-bold">24</div>
 					</CardHeader>
 				</Card>
-				<Card className="bg-accent">
+				<Card className="bg-accent h-fit">
 					<CardHeader className="flex flex-row items-center justify-between">
 						<CardTitle>Campaigns</CardTitle>
-						<div className="font-mono font-bold">3</div>
+						<div className="font-mono font-bold">{job?.campaigns?.length}</div>
 					</CardHeader>
 				</Card>
 			</div>

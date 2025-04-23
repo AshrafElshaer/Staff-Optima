@@ -119,14 +119,10 @@ export async function getJobPosts(
 export async function getJobPostById(
 	supabase: SupabaseInstance,
 	job_id: string,
-	include?: {
-		department?: boolean;
-	},
 ) {
-	const query = supabase.from("job_posts").select("*");
-
-	if (include?.department) {
-		query.select("*, department:department_id(*)");
-	}
-	return await query.eq("id", job_id).single();
+	return await supabase
+		.from("job_posts")
+		.select("*, campaigns:job_posts_campaigns(*), department:department_id(*)")
+		.eq("id", job_id)
+		.single();
 }

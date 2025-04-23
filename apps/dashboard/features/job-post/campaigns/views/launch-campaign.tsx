@@ -65,7 +65,6 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 			form.reset();
 		},
 		onError: ({ error }) => {
-			console.log(error);
 			toast.error(error.serverError || "Something went wrong");
 		},
 	});
@@ -121,7 +120,11 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 			}}
 		>
 			<DialogTrigger asChild>
-				<Button className="w-fit ml-auto" variant="secondary" size="sm">
+				<Button
+					className="w-full sm:w-fit ml-auto"
+					variant="secondary"
+					size="sm"
+				>
 					Launch Campaign
 				</Button>
 			</DialogTrigger>
