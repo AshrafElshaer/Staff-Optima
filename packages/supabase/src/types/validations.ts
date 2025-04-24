@@ -272,10 +272,10 @@ export const jobPostCampaignSchema = z.object({
 	id: z.string(),
 	company_id: z.string(),
 	job_post_id: z.string(),
-	start_date: z.date().min(new Date(), {
-		message: "Start date must be in the future",
+	start_date: z.string().min(1, {
+		message: "Start date is required",
 	}),
-	end_date: z.date().nullable(),
+	end_date: z.string().nullable(),
 	is_integration_enabled: z.boolean(),
 	status: z.nativeEnum(jobPostCampaignStatusEnum),
 	created_at: z.string(),

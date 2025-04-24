@@ -9,7 +9,10 @@ import {
 	jobPostCampaignStatusEnum,
 	jobPostStatusEnum,
 } from "@optima/supabase/types";
-import { jobPostCampaignInsertSchema } from "@optima/supabase/validations";
+import {
+	jobPostCampaignInsertSchema,
+	jobPostCampaignUpdateSchema,
+} from "@optima/supabase/validations";
 import moment from "moment";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -44,8 +47,8 @@ export const launchCampaignAction = authActionClient
 		const { data, error } = await createJobCampaign(supabase, {
 			...parsedInput,
 			company_id: user.user_metadata.company_id,
-			end_date: parsedInput.end_date?.toISOString(),
-			start_date: parsedInput.start_date.toISOString(),
+			end_date: moment(parsedInput.end_date).toISOString(),
+			start_date: moment(parsedInput.start_date).toISOString(),
 		});
 
 		if (error) {
@@ -60,6 +63,29 @@ export const launchCampaignAction = authActionClient
 			throw new Error(jobPostError.message);
 		}
 		revalidatePath(`/jobs/${parsedInput.job_post_id}/campaigns`);
+		revalidatePath("/jobs");
+		return data;
+	});
+
+export const updateCampaignAction = authActionClient
+	.metadata({
+		name: "Update Campaign",
+	})
+	.schema(jobPostCampaignUpdateSchema)
+	.action(async ({ parsedInput, ctx }) => {
+		const { supabase } = ctx;
+
+		const { data, error } = await updateJobCampaign(supabase, {
+			...parsedInput,
+			id: parsedInput.id,
+			updated_at: moment().toISOString(),
+		});
+
+		if (error) {
+			throw new Error(error.message);
+		}
+
+		revalidatePath(`/jobs/${data.job_post_id}/campaigns`);
 		revalidatePath("/jobs");
 		return data;
 	});

@@ -1,6 +1,7 @@
 "use server";
 import { authActionClient } from "@/lib/safe-action";
 import { createJobPost, updateJobPost } from "@optima/supabase/mutations";
+import { getJobCampaignsByJobId } from "@optima/supabase/queries";
 import {
 	jobPostInsertSchema,
 	jobPostUpdateSchema,
@@ -44,5 +45,38 @@ export const updateJobPostAction = authActionClient
 
 		revalidatePath("/jobs");
 		redirect(`/jobs/${data.id}`);
+		return data;
+	});
+
+export const archiveJobPostAction = authActionClient
+	.metadata({
+		name: "job-post/archive",
+	})
+	.schema(z.object({ id: z.string() }))
+	.action(async ({ ctx, parsedInput }) => {
+		const { data: campaigns, error: campaignError } =
+			await getJobCampaignsByJobId(ctx.supabase, parsedInput.id);
+
+		if (campaigns) {
+			const onGoingCampaigns = campaigns.filter(
+				(campaign) =>
+					campaign.status === "running" || campaign.status === "scheduled",
+			);
+			if (onGoingCampaigns.length > 0) {
+				throw new Error("Cannot archive job post with ongoing campaigns");
+			}
+		}
+
+		const { data, error } = await updateJobPost(ctx.supabase, {
+			...parsedInput,
+			status: "archived",
+		});
+
+		if (error) {
+			throw new Error(error.message);
+		}
+
+		revalidatePath("/jobs");
+		revalidatePath(`/jobs/${data.id}`);
 		return data;
 	});

@@ -1,3 +1,5 @@
+import { ArchiveJob } from "@/features/job-post/views/archive-job";
+import { UnarchiveJob } from "@/features/job-post/views/unarchive-job";
 import { createServerClient } from "@/lib/supabase/server";
 import { getJobPostById } from "@optima/supabase/queries";
 import { buttonVariants } from "@optima/ui/components/button";
@@ -7,10 +9,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@optima/ui/components/card";
+import { cn } from "@optima/ui/lib/utils";
 import moment from "moment";
 import Link from "next/link";
 import { JobDetailsNavigation } from "./navigation";
-import { cn } from "@optima/ui/lib/utils";
 
 type Props = {
 	children: React.ReactNode;
@@ -26,7 +28,7 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 
 	return (
 		<div className="flex flex-col gap-4 flex-1">
-			<div className="flex items-center justify-between">
+			<div className="flex items-start sm:items-center justify-between">
 				<div className="space-y-1">
 					<h1 className="text-2xl font-semibold tracking-tight">
 						{job?.title}
@@ -35,13 +37,18 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 						Created on {moment(job?.created_at).format("MMM DD YYYY")}
 					</p>
 				</div>
-				<div className="flex items-center gap-2">
+				<div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
 					<Link
 						href={`/jobs/${jobId}/edit`}
 						className={buttonVariants({ variant: "outline" })}
 					>
 						Edit Job
 					</Link>
+					{job?.status === "archived" ? (
+						<UnarchiveJob jobId={jobId} />
+					) : (
+						<ArchiveJob jobId={jobId} jobTitle={job?.title ?? ""} />
+					)}
 				</div>
 			</div>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

@@ -229,7 +229,7 @@ export function JobPostHeader() {
 											key={key}
 											className="flex items-center gap-2 text-sm bg-accent px-3 py-2 rounded-md font-medium border min-w-fit"
 										>
-											<p className="text-secondary-foreground capitalize">
+											<p className="text-muted-foreground capitalize">
 												{key.split("_").join(" ")}
 											</p>
 											<Separator orientation="vertical" className="h-4" />

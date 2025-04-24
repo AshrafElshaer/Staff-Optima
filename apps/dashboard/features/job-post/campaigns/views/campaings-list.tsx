@@ -13,17 +13,31 @@ import {
 
 import { useUserPreferences } from "@/hooks/use-user-preferences";
 import { Skeleton } from "@optima/ui/components/skeleton";
-import { MoreHorizontal, Pause, Pencil, Trash } from "lucide-react";
+
+import { Icons } from "@optima/ui/components/icons";
 import moment from "moment";
+import { useAction } from "next-safe-action/hooks";
 import { FaPause } from "react-icons/fa6";
+import { toast } from "sonner";
 import { CampaignStatus } from "../../views/list/campiagn-status";
+import { updateCampaignAction } from "../campaigns.actions";
 type CampaignsListProps = {
 	campaigns: JobPostCampaign[];
 };
 
 export function CampaignsList({ campaigns }: CampaignsListProps) {
 	const { data: userPreferences } = useUserPreferences();
-
+	const { execute: updateCampaign, isExecuting } = useAction(
+		updateCampaignAction,
+		{
+			onSuccess: () => {
+				toast.success("Campaign updated successfully");
+			},
+			onError: () => {
+				toast.error("Failed to update campaign");
+			},
+		},
+	);
 	if (campaigns.length === 0) {
 		return (
 			<div className="flex flex-col flex-1 items-center justify-center h-full w-full relative">
@@ -82,8 +96,24 @@ export function CampaignsList({ campaigns }: CampaignsListProps) {
 							</TableCell>
 							<TableCell>
 								{campaign.status === "running" ? (
-									<Button variant="ghost" size="icon">
-										<FaPause className="h-4 w-4" />
+									<Button
+										variant="ghost"
+										size="icon"
+										onClick={() =>
+											updateCampaign({
+												id: campaign.id,
+												status: "completed",
+
+												end_date: moment().toISOString(),
+											})
+										}
+										disabled={isExecuting}
+									>
+										{isExecuting ? (
+											<Icons.Loader className="h-4 w-4 animate-spin" />
+										) : (
+											<FaPause className="h-4 w-4" />
+										)}
 									</Button>
 								) : null}
 							</TableCell>

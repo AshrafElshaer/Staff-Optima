@@ -73,7 +73,7 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 		defaultValues: {
 			job_post_id: jobPostId,
 			company_id: "",
-			start_date: new Date(),
+			start_date: moment().toString(),
 			end_date: null,
 			is_integration_enabled: false,
 			status: "scheduled",
@@ -85,13 +85,13 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 		const start_date = moment(data.start_date)
 			.hour(Number.parseInt(data.start_time.split(":")[0] ?? "0"))
 			.minute(Number.parseInt(data.start_time.split(":")[1] ?? "0"))
-			.toDate();
+			.toISOString();
 
 		const end_date = data.end_date
 			? moment(data.end_date)
 					.hour(Number.parseInt(data.end_time?.split(":")[0] ?? "0"))
 					.minute(Number.parseInt(data.end_time?.split(":")[1] ?? "0"))
-					.toDate()
+					.toISOString()
 			: null;
 
 		const payload = {
@@ -101,12 +101,15 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 			start_date,
 			end_date,
 		};
-		if (payload.start_date < new Date()) {
+		if (moment(payload.start_date).isBefore(moment())) {
 			toast.error("Start date cannot be in the past");
 			return;
 		}
 
-		if (payload.end_date && payload.end_date < payload.start_date) {
+		if (
+			payload.end_date &&
+			moment(payload.end_date).isBefore(payload.start_date)
+		) {
 			toast.error("End date cannot be before start date");
 			return;
 		}
@@ -153,7 +156,7 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 															? moment(field.value).toDate()
 															: undefined
 													}
-													setDate={field.onChange}
+													setDate={(date) => field.onChange(date?.toString())}
 													fromDate={moment().toDate()}
 												/>
 											</FormControl>
@@ -199,7 +202,7 @@ export function LaunchCampaign({ jobPostId }: LaunchCampaignProps) {
 															? moment(field.value).toDate()
 															: undefined
 													}
-													setDate={field.onChange}
+													setDate={(date) => field.onChange(date?.toString())}
 													fromDate={moment(form.watch("start_date")).toDate()}
 												/>
 											</FormControl>

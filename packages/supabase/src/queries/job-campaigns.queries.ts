@@ -17,7 +17,8 @@ export async function getJobCampaignsByJobId(
 	return await supabase
 		.from("job_posts_campaigns")
 		.select("*")
-		.eq("job_post_id", jobId);
+		.eq("job_post_id", jobId)
+		.order("created_at", { ascending: false });
 }
 
 export async function getJobCampaignById(
