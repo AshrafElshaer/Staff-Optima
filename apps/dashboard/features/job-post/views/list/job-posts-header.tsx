@@ -22,7 +22,7 @@ import {
 
 import { BriefcaseIcon, X } from "lucide-react";
 
-import { PermissionGuard } from "@/components/permission-gaurd";
+import { PermissionGuard } from "@/features/auth/views/permission-gaurd";
 import { useSupabase } from "@/hooks/use-supabase";
 import { getDepartmentsByCompanyId } from "@optima/supabase/queries";
 import { Button, buttonVariants } from "@optima/ui/components/button";

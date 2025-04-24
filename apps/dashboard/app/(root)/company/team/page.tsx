@@ -1,4 +1,4 @@
-import { PermissionGuard } from "@/components/permission-gaurd";
+import { PermissionGuard } from "@/features/auth/views/permission-gaurd";
 import { teamSearchParamsLoader } from "@/features/company/team/team.search-params";
 import { InviteTeamMember } from "@/features/company/team/views/invite-member";
 import { MembersSearch } from "@/features/company/team/views/member-search";

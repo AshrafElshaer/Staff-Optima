@@ -1,4 +1,4 @@
-import { PermissionGuard } from "@/components/permission-gaurd";
+import { PermissionGuard } from "@/features/auth/views/permission-gaurd";
 import { CampaignsList } from "@/features/job-post/campaigns/views/campaings-list";
 import { LaunchCampaign } from "@/features/job-post/campaigns/views/launch-campaign";
 import { createServerClient } from "@/lib/supabase/server";

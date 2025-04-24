@@ -1,4 +1,4 @@
-import { PermissionGuard } from "@/components/permission-gaurd";
+import { PermissionGuard } from "@/features/auth/views/permission-gaurd";
 import NewRole from "@/features/company/roles-and-permissions/views/new-role";
 import { RolesTable } from "@/features/company/roles-and-permissions/views/roles-table";
 import { createServerClient } from "@/lib/supabase/server";

@@ -1,4 +1,4 @@
-import { PermissionGuard } from "@/components/permission-gaurd";
+import { PermissionGuard } from "@/features/auth/views/permission-gaurd";
 import { loadJobPostsSearchParams } from "@/features/job-post/job-posts.search-params";
 import { JobPostHeader } from "@/features/job-post/views/list/job-posts-header";
 import {

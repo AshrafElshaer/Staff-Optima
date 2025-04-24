@@ -1,3 +1,4 @@
+import { PermissionGuard } from "@/features/auth/views/permission-gaurd";
 import { ArchiveJob } from "@/features/job-post/views/archive-job";
 import { UnarchiveJob } from "@/features/job-post/views/unarchive-job";
 import { createServerClient } from "@/lib/supabase/server";
@@ -38,16 +39,22 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 					</p>
 				</div>
 				<div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-					<Link
-						href={`/jobs/${jobId}/edit`}
-						className={buttonVariants({ variant: "outline" })}
-					>
-						Edit Job
-					</Link>
+					<PermissionGuard requiredPermissions={["job:update"]}>
+						<Link
+							href={`/jobs/${jobId}/edit`}
+							className={buttonVariants({ variant: "outline" })}
+						>
+							Edit Job
+						</Link>
+					</PermissionGuard>
 					{job?.status === "archived" ? (
-						<UnarchiveJob jobId={jobId} />
+						<PermissionGuard requiredPermissions={["job:status"]}>
+							<UnarchiveJob jobId={jobId} />
+						</PermissionGuard>
 					) : (
-						<ArchiveJob jobId={jobId} jobTitle={job?.title ?? ""} />
+						<PermissionGuard requiredPermissions={["job:status"]}>
+							<ArchiveJob jobId={jobId} jobTitle={job?.title ?? ""} />
+						</PermissionGuard>
 					)}
 				</div>
 			</div>
