@@ -1,8 +1,6 @@
 export const jobPostCampaignStatusEnum = {
-	active: "active",
+	running: "running",
 	scheduled: "scheduled",
 	completed: "completed",
 	paused: "paused",
-	draft: "draft",
-	archived: "archived",
 };

@@ -20,15 +20,18 @@ import { useAction } from "next-safe-action/hooks";
 import { FaPause } from "react-icons/fa6";
 import { toast } from "sonner";
 import { CampaignStatus } from "../../views/list/campiagn-status";
-import { updateCampaignAction } from "../campaigns.actions";
+import {
+	completeCampaignAction,
+	updateCampaignAction,
+} from "../campaigns.actions";
 type CampaignsListProps = {
 	campaigns: JobPostCampaign[];
 };
 
 export function CampaignsList({ campaigns }: CampaignsListProps) {
 	const { data: userPreferences } = useUserPreferences();
-	const { execute: updateCampaign, isExecuting } = useAction(
-		updateCampaignAction,
+	const { execute: completeCampaign, isExecuting } = useAction(
+		completeCampaignAction,
 		{
 			onSuccess: () => {
 				toast.success("Campaign updated successfully");
@@ -100,11 +103,8 @@ export function CampaignsList({ campaigns }: CampaignsListProps) {
 										variant="ghost"
 										size="icon"
 										onClick={() =>
-											updateCampaign({
-												id: campaign.id,
-												status: "completed",
-
-												end_date: moment().toISOString(),
+											completeCampaign({
+												jobPostId: campaign.job_post_id,
 											})
 										}
 										disabled={isExecuting}

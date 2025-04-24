@@ -20,14 +20,14 @@ function getTimeWindowQuery(hours = 1) {
 Deno.serve(async () => {
 	const { nowISO, futureISO } = getTimeWindowQuery();
 	const scheduledStatus = jobPostCampaignStatusEnum.scheduled;
-	const activeStatus = jobPostCampaignStatusEnum.active;
+	const runningStatus = jobPostCampaignStatusEnum.running;
 
 	try {
 		const { data: jobCampaigns, error } = (await supabase
 			.from("job_posts_campaigns")
 			.select("*")
 			.or(
-				`and(status.eq.${scheduledStatus},start_date.gte.${nowISO},start_date.lt.${futureISO}),and(status.eq.${activeStatus},end_date.gte.${nowISO},end_date.lt.${futureISO})`,
+				`and(status.eq.${scheduledStatus},start_date.gte.${nowISO},start_date.lt.${futureISO}),and(status.eq.${runningStatus},end_date.gte.${nowISO},end_date.lt.${futureISO})`,
 			)) as { data: JobPostCampaign[] | null; error: Error | null };
 
 		if (error) throw error;
@@ -45,7 +45,7 @@ Deno.serve(async () => {
 					});
 				}
 
-				if (campaign.status === activeStatus) {
+				if (campaign.status === runningStatus) {
 					return tasks.trigger("complete-job-campaign", triggerPayload, {
 						delay: new Date(campaign.end_date).toISOString(),
 					});

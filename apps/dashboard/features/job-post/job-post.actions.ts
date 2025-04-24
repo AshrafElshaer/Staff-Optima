@@ -45,7 +45,6 @@ export const updateJobPostAction = authActionClient
 
 		revalidatePath("/jobs");
 		redirect(`/jobs/${data.id}`);
-		return data;
 	});
 
 export const archiveJobPostAction = authActionClient

@@ -13,6 +13,8 @@ import {
 	jobPostCampaignInsertSchema,
 	jobPostCampaignUpdateSchema,
 } from "@optima/supabase/validations";
+import type { completeJobCampaign } from "@optima/trigger.dev/complete-job-campaign";
+import { tasks } from "@trigger.dev/sdk/v3";
 import moment from "moment";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -88,4 +90,26 @@ export const updateCampaignAction = authActionClient
 		revalidatePath(`/jobs/${data.job_post_id}/campaigns`);
 		revalidatePath("/jobs");
 		return data;
+	});
+
+export const completeCampaignAction = authActionClient
+	.metadata({
+		name: "Pause Campaign",
+	})
+	.schema(
+		z.object({
+			jobPostId: z.string(),
+		}),
+	)
+	.action(async ({ parsedInput, ctx }) => {
+		const { id } = await tasks.trigger<typeof completeJobCampaign>(
+			"complete-job-campaign",
+			{
+				jobPostId: parsedInput.jobPostId,
+			},
+		);
+
+		revalidatePath(`/jobs/${parsedInput.jobPostId}/campaigns`);
+		revalidatePath("/jobs");
+		return id;
 	});
