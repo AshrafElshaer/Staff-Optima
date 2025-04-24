@@ -32,7 +32,7 @@ export const completeJobCampaign = task({
 				status: "completed",
 				updated_at: new Date().toISOString(),
 			})
-			.eq("job_id", payload.jobPostId)
+			.eq("job_post_id", payload.jobPostId)
 			.eq("status", "running")
 			.select()
 			.single();

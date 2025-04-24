@@ -32,7 +32,7 @@ export const launchJobCampaign = task({
 				status: "running",
 				updated_at: new Date().toISOString(),
 			})
-			.eq("job_id", payload.jobPostId)
+			.eq("job_post_id", payload.jobPostId)
 			.eq("status", "scheduled")
 			.select()
 			.single();
