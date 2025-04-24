@@ -8,8 +8,8 @@
 		"format": "biome format --write .",
 		"typecheck": "tsc --noEmit",
 		"dev": "email dev -p 3003",
-		"build": "email build",
-		"start": "email start"
+		"build:email": "email build",
+		"start:email": "email start"
 	},
 	"exports": {
 		".": "./emails/index.ts"
