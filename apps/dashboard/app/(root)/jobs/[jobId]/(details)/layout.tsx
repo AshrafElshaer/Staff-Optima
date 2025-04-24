@@ -10,9 +10,13 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@optima/ui/components/card";
+import { Icons } from "@optima/ui/components/icons";
 import { cn } from "@optima/ui/lib/utils";
+import { CheckCircle } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
+import { IoDocuments } from "react-icons/io5";
+import { MdSignalWifiStatusbarConnectedNoInternet1 } from "react-icons/md";
 import { JobDetailsNavigation } from "./navigation";
 
 type Props = {
@@ -58,10 +62,13 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 					)}
 				</div>
 			</div>
-			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 				<Card className="bg-accent h-fit">
 					<CardHeader className="flex flex-row items-center justify-between">
-						<CardTitle>Status</CardTitle>
+						<CardTitle className="flex flex-row items-center gap-2">
+							<MdSignalWifiStatusbarConnectedNoInternet1 className="size-4" />
+							Status
+						</CardTitle>
 						<div
 							className={cn(
 								" font-bold capitalize",
@@ -76,13 +83,29 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 				</Card>
 				<Card className="bg-accent h-fit">
 					<CardHeader className="flex flex-row items-center justify-between">
-						<CardTitle>Applications</CardTitle>
+						<CardTitle className="flex flex-row items-center gap-2">
+							<IoDocuments className="size-4" />
+							Applications
+						</CardTitle>
 						<div className="font-mono font-bold">24</div>
+					</CardHeader>
+				</Card>
+
+				<Card className="bg-accent h-fit">
+					<CardHeader className="flex flex-row items-center justify-between">
+						<CardTitle className="flex flex-row items-center gap-2">
+							<CheckCircle className="size-4" />
+							Hired
+						</CardTitle>
+						<div className="font-mono font-bold">17</div>
 					</CardHeader>
 				</Card>
 				<Card className="bg-accent h-fit">
 					<CardHeader className="flex flex-row items-center justify-between">
-						<CardTitle>Campaigns</CardTitle>
+						<CardTitle className="flex flex-row items-center gap-2">
+							<Icons.MegaphoneFill className="size-4" />
+							Campaigns
+						</CardTitle>
 						<div className="font-mono font-bold">{job?.campaigns?.length}</div>
 					</CardHeader>
 				</Card>
