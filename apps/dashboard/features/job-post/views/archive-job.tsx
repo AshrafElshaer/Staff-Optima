@@ -42,9 +42,14 @@ export function ArchiveJob({ jobId, jobTitle }: ArchiveJobProps) {
 					Archive
 				</Button>
 			</AlertDialogTrigger>
-			<AlertDialogContent>
+			<AlertDialogContent className="sm:max-w-md">
 				<AlertDialogHeader>
 					<AlertDialogTitle>Are you sure?</AlertDialogTitle>
+					<AlertDialogDescription>
+						You are about to archive the job post{" "}
+						<span className="font-medium ">{jobTitle}</span>. This action is
+						reversible.
+					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<p className="text-sm">
 					Please type{" "}
@@ -54,6 +59,7 @@ export function ArchiveJob({ jobId, jobTitle }: ArchiveJobProps) {
 				<Input
 					value={confirmJobTitle}
 					onChange={(e) => setConfirmJobTitle(e.target.value)}
+					placeholder={jobTitle}
 				/>
 				<AlertDialogFooter className="flex-row *:flex-1">
 					<Button
