@@ -45,7 +45,7 @@ Deno.serve(async () => {
 					});
 				}
 
-				if (campaign.status === runningStatus) {
+				if (campaign.status === runningStatus && campaign.end_date) {
 					return tasks.trigger("complete-job-campaign", triggerPayload, {
 						delay: new Date(campaign.end_date).toISOString(),
 					});
