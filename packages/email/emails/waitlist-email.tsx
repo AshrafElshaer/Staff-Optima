@@ -101,7 +101,9 @@ export function WaitlistEmail({ name }: { name: string }) {
 							<Text
 								className={`text-base text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}
 							>
-								✅ Follow us on Twitter @StaffOptima for updates 🚀
+								✅ Follow us on Twitter
+								<Link href="https://x.com/StaffOptima">@StaffOptima</Link> for
+								updates 🚀
 							</Text>
 							<Text
 								className={`text-base text-[${colors.lightTheme.foreground}] dark:text-[${colors.darkTheme.foreground}]`}

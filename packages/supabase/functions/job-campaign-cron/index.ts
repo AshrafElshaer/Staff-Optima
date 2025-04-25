@@ -37,7 +37,7 @@ Deno.serve(async () => {
 		await Promise.all(
 			jobCampaigns.map((campaign) => {
 				const triggerPayload = {
-					jobPostId: campaign.job_id,
+					jobPostId: campaign.job_post_id,
 				};
 				if (campaign.status === scheduledStatus) {
 					return tasks.trigger("launch-job-campaign", triggerPayload, {
