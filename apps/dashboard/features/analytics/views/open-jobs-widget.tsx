@@ -13,7 +13,7 @@ export async function OpenJobsWidget() {
 	const headersList = await headers();
 	const companyId = headersList.get("x-company-id");
 	const supabase = await createServerClient();
-	const { data: jobPosts, count } = await getJobPosts(
+	const { data: jobPosts } = await getJobPosts(
 		supabase,
 		companyId as string,
 		{

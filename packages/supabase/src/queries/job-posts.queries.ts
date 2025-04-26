@@ -44,18 +44,6 @@ export async function getJobPosts(
 		query.in("status", filters.job_status as JobPostStatus[]);
 	}
 
-	if (filters?.campaign_status?.length) {
-		query.select(
-			"*, department:department_id (*), campaigns:job_posts_campaigns!inner(*)",
-		);
-		const statuses = filters.campaign_status.map(
-			(status) => `status.eq.${status}`,
-		);
-		query.or(statuses.join(","), {
-			referencedTable: "job_posts_campaigns",
-		});
-	}
-
 	if (filters?.type?.length) {
 		query.in("employment_type", filters.type);
 	}
@@ -76,7 +64,44 @@ export async function getJobPosts(
 		query.ilike("title", `%${filters.title}%`);
 	}
 
-	return await query;
+	const { data, error } = await query;
+
+	if (error) {
+		return { data: null, error };
+	}
+
+	if (data) {
+		// Filter out jobs with no campaigns and get only latest campaign
+		const filteredData = data
+			.map((job) => ({
+				...job,
+				campaigns:
+					job.campaigns
+						?.sort(
+							(a, b) =>
+								new Date(b.created_at).getTime() -
+								new Date(a.created_at).getTime(),
+						)
+						.slice(0, 1) || [],
+			}))
+			.filter((job) => job.campaigns.length > 0);
+
+		// Apply campaign status filter if specified
+		if (filters?.campaign_status?.length) {
+			return {
+				data: filteredData.filter((job) =>
+					job.campaigns.some((campaign) =>
+						filters.campaign_status?.includes(campaign.status),
+					),
+				),
+				error: null,
+			};
+		}
+
+		return { data: filteredData, error: null };
+	}
+
+	return { data: data, error };
 }
 
 // export async function getJobPostsWithApplicationsCount(

@@ -100,7 +100,7 @@ export default async function Page() {
 					<Icons.CalendarFill width={20} height={20} />
 					<span className="font-semibold">Interviews</span>
 					<span className="text-sm text-secondary-foreground">This week</span>
-					<span className="text-lg font-semibold font-mono ml-auto">5</span>
+					<span className="text-lg font-semibold font-mono ml-auto">N/A</span>
 				</Card>
 			</section>
 

@@ -22,7 +22,7 @@ export async function ApplicationsWidget() {
 			<Icons.UserSearchFill width={20} height={20} />
 			<span className="font-semibold">Applications</span>
 			<span className="text-sm text-secondary-foreground">This month</span>
-			<span className="text-lg font-semibold font-mono ml-auto">0</span>
+			<span className="text-lg font-semibold font-mono ml-auto">N/A</span>
 		</Card>
 	);
 }

@@ -87,7 +87,7 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 							<IoDocuments className="size-4" />
 							Applications
 						</CardTitle>
-						<div className="font-mono font-bold">24</div>
+						<div className="font-mono font-bold">N/A</div>
 					</CardHeader>
 				</Card>
 
@@ -97,7 +97,7 @@ export default async function JobDetailsLayout({ children, params }: Props) {
 							<CheckCircle className="size-4" />
 							Hired
 						</CardTitle>
-						<div className="font-mono font-bold">17</div>
+						<div className="font-mono font-bold">N/A</div>
 					</CardHeader>
 				</Card>
 				<Card className="bg-accent h-fit">
