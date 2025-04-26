@@ -68,7 +68,10 @@ export default function Waitlist() {
 	});
 
 	function onSubmit(data: z.infer<typeof formSchema>) {
-		execute(data);
+		execute({
+			...data,
+			email: data.email.toLowerCase(),
+		});
 	}
 	return (
 		<div className="flex-1 flex flex-col px-4 pt-10 justify-center items-center">
