@@ -65,7 +65,7 @@ export const onboardCompanyAction = authActionClient
 			throw new Error(existingCompanyError.message);
 		}
 
-		if (existingCompany.length) {
+		if (existingCompany) {
 			throw new Error(
 				`Company already exists with this domain ${parsedInput.domain} , please use a different domain or contact support`,
 			);

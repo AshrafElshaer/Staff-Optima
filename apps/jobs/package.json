@@ -1,0 +1,36 @@
+{
+	"name": "@optima/jobs",
+	"version": "0.0.1",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "next dev -p 3002 --turbopack",
+		"build": "next build",
+		"clean": "git clean -xdf .next .turbo node_modules",
+		"lint": "biome lint",
+		"format": "biome format --write .",
+		"start": "next start",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@ai-sdk/google": "^1.2.13",
+		"@optima/editor": "workspace:*",
+		"@optima/email": "workspace:*",
+		"@optima/ui": "workspace:*",
+		"geist": "^1.3.1",
+		"lucide-react": "^0.488.0",
+		"motion": "^12.7.3",
+		"next": "^15.3.0",
+		"next-themes": "^0.4.4",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-icons": "^5.5.0"
+	},
+	"devDependencies": {
+		"@optima/typescript-config": "workspace:*",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"typescript": "^5.8.2"
+	}
+}

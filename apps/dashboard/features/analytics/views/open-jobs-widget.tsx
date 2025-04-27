@@ -13,13 +13,9 @@ export async function OpenJobsWidget() {
 	const headersList = await headers();
 	const companyId = headersList.get("x-company-id");
 	const supabase = await createServerClient();
-	const { data: jobPosts } = await getJobPosts(
-		supabase,
-		companyId as string,
-		{
-			campaign_status: [jobPostCampaignStatusEnum.running],
-		},
-	);
+	const { data: jobPosts } = await getJobPosts(supabase, companyId as string, {
+		campaign_status: [jobPostCampaignStatusEnum.running],
+	});
 
 	return (
 		<Card className="flex-row items-center  p-4 gap-2 bg-accent">

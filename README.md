@@ -69,7 +69,7 @@ Staff Optima is a modern, open-source Applicant Tracking System (ATS) designed t
 │    ├── analytics               # OpenPanel analytics
 │    ├── email                   # React email library
 │    ├── editors                 # React Tiptap editors
-│    ├── jobs                    # Trigger.dev background jobs
+│    ├── trigger.dev             # Trigger.dev background jobs
 │    ├── kv                      # Upstash rate-limited key-value storage
 │    ├── locations               # Locations & Timezones
 │    ├── logger                  # Logger library
@@ -116,7 +116,7 @@ bun i
 cp apps/dashboard/.env.example apps/dashboard/.env
 cp apps/jobs/.env.example apps/jobs/.env
 cp apps/web/.env.example apps/web/.env
-cp packages/jobs/.env.example packages/jobs/.env
+cp packages/trigger.dev/.env.example packages/trigger.dev/.env
 ```
 
 3. Setup the Database
@@ -142,11 +142,11 @@ bunx trigger.dev@latest deploy --env-file .env # deploy the trigger.dev jobs
 5. Start the development server from either bun or turbo:
 
 ```ts
-bun dev // starts everything in development mode (web, dashboard, jobs-web, jobs)
-bun dev:web // starts the web app in development mode
-bun dev:dashboard // starts the dashboard in development mode
-bun dev:jobs-web // starts the jobs-web in development mode
-bun dev:jobs // starts the trigger.dev jobs in development mode
+bun dev              // starts everything in development mode (web, dashboard, jobs-web, jobs)
+bun dev:web          // starts the web app in development mode
+bun dev:dashboard    // starts the dashboard in development mode
+bun dev:jobs         // starts the jobs-web in development mode
+bun dev:trigger.dev  // starts the trigger.dev jobs in development mode
 
 ```
 

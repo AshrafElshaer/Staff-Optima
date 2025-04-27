@@ -240,7 +240,7 @@ export const suggestionItems = createSuggestionItems([
 	},
 ]);
 
-export const getSuggestionItems = (companyId: string) => {
+export const getSuggestionItems = () => {
 	const items = [...suggestionItems];
 	items.splice(10, 0, {
 		title: "Logo",
@@ -289,10 +289,10 @@ export const getSuggestionItems = (companyId: string) => {
 	return items;
 };
 
-export const slashCommand = (organizationId: string) => {
+export const slashCommand = () => {
 	return Command.configure({
 		suggestion: {
-			items: () => getSuggestionItems(organizationId),
+			items: () => getSuggestionItems(),
 			render: renderItems,
 		},
 	});

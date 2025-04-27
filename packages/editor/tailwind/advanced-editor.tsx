@@ -42,14 +42,16 @@ const hljs = require("highlight.js");
 const TailwindAdvancedEditor = ({
 	content,
 	onChange,
-	companyId,
+
+	isEditable = true,
 }: {
 	content: string;
-	onChange: (content: string) => void;
-	companyId: string;
+	onChange?: (content: string) => void;
+
+	isEditable?: boolean;
 }) => {
 	if (typeof window === "undefined") return null;
-	const extensions = [...defaultExtensions, slashCommand(companyId)];
+	const extensions = [...defaultExtensions, slashCommand()];
 	const [initialContent, setInitialContent] = useState<null | JSONContent>(
 		generateJSON(content, extensions),
 	);
@@ -71,7 +73,7 @@ const TailwindAdvancedEditor = ({
 	const debouncedUpdates = useDebouncedCallback(
 		async (editor: EditorInstance) => {
 			const html = editor.getHTML();
-			onChange(html);
+			onChange?.(html);
 		},
 		500,
 	);
@@ -80,6 +82,7 @@ const TailwindAdvancedEditor = ({
 		<div className="relative w-full max-w-screen-lg">
 			<EditorRoot>
 				<EditorContent
+					editable={isEditable}
 					immediatelyRender={false}
 					initialContent={initialContent ?? undefined}
 					extensions={extensions}
@@ -106,7 +109,7 @@ const TailwindAdvancedEditor = ({
 							No results
 						</EditorCommandEmpty>
 						<EditorCommandList>
-							{getSuggestionItems(companyId).map((item) => (
+							{getSuggestionItems().map((item) => (
 								<EditorCommandItem
 									value={item.title}
 									onCommand={(val) => item.command?.(val)}

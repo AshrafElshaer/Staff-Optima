@@ -493,7 +493,6 @@ export function CompanyProfileForm({
 								<FormControl>
 									<div className="w-full border rounded-md min-h-96 p-4 grid">
 										<Editor
-											companyId={company?.id ?? ""}
 											content={field.value ?? ""}
 											onChange={(content) => {
 												form.setValue("profile", content, {

@@ -436,7 +436,6 @@ export function JobPostForm({ job }: JobPostFormProps) {
 												shouldTouch: true,
 											});
 										}}
-										companyId={job?.company_id ?? ""}
 									/>
 								</div>
 							</FormControl>

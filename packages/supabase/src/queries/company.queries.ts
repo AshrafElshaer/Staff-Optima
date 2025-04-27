@@ -8,7 +8,7 @@ export async function getCompanyByDomain(
 	supabase: SupabaseInstance,
 	domain: string,
 ) {
-	return supabase.from("companies").select("*").eq("domain", domain);
+	return supabase.from("companies").select("*").eq("domain", domain).single();
 }
 
 export async function getDomainVerificationByToken(
