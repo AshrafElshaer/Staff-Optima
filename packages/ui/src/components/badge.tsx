@@ -21,6 +21,7 @@ const badgeVariants = cva(
 					"border-transparent bg-success/20 text-success [a&]:hover:bg-success/90",
 				warning:
 					"border-transparent bg-warning/20 text-warning [a&]:hover:bg-warning/90",
+				info: "border-transparent bg-blue-500/20 text-blue-500 [a&]:hover:bg-blue-500/90",
 			},
 			size: {
 				sm: "px-2 py-0.5 text-xs",

@@ -15,7 +15,7 @@ export const filterSearchParamsParser = {
 	type: parseAsArrayOf(
 		parseAsStringEnum(Object.values(employmentTypeEnum)),
 	).withDefault([]),
-	workMode: parseAsArrayOf(
+	work_mode: parseAsArrayOf(
 		parseAsStringEnum(Object.values(workModeEnum)),
 	).withDefault([]),
 	experience: parseAsArrayOf(

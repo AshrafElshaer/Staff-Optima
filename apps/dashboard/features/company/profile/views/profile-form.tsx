@@ -199,6 +199,7 @@ export function CompanyProfileForm({
 						industry: company.industry ?? "",
 						country: company.country ?? "",
 						timezone: company.timezone ?? "",
+						tax_id: company.tax_id ?? "",
 					}
 				: undefined,
 			{
@@ -290,6 +291,63 @@ export function CompanyProfileForm({
 								<FormItem>
 									<FormControl>
 										<Input placeholder="Acme Corp" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+				</section>
+				<Separator />
+
+				<section className="flex flex-col md:flex-row justify-between items-start w-full gap-4">
+					<div className="space-y-2 w-full md:w-1/2">
+						<Label className="font-semibold text-base">Industry</Label>
+						<p className="text-muted-foreground text-sm">Company's industry</p>
+					</div>
+					<div className="w-full md:w-1/2">
+						<FormField
+							control={form.control}
+							name="industry"
+							render={({ field }) => (
+								<FormItem>
+									<FormControl>
+										<Input placeholder="Technology" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+				</section>
+				<Separator />
+				<section className="flex flex-col md:flex-row justify-between items-start w-full gap-4">
+					<div className="space-y-2 w-full md:w-1/2">
+						<Label className="font-semibold text-base">
+							Tax ID
+							<span className="text-muted-foreground text-sm">
+								( Optional )
+							</span>
+						</Label>
+						<p className="text-muted-foreground text-sm">
+							Company's tax identification number
+						</p>
+						<p className="text-warning text-sm">
+							Private and will not be shared with anyone.
+						</p>
+					</div>
+					<div className="w-full md:w-1/2">
+						<FormField
+							control={form.control}
+							name="tax_id"
+							render={({ field }) => (
+								<FormItem>
+									<FormControl>
+										<Input
+											placeholder="1234567890"
+											{...field}
+											value={field.value ?? ""}
+										/>
 									</FormControl>
 									<FormMessage />
 								</FormItem>

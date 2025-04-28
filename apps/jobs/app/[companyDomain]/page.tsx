@@ -1,14 +1,14 @@
 import { createServerClient } from "@/lib/supabase/server";
 
-// import { OpenPositions } from "@/components/profile/open-positions";
-// import { filterSearchParamsCache } from "@/lib/filters.search-params";
 import { countriesMap } from "@optima/location";
 import { getCompanyByDomain } from "@optima/supabase/queries";
 
+import { OpenPositions } from "@/components/profile/open-positions";
+import { filterSearchParamsCache } from "@/lib/filters.search-params";
+import Editor from "@optima/editor";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { SearchParams } from "nuqs/server";
-import Editor from "@optima/editor";
 
 export default async function OrganizationPage({
 	params,
@@ -17,7 +17,7 @@ export default async function OrganizationPage({
 	params: Promise<{ companyDomain: string }>;
 	searchParams: Promise<SearchParams>;
 }) {
-	//   await filterSearchParamsCache.parse(searchParams);
+	await filterSearchParamsCache.parse(searchParams);
 	const { companyDomain } = await params;
 	const supabase = await createServerClient();
 	const { data: company, error } = await getCompanyByDomain(
@@ -57,7 +57,7 @@ export default async function OrganizationPage({
 				<Editor content={profileContent} isEditable={false} />
 			</section>
 
-			{/* <OpenPositions organizationId={organization.id} /> */}
+			<OpenPositions companyId={company.id} />
 		</main>
 	);
 }
