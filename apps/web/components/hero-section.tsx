@@ -35,7 +35,7 @@ export default function HeroSection() {
 					<div className="relative mx-auto max-w-5xl px-6 py-28 lg:py-24">
 						<div className="relative z-10 mx-auto max-w-4xl text-center">
 							<motion.h1
-								className="text-balance text-lg sm:text-2xl font-semibold md:text-4xl lg:text-5xl mb-2"
+								className="text-balance text-xl sm:text-2xl font-semibold md:text-4xl lg:text-5xl mb-2"
 								initial={hidden}
 								animate={visible}
 								transition={{ duration: 0.5, delay: 0.5 }}
