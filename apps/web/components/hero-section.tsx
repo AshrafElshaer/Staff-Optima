@@ -35,17 +35,21 @@ export default function HeroSection() {
 					<div className="relative mx-auto max-w-5xl px-6 py-28 lg:py-24">
 						<div className="relative z-10 mx-auto max-w-4xl text-center">
 							<motion.h1
-								className="text-balance text-lg sm:text-2xl font-semibold md:text-4xl lg:text-5xl"
+								className="text-balance text-lg sm:text-2xl font-semibold md:text-4xl lg:text-5xl mb-2"
 								initial={hidden}
 								animate={visible}
 								transition={{ duration: 0.5, delay: 0.5 }}
 							>
 								Elevate Your Recruitment Process
-								<br />
-								with Smart , Seamless , Modern
-								<br />
-								Applicant Tracking
 							</motion.h1>
+							<motion.p
+								className="text-balance text-base  font-semibold md:text-2xl lg:text-3xl"
+								initial={hidden}
+								animate={visible}
+								transition={{ duration: 0.5, delay: 0.6 }}
+							>
+								with Smart , Seamless , Modern Applicant Tracking
+							</motion.p>
 							<motion.p
 								className="text-secondary-foreground w-full sm:w-2/3 mx-auto text-sm md:text-base lg:text-lg text-center my-8"
 								initial={hidden}
