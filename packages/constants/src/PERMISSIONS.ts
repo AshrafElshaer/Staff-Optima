@@ -38,6 +38,8 @@ export const PERMISSIONS = [
 			{ value: "application:status", label: "Update Application Status" },
 			{ value: "application:feedback", label: "Provide Application Feedback" },
 			{ value: "application:stage", label: "Move Application Stages" },
+			{ value: "application:update", label: "Update Application Details" },
+			{ value: "application:delete", label: "Delete Applications" },
 		],
 	},
 	{
@@ -112,6 +114,8 @@ export const PERMISSIONS_ARRAY = [
 
 	// Applications
 	"application:status",
+	"application:update",
+	"application:delete",
 	"application:feedback",
 	"application:stage",
 

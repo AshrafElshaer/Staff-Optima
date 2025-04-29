@@ -31,6 +31,7 @@ export const completeJobCampaign = task({
 			.update({
 				status: "completed",
 				updated_at: new Date().toISOString(),
+				end_date: new Date().toISOString(),
 			})
 			.eq("job_post_id", payload.jobPostId)
 			.eq("status", "running")

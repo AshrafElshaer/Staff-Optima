@@ -98,6 +98,373 @@ export type Database = {
 					},
 				];
 			};
+			applications: {
+				Row: {
+					candidate_id: string;
+					candidate_match: number;
+					company_id: string;
+					created_at: string;
+					department_id: string | null;
+					id: string;
+					job_id: string | null;
+					reject_reason_id: string | null;
+					screening_question_answers: Json | null;
+					source: string | null;
+					stage_id: string | null;
+					status: Database["public"]["Enums"]["application_status_enum"];
+					updated_at: string;
+				};
+				Insert: {
+					candidate_id: string;
+					candidate_match: number;
+					company_id: string;
+					created_at?: string;
+					department_id?: string | null;
+					id?: string;
+					job_id?: string | null;
+					reject_reason_id?: string | null;
+					screening_question_answers?: Json | null;
+					source?: string | null;
+					stage_id?: string | null;
+					status?: Database["public"]["Enums"]["application_status_enum"];
+					updated_at?: string;
+				};
+				Update: {
+					candidate_id?: string;
+					candidate_match?: number;
+					company_id?: string;
+					created_at?: string;
+					department_id?: string | null;
+					id?: string;
+					job_id?: string | null;
+					reject_reason_id?: string | null;
+					screening_question_answers?: Json | null;
+					source?: string | null;
+					stage_id?: string | null;
+					status?: Database["public"]["Enums"]["application_status_enum"];
+					updated_at?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "applications_candidate_id_fkey";
+						columns: ["candidate_id"];
+						isOneToOne: false;
+						referencedRelation: "candidates";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "applications_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "applications_department_id_fkey";
+						columns: ["department_id"];
+						isOneToOne: false;
+						referencedRelation: "departments";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "applications_job_id_fkey";
+						columns: ["job_id"];
+						isOneToOne: false;
+						referencedRelation: "job_posts";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "applications_reject_reason_id_fkey";
+						columns: ["reject_reason_id"];
+						isOneToOne: false;
+						referencedRelation: "reject_reasons";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "applications_stage_id_fkey";
+						columns: ["stage_id"];
+						isOneToOne: false;
+						referencedRelation: "application_stages";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			attachments: {
+				Row: {
+					application_id: string | null;
+					attachment_type:
+						| Database["public"]["Enums"]["attachment_type_enum"]
+						| null;
+					candidate_id: string;
+					company_id: string;
+					created_at: string;
+					file_name: string;
+					file_path: string;
+					file_size: number;
+					file_url: string;
+					id: string;
+					updated_at: string;
+				};
+				Insert: {
+					application_id?: string | null;
+					attachment_type?:
+						| Database["public"]["Enums"]["attachment_type_enum"]
+						| null;
+					candidate_id: string;
+					company_id: string;
+					created_at?: string;
+					file_name: string;
+					file_path: string;
+					file_size: number;
+					file_url: string;
+					id?: string;
+					updated_at?: string;
+				};
+				Update: {
+					application_id?: string | null;
+					attachment_type?:
+						| Database["public"]["Enums"]["attachment_type_enum"]
+						| null;
+					candidate_id?: string;
+					company_id?: string;
+					created_at?: string;
+					file_name?: string;
+					file_path?: string;
+					file_size?: number;
+					file_url?: string;
+					id?: string;
+					updated_at?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "attachments_application_id_fkey";
+						columns: ["application_id"];
+						isOneToOne: false;
+						referencedRelation: "applications";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "attachments_candidate_id_fkey";
+						columns: ["candidate_id"];
+						isOneToOne: false;
+						referencedRelation: "candidates";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "attachments_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			candidate_educations: {
+				Row: {
+					candidate_id: string;
+					company_id: string;
+					degree: string | null;
+					end_date: string | null;
+					field_of_study: string | null;
+					grade: string | null;
+					id: string;
+					institution: string;
+					start_date: string | null;
+				};
+				Insert: {
+					candidate_id: string;
+					company_id: string;
+					degree?: string | null;
+					end_date?: string | null;
+					field_of_study?: string | null;
+					grade?: string | null;
+					id?: string;
+					institution: string;
+					start_date?: string | null;
+				};
+				Update: {
+					candidate_id?: string;
+					company_id?: string;
+					degree?: string | null;
+					end_date?: string | null;
+					field_of_study?: string | null;
+					grade?: string | null;
+					id?: string;
+					institution?: string;
+					start_date?: string | null;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "candidate_educations_candidate_id_fkey";
+						columns: ["candidate_id"];
+						isOneToOne: false;
+						referencedRelation: "candidates";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "candidate_educations_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			candidate_experiences: {
+				Row: {
+					candidate_id: string;
+					company: string;
+					company_id: string;
+					description: string | null;
+					end_date: string | null;
+					id: string;
+					job_title: string;
+					location: string | null;
+					start_date: string | null;
+				};
+				Insert: {
+					candidate_id: string;
+					company: string;
+					company_id: string;
+					description?: string | null;
+					end_date?: string | null;
+					id?: string;
+					job_title: string;
+					location?: string | null;
+					start_date?: string | null;
+				};
+				Update: {
+					candidate_id?: string;
+					company?: string;
+					company_id?: string;
+					description?: string | null;
+					end_date?: string | null;
+					id?: string;
+					job_title?: string;
+					location?: string | null;
+					start_date?: string | null;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "candidate_experiences_candidate_id_fkey";
+						columns: ["candidate_id"];
+						isOneToOne: false;
+						referencedRelation: "candidates";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "candidate_experiences_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			candidate_social_links: {
+				Row: {
+					candidate_id: string;
+					company_id: string;
+					created_at: string;
+					id: string;
+					platform: string;
+					updated_at: string;
+					url: string;
+				};
+				Insert: {
+					candidate_id: string;
+					company_id: string;
+					created_at?: string;
+					id?: string;
+					platform: string;
+					updated_at?: string;
+					url: string;
+				};
+				Update: {
+					candidate_id?: string;
+					company_id?: string;
+					created_at?: string;
+					id?: string;
+					platform?: string;
+					updated_at?: string;
+					url?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "candidate_social_links_candidate_id_fkey";
+						columns: ["candidate_id"];
+						isOneToOne: false;
+						referencedRelation: "candidates";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "candidate_social_links_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			candidates: {
+				Row: {
+					avatar_url: string | null;
+					city: string;
+					company_id: string;
+					country: string;
+					created_at: string;
+					date_of_birth: string;
+					email: string;
+					first_name: string;
+					gender: string;
+					id: string;
+					last_name: string;
+					phone_number: string | null;
+					timezone: string;
+					updated_at: string;
+				};
+				Insert: {
+					avatar_url?: string | null;
+					city: string;
+					company_id: string;
+					country: string;
+					created_at?: string;
+					date_of_birth: string;
+					email: string;
+					first_name: string;
+					gender: string;
+					id?: string;
+					last_name: string;
+					phone_number?: string | null;
+					timezone: string;
+					updated_at?: string;
+				};
+				Update: {
+					avatar_url?: string | null;
+					city?: string;
+					company_id?: string;
+					country?: string;
+					created_at?: string;
+					date_of_birth?: string;
+					email?: string;
+					first_name?: string;
+					gender?: string;
+					id?: string;
+					last_name?: string;
+					phone_number?: string | null;
+					timezone?: string;
+					updated_at?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "candidates_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+				];
+			};
 			companies: {
 				Row: {
 					address_1: string | null;
@@ -427,6 +794,48 @@ export type Database = {
 					},
 				];
 			};
+			reject_reasons: {
+				Row: {
+					application_id: string;
+					company_id: string;
+					content: string;
+					created_at: string;
+					id: string;
+					updated_at: string;
+				};
+				Insert: {
+					application_id: string;
+					company_id: string;
+					content: string;
+					created_at?: string;
+					id?: string;
+					updated_at?: string;
+				};
+				Update: {
+					application_id?: string;
+					company_id?: string;
+					content?: string;
+					created_at?: string;
+					id?: string;
+					updated_at?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "reject_reasons_application_id_fkey";
+						columns: ["application_id"];
+						isOneToOne: false;
+						referencedRelation: "applications";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "reject_reasons_company_id_fkey";
+						columns: ["company_id"];
+						isOneToOne: false;
+						referencedRelation: "companies";
+						referencedColumns: ["id"];
+					},
+				];
+			};
 			roles: {
 				Row: {
 					company_id: string;
@@ -624,6 +1033,22 @@ export type Database = {
 		};
 		Enums: {
 			application_stage_trigger_condition: "on_start" | "on_complete";
+			application_status_enum:
+				| "applied"
+				| "interviewing"
+				| "hired"
+				| "rejected"
+				| "archived";
+			attachment_type_enum:
+				| "resume"
+				| "cover_letter"
+				| "portfolio"
+				| "certificate"
+				| "reference_letter"
+				| "other"
+				| "transcript"
+				| "work_sample"
+				| "professional_license";
 			domain_verification_status_enum: "pending" | "verified" | "failed";
 			employment_type_enum:
 				| "full_time"
@@ -754,6 +1179,24 @@ export const Constants = {
 	public: {
 		Enums: {
 			application_stage_trigger_condition: ["on_start", "on_complete"],
+			application_status_enum: [
+				"applied",
+				"interviewing",
+				"hired",
+				"rejected",
+				"archived",
+			],
+			attachment_type_enum: [
+				"resume",
+				"cover_letter",
+				"portfolio",
+				"certificate",
+				"reference_letter",
+				"other",
+				"transcript",
+				"work_sample",
+				"professional_license",
+			],
 			domain_verification_status_enum: ["pending", "verified", "failed"],
 			employment_type_enum: [
 				"full_time",

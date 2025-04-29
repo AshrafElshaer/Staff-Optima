@@ -1,6 +1,10 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { getJobPostById } from "@optima/supabase/queries";
-import type { Department, JobPost } from "@optima/supabase/types";
+import type {
+	Department,
+	JobPost,
+	JobPostCampaign,
+} from "@optima/supabase/types";
 import { Badge } from "@optima/ui/components/badge";
 import {
 	HoverCard,
@@ -15,6 +19,7 @@ import {
 	MoneyExchange02Icon,
 	TaskDaily01Icon,
 } from "hugeicons-react";
+import moment from "moment";
 import { IoStatsChart } from "react-icons/io5";
 
 export default async function JobPostLayout({
@@ -27,7 +32,11 @@ export default async function JobPostLayout({
 	const { jobId } = await params;
 	const supabase = await createServerClient();
 	const { data, error } = await getJobPostById(supabase, jobId);
-	const job = data as unknown as JobPost & { department: Department };
+	const job = data as unknown as JobPost & {
+		department: Department;
+		campaigns: JobPostCampaign[];
+	};
+
 	return (
 		<div className="flex flex-col  max-w-3xl mx-auto w-full gap-8 pt-12 relative p-4">
 			<section className="flex flex-col gap-3  h-fit">
@@ -113,6 +122,17 @@ export default async function JobPostLayout({
 							<p>Benifits</p>
 						</HoverCardContent>
 					</HoverCard>
+				</div>
+				<div className="flex items-center gap-2">
+					<p>
+						Deadline:{" "}
+						{job.campaigns?.find((camp) => camp.status === "running")?.end_date
+							? moment(
+									job.campaigns.find((camp) => camp.status === "running")
+										?.end_date,
+								).format("DD/MM/YYYY , HH:mm:A")
+							: "No deadline set"}
+					</p>
 				</div>
 			</section>
 			{children}

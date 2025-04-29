@@ -16,7 +16,8 @@ export type ExperienceLevel = Enums<"experience_level_enum">;
 export type EmploymentType = Enums<"employment_type_enum">;
 export type JobPostStatus = Enums<"job_post_status_enum">;
 // export type InterviewStatus = Enums<"interview_status_enum">;
-// export type AttachmentType = Enums<"attachment_type_enum">;
+export type AttachmentType = Enums<"attachment_type_enum">;
+export type ApplicationStatus = Enums<"application_status_enum">;
 export type JobPostCampaignStatus = Enums<"job_post_campaign_status_enum">;
 
 export const domainVerificationStatusEnum: {
@@ -34,6 +35,15 @@ export const applicationStageTriggerConditionEnum: {
 	on_complete: "on_complete",
 };
 
+export const applicationStatusEnum: {
+	[key in ApplicationStatus]: key;
+} = {
+	applied: "applied",
+	interviewing: "interviewing",
+	hired: "hired",
+	rejected: "rejected",
+	archived: "archived",
+};
 export const workModeEnum: {
 	[key in WorkMode]: key;
 } = {
@@ -78,19 +88,19 @@ export const employmentTypeEnum: {
 	internship: "internship",
 };
 
-// export const attachmentTypeEnum: {
-//   [key in AttachmentType]: key;
-// } = {
-//   resume: "resume",
-//   cover_letter: "cover_letter",
-//   portfolio: "portfolio",
-//   certificate: "certificate",
-//   reference_letter: "reference_letter",
-//   other: "other",
-//   transcript: "transcript",
-//   work_sample: "work_sample",
-//   professional_license: "professional_license",
-// };
+export const attachmentTypeEnum: {
+	[key in AttachmentType]: key;
+} = {
+	resume: "resume",
+	cover_letter: "cover_letter",
+	portfolio: "portfolio",
+	certificate: "certificate",
+	reference_letter: "reference_letter",
+	other: "other",
+	transcript: "transcript",
+	work_sample: "work_sample",
+	professional_license: "professional_license",
+};
 
 export type User = Tables<"users">;
 export type Company = Tables<"companies">;

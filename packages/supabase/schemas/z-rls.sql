@@ -94,3 +94,60 @@ create policy "Company Admins Can Update Job Post Campaign" on job_posts_campaig
 create policy "Company Admins Can Delete Job Post Campaign" on job_posts_campaigns for delete using (is_user_company_admin(company_id) or has_permission('job:status'));
 
 create policy "Public Can View Job Post Campaign" on job_posts_campaigns for select using (true);
+
+
+-- Candidates
+alter table candidates enable row level security;
+
+create policy "Public Can Create Candidates" on candidates for insert with check(true);
+create policy "Company Members Can Read Candidates" on candidates for select using(is_user_company_member(company_id));
+create policy "Company Members Can Update Candidates" on candidates for update using(is_user_company_member(company_id) or has_permission('candidate:update'));
+create policy "Company Admin Can Delete Candidates" on candidates for delete using(is_user_company_admin(company_id) or has_permission('candidate:delete'));
+
+
+-- Candidate Social Links
+alter table candidate_social_links enable row level security;
+create policy "Public Can Create Candidates" on candidate_social_links for insert with check(true);
+create policy "Company Members Can Read Candidates" on candidate_social_links for select using(is_user_company_member(company_id));
+create policy "Company Members Can Update Candidates" on candidate_social_links for update using(is_user_company_member(company_id) or has_permission('candidate:update'));
+create policy "Company Admin Can Delete Candidates" on candidate_social_links for delete using(is_user_company_admin(company_id) or has_permission('candidate:delete'));
+
+-- Candidate_educations
+alter table candidate_educations enable row level security;
+
+create policy "Public Can Create Candidate Educations" on candidate_educations for insert with check(true);
+create policy "Company Members Can Read Candidate Educations" on candidate_educations for select using(is_user_company_member(company_id));
+create policy "Company Members Can Update Candidate Educations" on candidate_educations for update using(is_user_company_member(company_id) or has_permission('candidate:update'));
+create policy "Company Admin Can Delete Candidate Educations" on candidate_educations for delete using(is_user_company_admin(company_id) or has_permission('candidate:delete'));
+
+-- Candidate_experiences
+alter table candidate_experiences enable row level security;
+create policy "Public Can Create Candidate Experiences" on candidate_experiences for insert with check(true);
+create policy "Company Members Can Read Candidate Experiences" on candidate_experiences for select using(is_user_company_member(company_id));
+create policy "Company Members Can Update Candidate Experiences" on candidate_experiences for update using(is_user_company_member(company_id) or has_permission('candidate:update'));
+create policy "Company Admin Can Delete Candidate Experiences" on candidate_experiences for delete using(is_user_company_admin(company_id) or has_permission('candidate:delete'));
+
+
+-- Applications
+alter table applications enable row level security;
+
+create policy "Public Can Create Applications" on applications for insert with check(true);
+create policy "Company Members Can Read Applications" on applications for select using(is_user_company_member(company_id));
+create policy "Company Members Can Update Applications" on applications for update using(is_user_company_member(company_id) or has_permission('application:update'));
+create policy "Company Admin Can Delete Applications" on applications for delete using(is_user_company_admin(company_id) or has_permission('application:delete'));
+
+-- Attachments
+alter table attachments enable row level security;
+
+create policy "Public Can Create Attachments" on attachments for insert with check(true);
+create policy "Company Members Can Read Attachments" on attachments for select using(is_user_company_member(company_id));
+create policy "Company Members Can Update Attachments" on attachments for update using(is_user_company_member(company_id) or has_permission('application:update'));
+create policy "Company Admin Can Delete Attachments" on attachments for delete using(is_user_company_admin(company_id) or has_permission('application:delete'));
+
+-- Reject Reasons
+alter table reject_reasons enable row level security;
+
+create policy "Public Can Create Reject Reasons" on reject_reasons for insert with check(true);
+create policy "Company Members Can Read Reject Reasons" on reject_reasons for select using(is_user_company_member(company_id));
+create policy "Company Members Can Update Reject Reasons" on reject_reasons for update using(is_user_company_member(company_id) or has_permission('application:update'));
+create policy "Company Admin Can Delete Reject Reasons" on reject_reasons for delete using(is_user_company_admin(company_id) or has_permission('application:delete'));

@@ -227,7 +227,7 @@ export function JobPostHeader() {
 									values.length > 0 && (
 										<div
 											key={key}
-											className="flex items-center gap-2 text-sm bg-accent px-3 py-2 rounded-md font-medium border min-w-fit"
+											className="flex items-center gap-2 text-sm bg-accent px-3 py-[7px] rounded-md font-medium border min-w-fit"
 										>
 											<p className="text-muted-foreground capitalize">
 												{key.split("_").join(" ")}

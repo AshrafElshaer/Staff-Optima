@@ -1,6 +1,8 @@
 import { isValidPhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
 import {
+	applicationStatusEnum,
+	attachmentTypeEnum,
 	domainVerificationStatusEnum,
 	employmentTypeEnum,
 	experienceLevelEnum,
@@ -294,6 +296,149 @@ export const jobPostCampaignUpdateSchema = jobPostCampaignSchema
 	.required({
 		id: true,
 	});
+
+export const applicationSchema = z.object({
+	id: z.string(),
+	candidate_id: z.string(),
+	company_id: z.string(),
+	job_id: z.string().nullable(),
+	department_id: z.string().nullable(),
+	stage_id: z.string().nullable(),
+	reject_reason_id: z.string().nullable(),
+	candidate_match: z.number(),
+	screening_question_answers: z.any().nullable(),
+	source: z.string().nullable(),
+	status: z.nativeEnum(applicationStatusEnum),
+	created_at: z.string(),
+	updated_at: z.string(),
+});
+
+export const applicationInsertSchema = applicationSchema.omit({
+	id: true,
+	created_at: true,
+	updated_at: true,
+});
+
+export const applicationUpdateSchema = applicationSchema.partial().required({
+	id: true,
+});
+
+export const attachmentSchema = z.object({
+	id: z.string(),
+	company_id: z.string(),
+	candidate_id: z.string(),
+	application_id: z.string().nullable(),
+	file_name: z.string(),
+	file_path: z.string(),
+	file_size: z.number(),
+	file_url: z.string(),
+	attachment_type: z.nativeEnum(attachmentTypeEnum).nullable(),
+	created_at: z.string(),
+	updated_at: z.string(),
+});
+
+export const attachmentInsertSchema = attachmentSchema.omit({
+	id: true,
+	created_at: true,
+	updated_at: true,
+});
+
+export const attachmentUpdateSchema = attachmentSchema.partial().required({
+	id: true,
+});
+
+export const candidateEducationSchema = z.object({
+	id: z.string(),
+	candidate_id: z.string(),
+	company_id: z.string(),
+	institution: z.string(),
+	degree: z.string().nullable(),
+	field_of_study: z.string().nullable(),
+	grade: z.string().nullable(),
+	start_date: z.string().nullable(),
+	end_date: z.string().nullable(),
+});
+
+export const candidateEducationInsertSchema = candidateEducationSchema.omit({
+	id: true,
+});
+
+export const candidateEducationUpdateSchema = candidateEducationSchema
+	.partial()
+	.required({
+		id: true,
+	});
+
+export const candidateExperienceSchema = z.object({
+	id: z.string(),
+	candidate_id: z.string(),
+	company_id: z.string(),
+	company: z.string(),
+	job_title: z.string(),
+	description: z.string().nullable(),
+	location: z.string().nullable(),
+	start_date: z.string().nullable(),
+	end_date: z.string().nullable(),
+});
+
+export const candidateExperienceInsertSchema = candidateExperienceSchema.omit({
+	id: true,
+});
+
+export const candidateExperienceUpdateSchema = candidateExperienceSchema
+	.partial()
+	.required({
+		id: true,
+	});
+
+export const candidateSocialLinkSchema = z.object({
+	id: z.string(),
+	candidate_id: z.string(),
+	company_id: z.string(),
+	platform: z.string(),
+	url: z.string(),
+	created_at: z.string(),
+	updated_at: z.string(),
+});
+
+export const candidateSocialLinkInsertSchema = candidateSocialLinkSchema.omit({
+	id: true,
+	created_at: true,
+	updated_at: true,
+});
+
+export const candidateSocialLinkUpdateSchema = candidateSocialLinkSchema
+	.partial()
+	.required({
+		id: true,
+	});
+
+export const candidateSchema = z.object({
+	id: z.string(),
+	company_id: z.string(),
+	first_name: z.string(),
+	last_name: z.string(),
+	email: z.string(),
+	phone_number: z.string().nullable(),
+	avatar_url: z.string().nullable(),
+	date_of_birth: z.string(),
+	gender: z.string(),
+	city: z.string(),
+	country: z.string(),
+	timezone: z.string(),
+	created_at: z.string(),
+	updated_at: z.string(),
+});
+
+export const candidateInsertSchema = candidateSchema.omit({
+	id: true,
+	created_at: true,
+	updated_at: true,
+});
+
+export const candidateUpdateSchema = candidateSchema.partial().required({
+	id: true,
+});
 
 // export const userAvailabilitySchema = z.object({
 //   user_id: z.string().uuid(),

@@ -51,19 +51,19 @@ create policy "Users can update their own editor document." on storage.objects
   for update using (bucket_id = 'editor-documents' and auth.uid() = owner);
 
 -- attachments bucket
--- insert into storage.buckets (id, name, public)
---   values ('attachments', 'attachments', true);
+insert into storage.buckets (id, name, public)
+  values ('attachments', 'attachments', true);
 
--- create policy "Attachments are publicly accessible." on storage.objects
---   for select using (bucket_id = 'attachments');
+create policy "Attachments are publicly accessible." on storage.objects
+  for select using (bucket_id = 'attachments');
 
--- create policy "Anyone can upload a attachments." on storage.objects
---   for insert with check (bucket_id = 'attachments');
+create policy "Anyone can upload a attachments." on storage.objects
+  for insert with check (bucket_id = 'attachments');
 
--- create policy "Anyone delete their own attachments." on storage.objects
---   for delete using (bucket_id = 'attachments');
+create policy "Anyone delete their own attachments." on storage.objects
+  for delete using (bucket_id = 'attachments');
 
--- create policy "Anyone can update their own attachments." on storage.objects
---   for update using (bucket_id = 'attachments');
+create policy "Anyone can update their own attachments." on storage.objects
+  for update using (bucket_id = 'attachments');
 
 
