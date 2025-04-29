@@ -79,7 +79,7 @@ export default function HeroSection() {
 								transition={{ duration: 0.5, delay: 1.1 }}
 							>
 								<div className="[transform:rotateX(20deg);]">
-									<div className="lg:h-176 relative skew-x-[.36rad]">
+									<div className="lg:h-200 relative skew-x-[.36rad]">
 										<Image
 											className="rounded-(--radius) z-1 relative border dark:hidden"
 											src="/dashboard-light.png"
