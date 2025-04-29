@@ -297,6 +297,12 @@ export const jobPostCampaignUpdateSchema = jobPostCampaignSchema
 		id: true,
 	});
 
+export const screeningQuestionAnswerSchema = z.object({
+	type: z.enum(["single-choice", "multiple-choice", "text"]),
+	question: z.string(),
+	answer: z.union([z.string(), z.array(z.string())]),
+});
+
 export const applicationSchema = z.object({
 	id: z.string(),
 	candidate_id: z.string(),
@@ -306,7 +312,7 @@ export const applicationSchema = z.object({
 	stage_id: z.string().nullable(),
 	reject_reason_id: z.string().nullable(),
 	candidate_match: z.number(),
-	screening_question_answers: z.any().nullable(),
+	screening_question_answers: z.array(screeningQuestionAnswerSchema).nullable(),
 	source: z.string().nullable(),
 	status: z.nativeEnum(applicationStatusEnum),
 	created_at: z.string(),
