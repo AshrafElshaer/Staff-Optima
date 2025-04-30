@@ -25,7 +25,7 @@ export const formSchema = z.object({
 	),
 });
 
-export function getDefaultValues(job: JobPost) {
+export function getDefaultValues(job: JobPost): z.infer<typeof formSchema> {
 	return {
 		candidate: {
 			company_id: job.company_id,
@@ -42,6 +42,7 @@ export function getDefaultValues(job: JobPost) {
 		},
 		education: [
 			{
+				candidate_id: "",
 				company_id: job.company_id,
 				degree: "",
 				end_date: "",
@@ -53,22 +54,26 @@ export function getDefaultValues(job: JobPost) {
 		],
 		experience: [
 			{
+				candidate_id: "",
 				company: "",
 				company_id: job.company_id,
 				description: "",
 				end_date: null,
 				start_date: "",
 				job_title: "",
+				skills: [],
 			},
 		],
 		social_links: [
 			{
+				candidate_id: "",
 				company_id: job.company_id,
 				url: "",
 				platform: "linkedin",
 			},
 		],
 		application: {
+			candidate_id: "",
 			company_id: job.company_id,
 			screening_question_answers:
 				job.screening_questions?.map((question) => ({
@@ -81,7 +86,9 @@ export function getDefaultValues(job: JobPost) {
 			candidate_match: 0,
 			job_id: job.id,
 			department_id: job.department_id ?? "",
-			rejection_reason_id: null,
+			reject_reason_id: null,
+			status: "applied",
+			stage_id: null,
 		},
 		attachments: [],
 	};
