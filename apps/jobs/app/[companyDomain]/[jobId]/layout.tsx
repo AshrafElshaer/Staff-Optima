@@ -1,3 +1,4 @@
+import { Deadline } from "@/components/deadline";
 import { createServerClient } from "@/lib/supabase/server";
 import { getJobPostById } from "@optima/supabase/queries";
 import type {
@@ -123,17 +124,7 @@ export default async function JobPostLayout({
 						</HoverCardContent>
 					</HoverCard>
 				</div>
-				<div className="flex items-center gap-2">
-					<p>
-						Deadline:{" "}
-						{job.campaigns?.find((camp) => camp.status === "running")?.end_date
-							? moment(
-									job.campaigns.find((camp) => camp.status === "running")
-										?.end_date,
-								).format("MM/DD/YYYY , HH:mm:A")
-							: "No deadline set"}
-					</p>
-				</div>
+				<Deadline campaign={job.campaigns} />
 			</section>
 			{children}
 		</div>
