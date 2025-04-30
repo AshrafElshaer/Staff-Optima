@@ -61,7 +61,7 @@ export function getDefaultValues(job: JobPost): z.infer<typeof formSchema> {
 				end_date: null,
 				start_date: "",
 				job_title: "",
-				skills: [""],
+				skills: [],
 			},
 		],
 		social_links: [
