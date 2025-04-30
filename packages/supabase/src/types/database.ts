@@ -319,7 +319,7 @@ export type Database = {
 					end_date: string | null;
 					id: string;
 					job_title: string;
-					location: string | null;
+					skills: string[] | null;
 					start_date: string | null;
 				};
 				Insert: {
@@ -330,7 +330,7 @@ export type Database = {
 					end_date?: string | null;
 					id?: string;
 					job_title: string;
-					location?: string | null;
+					skills?: string[] | null;
 					start_date?: string | null;
 				};
 				Update: {
@@ -341,7 +341,7 @@ export type Database = {
 					end_date?: string | null;
 					id?: string;
 					job_title?: string;
-					location?: string | null;
+					skills?: string[] | null;
 					start_date?: string | null;
 				};
 				Relationships: [

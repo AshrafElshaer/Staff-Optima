@@ -55,8 +55,8 @@ create table candidate_experiences (
   company text not null,
   start_date date,
   end_date date,
-  location text,
-  description text
+  description text,
+  skills text[]
 );
 
 create index idx_candidate_experiences_candidate_id on candidate_experiences(candidate_id);

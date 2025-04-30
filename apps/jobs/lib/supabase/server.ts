@@ -2,6 +2,7 @@ import { createServerClient as createClient } from "@supabase/ssr";
 import type { Database } from "@optima/supabase/types";
 import { cookies } from "next/headers";
 
+import { env } from "@/env.mjs";
 type Options =
 	| {
 			isAdmin: boolean;
@@ -12,10 +13,10 @@ export async function createServerClient(options?: Options) {
 	const cookieStore = await cookies();
 
 	return createClient<Database>(
-		process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+		env.NEXT_PUBLIC_SUPABASE_URL,
 		options?.isAdmin
-			? (process.env.SUPABASE_SERVICE_ROLE_KEY as string)
-			: (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string),
+			? env.SUPABASE_SERVICE_ROLE_KEY
+			: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 		{
 			cookies: {
 				getAll() {

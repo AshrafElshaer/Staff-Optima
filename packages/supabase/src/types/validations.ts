@@ -297,11 +297,24 @@ export const jobPostCampaignUpdateSchema = jobPostCampaignSchema
 		id: true,
 	});
 
-export const screeningQuestionAnswerSchema = z.object({
-	type: z.enum(["single-choice", "multiple-choice", "text"]),
-	question: z.string(),
-	answer: z.union([z.string(), z.array(z.string())]),
-});
+export const screeningQuestionAnswerSchema = z
+	.object({
+		type: z.enum(["single-choice", "multiple-choice", "text"]),
+		question: z.string(),
+		answer: z.union([z.string(), z.array(z.string())]),
+		is_required: z.boolean(),
+	})
+	.refine(
+		(data) => {
+			if (data.is_required && !data.answer) {
+				return false;
+			}
+			return true;
+		},
+		{
+			message: "Answer is required",
+		},
+	);
 
 export const applicationSchema = z.object({
 	id: z.string(),
@@ -357,12 +370,24 @@ export const candidateEducationSchema = z.object({
 	id: z.string(),
 	candidate_id: z.string(),
 	company_id: z.string(),
-	institution: z.string(),
-	degree: z.string().nullable(),
-	field_of_study: z.string().nullable(),
-	grade: z.string().nullable(),
-	start_date: z.string().nullable(),
-	end_date: z.string().nullable(),
+	institution: z.string().min(1, {
+		message: "Institution is required",
+	}),
+	degree: z.string().min(1, {
+		message: "Degree is required",
+	}),
+	field_of_study: z.string().min(1, {
+		message: "Field of study is required",
+	}),
+	grade: z.string().min(1, {
+		message: "Grade is required",
+	}),
+	start_date: z.string().min(1, {
+		message: "Start date is required",
+	}),
+	end_date: z.string().min(1, {
+		message: "End date is required",
+	}),
 });
 
 export const candidateEducationInsertSchema = candidateEducationSchema.omit({
@@ -379,11 +404,19 @@ export const candidateExperienceSchema = z.object({
 	id: z.string(),
 	candidate_id: z.string(),
 	company_id: z.string(),
-	company: z.string(),
-	job_title: z.string(),
-	description: z.string().nullable(),
-	location: z.string().nullable(),
-	start_date: z.string().nullable(),
+	company: z.string().min(1, {
+		message: "Company is required",
+	}),
+	job_title: z.string().min(1, {
+		message: "Job title is required",
+	}),
+	description: z.string().min(1, {
+		message: "Description is required",
+	}),
+	skills: z.array(z.string()).nullable(),
+	start_date: z.string().min(1, {
+		message: "Start date is required",
+	}),
 	end_date: z.string().nullable(),
 });
 
@@ -401,8 +434,12 @@ export const candidateSocialLinkSchema = z.object({
 	id: z.string(),
 	candidate_id: z.string(),
 	company_id: z.string(),
-	platform: z.string(),
-	url: z.string(),
+	platform: z.string().min(1, {
+		message: "Platform is required",
+	}),
+	url: z.string().min(1, {
+		message: "URL is required",
+	}),
 	created_at: z.string(),
 	updated_at: z.string(),
 });
@@ -422,16 +459,32 @@ export const candidateSocialLinkUpdateSchema = candidateSocialLinkSchema
 export const candidateSchema = z.object({
 	id: z.string(),
 	company_id: z.string(),
-	first_name: z.string(),
-	last_name: z.string(),
-	email: z.string(),
-	phone_number: z.string().nullable(),
+	first_name: z.string().min(1, {
+		message: "First name is required",
+	}),
+	last_name: z.string().min(1, {
+		message: "Last name is required",
+	}),
+	email: z.string().email(),
+	phone_number: z.string().refine(isValidPhoneNumber, {
+		message: "Invalid phone number",
+	}),
 	avatar_url: z.string().nullable(),
-	date_of_birth: z.string(),
-	gender: z.string(),
-	city: z.string(),
-	country: z.string(),
-	timezone: z.string(),
+	date_of_birth: z.string().min(1, {
+		message: "Date of birth is required",
+	}),
+	gender: z.string().min(1, {
+		message: "Gender is required",
+	}),
+	city: z.string().min(1, {
+		message: "City is required",
+	}),
+	country: z.string().min(1, {
+		message: "Country is required",
+	}),
+	timezone: z.string().min(1, {
+		message: "Timezone is required",
+	}),
 	created_at: z.string(),
 	updated_at: z.string(),
 });

@@ -70,7 +70,7 @@ export function DatePickerWithSelect({
 						}}
 						value={year.toString()}
 					>
-						<SelectTrigger>
+						<SelectTrigger className="w-full">
 							<SelectValue placeholder="Year" />
 						</SelectTrigger>
 						<SelectContent>
@@ -87,7 +87,7 @@ export function DatePickerWithSelect({
 						}}
 						value={MONTHS[month]}
 					>
-						<SelectTrigger>
+						<SelectTrigger className="w-full">
 							<SelectValue placeholder="Month" />
 						</SelectTrigger>
 						<SelectContent>

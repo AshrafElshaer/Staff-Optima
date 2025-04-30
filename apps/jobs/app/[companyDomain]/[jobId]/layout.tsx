@@ -130,7 +130,7 @@ export default async function JobPostLayout({
 							? moment(
 									job.campaigns.find((camp) => camp.status === "running")
 										?.end_date,
-								).format("DD/MM/YYYY , HH:mm:A")
+								).format("MM/DD/YYYY , HH:mm:A")
 							: "No deadline set"}
 					</p>
 				</div>

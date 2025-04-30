@@ -24,7 +24,8 @@
 		"next-themes": "^0.4.4",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"react-icons": "^5.5.0"
+		"react-icons": "^5.5.0",
+		"zod-form-data": "^2.0.7"
 	},
 	"devDependencies": {
 		"@optima/typescript-config": "workspace:*",

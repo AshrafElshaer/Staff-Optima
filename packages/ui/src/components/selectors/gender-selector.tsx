@@ -19,7 +19,7 @@ export function GenderSelector({
 	return (
 		<Select value={value} onValueChange={setValue}>
 			<SelectTrigger
-				className={cn("capitalize", !value && "text-muted-foreground")}
+				className={cn("capitalize w-full", !value && "text-muted-foreground")}
 			>
 				<SelectValue placeholder="Select a gender" />
 			</SelectTrigger>
