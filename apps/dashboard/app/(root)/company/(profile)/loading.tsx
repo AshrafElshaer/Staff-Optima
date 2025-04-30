@@ -43,6 +43,31 @@ export default function CompanyProfileLoading() {
 				</div>
 			</section>
 			<Separator />
+			<section className="flex flex-col md:flex-row justify-between items-start w-full gap-4">
+				<div className="space-y-2 w-full md:w-1/2">
+					<Label className="font-semibold text-base">Industry</Label>
+					<p className="text-muted-foreground text-sm">Company's industry</p>
+				</div>
+				<div className="w-full md:w-1/2">
+					<Skeleton className="w-full h-9 rounded-md" />
+				</div>
+			</section>
+			<Separator />
+			<section className="flex flex-col md:flex-row justify-between items-start w-full gap-4">
+				<div className="space-y-2 w-full md:w-1/2">
+					<Label className="font-semibold text-base">Tax ID</Label>
+					<p className="text-muted-foreground text-sm">
+						Company's tax identification number
+					</p>
+					<p className="text-warning text-sm">
+						Private and will not be shared with anyone.
+					</p>
+				</div>
+				<div className="w-full md:w-1/2">
+					<Skeleton className="w-full h-9 rounded-md" />
+				</div>
+			</section>
+			<Separator />
 
 			<section className="flex flex-col md:flex-row justify-between items-start w-full gap-4">
 				<div className="space-y-2 w-full md:w-1/2">
