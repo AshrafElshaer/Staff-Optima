@@ -8,6 +8,7 @@ import { cn } from "@optima/ui/lib/utils";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 
@@ -63,19 +64,27 @@ export default function RootLayout({
 			<body
 				className={cn(
 					` ${GeistSans.variable} ${GeistMono.variable}`,
-					"antialiased dark flex flex-col min-h-[100svh]",
+					"antialiased  flex flex-col min-h-[100svh]",
 				)}
 			>
-				<Toaster
-					theme={"dark"}
-					duration={5000}
-					position="top-right"
-					richColors
-				/>
-				<Navbar />
-				{children}
-				<Footer />
-				<AnalyticsProvider />
+				<NextThemesProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+					enableColorScheme
+				>
+					<Toaster
+						theme={"dark"}
+						duration={5000}
+						position="top-right"
+						richColors
+					/>
+					<Navbar />
+					{children}
+					<Footer />
+					<AnalyticsProvider />
+				</NextThemesProvider>
 			</body>
 		</html>
 	);

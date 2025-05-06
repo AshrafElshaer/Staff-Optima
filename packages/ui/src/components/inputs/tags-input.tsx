@@ -29,7 +29,7 @@ export function TagsInput({
 			placeholder={placeholder}
 			styleClasses={{
 				inlineTagsContainer: cn(
-					"border border-border rounded-lg bg-accent shadow-sm shadow-black/5 transition-shadow focus-within:border-border focus-within:outline-none focus-within:ring-[1px] focus-within:ring-primary/70 p-1 gap-1 items-start justify-start",
+					"border border-border rounded-lg bg-accent shadow-sm shadow-black/5 transition-shadow focus-within:border-border focus-within:outline-none focus-within:ring-[3px] focus-within:ring-ring/50 p-1 gap-1 items-start justify-start",
 					containerClassName,
 				),
 				input: cn(

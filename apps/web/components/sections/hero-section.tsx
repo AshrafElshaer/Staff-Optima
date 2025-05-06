@@ -30,26 +30,18 @@ export default function HeroSection() {
 					<div className="h-320 absolute left-0 top-0 w-60 -rotate-45 rounded-full bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.06)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)] [translate:5%_-50%]" />
 					<div className="h-320 -translate-y-87.5 absolute left-0 top-0 w-60 -rotate-45 bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.04)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)]" />
 				</div>
-
-				<section className="overflow-hidden">
-					<div className="relative mx-auto max-w-5xl px-6 py-28 lg:py-24">
-						<div className="relative z-10 mx-auto max-w-4xl text-center">
+				<div className="h-28 lg:h-24 max-w-5xl border-x mx-auto" />
+				<section className=" border-t ">
+					<div className="relative mx-auto  max-w-5xl border-x   ">
+						<div className="relative z-10 mx-auto max-w-7xl  text-center">
 							<motion.h1
-								className="text-balance text-xl sm:text-2xl font-semibold md:text-4xl lg:text-5xl mb-2"
+								className="text-balance text-xl sm:text-2xl font-semibold md:text-4xl lg:text-6xl mb-2 border-t py-8"
 								initial={hidden}
 								animate={visible}
 								transition={{ duration: 0.5, delay: 0.5 }}
 							>
 								Elevate Your Recruitment Process
 							</motion.h1>
-							<motion.p
-								className="text-balance text-base  font-semibold md:text-2xl lg:text-3xl"
-								initial={hidden}
-								animate={visible}
-								transition={{ duration: 0.5, delay: 0.6 }}
-							>
-								with Smart , Seamless , Modern Applicant Tracking
-							</motion.p>
 							<motion.p
 								className="text-secondary-foreground w-full sm:w-2/3 mx-auto text-sm md:text-base lg:text-lg text-center my-8"
 								initial={hidden}
@@ -75,33 +67,33 @@ export default function HeroSection() {
 						</div>
 					</div>
 
-					<div className="mx-auto -mt-16 max-w-7xl">
-						<div className="perspective-distant -mr-16 pl-16 lg:-mr-56 lg:pl-56">
-							<motion.div
-								initial={hidden}
-								animate={visible}
-								transition={{ duration: 0.5, delay: 1.1 }}
-							>
-								<div className="[transform:rotateX(20deg);]">
-									<div className="lg:h-200 relative skew-x-[.36rad]">
-										<Image
-											className="rounded-(--radius) z-1 relative border dark:hidden"
-											src="/dashboard-light.png"
-											alt="Tailark hero section"
-											width={2880}
-											height={2074}
-										/>
-										<Image
-											className="rounded-(--radius) z-1 relative hidden border dark:block"
-											src="/dashboard-dark.png"
-											alt="Tailark hero section"
-											width={2880}
-											height={2074}
-										/>
-									</div>
+					<div className="mx-auto py-8  max-w-5xl border-x overflow-hidden">
+						<motion.div
+							initial={hidden}
+							animate={visible}
+							transition={{ duration: 0.5, delay: 1.1 }}
+						>
+							<div className="relative px-4">
+								<Image
+									className="rounded-(--radius) z-1 relative border dark:hidden"
+									src="/dashboard-light.png"
+									alt="Tailark hero section"
+									width={2880}
+									height={2074}
+								/>
+								<Image
+									className="rounded-(--radius) z-1 relative hidden border dark:block"
+									src="/dashboard-dark.png"
+									alt="Tailark hero section"
+									width={2880}
+									height={2074}
+								/>
+							</div>
+						</motion.div>
+						{/* <div className="[transform:rotateX(20deg);]">
 								</div>
-							</motion.div>
-						</div>
+						<div className="perspective-distant -mr-16 pl-16 lg:-mr-56 lg:pl-56">
+						</div> */}
 					</div>
 				</section>
 			</main>

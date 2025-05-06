@@ -21,7 +21,7 @@ export function Navbar() {
 	return (
 		<nav
 			className={cn(
-				"flex flex-col sm:flex-row sm:items-center space-y-10 sm:space-y-0 fixed top-4 left-4 right-4 z-50  max-w-3xl mx-auto px-4 py-3 rounded-md border bg-accent transition-all duration-300 h-12",
+				"flex flex-col sm:flex-row sm:items-center space-y-10 sm:space-y-0 fixed top-4 left-4 right-4 z-50  max-w-5xl mx-auto px-4 py-3 rounded-md border bg-accent transition-all duration-300 h-12",
 			)}
 		>
 			<div className="flex items-center justify-between w-full sm:w-fit gap-4">
