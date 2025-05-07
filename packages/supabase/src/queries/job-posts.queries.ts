@@ -162,7 +162,9 @@ export async function getJobPostById(
 ) {
 	return await supabase
 		.from("job_posts")
-		.select("*, campaigns:job_posts_campaigns(*), department:department_id(*)")
+		.select(
+			"*, campaigns:job_posts_campaigns(*), department:department_id(*), applications:applications(*)",
+		)
 		.eq("id", job_id)
 		.single();
 }
