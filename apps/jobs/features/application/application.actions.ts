@@ -10,12 +10,13 @@ import {
 	createCandidateExperience,
 	createCandidateSocialLink,
 } from "@optima/supabase/mutations";
+import {
+	getApplicationStageByStageOrder,
+	getCompanyById,
+	getJobPostById,
+	isCandidateAppliedToJob,
+} from "@optima/supabase/queries";
 import { after } from "next/server";
-import { z } from "zod";
-import { getApplicationStageByStageOrder } from "../../../../packages/supabase/src/queries/application-stages.queries";
-import { isCandidateAppliedToJob } from "../../../../packages/supabase/src/queries/applications.queries";
-import { getCompanyById } from "../../../../packages/supabase/src/queries/company.queries";
-import { getJobPostById } from "../../../../packages/supabase/src/queries/job-posts.queries";
 import { formSchema } from "./application.schema";
 export const applyForJobAction = authActionClient
 	.metadata({
@@ -41,7 +42,6 @@ export const applyForJobAction = authActionClient
 			);
 
 		if (isAlreadyAppliedError) {
-
 			throw new Error(isAlreadyAppliedError.message);
 		}
 
@@ -143,7 +143,6 @@ export const applyForJobAction = authActionClient
 		}
 
 		after(async () => {
-
 			const { data: company } = await getCompanyById(
 				supabase,
 				ctx.user.user_metadata.company_id,

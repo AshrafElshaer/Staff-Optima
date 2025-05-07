@@ -34,7 +34,6 @@ export default async function JobsPage({
 	return (
 		<div className="flex flex-col items-start flex-1 gap-4">
 			<JobPostHeader />
-
 			<JobsList jobs={jobs as JobPostWithDepartment[]} />
 		</div>
 	);

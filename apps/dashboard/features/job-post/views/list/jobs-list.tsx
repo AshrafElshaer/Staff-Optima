@@ -1,4 +1,5 @@
 import type {
+	Application,
 	Department,
 	JobPost,
 	JobPostCampaign,
@@ -8,6 +9,7 @@ import { JobCard } from "./job-card";
 export interface JobPostWithDepartment extends JobPost {
 	department: Department | null;
 	campaigns: JobPostCampaign[] | null;
+	applications: Application[] | null;
 }
 
 export function JobsList({ jobs }: { jobs: JobPostWithDepartment[] | null }) {

@@ -9,6 +9,7 @@ import { Tooltip } from "@optima/ui/components/tooltip";
 import { TooltipProvider } from "@optima/ui/components/tooltip";
 
 import { useUserPreferences } from "@/hooks/use-user-preferences";
+import { jobPostCampaignStatusEnum } from "@optima/supabase/types";
 import { Badge } from "@optima/ui/components/badge";
 import {
 	Card,
@@ -24,9 +25,8 @@ import { Skeleton } from "@optima/ui/components/skeleton";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import type { JobPostWithDepartment } from "./jobs-list";
 import { CampaignStatus } from "./campiagn-status";
-import { jobPostCampaignStatusEnum } from "@optima/supabase/types";
+import type { JobPostWithDepartment } from "./jobs-list";
 export function JobCard({ job }: { job: JobPostWithDepartment }) {
 	const { data: userPreferences } = useUserPreferences();
 	const router = useRouter();
@@ -109,8 +109,7 @@ export function JobCard({ job }: { job: JobPostWithDepartment }) {
 							<Link href={`/candidates?job=${job.id}`}>
 								<Icons.UserAddFill width={16} height={16} />
 								<p className=" font-medium font-mono">
-									{/* {job.applications[0].count} */}
-									{0}
+									{job.applications?.length ?? 0}
 								</p>
 							</Link>
 						</TooltipTrigger>

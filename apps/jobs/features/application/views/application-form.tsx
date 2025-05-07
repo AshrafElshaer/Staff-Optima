@@ -81,7 +81,6 @@ export function ApplicationForm({ job }: ApplicationFormProps) {
 	}, [form.watch("education")]);
 
 	const onSubmit = async (data: z.infer<typeof formSchema>) => {
-
 		setIsSubmitting(true);
 
 		const candidateMatchPromise = calculateCandidateMatch({

@@ -1,13 +1,32 @@
+import moment from "moment";
 import type { SupabaseInstance } from "../types";
-
-export async function getApplications(
-	supabase: SupabaseInstance,
-	companyId: string,
-) {
-	return await supabase
+type GetApplicationsProps = {
+	supabase: SupabaseInstance;
+	companyId: string;
+	filters?: {
+		from?: string;
+		to?: string;
+	};
+};
+export async function getApplications({
+	supabase,
+	companyId,
+	filters,
+}: GetApplicationsProps) {
+	const query = supabase
 		.from("applications")
 		.select("*")
 		.eq("company_id", companyId);
+
+	if (filters?.from) {
+		query.gte("created_at", filters.from);
+	}
+
+	if (filters?.to) {
+		query.lte("created_at", filters.to);
+	}
+
+	return await query;
 }
 
 export async function getApplicationById(

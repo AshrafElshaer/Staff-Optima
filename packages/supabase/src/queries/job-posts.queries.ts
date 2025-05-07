@@ -30,7 +30,9 @@ export async function getJobPosts(
 ) {
 	const query = supabase
 		.from("job_posts")
-		.select("*, department:department_id (*), campaigns:job_posts_campaigns(*)")
+		.select(
+			"*, department:department_id (*), campaigns:job_posts_campaigns(*), applications:applications(*)",
+		)
 		.eq("company_id", company_id)
 		.order("status", { ascending: true });
 
