@@ -68,14 +68,14 @@ export function ProfilePic({ user }: { user: User }) {
 							if (file) {
 								toast.promise(
 									async () => {
-										const url = await uploadUserAvatar({
+										const { publicUrl } = await uploadUserAvatar({
 											supabase,
 											userId: user.id,
 											file,
 										});
 										const result = await updateUser({
 											id: user.id,
-											image: url,
+											image: publicUrl,
 										});
 										if (result?.serverError)
 											throw new Error(result.serverError);

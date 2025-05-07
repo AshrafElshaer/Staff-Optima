@@ -160,17 +160,17 @@ export function CompanyProfileForm({
 		const supabase = createBrowserClient();
 		toast.promise(
 			async () => {
-				const url = await uploadCompanyLogo({
+				const { publicUrl } = await uploadCompanyLogo({
 					supabase,
 					companyId: form.getValues("id") ?? "",
 					file,
 				});
-				form.setValue("logo", url, {
+				form.setValue("logo", publicUrl, {
 					shouldDirty: false,
 				});
 				return await updateOrganizationAsync({
 					id: company?.id ?? "",
-					logo: url,
+					logo: publicUrl,
 				});
 			},
 			{

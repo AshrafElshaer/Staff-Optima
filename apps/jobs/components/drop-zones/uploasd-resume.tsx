@@ -140,7 +140,7 @@ export function UploadResume({
 								? (parseDateFromString(experience.start_date)?.toISOString() ??
 									"")
 								: "",
-							end_date: experience.end_date
+							end_date: experience.end_date?.length
 								? (parseDateFromString(experience.end_date)?.toISOString() ??
 									"")
 								: null,

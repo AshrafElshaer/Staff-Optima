@@ -114,8 +114,11 @@ export type JobPostCampaign = Tables<"job_posts_campaigns">;
 export interface JobPost extends Tables<"job_posts"> {
 	screening_questions: z.infer<typeof screeningQuestionSchema>[];
 }
-// export type Candidate = Tables<"candidates">;
-// export type Application = Tables<"applications">;
+export type Candidate = Tables<"candidates">;
+export type CandidateEducation = Tables<"candidate_educations">;
+export type CandidateExperience = Tables<"candidate_experiences">;
+export type CandidateSocialLink = Tables<"candidate_social_links">;
+export type Application = Tables<"applications">;
 export type DomainVerification = Tables<"domain_verification">;
 // export type JobPostCampaign = Tables<"job_posts_campaigns">;
 export type UserPreferences = Tables<"user_preferences">;

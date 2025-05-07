@@ -26,7 +26,7 @@ export async function uploadFile({
 		data: { publicUrl },
 	} = supabase.storage.from(bucket).getPublicUrl(data.path);
 
-	return publicUrl;
+	return { publicUrl, ...data };
 }
 
 type UploadOrganizationLogoProps = {

@@ -45,7 +45,6 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoIosSend } from "react-icons/io";
 
-// import { createApplicationAction } from "@/acttions/apply-for-job";
 import { calculateCandidateMatch } from "@/lib/ai/get-candidate-match";
 import { countriesMap } from "@optima/location";
 import { Checkbox } from "@optima/ui/components/checkbox";
@@ -56,6 +55,7 @@ import { zfd } from "zod-form-data";
 import { ExtraFiles } from "../../../components/drop-zones/extra-files";
 import { UploadTranscript } from "../../../components/drop-zones/upload-transcript";
 import { UploadResume } from "../../../components/drop-zones/uploasd-resume";
+import { applyForJobAction } from "../application.actions";
 import { formSchema, getDefaultValues } from "../application.schema";
 
 type ApplicationFormProps = {
@@ -65,7 +65,7 @@ type ApplicationFormProps = {
 export function ApplicationForm({ job }: ApplicationFormProps) {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
-	//   const { executeAsync: applyForJob } = useAction(createApplicationAction);
+	const { executeAsync: applyForJob } = useAction(applyForJobAction);
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -80,59 +80,80 @@ export function ApplicationForm({ job }: ApplicationFormProps) {
 		return form.watch("education");
 	}, [form.watch("education")]);
 
-	const socialLinks = useMemo(() => {
-		return form.watch("social_links");
-	}, [form.watch("social_links")]);
-
 	const onSubmit = async (data: z.infer<typeof formSchema>) => {
+
 		setIsSubmitting(true);
 
-		// toast.promise(
-		//   async () => {
-		//     const { candidate, application, attachments } = data;
+		const candidateMatchPromise = calculateCandidateMatch({
+			job,
+			candidateEducations: data.education.map((edu) => ({
+				...edu,
+				id: "",
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+			})),
+			candidateExperiences: data.experience.map((exp) => ({
+				...exp,
+				id: "",
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+			})),
+			application: {
+				...data.application,
+				id: "",
+				created_at: new Date().toISOString(),
+				updated_at: new Date().toISOString(),
+			},
+		});
 
-		//     const candidateMatch = await calculateCandidateMatch(
-		//       job,
-		//       {
-		//         ...candidate,
-		//         id: "",
-		//         created_at: new Date().toISOString(),
-		//         updated_at: new Date().toISOString(),
-		//       },
-		//       {
-		//         ...application,
-		//         id: "",
-		//         created_at: new Date().toISOString(),
-		//         updated_at: new Date().toISOString(),
-		//         candidate_id: "",
-		//         stage_id: "",
-		//       },
-		//     );
-		//     const result = await applyForJob({
-		//       candidate,
-		//       application: {
-		//         ...data.application,
-		//         candidate_match: candidateMatch,
-		//       },
-		//       attachments,
-		//     });
+		toast.promise(
+			async () => {
+				const {
+					candidate,
+					application,
+					attachments,
+					education,
+					experience,
+					social_links,
+				} = data;
 
-		//     if (result?.serverError) {
-		//       throw new Error(result.serverError);
-		//     }
-		//   },
-		//   {
-		//     loading: "Submitting your application... please dont close the page",
-		//     success: () => {
-		//       form.reset();
-		//       return "Application submitted successfully";
-		//     },
-		//     error: (error) => error.message,
-		//     finally: () => {
-		//       setIsSubmitting(false);
-		//     },
-		//   },
-		// );
+				const candidateMatch = await candidateMatchPromise;
+				const result = await applyForJob({
+					candidate,
+					application: {
+						...application,
+						candidate_match: candidateMatch,
+					},
+					attachments,
+					education: data.education,
+					experience: experience.map((exp) => {
+						if (!exp.end_date?.length) {
+							return {
+								...exp,
+								end_date: null,
+							};
+						}
+						return exp;
+					}),
+					social_links: data.social_links,
+				});
+
+				if (result?.serverError) {
+					throw new Error(result.serverError);
+				}
+			},
+			{
+				loading: "Submitting your application... please dont close the page",
+				success: () => {
+					form.reset();
+					return "Application submitted successfully";
+				},
+				error: (error) => error.message,
+				finally: () => {
+					setIsSubmitting(false);
+				},
+			},
+		);
 	};
 
 	return (
