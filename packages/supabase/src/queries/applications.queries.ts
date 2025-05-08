@@ -53,7 +53,11 @@ export async function getApplicationsByJobId(
 	supabase: SupabaseInstance,
 	jobId: string,
 ) {
-	return await supabase.from("applications").select("*").eq("job_id", jobId);
+	return await supabase
+		.from("applications")
+		.select("*, candidate:candidates(*,social_links:candidate_social_links(*))")
+		.eq("job_id", jobId)
+		.order("candidate_match", { ascending: false });
 }
 
 export async function getApplicationsByStageId(
