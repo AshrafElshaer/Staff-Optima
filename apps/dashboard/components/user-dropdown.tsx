@@ -54,13 +54,13 @@ export function UserDropdown() {
 					</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end" className="w-40">
+			<DropdownMenuContent align="end" className="w-40 gap-0">
 				<DropdownMenuLabel>
 					<span className="font-medium">
 						{data?.first_name ?? ""} {data?.last_name ?? ""}
 					</span>
 				</DropdownMenuLabel>
-				<DropdownMenuSeparator />
+				<DropdownMenuSeparator className="m-0" />
 				<DropdownMenuGroup>
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger className="gap-2">
@@ -102,7 +102,7 @@ export function UserDropdown() {
 						Feedback
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
-				<DropdownMenuSeparator />
+				<DropdownMenuSeparator className="m-0" />
 				<DropdownMenuItem
 					disabled={isLoggingOut}
 					className="cursor-pointer"
