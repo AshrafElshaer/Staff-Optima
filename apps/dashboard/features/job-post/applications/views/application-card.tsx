@@ -1,3 +1,4 @@
+"use client";
 import { getLinkIcon } from "@/lib/get-link-icon";
 import type {
 	Application,
@@ -31,6 +32,7 @@ import { cn } from "@optima/ui/lib/utils";
 import { MoreHorizontalIcon } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
+import type { Dispatch, SetStateAction } from "react";
 import {
 	BiSolidCircleHalf,
 	BiSolidCircleQuarter,
@@ -38,19 +40,23 @@ import {
 } from "react-icons/bi";
 import { FaLinkedinIn } from "react-icons/fa";
 
-interface ApplicationCardProps {
+export interface ApplicationCardProps {
 	application: Application & {
 		candidate: Candidate & {
 			social_links: CandidateSocialLink[];
 		};
 	};
+	setOpenSheet: Dispatch<SetStateAction<boolean>>;
 }
 
-export function ApplicationCard({ application }: ApplicationCardProps) {
+export function ApplicationCard({
+	application,
+	setOpenSheet,
+}: ApplicationCardProps) {
 	return (
 		<Card
-			key={application.id}
-			className="hover:bg-muted transition-all border-x-0 border-t-0 rounded-none"
+			className="hover:bg-muted transition-all border-x-0 border-t-0 rounded-none cursor-pointer"
+			onClick={(e) => setOpenSheet((state) => !state)}
 		>
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">

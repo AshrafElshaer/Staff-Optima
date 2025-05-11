@@ -16,6 +16,7 @@ import { Separator } from "@optima/ui/components/separator";
 import { headers } from "next/headers";
 
 import { ApplicationCard } from "./application-card";
+import { ApplicationSheet } from "./sheet/application-sheet";
 
 interface ApplicationWithCandidate extends Application {
 	candidate: Candidate & {
@@ -66,7 +67,7 @@ export async function ApplicationsList({ jobId }: { jobId: string }) {
 						<Separator />
 						<ScrollArea className="h-140  space-y-2">
 							{applicationsByStage?.[stage.id]?.map((application) => (
-								<ApplicationCard
+								<ApplicationSheet
 									key={application.id}
 									application={application}
 								/>
