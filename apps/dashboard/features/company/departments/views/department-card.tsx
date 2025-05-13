@@ -1,5 +1,6 @@
 "use client";
-import type { Department } from "@optima/supabase/types";
+import type { DepartmentWithJobPostsAndApplications } from "@/app/(root)/company/departments/page";
+import type { Application, Department, JobPost } from "@optima/supabase/types";
 import {
 	cardClasses,
 	Card,
@@ -19,9 +20,14 @@ import { UserIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export function DepartmentCard({ department }: { department: Department }) {
+export function DepartmentCard({
+	department,
+}: {
+	department: DepartmentWithJobPostsAndApplications;
+}) {
 	const router = useRouter();
 	function handleNavigate(e: React.MouseEvent<HTMLDivElement>) {
+		console.log(e.target);
 		if (e.target instanceof HTMLAnchorElement) {
 			e.preventDefault();
 			return;
@@ -32,7 +38,7 @@ export function DepartmentCard({ department }: { department: Department }) {
 		<Card
 			key={department.id}
 			className="bg-accent group h-fit"
-			onClick={handleNavigate}
+			// onClick={handleNavigate}
 		>
 			<div className="flex items-center  gap-4 px-4">
 				<p className="text-lg font-semibold mr-auto">{department.name}</p>
@@ -52,11 +58,11 @@ export function DepartmentCard({ department }: { department: Department }) {
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<Link
-								href={`/job-posts?department=${department.id}`}
+								href={`/jobs?department=${department.id}`}
 								className="flex items-center gap-2"
 							>
 								<JobLinkIcon size={18} strokeWidth={2} />
-								<p className=" ">0</p>
+								{department.job_posts.length ?? 0}
 							</Link>
 						</TooltipTrigger>
 						<TooltipContent>
@@ -71,7 +77,7 @@ export function DepartmentCard({ department }: { department: Department }) {
 								className="flex items-center gap-2"
 							>
 								<UserIcon size={18} strokeWidth={2} />
-								<p className=" ">0</p>
+								{department.applications.length ?? 0}
 							</Link>
 						</TooltipTrigger>
 						<TooltipContent>

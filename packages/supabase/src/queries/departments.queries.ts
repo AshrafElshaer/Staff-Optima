@@ -17,10 +17,9 @@ export async function getDepartmentsWithJobsAndApplications(
 		name?: string;
 	},
 ) {
-	// job_posts(*), applications:applications(*)
 	const query = supabase
 		.from("departments")
-		.select("*")
+		.select("*, job_posts(*), applications:applications(*)")
 		.eq("company_id", companyId);
 
 	if (filters?.name) {

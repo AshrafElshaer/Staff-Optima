@@ -4,6 +4,7 @@ import { DepartmentSearch } from "@/features/company/departments/views/departmen
 import { NewDepartment } from "@/features/company/departments/views/new-department";
 import { createServerClient } from "@/lib/supabase/server";
 import { getDepartmentsWithJobsAndApplications } from "@optima/supabase/queries";
+import type { Department, JobPost, Application } from "@optima/supabase/types";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -17,6 +18,11 @@ export const metadata: Metadata = {
 type Params = {
 	searchParams: Promise<SearchParams>;
 };
+
+export interface DepartmentWithJobPostsAndApplications extends Department {
+	job_posts: JobPost[];
+	applications: Application[];
+}
 
 export default async function OrganizationDepartmentsPage({
 	searchParams,
@@ -48,7 +54,10 @@ export default async function OrganizationDepartmentsPage({
 			) : (
 				<section className=" grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{departments?.map((department) => (
-						<DepartmentCard key={department.id} department={department} />
+						<DepartmentCard
+							key={department.id}
+							department={department as DepartmentWithJobPostsAndApplications}
+						/>
 					))}
 				</section>
 			)}
