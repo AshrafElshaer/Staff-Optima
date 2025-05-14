@@ -38,7 +38,7 @@ export async function ApplicationsWidget() {
 
 export function ApplicationsWidgetSkeleton() {
 	return (
-		<Card className="flex items-center  p-4 gap-2 bg-accent">
+		<Card className="flex flex-row items-center  p-4 gap-2 bg-accent">
 			<Icons.UserSearchFill width={20} height={20} />
 			<span className="font-semibold">Applications</span>
 			<span className="text-sm text-secondary-foreground">This month</span>

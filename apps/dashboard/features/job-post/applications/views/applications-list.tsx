@@ -65,7 +65,7 @@ export async function ApplicationsList({ jobId }: { jobId: string }) {
 							</Badge>
 						</div>
 						<Separator />
-						<ScrollArea className="h-140  space-y-2">
+						<ScrollArea className="h-160  space-y-2">
 							{applicationsByStage?.[stage.id]?.map((application) => (
 								<ApplicationSheet
 									key={application.id}

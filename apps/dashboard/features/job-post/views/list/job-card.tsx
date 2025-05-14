@@ -105,13 +105,11 @@ export function JobCard({ job }: { job: JobPostWithDepartment }) {
 					</Tooltip>
 
 					<Tooltip>
-						<TooltipTrigger className="flex items-center gap-2 ml-auto" asChild>
-							<Link href={`/candidates?job=${job.id}`}>
-								<Icons.UserAddFill width={16} height={16} />
-								<p className=" font-medium font-mono">
-									{job.applications?.length ?? 0}
-								</p>
-							</Link>
+						<TooltipTrigger className="flex items-center gap-2 ml-auto">
+							<Icons.UserAddFill width={16} height={16} />
+							<p className=" font-medium font-mono">
+								{job.applications?.length ?? 0}
+							</p>
 						</TooltipTrigger>
 						<TooltipContent>
 							<p className=" font-medium">Applications</p>

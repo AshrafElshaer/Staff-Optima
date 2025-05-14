@@ -2,11 +2,11 @@
 import type { DepartmentWithJobPostsAndApplications } from "@/app/(root)/company/departments/page";
 import type { Application, Department, JobPost } from "@optima/supabase/types";
 import {
-	cardClasses,
 	Card,
 	CardContent,
 	CardHeader,
 	CardTitle,
+	cardClasses,
 } from "@optima/ui/components/card";
 import {
 	Tooltip,

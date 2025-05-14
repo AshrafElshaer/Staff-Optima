@@ -37,12 +37,14 @@ import {
 	ApplicationCard,
 	type ApplicationCardProps,
 } from "../application-card";
-import { EducationsCard } from "./educations-card";
-import { ExperiencesCard } from "./experiences-card";
+import { EducationsCard } from "./tabs/application/educations-card";
+import { ExperiencesCard } from "./tabs/application/experiences-card";
 // import { EducationsCard } from "./application-tab/educations-card";
 // import { ExperiencesCard } from "./application-tab/experiences-card";
-import { HiringStages } from "./hiring-stages";
-import { ScreeningQuestionsCard } from "./screening-questions-card";
+import { HiringStages } from "./tabs/application/hiring-stages";
+import { ScreeningQuestionsCard } from "./tabs/application/screening-questions-card";
+import { AttachmentsList } from "./tabs/attachments/attachments-list";
+import { InterviewsList } from "./tabs/interviews/interviews-list";
 // import { ScreeningQuestionsCard } from "./application-tab/screening-questions-card";
 // import { Attachments } from "./attachments";
 // import { CandidateCard } from "./candidate-card";
@@ -191,16 +193,10 @@ export function ApplicationSheet({
 							<ScreeningQuestionsCard application={application} />
 						</TabsContent>
 						<TabsContent value="attachment" className="flex-1 px-4 pb-4">
-							{/* <Attachments
-								applicationId={candidate.applications?.[0]?.id as string}
-							/> */}
+							<AttachmentsList applicationId={application.id} />
 						</TabsContent>
-						<TabsContent
-							value="interviews"
-							className="h-full px-4 pb-4 flex-col flex "
-						>
-							{/* <InterviewsTab /> */}
-							<p>No interviews yet</p>
+						<TabsContent value="interviews" className="h-full  flex-col flex ">
+							<InterviewsList />
 						</TabsContent>
 					</Tabs>
 				</div>

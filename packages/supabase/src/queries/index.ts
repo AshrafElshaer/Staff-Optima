@@ -6,5 +6,5 @@ export * from "./job-posts.queries";
 export * from "./applications.queries";
 // export * from "./email-templates.queries";
 export * from "./candidates.queries";
-// export * from "./attachments.queries";
+export * from "./attachments.queries";
 export * from "./job-campaigns.queries";
